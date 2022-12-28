@@ -1,5 +1,6 @@
 import type { FC, ReactNode } from 'react';
 
+import { AuthContextProvider } from './AuthContext';
 import { CustomThemeProvider } from './CustomThemeContext';
 import ReactQueryProvider from './ReactQueryContext';
 
@@ -12,7 +13,9 @@ const RootProvider: FC<RootProviderProps> = (props) => {
 
   return (
     <ReactQueryProvider>
-      <CustomThemeProvider>{children}</CustomThemeProvider>
+      <AuthContextProvider>
+        <CustomThemeProvider>{children}</CustomThemeProvider>
+      </AuthContextProvider>
     </ReactQueryProvider>
   );
 };
