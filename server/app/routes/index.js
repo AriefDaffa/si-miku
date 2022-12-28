@@ -4,8 +4,12 @@ const {
   getUserByRole,
   getRoles,
   registerUser,
+  getCurrentUser,
 } = require('../controllers/user.controller');
-const { loginUser } = require('../controllers/auth.controller');
+const {
+  loginUser,
+  createAccessToken,
+} = require('../controllers/auth.controller');
 const {
   getAllIndicators,
   getIndicatorById,
@@ -13,21 +17,27 @@ const {
   getTotalIndicator,
   createIndicator,
 } = require('../controllers/indicator.controller');
-const verifyToken = require('../middleware/verifyToken.js');
+const {
+  verifyAccessToken,
+  verifyRefreshToken,
+} = require('../middleware/verifyToken.js');
 
 const router = express.Router();
 
 // user routes
-router.get('/users', verifyToken, getUsers);
-router.get('/roles', verifyToken, getRoles);
-router.get('/users/roles/:id', verifyToken, getUserByRole);
+router.get('/users', verifyAccessToken, getUsers);
+router.get('/roles', verifyAccessToken, getRoles);
+router.get('/users/roles/:id', verifyAccessToken, getUserByRole);
+router.get('/current-user', verifyAccessToken, getCurrentUser);
+
+router.get('/create-token', verifyAccessToken, createAccessToken);
 
 // Indicator routes
-router.get('/indicator', verifyToken, getAllIndicators);
-router.get('/indicator/count', verifyToken, getTotalIndicator);
-router.get('/indicator/:id', verifyToken, getIndicatorById);
-router.get('/indicator/year/:id', verifyToken, getIndicatorsByYear);
-router.post('/indicator', verifyToken, createIndicator);
+router.get('/indicator', verifyAccessToken, getAllIndicators);
+router.get('/indicator/count', verifyAccessToken, getTotalIndicator);
+router.get('/indicator/:id', verifyAccessToken, getIndicatorById);
+router.get('/indicator/year/:id', verifyAccessToken, getIndicatorsByYear);
+router.post('/indicator', verifyAccessToken, createIndicator);
 
 // user routes
 router.post('/users', registerUser);

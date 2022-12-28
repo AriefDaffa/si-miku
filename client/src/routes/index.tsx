@@ -1,17 +1,29 @@
-import { useRoutes } from 'react-router-dom';
+import { Navigate, useRoutes } from 'react-router-dom';
 
 import { SideNavLayout } from '@/layout';
 
-import { Home, Login, NotFound } from '@/pages';
+import { Home, Login, NotFound, ListIndicator } from '@/pages';
+
+import PrivateRoute from './PrivateRoute';
 
 const Router = () => {
   const routes = useRoutes([
     {
-      path: '/',
-      element: <SideNavLayout />,
+      element: <PrivateRoute />,
       children: [
-        { path: '/', element: <Home /> },
-        // { path: '/indicator', element: <IndicatorList /> },
+        {
+          path: '/',
+          element: <Navigate to="/dashboard" />,
+        },
+        {
+          path: '/dashboard',
+          element: <SideNavLayout />,
+          children: [
+            { element: <Navigate to="/dashboard/overview" />, index: true },
+            { path: 'overview', element: <Home /> },
+            { path: 'indicator-list', element: <ListIndicator /> },
+          ],
+        },
       ],
     },
     {

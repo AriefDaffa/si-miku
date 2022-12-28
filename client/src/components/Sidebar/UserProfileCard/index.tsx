@@ -1,9 +1,9 @@
 import type { FC } from 'react';
 
-import { Box, Link, Typography, Avatar } from '@mui/material';
+import { Box, Link, Typography, Avatar, Skeleton } from '@mui/material';
+import { useCustomTheme } from '@/context/CustomThemeContext';
 
 import { profileCardCx, profileCardWrapperCx } from './styles';
-import { useCustomTheme } from '@/context/CustomThemeContext';
 
 interface UserProfileCardProps {
   url: string;
@@ -12,9 +12,6 @@ interface UserProfileCardProps {
 const UserProfileCard: FC<UserProfileCardProps> = (props) => {
   const { url } = props;
   const { isDarkTheme } = useCustomTheme();
-  const user_name = 'John';
-  const user_email = '123';
-  // const { user_email, user_name } = useUserContext();
 
   return (
     <Link underline="none" css={profileCardWrapperCx}>
@@ -22,10 +19,10 @@ const UserProfileCard: FC<UserProfileCardProps> = (props) => {
         <Avatar src={url} alt="photoURL" />
         <Box sx={{ ml: 2 }}>
           <Typography variant="subtitle2" sx={{ color: 'text.primary' }}>
-            {user_name}
+            {/* {data?.data.username || <Skeleton variant="text" width={100} />} */}
           </Typography>
           <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-            {user_email}
+            {/* {data?.data.email || <Skeleton variant="text" width={100} />} */}
           </Typography>
         </Box>
       </div>

@@ -16,20 +16,33 @@ interface CountCardProps {
   title: string;
   value: string;
   iconColor: string;
+  withStat?: boolean;
   Icon: OverridableComponent<SvgIconTypeMap<{}, 'svg'>>;
 }
 
 const CountCard: FC<CountCardProps> = (props) => {
-  const { title, value, iconColor, Icon } = props;
+  const { title, value, iconColor, Icon, withStat = true } = props;
   return (
-    <Card sx={{ height: '100%' }}>
+    <Card
+      sx={{
+        height: '100%',
+        bgcolor: 'transparent',
+        boxShadow: 'none',
+        border: '1px dashed #dadada',
+      }}
+    >
       <CardContent>
-        <Grid container spacing={3} sx={{ justifyContent: 'space-between' }}>
-          <Grid item>
-            <Typography color="textSecondary" gutterBottom variant="overline">
+        <Grid container sx={{ justifyContent: 'space-between' }}>
+          <Grid item xs={8} lg={9}>
+            <Typography
+              color="textSecondary"
+              gutterBottom
+              variant="overline"
+              sx={{ overflowWrap: 'break-word' }}
+            >
               {title}
             </Typography>
-            <Typography color="textPrimary" variant="h4">
+            <Typography color="textPrimary" variant="h3">
               {value}
             </Typography>
           </Grid>
@@ -45,27 +58,29 @@ const CountCard: FC<CountCardProps> = (props) => {
             </Avatar>
           </Grid>
         </Grid>
-        <Box
-          sx={{
-            pt: 2,
-            display: 'flex',
-            alignItems: 'center',
-          }}
-        >
-          <ArrowDownwardIcon color="error" />
-          <Typography
-            color="error"
+        {withStat && (
+          <Box
             sx={{
-              mr: 1,
+              pt: 2,
+              display: 'flex',
+              alignItems: 'center',
             }}
-            variant="body2"
           >
-            12%
-          </Typography>
-          <Typography color="textSecondary" variant="caption">
-            Since last month
-          </Typography>
-        </Box>
+            <ArrowDownwardIcon color="error" />
+            <Typography
+              color="error"
+              sx={{
+                mr: 1,
+              }}
+              variant="body2"
+            >
+              12%
+            </Typography>
+            <Typography color="textSecondary" variant="caption">
+              Dari tahun sebelumnya
+            </Typography>
+          </Box>
+        )}
       </CardContent>
     </Card>
   );

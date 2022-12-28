@@ -7,6 +7,7 @@ import Header from '@/components/Header';
 import Sidebar from '@/components/Sidebar';
 
 import { containerCx, pageContainerCx } from './styles';
+import Loader from '@/components/Loader';
 
 const SideNavLayout: FC = () => {
   const [open, setOpen] = useState(false);

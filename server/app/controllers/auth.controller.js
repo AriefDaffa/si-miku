@@ -1,4 +1,3 @@
-require('dotenv').config();
 const model = require('../models');
 const jwt = require('jsonwebtoken');
 
@@ -27,11 +26,20 @@ const loginUser = async (req, res) => {
       {
         username: user.user_name,
         email: user.user_email,
-        password: user.password,
       },
       process.env.ACCESS_TOKEN_SECRET,
-      { expiresIn: '1d' }
+      { expiresIn: '4h' }
     );
+
+    // create jwt
+    // const refreshToken = jwt.sign(
+    //   {
+    //     username: user.user_name,
+    //     email: user.user_email,
+    //   },
+    //   process.env.REFRESH_TOKEN_SECRET,
+    //   { expiresIn: '5h' }
+    // );
 
     // set http-only cookie
     res.cookie('accessToken', accessToken, {
@@ -48,4 +56,18 @@ const loginUser = async (req, res) => {
   }
 };
 
-module.exports = { loginUser };
+const createAccessToken = async (req, res) => {
+  const authHeader = req.headers.authorization;
+  try {
+    if (authHeader.startsWith('Bearer ')) {
+      token = authHeader.substring(7, authHeader.length);
+    } else {
+      //Error
+    }
+    res.json({ accessToken: token });
+  } catch (error) {
+    res.json(error);
+  }
+};
+
+module.exports = { loginUser, createAccessToken };

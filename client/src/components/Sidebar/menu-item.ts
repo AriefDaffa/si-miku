@@ -1,17 +1,23 @@
 import BarChartIcon from '@mui/icons-material/BarChart';
-import TableViewIcon from '@mui/icons-material/TableView';
 import LogoutIcon from '@mui/icons-material/Logout';
+import HomeIcon from '@mui/icons-material/Home';
+import TrackChangesIcon from '@mui/icons-material/TrackChanges';
 
 export const NAV_ITEM = [
   {
-    title: 'Dashboard',
-    path: '/',
-    Icon: BarChartIcon,
+    title: 'Overview',
+    path: 'overview',
+    Icon: HomeIcon,
   },
   {
     title: 'List Indikator',
-    path: '/indicator',
-    Icon: TableViewIcon,
+    path: 'indicator-list',
+    Icon: BarChartIcon,
+  },
+  {
+    title: 'List Target Indikator',
+    path: 'target-list',
+    Icon: TrackChangesIcon,
   },
 ];
 
