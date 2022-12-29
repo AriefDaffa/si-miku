@@ -60,14 +60,7 @@ const Home: FC = () => {
         </Box>
 
         <CardCountSection />
-
-        <Box>
-          <Typography variant="h6">Perkembangan Indikator Per-tahun</Typography>
-          {/* <Typography variant="subtitle2" sx={{ mb: 4, opacity: 0.5 }}>
-            Lihat perkembangan Indikator melalui chart dibawah ini
-          </Typography> */}
-          <ChartSection />
-        </Box>
+        <ChartSection />
       </Container>
     </>
   );

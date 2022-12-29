@@ -4,8 +4,11 @@ import type { FC } from 'react';
 import { Grid } from '@mui/material';
 
 import SimpleCard from '@/components/Card/SimpleCard';
+import { useChart } from '@/utils/useChart';
 
 const ChartSection: FC = () => {
+  const chartOptions = useChart({});
+
   const charts = {
     options: {
       xaxis: {
@@ -47,22 +50,22 @@ const ChartSection: FC = () => {
 
   const donutChart = {
     options: {
-      //   labels: ['Apple', 'Mango', 'Orange', 'Watermelon'],
+      labels: ['Memenuhi Target', 'Belum Memenuhi Target'],
     },
-    series: [44, 55, 41, 17, 15],
+    series: [78, 56],
   };
 
   return (
-    <Grid container spacing={3}>
+    <Grid container spacing={3} sx={{ mt: 2 }}>
       <Grid item xs={12}>
-        <SimpleCard title="Indikator Kinerja Utama Per-tahun">
-          <Chart options={charts.options} series={charts.series} type="bar" />
+        <SimpleCard title="Grafik Perkembangan Indikator" withHeader>
+          <Chart options={chartOptions} series={charts.series} type="bar" />
         </SimpleCard>
       </Grid>
       {/* <Grid item lg={4} xs={12}>
         <SimpleCard title="Progress Bar">
           <Chart
-            options={donutChart.options}
+            options={chartOptions}
             series={donutChart.series}
             type="donut"
           />

@@ -39,12 +39,20 @@ export const SECONDARY = {
 };
 
 export const INFO = {
-  lighter: '#D0F2FF',
-  light: '#74CAFF',
-  main: '#1890FF',
-  dark: '#0C53B7',
-  darker: '#04297A',
-  contrastText: '#fff',
+  main: '#F9FAFC',
+  darker: '#f0f0f0',
+};
+
+export const LIGHT = {
+  lighter: '#FFFFFF',
+  main: '#F9FAFC',
+  darker: '#e6e6e6',
+};
+
+export const DARK = {
+  darker: '#000000',
+  main: '#121212',
+  lighter: '#383838',
 };
 
 export const SUCCESS = {

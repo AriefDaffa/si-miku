@@ -4,19 +4,23 @@ import { AppBar, Toolbar } from '@mui/material';
 import { Box, Stack, IconButton } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 
+import { useCustomTheme } from '@/context/CustomThemeContext';
+import { DARK } from '@/theme/Colors';
+
 import DarkModeToggle from './DarkModeToggle';
-import ProfileIcon from './ProfileIcon';
-import { toolbarCx } from './styles';
+// import ProfileIcon from './ProfileIcon';
 
 interface HeaderProps {
   onOpenNav: () => void;
 }
 
 const Header: FC<HeaderProps> = ({ onOpenNav }) => {
+  const { isDarkTheme } = useCustomTheme();
+
   return (
     <AppBar
       sx={{
-        background: 'transparent',
+        backgroundColor: isDarkTheme ? DARK.main : '#fff',
         boxShadow: 'none',
       }}
     >
@@ -41,7 +45,7 @@ const Header: FC<HeaderProps> = ({ onOpenNav }) => {
           }}
         >
           <DarkModeToggle />
-          <ProfileIcon />
+          {/* <ProfileIcon /> */}
         </Stack>
       </Toolbar>
     </AppBar>

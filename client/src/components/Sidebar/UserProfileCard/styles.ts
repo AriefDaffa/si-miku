@@ -1,6 +1,6 @@
 import { css } from '@emotion/react';
 
-import { GREY } from '@/theme/Colors';
+import { INFO } from '@/theme/Colors';
 
 export const profileCardWrapperCx = css`
   display: flex;
@@ -13,8 +13,7 @@ export const profileCardWrapperCx = css`
 export const profileCardCx = (isDarkTheme: boolean) => css`
   display: flex;
   align-items: center;
-  border: 1px dashed ${isDarkTheme ? GREY[600] : GREY[400]};
   border-radius: 8px;
   padding: 16px;
-  background-color: ${isDarkTheme ? '' : GREY[200]};
+  background-color: ${isDarkTheme ? '#212121' : INFO.darker};
 `;

@@ -1,6 +1,3 @@
-import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
-import { Doughnut } from 'react-chartjs-2';
-
 import type { FC } from 'react';
 
 import { Grid, Box, Typography, Avatar, LinearProgress } from '@mui/material';
@@ -11,37 +8,17 @@ import TrackChangesIcon from '@mui/icons-material/TrackChanges';
 import DoneAllIcon from '@mui/icons-material/DoneAll';
 import DoNotDisturbIcon from '@mui/icons-material/DoNotDisturb';
 
-import { ERROR, GREY, PRIMARY, SUCCESS } from '@/theme/Colors';
+import { ERROR, SUCCESS, PRIMARY } from '@/theme/Colors';
 import SimpleCard from '@/components/Card/SimpleCard';
+import CustomChart from '@/components/CustomChart';
 
 const CardCountSection: FC = () => {
-  ChartJS.register(ArcElement, Tooltip, Legend);
-
-  const data = {
-    labels: ['Memenuhi target', 'Belum Memenuhi Target'],
-    datasets: [
-      {
-        label: '# of Votes',
-        data: [78, 56],
-        backgroundColor: [SUCCESS.main, ERROR.main],
-        // borderColor: [SUCCESS.lighter, ERROR.lighter],
-        borderWidth: 0,
-      },
-    ],
+  const chartOptions = {
+    legend: { floating: false, horizontalAlign: 'center', position: 'bottom' },
+    dataLabels: { enabled: true, dropShadow: { enabled: false } },
+    colors: [SUCCESS.dark, ERROR.main],
+    labels: ['Indikator Memenuhi Target', 'Indikator Belum Memenuhi Target'],
   };
-
-  const devices = [
-    {
-      title: 'Memenuhi target',
-      value: 63,
-      color: SUCCESS.main,
-    },
-    {
-      title: 'Belum Memenuhi Target',
-      value: 15,
-      color: ERROR.main,
-    },
-  ];
 
   const DATA = [
     {
@@ -73,52 +50,36 @@ const CardCountSection: FC = () => {
       }}
     >
       <Grid container spacing={3}>
-        {/* <Grid item xs={12} md={4}>
-          <SimpleCard isCenter>
-            <Box
-              sx={{
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'center',
-              }}
-            >
-              <Typography color="textPrimary" variant="h1">
-                124
-              </Typography>
-              <Typography
-                color="textSecondary"
-                gutterBottom
-                variant="overline"
-                sx={{ overflowWrap: 'break-word' }}
-              >
-                Total Indikator
-              </Typography>
-
-              <LinearProgress value={80} variant="determinate" />
-            </Box>
-          </SimpleCard>
-        </Grid> */}
-        {/* <Grid item xs={12} md={4}>
-          <SimpleCard isCenter>
-            <Doughnut data={data} />
-          </SimpleCard>
-        </Grid> */}
-        {/* <Grid item xs={12} md={4}>
-          <Grid container spacing={3}> */}
-        {DATA.map((data, idx) => (
-          <Grid key={idx} item xs={12} md={4}>
-            <CountCard
-              title={data.title}
-              value={data.value}
-              Icon={data.Icon}
-              iconColor={data.iconColor}
-              // withStat={idx === 0 ? false : true}
-              withStat={false}
-            />
+        <Grid item xs={12} md={6}>
+          <Grid
+            container
+            justifyContent="space-between"
+            gap={3}
+            sx={{ height: '100%' }}
+          >
+            {DATA.map((data, idx) => (
+              <Grid key={idx} item xs={12}>
+                <CountCard
+                  title={data.title}
+                  value={data.value}
+                  Icon={data.Icon}
+                  iconColor={data.iconColor}
+                  withStat={false}
+                />
+              </Grid>
+            ))}
           </Grid>
-        ))}
-        {/* </Grid>
-        </Grid> */}
+        </Grid>
+        <Grid item xs={12} md={6}>
+          <SimpleCard isCenter title="Overview Grafik">
+            <CustomChart
+              type="pie"
+              chartOptions={chartOptions}
+              series={[78, 56]}
+              width={400}
+            />
+          </SimpleCard>
+        </Grid>
       </Grid>
     </Box>
   );

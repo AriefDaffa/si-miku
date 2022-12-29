@@ -1,6 +1,6 @@
 import { css } from '@emotion/react';
 
-import { GREY } from '@/theme/Colors';
+import { INFO, LIGHT } from '@/theme/Colors';
 
 export const containerCx = css`
   display: flex;
@@ -14,7 +14,7 @@ export const pageContainerCx = (isDarkTheme: boolean) => css`
   min-height: 100%;
   padding-top: ${64 + 24}px;
   padding-bottom: 80px;
-  background-color: ${isDarkTheme ? '' : GREY[200]};
+  background-color: ${isDarkTheme ? '' : LIGHT.main};
 
   @media (min-width: 1200px) {
     padding-top: 86px;

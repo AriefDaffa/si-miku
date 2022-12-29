@@ -56,18 +56,14 @@ const loginUser = async (req, res) => {
   }
 };
 
-const createAccessToken = async (req, res) => {
-  const authHeader = req.headers.authorization;
+const logout = async (req, res) => {
   try {
-    if (authHeader.startsWith('Bearer ')) {
-      token = authHeader.substring(7, authHeader.length);
-    } else {
-      //Error
-    }
-    res.json({ accessToken: token });
+    await res.cookie('accessToken', '', { maxAge: 0 });
+
+    return res.json({ message: 'cookie cleared' });
   } catch (error) {
-    res.json(error);
+    return res.json(error);
   }
 };
 
-module.exports = { loginUser, createAccessToken };
+module.exports = { loginUser, logout };

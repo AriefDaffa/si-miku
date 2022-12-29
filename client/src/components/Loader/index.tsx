@@ -9,8 +9,6 @@ import { loaderContainerCx } from './styles';
 const Loader: FC = () => {
   const { isDarkTheme } = useCustomTheme();
 
-  console.log('## isDarkTheme', isDarkTheme);
-
   return (
     <div css={loaderContainerCx(isDarkTheme)}>
       {isDarkTheme ? (

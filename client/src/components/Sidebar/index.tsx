@@ -1,13 +1,14 @@
 import type { FC } from 'react';
 
-import { Box, List } from '@mui/material';
+import { Box, List, Divider } from '@mui/material';
 
 import SidebarContainer from './SidebarContainer';
 import UserProfileCard from './UserProfileCard';
 import SidebarItem from './SidebarItem';
 import LogoSection from './LogoSection';
+import LogoutButton from './LogoutButton';
 
-import { NAV_ITEM, LOGOUT_ITEM } from './menu-item';
+import { NAV_ITEM } from './menu-item';
 
 interface SidebarProps {
   isOpen: boolean;
@@ -20,7 +21,7 @@ const Sidebar: FC<SidebarProps> = (props) => {
   return (
     <SidebarContainer openNav={isOpen} onCloseNav={onClose}>
       <LogoSection />
-      <UserProfileCard url="" />
+      <UserProfileCard url="https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" />
       <Box sx={{ flex: 1 }}>
         <List disablePadding sx={{ p: 1 }}>
           {NAV_ITEM.map((item, idx) => (
@@ -33,13 +34,10 @@ const Sidebar: FC<SidebarProps> = (props) => {
           ))}
         </List>
       </Box>
+      <Divider />
       <Box>
-        <List disablePadding sx={{ p: 1 }}>
-          <SidebarItem
-            title={LOGOUT_ITEM.title}
-            path={LOGOUT_ITEM.path}
-            Icon={LOGOUT_ITEM.Icon}
-          />
+        <List disablePadding>
+          <LogoutButton />
         </List>
       </Box>
     </SidebarContainer>

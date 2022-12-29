@@ -23,14 +23,7 @@ interface CountCardProps {
 const CountCard: FC<CountCardProps> = (props) => {
   const { title, value, iconColor, Icon, withStat = true } = props;
   return (
-    <Card
-      sx={{
-        height: '100%',
-        bgcolor: 'transparent',
-        boxShadow: 'none',
-        border: '1px dashed #dadada',
-      }}
-    >
+    <Card sx={{ height: '100%' }}>
       <CardContent>
         <Grid container sx={{ justifyContent: 'space-between' }}>
           <Grid item xs={8} lg={9}>

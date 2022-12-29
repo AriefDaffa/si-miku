@@ -14,6 +14,7 @@ import { GlobalStyles } from '@mui/styled-engine';
 
 import { GlobalStylesOptions } from '@/theme';
 import { customTypography } from '@/theme/Typography';
+import ComponentsOverrides from '@/theme/override-styles';
 
 interface CustomThemeType {
   isDarkTheme: boolean;
@@ -49,6 +50,8 @@ export const CustomThemeProvider: FC<CustomThemeProviderProps> = (props) => {
       }),
     [mode]
   );
+
+  theme.components = ComponentsOverrides(theme);
 
   const value: CustomThemeType = useMemo(() => {
     return {
