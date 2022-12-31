@@ -14,7 +14,17 @@ export const NAV_ITEM = [
     Icon: BarChartIcon,
   },
   {
-    title: 'List Target Indikator',
+    title: 'List Target',
+    path: 'target-list',
+    Icon: TrackChangesIcon,
+  },
+  {
+    title: 'Input Indikator',
+    path: 'target-list',
+    Icon: TrackChangesIcon,
+  },
+  {
+    title: 'Input Target',
     path: 'target-list',
     Icon: TrackChangesIcon,
   },

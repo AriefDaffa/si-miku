@@ -1,4 +1,4 @@
-const { Sequelize } = require('sequelize');
+const { Sequelize, QueryTypes } = require('sequelize');
 const model = require('../models');
 
 const getAllIndicators = async (req, res) => {
@@ -47,7 +47,7 @@ const getIndicatorsByYear = async (req, res) => {
   const { id } = req.params;
 
   try {
-    const year = await model.Year.findAll({
+    const year = await model.Year.findOne({
       where: {
         year_id: id,
       },
@@ -122,25 +122,35 @@ const createIndicator = async (req, res) => {
 
 const getTotalIndicator = async (req, res) => {
   try {
-    // const total = await model.Indicator.findAndCountAll();
-    const total = await model.TargetAndQuarter.findAll({
-      attributes: [
-        'q1',
-        'q2',
-        [
-          Sequelize.fn(
-            'SUM',
-            Sequelize.where(Sequelize.col('q1'), '+', Sequelize.col('q2'))
-          ),
-          'q_total',
-        ],
-      ],
-      group: ['q1', 'q2'],
+    const total = await model.Indicator.findAndCountAll();
+    const [failed] = await model.Indicator.sequelize.query(
+      'SELECT COUNT(target) as total FROM `target_quarters` WHERE q1 + q2 + q3 + q4 <= target',
+      { type: QueryTypes.SELECT }
+    );
+    const [success] = await model.Indicator.sequelize.query(
+      'SELECT COUNT(target) as total FROM `target_quarters` WHERE q1 + q2 + q3 + q4 >= target',
+      { type: QueryTypes.SELECT }
+    );
+
+    return res.json({
+      total: total.count,
+      failed: failed.total,
+      success: success.total,
+    });
+  } catch (error) {
+    return res.json(error);
+  }
+};
+
+const getYear = async (req, res) => {
+  try {
+    const year = await model.Year.findAll({
+      attributes: ['year_id'],
     });
 
-    res.json(total);
+    return res.json(year);
   } catch (error) {
-    res.json(error);
+    return res.json(error);
   }
 };
 
@@ -150,4 +160,5 @@ module.exports = {
   getIndicatorById,
   getIndicatorsByYear,
   createIndicator,
+  getYear,
 };

@@ -15,11 +15,12 @@ import { navIconCx } from './styles';
 interface SidebarItemProps {
   title: string;
   path: string;
+  onCloseNav: () => void;
   Icon: OverridableComponent<SvgIconTypeMap<{}, 'svg'>>;
 }
 
 const SidebarItem: FC<SidebarItemProps> = (props) => {
-  const { path, title, Icon } = props;
+  const { path, title, Icon, onCloseNav } = props;
 
   const theme = useTheme();
 
@@ -28,7 +29,7 @@ const SidebarItem: FC<SidebarItemProps> = (props) => {
       disableGutters
       component={RouterLink}
       to={path}
-      // @TODO add onClick = close
+      onClick={onCloseNav}
       sx={{
         ...theme.typography.body2,
         height: 48,

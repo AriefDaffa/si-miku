@@ -13,7 +13,7 @@ import {
   Typography,
 } from '@mui/material';
 
-import { useLoginMutation } from '@/repository/LoginMutation';
+import { useLoginMutation } from '@/repository/mutation/LoginMutation';
 
 import type { LoginData } from './types';
 

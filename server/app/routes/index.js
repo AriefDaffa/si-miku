@@ -13,6 +13,7 @@ const {
   getIndicatorsByYear,
   getTotalIndicator,
   createIndicator,
+  getYear,
 } = require('../controllers/indicator.controller');
 const { verifyAccessToken } = require('../middleware/verifyToken.js');
 
@@ -24,6 +25,9 @@ router.get('/roles', verifyAccessToken, getRoles);
 router.get('/users/roles/:id', verifyAccessToken, getUserByRole);
 router.get('/current-user', verifyAccessToken, getCurrentUser);
 router.delete('/logout', logout);
+
+// year routes
+router.get('/year', verifyAccessToken, getYear);
 
 // Indicator routes
 router.get('/indicator', verifyAccessToken, getAllIndicators);

@@ -11,35 +11,25 @@ import DoNotDisturbIcon from '@mui/icons-material/DoNotDisturb';
 import { ERROR, SUCCESS, PRIMARY } from '@/theme/Colors';
 import SimpleCard from '@/components/Card/SimpleCard';
 import CustomChart from '@/components/CustomChart';
+import useIndicatorCount from '@/repository/query/IndicatorCountQuery';
 
-const CardCountSection: FC = () => {
+interface CardCountSectionProps {
+  totalIndicator: number;
+  successIndicator: number;
+  failedIndicator: number;
+  isLoading: boolean;
+}
+
+const CardCountSection: FC<CardCountSectionProps> = (props) => {
+  const { totalIndicator, successIndicator, failedIndicator, isLoading } =
+    props;
+
   const chartOptions = {
     legend: { floating: false, horizontalAlign: 'center', position: 'bottom' },
     dataLabels: { enabled: true, dropShadow: { enabled: false } },
     colors: [SUCCESS.dark, ERROR.main],
     labels: ['Indikator Memenuhi Target', 'Indikator Belum Memenuhi Target'],
   };
-
-  const DATA = [
-    {
-      title: 'Total Indikator',
-      value: '124',
-      iconColor: PRIMARY.main,
-      Icon: TrackChangesIcon,
-    },
-    {
-      title: 'Indikator Memenuhi Target',
-      value: '78',
-      iconColor: SUCCESS.main,
-      Icon: DoneAllIcon,
-    },
-    {
-      title: 'Indikator Belum Memenuhi Target',
-      value: '56',
-      iconColor: ERROR.main,
-      Icon: DoNotDisturbIcon,
-    },
-  ];
 
   return (
     <Box
@@ -57,17 +47,33 @@ const CardCountSection: FC = () => {
             gap={3}
             sx={{ height: '100%' }}
           >
-            {DATA.map((data, idx) => (
-              <Grid key={idx} item xs={12}>
-                <CountCard
-                  title={data.title}
-                  value={data.value}
-                  Icon={data.Icon}
-                  iconColor={data.iconColor}
-                  withStat={false}
-                />
-              </Grid>
-            ))}
+            <Grid item xs={12}>
+              <CountCard
+                title={'Total Indikator'}
+                value={totalIndicator}
+                Icon={TrackChangesIcon}
+                iconColor={PRIMARY.main}
+                isLoading={isLoading}
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <CountCard
+                title={'Indikator Memenuhi Target'}
+                value={successIndicator}
+                Icon={DoneAllIcon}
+                iconColor={SUCCESS.main}
+                isLoading={isLoading}
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <CountCard
+                title={'Indikator Belum Memenuhi Target'}
+                value={failedIndicator}
+                Icon={DoNotDisturbIcon}
+                iconColor={ERROR.main}
+                isLoading={isLoading}
+              />
+            </Grid>
           </Grid>
         </Grid>
         <Grid item xs={12} md={6}>
@@ -75,7 +81,7 @@ const CardCountSection: FC = () => {
             <CustomChart
               type="pie"
               chartOptions={chartOptions}
-              series={[78, 56]}
+              series={[successIndicator, failedIndicator]}
               width={400}
             />
           </SimpleCard>

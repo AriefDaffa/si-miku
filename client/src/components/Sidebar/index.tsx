@@ -30,6 +30,7 @@ const Sidebar: FC<SidebarProps> = (props) => {
               title={item.title}
               path={item.path}
               Icon={item.Icon}
+              onCloseNav={onClose}
             />
           ))}
         </List>

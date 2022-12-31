@@ -7,6 +7,7 @@ import {
   CardContent,
   Grid,
   Typography,
+  Skeleton,
 } from '@mui/material';
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 import type { SvgIconTypeMap } from '@mui/material';
@@ -14,14 +15,15 @@ import type { OverridableComponent } from '@mui/material/OverridableComponent';
 
 interface CountCardProps {
   title: string;
-  value: string;
+  value: number;
   iconColor: string;
   withStat?: boolean;
+  isLoading: boolean;
   Icon: OverridableComponent<SvgIconTypeMap<{}, 'svg'>>;
 }
 
 const CountCard: FC<CountCardProps> = (props) => {
-  const { title, value, iconColor, Icon, withStat = true } = props;
+  const { title, value, iconColor, Icon, withStat = true, isLoading } = props;
   return (
     <Card sx={{ height: '100%' }}>
       <CardContent>
@@ -36,7 +38,7 @@ const CountCard: FC<CountCardProps> = (props) => {
               {title}
             </Typography>
             <Typography color="textPrimary" variant="h3">
-              {value}
+              {isLoading ? <Skeleton /> : value}
             </Typography>
           </Grid>
           <Grid item>
@@ -51,7 +53,7 @@ const CountCard: FC<CountCardProps> = (props) => {
             </Avatar>
           </Grid>
         </Grid>
-        {withStat && (
+        {/* {withStat && (
           <Box
             sx={{
               pt: 2,
@@ -73,7 +75,7 @@ const CountCard: FC<CountCardProps> = (props) => {
               Dari tahun sebelumnya
             </Typography>
           </Box>
-        )}
+        )} */}
       </CardContent>
     </Card>
   );

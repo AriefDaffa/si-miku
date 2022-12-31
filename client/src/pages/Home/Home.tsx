@@ -1,20 +1,16 @@
 import type { FC } from 'react';
 import { Helmet } from 'react-helmet';
 
-import {
-  Container,
-  Typography,
-  FormControl,
-  InputLabel,
-  Select,
-  MenuItem,
-  Box,
-} from '@mui/material';
+import { Container, Typography, Box } from '@mui/material';
+
+import useIndicatorCount from '@/repository/query/IndicatorCountQuery';
 
 import CardCountSection from './CardCountSection';
 import ChartSection from './ChartSection';
 
 const Home: FC = () => {
+  const { data, isLoading } = useIndicatorCount();
+
   return (
     <>
       <Helmet>
@@ -37,29 +33,14 @@ const Home: FC = () => {
               Menampilkan Overview indikator
             </Typography>
           </Box>
-
-          {/* <Box sx={{ display: 'flex', float: 'right', alignItems: 'center' }}>
-            <FormControl size="small">
-              <InputLabel id="demo-simple-select-label">Year</InputLabel>
-              <Select
-                labelId="demo-simple-select-label"
-                id="demo-simple-select"
-                // value={age}
-                autoWidth
-                defaultValue={0}
-                label="Age"
-                // onChange={handleChange}
-              >
-                <MenuItem value={0}>Semua</MenuItem>
-                <MenuItem value={2022}>2022</MenuItem>
-                <MenuItem value={2023}>2023</MenuItem>
-                <MenuItem value={2024}>2024</MenuItem>
-              </Select>
-            </FormControl>
-          </Box> */}
         </Box>
 
-        <CardCountSection />
+        <CardCountSection
+          totalIndicator={data.total}
+          failedIndicator={data.failed}
+          successIndicator={data.success}
+          isLoading={isLoading}
+        />
         <ChartSection />
       </Container>
     </>
