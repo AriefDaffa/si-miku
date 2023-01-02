@@ -12,10 +12,10 @@ interface SimpleCardProps {
 }
 
 const SimpleCard: FC<SimpleCardProps> = (props) => {
-  const { title, isCenter = false, withHeader, children } = props;
+  const { title, isCenter = false, withHeader = false, children } = props;
   return (
     <Card css={cardContainerCx(isCenter)}>
-      {withHeader ? (
+      {/* {withHeader ? (
         <CardHeader title={title} sx={{ pb: 4 }} />
       ) : (
         <Typography
@@ -26,7 +26,7 @@ const SimpleCard: FC<SimpleCardProps> = (props) => {
         >
           {title}
         </Typography>
-      )}
+      )} */}
 
       <CardContent>{children}</CardContent>
     </Card>

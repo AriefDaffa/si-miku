@@ -16,15 +16,15 @@ const ListIndicator: FC = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const currentYear = searchParams.get('year') || '';
 
-  const { data, isLoading } = useYearQuery();
+  const { data: yearData, isLoading: isYearLoading } = useYearQuery();
   const { data: indicatorData, isLoading: isIndicatorLoading } =
     useIndicatorByYear(currentYear, currentYear !== '');
 
   useEffect(() => {
-    if (!searchParams.get('year') && !isLoading) {
-      setSearchParams({ year: String(data[data.length - 1].year_id) });
+    if (!searchParams.get('year') && !isYearLoading) {
+      setSearchParams({ year: String(yearData[yearData.length - 1].year_id) });
     }
-  }, [searchParams, isLoading, data]);
+  }, [searchParams, isYearLoading, yearData]);
 
   return (
     <>
@@ -32,14 +32,16 @@ const ListIndicator: FC = () => {
         <title>List Indikator | SI-MIKU</title>
       </Helmet>
       <Container maxWidth="xl">
-        <Box
+        <Grid
+          container
           sx={{
             display: 'flex',
             justifyContent: 'space-between',
             alignItems: 'middle',
+            pb: 2,
           }}
         >
-          <Box>
+          <Grid item xs={12} md={8}>
             <Typography variant="subtitle2" sx={{ opacity: 0.7 }}>
               Dashboard
             </Typography>
@@ -47,13 +49,22 @@ const ListIndicator: FC = () => {
             <Typography variant="subtitle2" sx={{ mb: 2, opacity: 0.7 }}>
               Menampilkan List Indikator pada tahun {currentYear}
             </Typography>
-          </Box>
-        </Box>
+          </Grid>
+          <Grid
+            item
+            xs={12}
+            md={4}
+            sx={{
+              display: 'flex',
+              justifyContent: 'end',
+              alignItems: 'center',
+            }}
+          >
+            <ToolbarSection yearData={yearData} />
+          </Grid>
+        </Grid>
 
         <Grid container spacing={3}>
-          <Grid item xs={12}>
-            <ToolbarSection yearData={data} />
-          </Grid>
           <Grid item xs={12}>
             <ChartSection indicatorData={indicatorData} />
           </Grid>
