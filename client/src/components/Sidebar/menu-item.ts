@@ -12,18 +12,18 @@ export const NAV_ITEM = [
     Icon: HomeIcon,
   },
   {
+    title: 'Indikator',
+    path: 'indicator',
+    Icon: ArticleIcon,
+  },
+  {
     title: 'List Indikator',
     path: 'indicator-list',
     Icon: BarChartIcon,
   },
   {
-    title: 'Detail Indikator',
-    path: 'indicator',
-    Icon: ArticleIcon,
-  },
-  {
     title: 'List Target',
-    path: 'indicator-input',
+    path: 'target-list',
     Icon: TrackChangesIcon,
   },
   {
