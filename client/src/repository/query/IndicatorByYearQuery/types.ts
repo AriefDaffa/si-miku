@@ -29,6 +29,7 @@ export interface IndicatorByYearNormalizedData {
   quarterThree: number;
   quarterFour: number;
   target: number;
+  status: string;
 }
 
 export interface IndicatorByYearNormalized {

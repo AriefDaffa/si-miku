@@ -1,57 +1,42 @@
+import { useMemo } from 'react';
 import type { FC } from 'react';
 
-import { Box, Table, TableBody, Card } from '@mui/material';
+import { Box, Card } from '@mui/material';
 
-import useIndicatorByYear from '@/repository/query/IndicatorByYearQuery';
-import type { YearData } from '@/repository/query/YearQuery/types';
+import Table from '@/components/Table';
+import type { IndicatorByYearNormalized } from '@/repository/query/IndicatorByYearQuery/types';
 
-import TableHeader from './TableHeader';
-import TableContent from './TableContent';
 import TableToolbar from './TableToolbar';
-import TableLoader from './TableLoader';
 
 interface TableSectionProps {
-  currentYear: string;
-  year: YearData[];
+  indicatorData: IndicatorByYearNormalized;
+  isIndicatorLoading: boolean;
 }
 
 const TableSection: FC<TableSectionProps> = (props) => {
-  const { currentYear, year } = props;
+  const { indicatorData, isIndicatorLoading } = props;
 
-  const { data, isLoading } = useIndicatorByYear(
-    currentYear,
-    currentYear !== ''
-  );
+  const headerTitle = [
+    { title: 'ID', value: 'indicatorId' },
+    { title: 'Nama Indikator', value: 'indicatorName' },
+    { title: 'Target', value: 'target' },
+    { title: 'Kuartil 1', value: 'quarterOne' },
+    { title: 'Kuartil 2', value: 'quarterTwo' },
+    { title: 'Kuartil 3', value: 'quarterThree' },
+    { title: 'Kuartil 4', value: 'quarterFour' },
+    { title: 'Status', value: 'status' },
+    { title: '', value: '' },
+  ];
 
   return (
     <Card>
-      <TableToolbar yearData={year} />
+      <TableToolbar />
       <Box sx={{ overflowX: 'auto' }}>
-        <Table sx={{ minWidth: 1050 }}>
-          <TableHeader />
-          <TableBody>
-            {!isLoading ? (
-              data.indicator.map((item, idx) => (
-                <TableContent
-                  key={idx}
-                  ID={item.indicatorId}
-                  name={item.indicatorName}
-                  q1={item.quarterOne}
-                  q2={item.quarterTwo}
-                  q3={item.quarterThree}
-                  q4={item.quarterFour}
-                  target={item.target}
-                />
-              ))
-            ) : (
-              <>
-                <TableLoader />
-                <TableLoader />
-                <TableLoader />
-              </>
-            )}
-          </TableBody>
-        </Table>
+        <Table
+          headerTitle={headerTitle}
+          isLoading={isIndicatorLoading}
+          content={indicatorData.indicator}
+        />
       </Box>
     </Card>
   );

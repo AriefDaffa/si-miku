@@ -6,9 +6,8 @@ export interface User {
 }
 
 export interface AuthContextInterface {
-  isLoggedIn: boolean;
   currentUser: User;
-  setCurrentUser: (data: User) => void;
+  isLoading: boolean;
 }
 
 export interface AuthContextProps {

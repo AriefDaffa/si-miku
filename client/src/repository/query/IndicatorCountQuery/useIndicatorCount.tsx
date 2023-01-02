@@ -14,9 +14,9 @@ const normalizer = (isLoading: boolean, Deps?: IndicatorCountResponse) => {
   };
 
   if (!isLoading && Deps) {
-    result.total = Deps.data.total;
-    result.failed = Deps.data.failed;
-    result.success = Deps.data.success;
+    result.total = Deps.data.total || 0;
+    result.failed = Deps.data.failed || 0;
+    result.success = Deps.data.success || 0;
   }
 
   return result;

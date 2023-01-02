@@ -1,44 +1,41 @@
-import {
-  createContext,
-  useContext,
-  useMemo,
-  useState,
-  useCallback,
-} from 'react';
+import { createContext, useContext, useMemo, useState, useEffect } from 'react';
 import type { FC } from 'react';
 
-import type { AuthContextInterface, AuthContextProps, User } from './types';
+import { useCurrentUserQuery } from '@/repository/query/CurrentUserQuery';
+
+import type { AuthContextInterface, AuthContextProps } from './types';
 
 const AuthContext = createContext<AuthContextInterface>({
-  isLoggedIn: false,
   currentUser: {
     username: '',
     email: '',
   },
-  setCurrentUser: (data: User) => {},
+  isLoading: true,
 });
 
 export const AuthContextProvider: FC<AuthContextProps> = (props) => {
   const { children } = props;
+  const { data, error, isLoading } = useCurrentUserQuery();
   const [currentUser, setCurrentUser] = useState({
     username: '',
     email: '',
   });
 
-  const setUser = useCallback(
-    (data: User) => {
-      setCurrentUser(data);
-    },
-    [setCurrentUser]
-  );
+  useEffect(() => {
+    if (!isLoading && !error) {
+      setCurrentUser({
+        username: data.username,
+        email: data.email,
+      });
+    }
+  }, [isLoading, error]);
 
   const value: AuthContextInterface = useMemo(() => {
     return {
-      isLoggedIn: false,
       currentUser,
-      setCurrentUser: setUser,
+      isLoading,
     };
-  }, [currentUser, setUser]);
+  }, [currentUser]);
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };

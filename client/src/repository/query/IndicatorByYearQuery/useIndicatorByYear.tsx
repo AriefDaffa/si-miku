@@ -23,13 +23,21 @@ const normalizer = (isLoading: boolean, Deps?: IndicatorByYearResponse) => {
       }
 
       result.indicator.push({
-        indicatorId: item.indicator_id,
-        indicatorName: item.indicator_name,
-        quarterOne: item.target_quarters.q1,
-        quarterTwo: item.target_quarters.q2,
-        quarterThree: item.target_quarters.q3,
-        quarterFour: item.target_quarters.q4,
-        target: item.target_quarters.target,
+        indicatorId: item.indicator_id || 0,
+        indicatorName: item.indicator_name || '',
+        quarterOne: item.target_quarters.q1 || 0,
+        quarterTwo: item.target_quarters.q2 || 0,
+        quarterThree: item.target_quarters.q3 || 0,
+        quarterFour: item.target_quarters.q4 || 0,
+        target: item.target_quarters.target || 0,
+        status:
+          item.target_quarters.q1 +
+            item.target_quarters.q2 +
+            item.target_quarters.q3 +
+            item.target_quarters.q4 >=
+          item.target_quarters.target
+            ? 'Memenuhi'
+            : 'Belum Memenuhi',
       });
 
       return result;

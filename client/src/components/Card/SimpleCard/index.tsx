@@ -22,7 +22,7 @@ const SimpleCard: FC<SimpleCardProps> = (props) => {
           color="textSecondary"
           gutterBottom
           variant="overline"
-          sx={{ overflowWrap: 'break-word', paddingTop: '16px' }}
+          sx={{ overflowWrap: 'break-word', padding: '16px' }}
         >
           {title}
         </Typography>

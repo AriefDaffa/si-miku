@@ -15,7 +15,7 @@ const normalizer = (isLoading: boolean, Deps?: YearResponse) => {
         return result;
       }
 
-      result.push({ year_id: item.year_id });
+      result.push({ year_id: item.year_id || 0 });
       return result;
     });
   }

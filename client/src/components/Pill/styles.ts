@@ -7,6 +7,8 @@ export const PillContainerCx = (isError: boolean) => css`
   width: fit-content;
   border-radius: 8px;
   font-weight: bold;
+  white-space: nowrap;
+  overflow: hidden;
   background-color: ${isError ? ERROR.lighter : SUCCESS.lighter};
   color: ${isError ? ERROR.main : SUCCESS.dark};
 `;

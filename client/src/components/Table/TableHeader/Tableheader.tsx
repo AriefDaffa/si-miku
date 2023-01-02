@@ -11,19 +11,11 @@ import {
 import { useCustomTheme } from '@/context/CustomThemeContext';
 import { DARK, LIGHT } from '@/theme/Colors';
 
-const TableHeader: FC = () => {
+import type { TableHeaderProps } from './types';
+
+const TableHeader: FC<TableHeaderProps> = (props) => {
+  const { headerTitle } = props;
   const { isDarkTheme } = useCustomTheme();
-  const headerData = [
-    { header: 'ID' },
-    { header: 'Nama Indikator' },
-    { header: 'Target' },
-    { header: 'Kuartil 1' },
-    { header: 'Kuartil 2' },
-    { header: 'Kuartil 3' },
-    { header: 'Kuartil 4' },
-    { header: 'Status' },
-    { header: '' },
-  ];
 
   return (
     <TableHead
@@ -43,15 +35,15 @@ const TableHeader: FC = () => {
           // onChange={handleSelectAll}
           />
         </TableCell>
-        {headerData.map((data, idx) => (
+        {headerTitle.map((data, idx) => (
           <TableCell key={idx}>
             <Typography
               color="textSecondary"
               gutterBottom
               variant="overline"
-              sx={{ overflowWrap: 'break-word' }}
+              sx={{ whiteSpace: 'nowrap', overflow: 'hidden' }}
             >
-              {data.header}
+              {data.title}
             </Typography>
           </TableCell>
         ))}

@@ -133,11 +133,11 @@ export const useChart = (options: any) => {
       // Pie + Donut
       pie: {
         donut: {
-          // labels: {
-          //   show: true,
-          //   value: LABEL_VALUE,
-          //   total: LABEL_TOTAL,
-          // },
+          labels: {
+            // show: true,
+            // value: LABEL_VALUE,
+            // total: LABEL_TOTAL,
+          },
         },
       },
 

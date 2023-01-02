@@ -1,6 +1,9 @@
 import BarChartIcon from '@mui/icons-material/BarChart';
 import HomeIcon from '@mui/icons-material/Home';
 import TrackChangesIcon from '@mui/icons-material/TrackChanges';
+import ArticleIcon from '@mui/icons-material/Article';
+import EditIcon from '@mui/icons-material/Edit';
+import TextFieldsIcon from '@mui/icons-material/TextFields';
 
 export const NAV_ITEM = [
   {
@@ -14,18 +17,23 @@ export const NAV_ITEM = [
     Icon: BarChartIcon,
   },
   {
+    title: 'Detail Indikator',
+    path: 'indicator',
+    Icon: ArticleIcon,
+  },
+  {
     title: 'List Target',
-    path: 'target-list',
+    path: 'indicator-input',
     Icon: TrackChangesIcon,
   },
   {
     title: 'Input Indikator',
-    path: 'target-list',
-    Icon: TrackChangesIcon,
+    path: 'indicator-input',
+    Icon: EditIcon,
   },
   {
     title: 'Input Target',
-    path: 'target-list',
-    Icon: TrackChangesIcon,
+    path: 'target-input',
+    Icon: TextFieldsIcon,
   },
 ];
