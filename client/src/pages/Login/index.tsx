@@ -3,16 +3,9 @@ import { useNavigate } from 'react-router-dom';
 import { useForm, Controller } from 'react-hook-form';
 import type { FC } from 'react';
 
-import {
-  Box,
-  Button,
-  Container,
-  Grid,
-  Link,
-  TextField,
-  Typography,
-} from '@mui/material';
+import { Box, Button, Container, TextField, Typography } from '@mui/material';
 
+import { useAuthContext } from '@/context/AuthContext';
 import { useLoginMutation } from '@/repository/mutation/LoginMutation';
 
 import type { LoginData } from './types';
@@ -27,10 +20,12 @@ const Login: FC = () => {
 
   const navigate = useNavigate();
   const { mutate, isLoading } = useLoginMutation();
+  const { setIsAuthenticated } = useAuthContext();
 
   const onSubmit = (data: LoginData) => {
     mutate(data, {
-      onSuccess: (data) => {
+      onSuccess: () => {
+        setIsAuthenticated(true);
         navigate('/');
       },
     });

@@ -1,41 +1,34 @@
 import { createContext, useContext, useMemo, useState, useEffect } from 'react';
 import type { FC } from 'react';
 
-import { useCurrentUserQuery } from '@/repository/query/CurrentUserQuery';
+import useAuthStatusQuery from '@/repository/query/AuthStatusQuery';
 
 import type { AuthContextInterface, AuthContextProps } from './types';
 
 const AuthContext = createContext<AuthContextInterface>({
-  currentUser: {
-    username: '',
-    email: '',
-  },
+  isAuthenticated: false,
   isLoading: true,
+  setIsAuthenticated: () => {},
 });
 
 export const AuthContextProvider: FC<AuthContextProps> = (props) => {
   const { children } = props;
-  const { data, error, isLoading } = useCurrentUserQuery();
-  const [currentUser, setCurrentUser] = useState({
-    username: '',
-    email: '',
-  });
+  const { data, isLoading } = useAuthStatusQuery();
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   useEffect(() => {
-    if (!isLoading && !error) {
-      setCurrentUser({
-        username: data.username,
-        email: data.email,
-      });
+    if (!isLoading && data.isAuthenticated) {
+      setIsAuthenticated(true);
     }
-  }, [isLoading, error]);
+  }, [data, setIsAuthenticated]);
 
   const value: AuthContextInterface = useMemo(() => {
     return {
-      currentUser,
+      isAuthenticated,
       isLoading,
+      setIsAuthenticated,
     };
-  }, [currentUser]);
+  }, [isAuthenticated, isLoading]);
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };

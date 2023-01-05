@@ -4,32 +4,28 @@ import { useQuery } from 'react-query';
 
 import baseAPI from '@/utils/axios-utils';
 
-import type { YearResponse, YearData } from './types';
+import type { AuthStatusNormalized, AuthStatusResponse } from './types';
 
 // normalize the data to prevent undefined value
-const normalizer = (Deps?: YearResponse) => {
-  const result: YearData[] = [];
+const normalizer = (Deps?: AuthStatusResponse) => {
+  const result: AuthStatusNormalized = {
+    isAuthenticated: false,
+  };
 
   if (Deps !== void 0 && !(Deps instanceof AxiosError)) {
-    Deps.data.map<YearData[]>((item) => {
-      if (!item || !item.year_id) {
-        return result;
-      }
-
-      result.push({ year_id: item.year_id || 0 });
-      return result;
-    });
+    result.isAuthenticated = true;
   }
 
   return result;
 };
 
-const useYearQuery = () => {
-  const { data, ...rest } = useQuery<YearResponse>(
-    'year',
-    () => baseAPI.get(`year`),
+const useAuthStatusQuery = () => {
+  const { data, ...rest } = useQuery<AuthStatusResponse>(
+    'authStatus',
+    () => baseAPI.get('auth-status'),
     {
       refetchOnWindowFocus: false,
+      retry: false,
     }
   );
 
@@ -40,4 +36,4 @@ const useYearQuery = () => {
   }, [data, rest]);
 };
 
-export default useYearQuery;
+export default useAuthStatusQuery;

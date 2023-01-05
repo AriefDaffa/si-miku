@@ -1,17 +1,9 @@
 import { useSearchParams } from 'react-router-dom';
 import type { FC } from 'react';
 
-import {
-  FormControl,
-  InputLabel,
-  Select,
-  MenuItem,
-  Box,
-  Typography,
-} from '@mui/material';
+import { FormControl, InputLabel, Select, MenuItem } from '@mui/material';
 import type { SelectChangeEvent } from '@mui/material/Select';
 
-import SimpleCard from '@/components/Card/SimpleCard';
 import type { YearData } from '@/repository/query/YearQuery/types';
 
 interface ToolbarSectionProps {

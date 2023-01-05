@@ -1,4 +1,5 @@
 import { useMemo } from 'react';
+import { AxiosError } from 'axios';
 import { useQuery } from 'react-query';
 
 import baseAPI from '@/utils/axios-utils';
@@ -9,13 +10,13 @@ import type {
 } from './types';
 
 // normalize the data to prevent undefined value
-const normalizer = (isLoading: boolean, Deps?: IndicatorByYearResponse) => {
+const normalizer = (Deps?: IndicatorByYearResponse) => {
   const result: IndicatorByYearNormalized = {
     yearId: 0,
     indicator: [],
   };
 
-  if (!isLoading && Deps) {
+  if (Deps !== void 0 && !(Deps instanceof AxiosError)) {
     result.yearId = Deps.data.year_id;
     Deps.data.indicators.map((item) => {
       if (!item) {
@@ -47,8 +48,8 @@ const normalizer = (isLoading: boolean, Deps?: IndicatorByYearResponse) => {
   return result;
 };
 
-const useIndicatorByYear = (year: string, enabled?: boolean) => {
-  const { data, isLoading, ...rest } = useQuery<IndicatorByYearResponse>(
+const useIndicatorByYearQuery = (year: string, enabled?: boolean) => {
+  const { data, ...rest } = useQuery<IndicatorByYearResponse>(
     ['indicatorPerYear', year],
     () => baseAPI.get(`indicator/year/${year}`),
     {
@@ -60,8 +61,8 @@ const useIndicatorByYear = (year: string, enabled?: boolean) => {
   // normalize the data to prevent undefined value
   // memoize the data
   return useMemo(() => {
-    return { data: normalizer(isLoading, data), isLoading, ...rest };
-  }, [data, isLoading, rest]);
+    return { data: normalizer(data), ...rest };
+  }, [data, rest]);
 };
 
-export default useIndicatorByYear;
+export default useIndicatorByYearQuery;

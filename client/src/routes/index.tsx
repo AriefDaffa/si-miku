@@ -1,7 +1,6 @@
 import { Navigate, useRoutes } from 'react-router-dom';
 
 import { SideNavLayout } from '@/layout';
-
 import {
   Home,
   Login,

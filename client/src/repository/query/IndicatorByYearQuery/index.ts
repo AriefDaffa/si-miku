@@ -1,1 +1,1 @@
-export { default } from './useIndicatorByYear';
+export { default } from './useIndicatorByYearQuery';

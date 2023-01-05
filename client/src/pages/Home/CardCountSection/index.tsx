@@ -11,7 +11,6 @@ import DoNotDisturbIcon from '@mui/icons-material/DoNotDisturb';
 import { ERROR, SUCCESS, PRIMARY } from '@/theme/Colors';
 import SimpleCard from '@/components/Card/SimpleCard';
 import CustomChart from '@/components/CustomChart';
-import useIndicatorCount from '@/repository/query/IndicatorCountQuery';
 
 interface CardCountSectionProps {
   totalIndicator: number;

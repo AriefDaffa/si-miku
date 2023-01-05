@@ -1,4 +1,5 @@
 import { useMemo } from 'react';
+import { AxiosError } from 'axios';
 import { useQuery } from 'react-query';
 
 import baseAPI from '@/utils/axios-utils';
@@ -6,14 +7,14 @@ import baseAPI from '@/utils/axios-utils';
 import type { IndicatorCountResponse, IndicatorCountData } from './types';
 
 // normalize the data to prevent undefined value
-const normalizer = (isLoading: boolean, Deps?: IndicatorCountResponse) => {
+const normalizer = (Deps?: IndicatorCountResponse) => {
   const result: IndicatorCountData = {
     total: 0,
     success: 0,
     failed: 0,
   };
 
-  if (!isLoading && Deps) {
+  if (Deps !== void 0 && !(Deps instanceof AxiosError)) {
     result.total = Deps.data.total || 0;
     result.failed = Deps.data.failed || 0;
     result.success = Deps.data.success || 0;
@@ -22,8 +23,8 @@ const normalizer = (isLoading: boolean, Deps?: IndicatorCountResponse) => {
   return result;
 };
 
-const useIndicatorCount = () => {
-  const { data, isLoading, ...rest } = useQuery<IndicatorCountResponse>(
+const useIndicatorCountQuery = () => {
+  const { data, ...rest } = useQuery<IndicatorCountResponse>(
     'indicatorCount',
     () => baseAPI.get(`indicator/count`),
     {
@@ -34,8 +35,8 @@ const useIndicatorCount = () => {
   // normalize the data to prevent undefined value
   // memoize the data
   return useMemo(() => {
-    return { data: normalizer(isLoading, data), isLoading, ...rest };
-  }, [data, isLoading, rest]);
+    return { data: normalizer(data), ...rest };
+  }, [data, rest]);
 };
 
-export default useIndicatorCount;
+export default useIndicatorCountQuery;

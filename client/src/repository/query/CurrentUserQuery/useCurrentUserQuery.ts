@@ -1,19 +1,23 @@
 import { useMemo } from 'react';
+import { AxiosError } from 'axios';
 import { useQuery } from 'react-query';
 
 import baseAPI from '@/utils/axios-utils';
 
-import type { CurrentUserData, CurrentUserResponse } from './types';
+import type {
+  CurrentUserResponse,
+  CurrentUserResponseNormalized,
+} from './types';
 
 // normalize the data to prevent undefined value
-const normalizer = (isLoading: boolean, Deps?: CurrentUserResponse) => {
-  const result: CurrentUserData = {
-    username: '',
+const normalizer = (Deps?: CurrentUserResponse) => {
+  const result: CurrentUserResponseNormalized = {
+    userName: '',
     email: '',
   };
 
-  if (!isLoading && Deps) {
-    result.username = Deps.data.username || '';
+  if (Deps !== void 0 && !(Deps instanceof AxiosError)) {
+    result.userName = Deps.data.username || '';
     result.email = Deps.data.email || '';
   }
 
@@ -21,7 +25,7 @@ const normalizer = (isLoading: boolean, Deps?: CurrentUserResponse) => {
 };
 
 const useCurrentUserQuery = () => {
-  const { data, isLoading, ...rest } = useQuery<CurrentUserResponse>(
+  const { data, ...rest } = useQuery<CurrentUserResponse>(
     'currentUser',
     () => baseAPI.get('current-user'),
     {
@@ -33,8 +37,8 @@ const useCurrentUserQuery = () => {
   // normalize the data to prevent undefined value
   // memoize the data
   return useMemo(() => {
-    return { data: normalizer(isLoading, data), isLoading, ...rest };
-  }, [data, isLoading, rest]);
+    return { data: normalizer(data), ...rest };
+  }, [data, rest]);
 };
 
 export default useCurrentUserQuery;

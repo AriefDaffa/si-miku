@@ -3,13 +3,13 @@ import { Helmet } from 'react-helmet';
 
 import { Container, Typography, Box } from '@mui/material';
 
-import useIndicatorCount from '@/repository/query/IndicatorCountQuery';
+import useIndicatorCountQuery from '@/repository/query/IndicatorCountQuery';
 
 import CardCountSection from './CardCountSection';
 import ChartSection from './ChartSection';
 
 const Home: FC = () => {
-  const { data, isLoading } = useIndicatorCount();
+  const { data, isLoading } = useIndicatorCountQuery();
 
   return (
     <>

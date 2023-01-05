@@ -1,31 +1,16 @@
-import { useEffect } from 'react';
-import { Outlet, useNavigate } from 'react-router-dom';
+import { Navigate, Outlet } from 'react-router-dom';
 import type { FC } from 'react';
 
-import { useAuthContext } from '@/context/AuthContext';
 import Loader from '@/components/Loader';
-import baseAPI from '@/utils/axios-utils';
+import { useAuthContext } from '@/context/AuthContext';
 
 const PrivateRoute: FC = () => {
-  const navigate = useNavigate();
-  const { isLoading } = useAuthContext();
-
-  useEffect(() => {
-    baseAPI.interceptors.response.use(
-      (res) => {
-        return res;
-      },
-      (err) => {
-        if (err.response.status === 403 || err.response.status === 401) {
-          navigate('/login');
-        }
-        return err;
-      }
-    );
-  }, []);
+  const { isAuthenticated, isLoading } = useAuthContext();
 
   if (isLoading) {
     return <Loader />;
+  } else if (!isAuthenticated) {
+    return <Navigate to="/login" />;
   } else {
     return <Outlet />;
   }

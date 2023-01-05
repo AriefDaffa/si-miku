@@ -6,7 +6,11 @@ const {
   registerUser,
   getCurrentUser,
 } = require('../controllers/user.controller');
-const { loginUser, logout } = require('../controllers/auth.controller');
+const {
+  loginUser,
+  logout,
+  authStatus,
+} = require('../controllers/auth.controller');
 const {
   getAllIndicators,
   getIndicatorById,
@@ -39,5 +43,6 @@ router.post('/indicator', verifyAccessToken, createIndicator);
 // user routes
 router.post('/users', registerUser);
 router.post('/login', loginUser);
+router.get('/auth-status', verifyAccessToken, authStatus);
 
 module.exports = router;

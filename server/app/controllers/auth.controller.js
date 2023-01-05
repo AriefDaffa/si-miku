@@ -44,7 +44,7 @@ const loginUser = async (req, res) => {
     // set http-only cookie
     res.cookie('accessToken', accessToken, {
       httpOnly: true,
-      maxAge: 24 * 60 * 60 * 1000,
+      maxAge: 4 * 60 * 60 * 1000,
     });
 
     res.json({
@@ -66,4 +66,12 @@ const logout = async (req, res) => {
   }
 };
 
-module.exports = { loginUser, logout };
+const authStatus = async (req, res) => {
+  try {
+    res.json({ isAuthenticated: true });
+  } catch (error) {
+    res.json(error);
+  }
+};
+
+module.exports = { loginUser, logout, authStatus };

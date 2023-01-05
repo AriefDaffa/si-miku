@@ -1,9 +1,9 @@
 import BarChartIcon from '@mui/icons-material/BarChart';
 import HomeIcon from '@mui/icons-material/Home';
-import TrackChangesIcon from '@mui/icons-material/TrackChanges';
+import SchoolIcon from '@mui/icons-material/School';
 import ArticleIcon from '@mui/icons-material/Article';
 import EditIcon from '@mui/icons-material/Edit';
-import TextFieldsIcon from '@mui/icons-material/TextFields';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 
 export const NAV_ITEM = [
   {
@@ -12,19 +12,19 @@ export const NAV_ITEM = [
     Icon: HomeIcon,
   },
   {
-    title: 'Indikator',
+    title: 'Detail Indikator',
     path: 'indicator',
     Icon: ArticleIcon,
   },
   {
-    title: 'List Indikator',
+    title: 'Indikator per-Tahun',
     path: 'indicator-list',
     Icon: BarChartIcon,
   },
   {
-    title: 'List Target',
+    title: 'Indikator per-Jurusan',
     path: 'target-list',
-    Icon: TrackChangesIcon,
+    Icon: SchoolIcon,
   },
   {
     title: 'Input Indikator',
@@ -32,8 +32,8 @@ export const NAV_ITEM = [
     Icon: EditIcon,
   },
   {
-    title: 'Input Target',
-    path: 'target-input',
-    Icon: TextFieldsIcon,
+    title: 'Profile',
+    path: 'profile',
+    Icon: AccountCircleIcon,
   },
 ];

@@ -4,18 +4,18 @@ const model = require('../models');
 const getAllIndicators = async (req, res) => {
   try {
     const indicator = await model.Indicator.findAll({
-      include: {
-        model: model.Year,
-        attributes: ['year_id'],
-        through: {
-          attributes: ['target', 'q1', 'q2', 'q3', 'q4'],
-        },
-      },
+      // include: {
+      //   model: model.Year,
+      //   attributes: ['year_id'],
+      //   through: {
+      //     attributes: ['target', 'q1', 'q2', 'q3', 'q4'],
+      //   },
+      // },
     });
 
     res.json(indicator);
   } catch (error) {
-    console.log(error);
+    res.json(error);
   }
 };
 

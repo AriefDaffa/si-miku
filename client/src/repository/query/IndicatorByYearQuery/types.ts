@@ -21,6 +21,8 @@ export interface IndicatorByYearResponse {
   data: IndicatorByYearData;
 }
 
+// -- NORMALIZED TYPES -- //
+
 export interface IndicatorByYearNormalizedData {
   indicatorId: number;
   indicatorName: string;
