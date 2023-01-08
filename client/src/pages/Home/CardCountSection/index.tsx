@@ -39,52 +39,43 @@ const CardCountSection: FC<CardCountSectionProps> = (props) => {
       }}
     >
       <Grid container spacing={3}>
+        {/* <Grid item xs={12} md={3}>
+          <CountCard
+            title={'Total Indikator'}
+            value={totalIndicator}
+            Icon={TrackChangesIcon}
+            iconColor={PRIMARY.main}
+            isLoading={isLoading}
+          />
+        </Grid> */}
         <Grid item xs={12} md={6}>
-          <Grid
-            container
-            justifyContent="space-between"
-            gap={3}
-            sx={{ height: '100%' }}
-          >
-            <Grid item xs={12}>
-              <CountCard
-                title={'Total Indikator'}
-                value={totalIndicator}
-                Icon={TrackChangesIcon}
-                iconColor={PRIMARY.main}
-                isLoading={isLoading}
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <CountCard
-                title={'Indikator Memenuhi Target'}
-                value={successIndicator}
-                Icon={DoneAllIcon}
-                iconColor={SUCCESS.main}
-                isLoading={isLoading}
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <CountCard
-                title={'Indikator Belum Memenuhi Target'}
-                value={failedIndicator}
-                Icon={DoNotDisturbIcon}
-                iconColor={ERROR.main}
-                isLoading={isLoading}
-              />
-            </Grid>
-          </Grid>
+          <CountCard
+            title={'Indikator Memenuhi Target'}
+            value={successIndicator}
+            Icon={DoneAllIcon}
+            iconColor={SUCCESS.main}
+            isLoading={isLoading}
+          />
         </Grid>
         <Grid item xs={12} md={6}>
+          <CountCard
+            title={'Indikator Belum Memenuhi Target'}
+            value={failedIndicator}
+            Icon={DoNotDisturbIcon}
+            iconColor={ERROR.main}
+            isLoading={isLoading}
+          />
+        </Grid>
+        {/* <Grid item xs={12} md={3}>
           <SimpleCard isCenter title="Overview Grafik">
             <CustomChart
               type="pie"
               chartOptions={chartOptions}
-              series={[successIndicator, failedIndicator]}
+              series={[70, 60]}
               width={400}
             />
           </SimpleCard>
-        </Grid>
+        </Grid> */}
       </Grid>
     </Box>
   );

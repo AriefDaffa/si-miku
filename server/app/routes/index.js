@@ -5,6 +5,7 @@ const {
   getRoles,
   registerUser,
   getCurrentUser,
+  getUserRole,
 } = require('../controllers/user.controller');
 const {
   loginUser,
@@ -28,6 +29,7 @@ router.get('/users', verifyAccessToken, getUsers);
 router.get('/roles', verifyAccessToken, getRoles);
 router.get('/users/roles/:id', verifyAccessToken, getUserByRole);
 router.get('/current-user', verifyAccessToken, getCurrentUser);
+router.get('/current-user-role', verifyAccessToken, getUserRole);
 router.delete('/logout', logout);
 
 // year routes

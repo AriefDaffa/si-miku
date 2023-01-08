@@ -15,6 +15,7 @@ const SimpleCard: FC<SimpleCardProps> = (props) => {
   const { title, isCenter = false, withHeader = false, children } = props;
   return (
     <Card css={cardContainerCx(isCenter)}>
+      <Typography variant="overline">{title}</Typography>
       {/* {withHeader ? (
         <CardHeader title={title} sx={{ pb: 4 }} />
       ) : (

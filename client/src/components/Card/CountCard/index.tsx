@@ -28,7 +28,7 @@ const CountCard: FC<CountCardProps> = (props) => {
     <Card sx={{ height: '100%' }}>
       <CardContent>
         <Grid container sx={{ justifyContent: 'space-between' }}>
-          <Grid item xs={8} lg={9}>
+          <Grid item>
             <Typography
               color="textSecondary"
               gutterBottom

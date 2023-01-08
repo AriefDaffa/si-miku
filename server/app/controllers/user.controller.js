@@ -76,6 +76,28 @@ const getRoles = async (req, res) => {
   }
 };
 
+const getUserRole = async (req, res) => {
+  try {
+    const cookies = req.cookies.accessToken;
+
+    if (!cookies) {
+      return res.sendStatus(401);
+    }
+
+    jwt.verify(cookies, process.env.ACCESS_TOKEN_SECRET, (err, decodedVal) => {
+      if (err) {
+        return res.sendStatus(403);
+      }
+
+      return res.json({
+        role_id: decodedVal.role_id,
+      });
+    });
+  } catch (error) {
+    res.json(error);
+  }
+};
+
 const getCurrentUser = async (req, res) => {
   try {
     const cookies = req.cookies.accessToken;
@@ -106,4 +128,5 @@ module.exports = {
   getRoles,
   registerUser,
   getCurrentUser,
+  getUserRole,
 };

@@ -45,7 +45,7 @@ export const INFO = {
 
 export const LIGHT = {
   lighter: '#FFFFFF',
-  main: '#F9FAFC',
+  main: '#F3F4F5',
   darker: '#e6e6e6',
 };
 

@@ -1,13 +1,17 @@
 import Chart from 'react-apexcharts';
 import type { FC } from 'react';
 
-import { Grid } from '@mui/material';
+import { Grid, Box, Typography } from '@mui/material';
 
 import SimpleCard from '@/components/Card/SimpleCard';
 import { useChart } from '@/utils/useChart';
+import { ERROR, SUCCESS } from '@/theme/Colors';
 
 const ChartSection: FC = () => {
-  const chartOptions = useChart({});
+  const chartOptions = useChart({
+    colors: [SUCCESS.main, ERROR.main],
+    fill: { type: 'gradient' },
+  });
 
   const charts = {
     options: {
@@ -17,7 +21,7 @@ const ChartSection: FC = () => {
     },
     series: [
       {
-        name: 'Indikator',
+        name: 'Indikator yang memenuhi target',
         data: [
           {
             x: 2009,
@@ -45,6 +49,35 @@ const ChartSection: FC = () => {
           },
         ],
       },
+      {
+        name: 'Indikator yang belum memenuhi target',
+        data: [
+          {
+            x: 2009,
+            y: 10,
+          },
+          {
+            x: 2010,
+            y: 20,
+          },
+          {
+            x: 2011,
+            y: 30,
+          },
+          {
+            x: 2012,
+            y: 50,
+          },
+          {
+            x: 2013,
+            y: 12,
+          },
+          {
+            x: 2014,
+            y: 70,
+          },
+        ],
+      },
     ],
   };
 
@@ -56,22 +89,24 @@ const ChartSection: FC = () => {
   };
 
   return (
-    <Grid container spacing={3} sx={{ mt: 2 }}>
-      <Grid item xs={12}>
-        <SimpleCard title="Grafik Perkembangan Indikator" withHeader>
-          <Chart options={chartOptions} series={charts.series} type="bar" />
-        </SimpleCard>
+    <Box>
+      <Typography variant="h6">Statistik Perkembangan Indikator</Typography>
+      {/* <Typography variant="subtitle2" sx={{ opacity: 0.7, mb: 2 }}>
+        Menampilkan grafik perkembangan seluruh indikator
+      </Typography> */}
+      <Grid container spacing={3} sx={{ pt: 2 }}>
+        <Grid item xs={12}>
+          <SimpleCard>
+            <Chart options={chartOptions} series={charts.series} type="area" />
+          </SimpleCard>
+        </Grid>
+        {/* <Grid item xs={12} md={6}>
+          <SimpleCard title="Indikator yang belum memenuhi target">
+            <Chart options={chartOptions} series={charts.series} type="area" />
+          </SimpleCard>
+        </Grid> */}
       </Grid>
-      {/* <Grid item lg={4} xs={12}>
-        <SimpleCard title="Progress Bar">
-          <Chart
-            options={chartOptions}
-            series={donutChart.series}
-            type="donut"
-          />
-        </SimpleCard>
-      </Grid> */}
-    </Grid>
+    </Box>
   );
 };
 
