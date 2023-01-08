@@ -15,7 +15,7 @@ const Indicator = db.define('indicators', {
 const TargetAndQuarter = db.define(
   'target_quarters',
   {
-    indicator_Value_id: {
+    targer_quarter_id: {
       type: DataTypes.INTEGER,
       primaryKey: true,
       autoIncrement: true,
