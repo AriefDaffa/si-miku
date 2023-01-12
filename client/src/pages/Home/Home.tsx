@@ -30,7 +30,7 @@ const Home: FC = () => {
             </Typography>
             <Typography variant="h2">Overview</Typography>
             <Typography variant="subtitle2" sx={{ mb: 1, opacity: 0.7 }}>
-              Menampilkan Overview indikator
+              Menampilkan Overview indikator semua jurusan
             </Typography>
           </Box>
         </Box>

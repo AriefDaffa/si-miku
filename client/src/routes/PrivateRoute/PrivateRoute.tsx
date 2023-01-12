@@ -2,14 +2,14 @@ import { Navigate, Outlet } from 'react-router-dom';
 import type { FC } from 'react';
 
 import Loader from '@/components/Loader';
-import { useAuthContext } from '@/context/AuthContext';
+import useAuthStatusQuery from '@/repository/query/AuthStatusQuery';
 
 const PrivateRoute: FC = () => {
-  const { isAuthenticated, isLoading } = useAuthContext();
+  const { data, isLoading } = useAuthStatusQuery();
 
   if (isLoading) {
     return <Loader />;
-  } else if (!isAuthenticated) {
+  } else if (!data.isAuthenticated) {
     return <Navigate to="/login" />;
   } else {
     return <Outlet />;

@@ -69,10 +69,25 @@ const getIndicatorsByYear = async (req, res) => {
 
 const createIndicator = async (req, res) => {
   const { indicator_name, indicator_year } = req.body;
+  const cookies = req.cookies.accessToken;
+  let role_id = 0;
 
   try {
+    await jwt.verify(
+      cookies,
+      process.env.ACCESS_TOKEN_SECRET,
+      (err, decodedVal) => {
+        if (err) {
+          return res.sendStatus(403);
+        }
+
+        return (role_id = decodedVal.role_id);
+      }
+    );
+
     const indicator = await model.Indicator.create({
       indicator_name,
+      role_id,
     });
 
     await Promise.all(

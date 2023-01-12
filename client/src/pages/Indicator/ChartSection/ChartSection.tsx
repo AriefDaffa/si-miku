@@ -4,7 +4,7 @@ import type { FC } from 'react';
 
 import Typography from '@mui/material/Typography';
 
-import { useChart } from '@/utils/useChart';
+import useChartStyle from '@/hooks/use-chart-style';
 import { ERROR, PRIMARY, SUCCESS } from '@/theme/Colors';
 import SimpleCard from '@/components/Card/SimpleCard';
 import type { IndicatorByIdResponseNormalized } from '@/repository/query/IndicatorByIdQuery/types';
@@ -17,7 +17,7 @@ interface ChartSectionProps {
 const ChartSection: FC<ChartSectionProps> = (props) => {
   const { indicator, isLoading } = props;
 
-  const options = useChart({
+  const options = useChartStyle({
     plotOptions: {
       bar: {
         borderRadius: 4,

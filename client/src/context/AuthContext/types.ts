@@ -8,7 +8,7 @@ import type { ReactNode, SetStateAction } from 'react';
 
 export interface AuthContextInterface {
   isAuthenticated: boolean;
-  isLoading: boolean;
+  // isLoading: boolean;
   setIsAuthenticated: Dispatch<SetStateAction<boolean>>;
 }
 

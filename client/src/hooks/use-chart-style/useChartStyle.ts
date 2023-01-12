@@ -2,7 +2,7 @@ import merge from 'lodash/merge';
 
 import { useTheme } from '@mui/material/styles';
 
-export const useChart = (options: any) => {
+const useChartStyle = (options: any) => {
   const theme = useTheme();
 
   const LABEL_TOTAL = {
@@ -194,3 +194,5 @@ export const useChart = (options: any) => {
 
   return merge(baseOptions, options);
 };
+
+export default useChartStyle;

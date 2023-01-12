@@ -11,6 +11,7 @@ import DoNotDisturbIcon from '@mui/icons-material/DoNotDisturb';
 import { ERROR, SUCCESS, PRIMARY } from '@/theme/Colors';
 import SimpleCard from '@/components/Card/SimpleCard';
 import CustomChart from '@/components/CustomChart';
+import useChartStyle from '@/hooks/use-chart-style';
 
 interface CardCountSectionProps {
   totalIndicator: number;
@@ -23,12 +24,12 @@ const CardCountSection: FC<CardCountSectionProps> = (props) => {
   const { totalIndicator, successIndicator, failedIndicator, isLoading } =
     props;
 
-  const chartOptions = {
+  const chartOptions = useChartStyle({
     legend: { floating: false, horizontalAlign: 'center', position: 'bottom' },
-    dataLabels: { enabled: true, dropShadow: { enabled: false } },
-    colors: [SUCCESS.dark, ERROR.main],
-    labels: ['Indikator Memenuhi Target', 'Indikator Belum Memenuhi Target'],
-  };
+    dataLabels: { enabled: false, dropShadow: { enabled: false } },
+    colors: [SUCCESS.main],
+    labels: ['Indikator Memenuhi Target'],
+  });
 
   return (
     <Box
@@ -66,6 +67,16 @@ const CardCountSection: FC<CardCountSectionProps> = (props) => {
             isLoading={isLoading}
           />
         </Grid>
+        {/* <Grid item xs={12} md={4}> */}
+        {/* <SimpleCard isCenter>
+            <CustomChart
+              type="radialBar"
+              chartOptions={chartOptions}
+              series={[70]}
+              width={400}
+            />
+          </SimpleCard> */}
+        {/* </Grid> */}
         {/* <Grid item xs={12} md={3}>
           <SimpleCard isCenter title="Overview Grafik">
             <CustomChart

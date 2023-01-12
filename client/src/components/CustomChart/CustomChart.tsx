@@ -4,7 +4,7 @@ import type { ApexOptions } from 'apexcharts';
 
 import type { FC } from 'react';
 
-import { useChart } from '@/utils/useChart';
+import useChartStyle from '@/hooks/use-chart-style';
 
 interface CustomChartProps {
   chartOptions: object;
@@ -32,7 +32,7 @@ interface CustomChartProps {
 const CustomChart: FC<CustomChartProps> = (props) => {
   const { chartOptions, series, type, width } = props;
 
-  const options = useChart(chartOptions);
+  const options = useChartStyle(chartOptions);
 
   return <Chart options={options} series={series} type={type} width={width} />;
 };

@@ -4,7 +4,7 @@ import type { FC } from 'react';
 
 import { Grid, Typography } from '@mui/material';
 
-import { useChart } from '@/utils/useChart';
+import useChartStyle from '@/hooks/use-chart-style';
 import { ERROR, PRIMARY, SUCCESS } from '@/theme/Colors';
 import SimpleCard from '@/components/Card/SimpleCard';
 import type { IndicatorByYearNormalized } from '@/repository/query/IndicatorByYearQuery/types';
@@ -16,13 +16,13 @@ interface ChartSectionProps {
 const ChartSection: FC<ChartSectionProps> = (props) => {
   const { indicatorData } = props;
 
-  //   const pieOptions = useChart({
+  //   const pieOptions = useChartStyle({
   //     legend: { floating: false, horizontalAlign: 'center', position: 'bottom' },
   //     colors: [SUCCESS.dark, ERROR.main],
   //     labels: ['Indikator Memenuhi Target', 'Indikator Belum Memenuhi Target'],
   //   });
 
-  const options = useChart({
+  const options = useChartStyle({
     plotOptions: {
       bar: {
         borderRadius: 4,

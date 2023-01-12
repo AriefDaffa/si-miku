@@ -1,5 +1,8 @@
 import type { FC, ReactNode } from 'react';
 
+import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment';
+import { LocalizationProvider } from '@mui/x-date-pickers';
+
 import { AuthContextProvider } from './AuthContext';
 import { CustomThemeProvider } from './CustomThemeContext';
 import ReactQueryProvider from './ReactQueryContext';
@@ -13,9 +16,11 @@ const RootProvider: FC<RootProviderProps> = (props) => {
 
   return (
     <ReactQueryProvider>
-      <AuthContextProvider>
-        <CustomThemeProvider>{children}</CustomThemeProvider>
-      </AuthContextProvider>
+      <LocalizationProvider dateAdapter={AdapterMoment}>
+        <AuthContextProvider>
+          <CustomThemeProvider>{children}</CustomThemeProvider>
+        </AuthContextProvider>
+      </LocalizationProvider>
     </ReactQueryProvider>
   );
 };
