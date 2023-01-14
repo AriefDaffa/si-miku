@@ -2,9 +2,8 @@ import { Helmet } from 'react-helmet';
 import type { FC } from 'react';
 
 import Container from '@mui/material/Container';
-import Grid from '@mui/material/Grid';
 
-import { MainHeader, SubHeader } from '@/components/Typography';
+import { MainHeader } from '@/components/Typography';
 
 import FormSection from './FormSection';
 import ToolbarSection from './ToolbarSection';

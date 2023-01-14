@@ -1,8 +1,9 @@
 import type { FC } from 'react';
 import { Helmet } from 'react-helmet';
 
-import { Container, Typography, Box } from '@mui/material';
+import { Container } from '@mui/material';
 
+import { MainHeader } from '@/components/Typography';
 import useIndicatorCountQuery from '@/repository/query/IndicatorCountQuery';
 
 import CardCountSection from './CardCountSection';
@@ -17,24 +18,10 @@ const Home: FC = () => {
         <title>Dashboard | SI-Miku</title>
       </Helmet>
       <Container maxWidth="xl">
-        <Box
-          sx={{
-            display: 'flex',
-            justifyContent: 'space-between',
-            alignItems: 'middle',
-          }}
-        >
-          <Box>
-            <Typography variant="subtitle2" sx={{ opacity: 0.7 }}>
-              Dashboard
-            </Typography>
-            <Typography variant="h2">Overview</Typography>
-            <Typography variant="subtitle2" sx={{ mb: 1, opacity: 0.7 }}>
-              Menampilkan Overview indikator semua jurusan
-            </Typography>
-          </Box>
-        </Box>
-
+        <MainHeader
+          title="Overview"
+          subTitle="Menampilkan Overview indikator semua jurusan"
+        />
         <CardCountSection
           totalIndicator={data.total}
           failedIndicator={data.failed}

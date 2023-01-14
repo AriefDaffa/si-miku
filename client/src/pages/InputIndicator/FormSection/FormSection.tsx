@@ -1,24 +1,24 @@
-import { useForm, Controller, useFieldArray } from 'react-hook-form';
+import { useForm, useFieldArray } from 'react-hook-form';
+
 import moment from 'moment';
 import type { FC } from 'react';
 
-import TextField from '@mui/material/TextField';
-import Grid from '@mui/material/Grid';
 import Button from '@mui/material/Button';
-import Divider from '@mui/material/Divider';
-import Typography from '@mui/material/Typography';
-import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 
 import SimpleCard from '@/components/Card/SimpleCard';
+import CustomGrid from '@/components/CustomGrid';
+import Divider from '@mui/material/Divider';
+
+import { SelectInput, TextInput } from '@/components/Input';
 
 import DynamicInput from './DynamicInput';
+import IndicatorCodeInput from './IndicatorCodeInput';
 import type { FormValues } from './types';
-import Flexer from '@/components/Flexer';
-import CustomGrid from '@/components/CustomGrid';
 
 const FormSection: FC = () => {
   const { control, handleSubmit } = useForm<FormValues>({
     defaultValues: {
+      indicatorCode: '',
       indicatorName: '',
       jurusan: '',
       indicatorValue: [
@@ -41,53 +41,72 @@ const FormSection: FC = () => {
 
   const onSubmit = (data: any) => console.log(data);
 
+  const addYearSection = () => {
+    append({
+      q1: 0,
+      q2: 0,
+      q3: 0,
+      q4: 0,
+      target: 0,
+      year: moment().year(),
+    });
+  };
+
   return (
     <SimpleCard>
       <form onSubmit={handleSubmit(onSubmit)}>
         <CustomGrid
-          sm={[6]}
+          sm={[6, 6, 6]}
           gridItem={[
-            <Flexer>
-              <Typography color="textSecondary" gutterBottom variant="overline">
-                Nama Indikator
-              </Typography>
-              <Controller
-                name="indicatorName"
-                control={control}
-                render={({ field }) => <TextField {...field} />}
-              />
-            </Flexer>,
-            fields.map((field, index) => (
-              <DynamicInput
-                key={field.id}
-                control={control}
-                index={index}
-                remove={remove}
-              />
-            )),
-            <Button
-              color="primary"
-              size="large"
-              variant="outlined"
-              fullWidth
-              onClick={() =>
-                append({
-                  q1: 0,
-                  q2: 0,
-                  q3: 0,
-                  q4: 0,
-                  target: 0,
-                  year: moment().year(),
-                })
-              }
-            >
-              Tambah Input Tahun
-            </Button>,
+            <IndicatorCodeInput control={control} />,
+            <SelectInput
+              control={control}
+              label="Jurusan"
+              name=""
+              defaultValue="1"
+              menuItem={[
+                { itemTitle: 'Teknik Informatika', itemValue: '1' },
+                { itemTitle: 'Teknik Komputer', itemValue: '2' },
+                { itemTitle: 'Sistem Informasi', itemValue: '3' },
+                { itemTitle: 'Teknologi Informasi', itemValue: '4' },
+                { itemTitle: 'Pendidikan Teknologi Informasi', itemValue: '5' },
+                { itemTitle: 'Magister Ilmu Komputer', itemValue: '6' },
+              ]}
+            />,
+            <TextInput
+              control={control}
+              label="Nama Indikator"
+              name="indicatorName"
+              type="text"
+            />,
+            <CustomGrid
+              gridItem={[
+                fields.map((field, index) => (
+                  <DynamicInput
+                    key={field.id}
+                    control={control}
+                    index={index}
+                    remove={remove}
+                  />
+                )),
+                <Button
+                  color="primary"
+                  size="large"
+                  variant="outlined"
+                  fullWidth
+                  onClick={addYearSection}
+                >
+                  Tambah Input Tahun
+                </Button>,
+              ]}
+            />,
+            <Divider />,
             <Button
               color="primary"
               size="large"
               type="submit"
               variant="contained"
+              sx={{ float: 'right' }}
             >
               Submit
             </Button>,

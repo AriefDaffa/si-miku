@@ -1,20 +1,17 @@
-import { Controller } from 'react-hook-form';
 import type { Control, UseFieldArrayRemove } from 'react-hook-form';
 import type { FC } from 'react';
 
-import { DatePicker } from '@mui/x-date-pickers/DatePicker';
-import Typography from '@mui/material/Typography';
-import TextField from '@mui/material/TextField';
 import Flexer from '@/components/Flexer';
 import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
 import Box from '@mui/material/Box';
-import DeleteIcon from '@mui/icons-material/Delete';
+import CloseIcon from '@mui/icons-material/Close';
 
 import { SubHeader } from '@/components/Typography';
 import CustomGrid from '@/components/CustomGrid';
 
 import { FormValues } from '../types';
+import { DatePickerInput, TextInput } from '@/components/Input';
 
 interface DynamicInputProps {
   index: number;
@@ -25,113 +22,74 @@ interface DynamicInputProps {
 const DynamicInput: FC<DynamicInputProps> = (props) => {
   const { index, control, remove } = props;
 
+  const removeSection = () => {
+    remove(index);
+  };
+
   return (
     <Box sx={{ pb: 4 }}>
       <CustomGrid
         sm={[12, 12, 6, 6]}
         gridItem={[
           <Divider />,
-          <Flexer flexDirection="row" alignItems="center">
+          <Flexer
+            flexDirection="row"
+            alignItems="center"
+            justifyContent="space-between"
+          >
             <SubHeader text={`Data Indikator ${index + 1}`} />
             {index !== 0 && (
               <IconButton
-                onClick={() => remove(index)}
+                onClick={removeSection}
                 sx={{
                   padding: 0,
                   width: 44,
                   height: 44,
                 }}
               >
-                <DeleteIcon />
+                <CloseIcon />
               </IconButton>
             )}
           </Flexer>,
-          <Flexer>
-            <Typography color="textSecondary" gutterBottom variant="overline">
-              Tahun
-            </Typography>
-            <Controller
-              name={`indicatorValue.${index}.year`}
-              control={control}
-              render={({ field }) => (
-                <DatePicker
-                  views={['year']}
-                  openTo="year"
-                  renderInput={(params) => <TextField {...params} />}
-                  {...field}
-                />
-              )}
-            />
-          </Flexer>,
-          <Flexer>
-            <Typography color="textSecondary" gutterBottom variant="overline">
-              Target Indikator
-            </Typography>
-            <Controller
-              name={`indicatorValue.${index}.target`}
-              control={control}
-              render={({ field }) => <TextField {...field} />}
-            />
-          </Flexer>,
+          <DatePickerInput
+            control={control}
+            label="Tahun"
+            name={`indicatorValue.${index}.year`}
+            isYearOnly
+          />,
+          <TextInput
+            control={control}
+            label="Target Indikator"
+            name={`indicatorValue.${index}.target`}
+            type="number"
+          />,
           <CustomGrid
             sm={[3, 3, 3, 3]}
             gridItem={[
-              <Flexer>
-                <Typography
-                  color="textSecondary"
-                  gutterBottom
-                  variant="overline"
-                >
-                  Kuarter 1
-                </Typography>
-                <Controller
-                  name={`indicatorValue.${index}.q1`}
-                  control={control}
-                  render={({ field }) => <TextField fullWidth {...field} />}
-                />
-              </Flexer>,
-              <Flexer>
-                <Typography
-                  color="textSecondary"
-                  gutterBottom
-                  variant="overline"
-                >
-                  Kuarter 2
-                </Typography>
-                <Controller
-                  name={`indicatorValue.${index}.q2`}
-                  control={control}
-                  render={({ field }) => <TextField fullWidth {...field} />}
-                />
-              </Flexer>,
-              <Flexer>
-                <Typography
-                  color="textSecondary"
-                  gutterBottom
-                  variant="overline"
-                >
-                  Kuarter 3
-                </Typography>
-                <Controller
-                  name={`indicatorValue.${index}.q3`}
-                  control={control}
-                  render={({ field }) => <TextField fullWidth {...field} />}
-                />
-              </Flexer>,
-              <Flexer>
-                <Typography
-                  color="textSecondary"
-                  gutterBottom
-                  variant="overline"
-                >
-                  Kuarter 4
-                </Typography>
-                <Controller
-                  name={`indicatorValue.${index}.q4`}
-                  control={control}
-                  render={({ field }) => <TextField fullWidth {...field} />}
-                />
-              </Flexer>,
+              <TextInput
+                control={control}
+                label="Kuarter 1"
+                name={`indicatorValue.${index}.q1`}
+                type="number"
+              />,
+              <TextInput
+                control={control}
+                label="Kuarter 2"
+                name={`indicatorValue.${index}.q2`}
+                type="number"
+              />,
+              <TextInput
+                control={control}
+                label="Kuarter 3"
+                name={`indicatorValue.${index}.q3`}
+                type="number"
+              />,
+              <TextInput
+                control={control}
+                label="Kuarter 4"
+                name={`indicatorValue.${index}.q4`}
+                type="number"
+              />,
             ]}
           />,
         ]}

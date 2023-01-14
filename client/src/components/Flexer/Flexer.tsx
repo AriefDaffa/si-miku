@@ -7,6 +7,7 @@ interface FlexerProps {
   flexDirection?: string;
   width?: string;
   alignItems?: string;
+  justifyContent?: string;
 }
 
 const Flexer: FC<FlexerProps> = (props) => {
@@ -15,10 +16,13 @@ const Flexer: FC<FlexerProps> = (props) => {
     flexDirection = 'column',
     width = '100%',
     alignItems = 'none',
+    justifyContent = 'flex-start',
   } = props;
 
   return (
-    <Box sx={{ display: 'flex', flexDirection, width, alignItems }}>
+    <Box
+      sx={{ display: 'flex', flexDirection, width, alignItems, justifyContent }}
+    >
       {children}
     </Box>
   );
