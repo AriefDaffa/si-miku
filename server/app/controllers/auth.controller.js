@@ -26,7 +26,7 @@ const loginUser = async (req, res) => {
       {
         username: user.user_name,
         email: user.user_email,
-        role_id: user.role_id,
+        user_id: user.user_id,
       },
       process.env.ACCESS_TOKEN_SECRET,
       { expiresIn: '4h' }
@@ -48,10 +48,7 @@ const loginUser = async (req, res) => {
       maxAge: 4 * 60 * 60 * 1000,
     });
 
-    res.json({
-      username: user.user_name,
-      email: user.user_email,
-    });
+    res.json({ message: 'Login Berhasil!' });
   } catch (error) {
     res.json(error);
   }

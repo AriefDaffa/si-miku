@@ -19,10 +19,13 @@ const {
   getTotalIndicator,
   createIndicator,
   getYear,
+  getIndicatorByMajorId,
+  deleteIndicatorById,
 } = require('../controllers/indicator.controller');
 const { verifyAccessToken } = require('../middleware/verifyToken.js');
 
 const router = express.Router();
+// @TODO split the router
 
 // user routes
 router.get('/users', verifyAccessToken, getUsers);
@@ -40,7 +43,9 @@ router.get('/indicator', verifyAccessToken, getAllIndicators);
 router.get('/indicator/count', verifyAccessToken, getTotalIndicator);
 router.get('/indicator/:id', verifyAccessToken, getIndicatorById);
 router.get('/indicator/year/:id', verifyAccessToken, getIndicatorsByYear);
+router.get('/indicator/major/:id', verifyAccessToken, getIndicatorByMajorId);
 router.post('/indicator', verifyAccessToken, createIndicator);
+router.delete('/indicator', verifyAccessToken, deleteIndicatorById);
 
 // user routes
 router.post('/users', registerUser);

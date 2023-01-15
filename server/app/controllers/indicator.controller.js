@@ -1,16 +1,23 @@
+const jwt = require('jsonwebtoken');
 const { Sequelize, QueryTypes } = require('sequelize');
 const model = require('../models');
 
 const getAllIndicators = async (req, res) => {
   try {
     const indicator = await model.Indicator.findAll({
-      // include: {
-      //   model: model.Year,
-      //   attributes: ['year_id'],
-      //   through: {
-      //     attributes: ['target', 'q1', 'q2', 'q3', 'q4'],
-      //   },
-      // },
+      attributes: ['indicator_id', 'indicator_name', 'created_by'],
+      include: [
+        {
+          model: model.Year,
+          attributes: ['year_id'],
+          through: {
+            attributes: ['target', 'q1', 'q2', 'q3', 'q4'],
+          },
+        },
+        {
+          model: model.Jurusan,
+        },
+      ],
     });
 
     res.json(indicator);
@@ -63,73 +70,87 @@ const getIndicatorsByYear = async (req, res) => {
 
     res.json(year);
   } catch (error) {
-    console.log(error);
+    res.json(error);
+  }
+};
+
+const getIndicatorByMajorId = async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const indicator = await model.Indicator.findOne({
+      where: {
+        major_id: id,
+      },
+      include: {
+        model: model.Indicator,
+      },
+    });
+
+    res.json(indicator);
+  } catch (error) {
+    res.json(error);
   }
 };
 
 const createIndicator = async (req, res) => {
-  const { indicator_name, indicator_year } = req.body;
+  const { indicator_name, indicator_id, indicator_year, major_id } = req.body;
   const cookies = req.cookies.accessToken;
-  let role_id = 0;
 
   try {
-    await jwt.verify(
+    jwt.verify(
       cookies,
       process.env.ACCESS_TOKEN_SECRET,
-      (err, decodedVal) => {
+      async (err, decodedVal) => {
         if (err) {
           return res.sendStatus(403);
         }
 
-        return (role_id = decodedVal.role_id);
+        // create indicator
+        const indicator = await model.Indicator.create({
+          indicator_id,
+          indicator_name,
+          created_by: decodedVal.user_id,
+        });
+
+        // Assign indicator to join table
+        await model.IndicatorMajor.create({
+          major_id,
+          indicator_id: indicator.indicator_id,
+        });
+
+        // Assign data to year
+        await Promise.all(
+          indicator_year.map(async (data) => {
+            // check if the inputted year is already existed in the table
+            const findYear = await model.Year.findOne({
+              where: {
+                year_id: data.year_id,
+              },
+            });
+
+            // if there is no year, create new value
+            if (!findYear) {
+              await model.Year.create({
+                year_id: data.year_id,
+              });
+            }
+
+            await model.TargetAndQuarter.create({
+              indicator_id: indicator.indicator_id,
+              year_id: data.year_id,
+              target: data.target,
+              q1: data.q1,
+              q2: data.q2,
+              q3: data.q3,
+              q4: data.q4,
+            });
+          })
+        );
+
+        res.json({ message: 'Indicator berhasil dibuat!' });
       }
     );
-
-    const indicator = await model.Indicator.create({
-      indicator_name,
-      role_id,
-    });
-
-    await Promise.all(
-      indicator_year.map(async (data) => {
-        // check if the inputted year is already existed in the table
-        const findYear = await model.Year.findOne({
-          where: {
-            year_id: data.year_id,
-          },
-        });
-
-        // if there is no year, create new value
-        if (!findYear) {
-          await model.Year.create({
-            year_id: data.year_id,
-          });
-        }
-
-        await model.TargetAndQuarter.create({
-          indicator_id: indicator.indicator_id,
-          year_id: data.year_id,
-          target: data.target,
-          q1: data.q1,
-          q2: data.q2,
-          q3: data.q3,
-          q4: data.q4,
-        });
-
-        return findYear;
-      })
-    );
-
-    const createdData = await model.Indicator.findOne({
-      where: {
-        indicator_id: indicator.indicator_id,
-      },
-      include: {
-        model: model.Year,
-      },
-    });
-
-    res.json(createdData);
   } catch (error) {
     res.json(error);
   }
@@ -157,6 +178,26 @@ const getTotalIndicator = async (req, res) => {
   }
 };
 
+const deleteIndicatorById = async (req, res) => {
+  try {
+    const { indicator_id } = req.body;
+
+    const remove = await model.Indicator.destroy({
+      where: {
+        indicator_id,
+      },
+    });
+
+    if (remove === 1) {
+      res.json({ message: 'Indikator berhasil dihapus' });
+    } else {
+      res.json({ message: 'Delete Error!' });
+    }
+  } catch (error) {
+    res.json(error);
+  }
+};
+
 const getYear = async (req, res) => {
   try {
     const year = await model.Year.findAll({
@@ -174,6 +215,8 @@ module.exports = {
   getAllIndicators,
   getIndicatorById,
   getIndicatorsByYear,
-  createIndicator,
+  getIndicatorByMajorId,
   getYear,
+  deleteIndicatorById,
+  createIndicator,
 };

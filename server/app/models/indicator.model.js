@@ -3,9 +3,8 @@ const db = require('../config/db.config.js');
 
 const Indicator = db.define('indicators', {
   indicator_id: {
-    type: DataTypes.INTEGER,
+    type: DataTypes.STRING,
     primaryKey: true,
-    autoIncrement: true,
   },
   indicator_name: {
     type: DataTypes.STRING,
@@ -15,7 +14,7 @@ const Indicator = db.define('indicators', {
 const TargetAndQuarter = db.define(
   'target_quarters',
   {
-    targer_quarter_id: {
+    target_quarter_id: {
       type: DataTypes.INTEGER,
       primaryKey: true,
       autoIncrement: true,
@@ -39,6 +38,18 @@ const TargetAndQuarter = db.define(
   { timestamps: false }
 );
 
+const IndicatorMajor = db.define(
+  'indicator_majors',
+  {
+    indicator_major_id: {
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+      autoIncrement: true,
+    },
+  },
+  { timestamps: false }
+);
+
 const Year = db.define('years', {
   year_id: {
     type: DataTypes.INTEGER,
@@ -46,4 +57,4 @@ const Year = db.define('years', {
   },
 });
 
-module.exports = { Indicator, TargetAndQuarter, Year };
+module.exports = { Indicator, TargetAndQuarter, Year, IndicatorMajor };
