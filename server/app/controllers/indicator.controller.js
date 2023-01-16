@@ -78,7 +78,7 @@ const getIndicatorByMajorId = async (req, res) => {
   const { id } = req.params;
 
   try {
-    const indicator = await model.Indicator.findOne({
+    const indicator = await model.Jurusan.findOne({
       where: {
         major_id: id,
       },
@@ -104,6 +104,21 @@ const createIndicator = async (req, res) => {
       async (err, decodedVal) => {
         if (err) {
           return res.sendStatus(403);
+        }
+
+        //check duplicate indicator_id
+        const indicatorId = await model.Indicator.findAll({
+          where: {
+            indicator_id,
+          },
+        });
+
+        if (indicatorId) {
+          return res
+            .status(400)
+            .json({
+              message: 'Error! id indicator sudah terdapat pada sistem',
+            });
         }
 
         // create indicator
@@ -148,7 +163,7 @@ const createIndicator = async (req, res) => {
           })
         );
 
-        res.json({ message: 'Indicator berhasil dibuat!' });
+        res.json({ message: indicatorId });
       }
     );
   } catch (error) {

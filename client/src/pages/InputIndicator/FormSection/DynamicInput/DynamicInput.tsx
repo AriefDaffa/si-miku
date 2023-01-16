@@ -37,7 +37,7 @@ const DynamicInput: FC<DynamicInputProps> = (props) => {
             alignItems="center"
             justifyContent="space-between"
           >
-            <SubHeader text={`Data Indikator ${index + 1}`} />
+            <SubHeader text={`Data Indikator berdasarkan tahun ${index + 1}`} />
             {index !== 0 && (
               <IconButton
                 onClick={removeSection}

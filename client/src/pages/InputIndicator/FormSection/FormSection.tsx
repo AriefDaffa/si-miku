@@ -10,6 +10,8 @@ import CustomGrid from '@/components/CustomGrid';
 import Divider from '@mui/material/Divider';
 
 import { SelectInput, TextInput } from '@/components/Input';
+import { SubHeader } from '@/components/Typography';
+import useInputIndicatorMutation from '@/repository/mutation/InputIndicatorMutation';
 
 import DynamicInput from './DynamicInput';
 import IndicatorCodeInput from './IndicatorCodeInput';
@@ -34,12 +36,25 @@ const FormSection: FC = () => {
     },
   });
 
+  const { mutate, isLoading } = useInputIndicatorMutation();
+
   const { fields, append, remove } = useFieldArray({
     control,
     name: 'indicatorValue',
   });
 
-  const onSubmit = (data: any) => console.log(data);
+  const onSubmit = (data: FormValues) => {
+    const { indicatorCode, indicatorName, indicatorValue, jurusan } = data;
+
+    mutate({
+      indicator_id: indicatorCode,
+      indicator_name: indicatorName,
+      major_id: Number(jurusan),
+      indicator_year: indicatorValue.map(({ year, ...rest }) => {
+        return { ...rest, year_id: year };
+      }),
+    });
+  };
 
   const addYearSection = () => {
     append({
@@ -56,13 +71,14 @@ const FormSection: FC = () => {
     <SimpleCard>
       <form onSubmit={handleSubmit(onSubmit)}>
         <CustomGrid
-          sm={[6, 6, 6]}
+          sm={[12, 6, 6, 6]}
           gridItem={[
+            <SubHeader text="Form input indikator" />,
             <IndicatorCodeInput control={control} />,
             <SelectInput
               control={control}
               label="Jurusan"
-              name=""
+              name="jurusan"
               defaultValue="1"
               menuItem={[
                 { itemTitle: 'Teknik Informatika', itemValue: '1' },
@@ -106,9 +122,10 @@ const FormSection: FC = () => {
               size="large"
               type="submit"
               variant="contained"
+              disabled={isLoading}
               sx={{ float: 'right' }}
             >
-              Submit
+              {isLoading ? 'Loading...' : 'Submit'}
             </Button>,
           ]}
         />

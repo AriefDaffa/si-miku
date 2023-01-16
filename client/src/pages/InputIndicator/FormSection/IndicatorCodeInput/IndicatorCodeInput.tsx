@@ -30,7 +30,7 @@ const IndicatorCodeInput: FC<IndicatorCodeInputProps> = (props) => {
               customInput={TextField}
               format="%.%.%"
               patternChar="%"
-              onValueChange={(value) => onChange(value.floatValue)}
+              onValueChange={(value) => onChange(value.formattedValue)}
               name={name}
               value={value}
               inputRef={ref}

@@ -1,12 +1,17 @@
 import { Helmet } from 'react-helmet';
 import { useNavigate } from 'react-router-dom';
-import { useForm, Controller } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import type { FC } from 'react';
 
-import { Box, Button, Container, TextField, Typography } from '@mui/material';
+import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
+import Container from '@mui/material/Container';
+import Typography from '@mui/material/Typography';
 
 import { useAuthContext } from '@/context/AuthContext';
 import { useLoginMutation } from '@/repository/mutation/LoginMutation';
+import { TextInput } from '@/components/Input';
+import CustomGrid from '@/components/CustomGrid';
 
 import type { LoginData } from './types';
 
@@ -48,7 +53,7 @@ const Login: FC = () => {
       >
         <Container maxWidth="sm">
           <form onSubmit={handleSubmit(onSubmit)}>
-            <Box sx={{ my: 1 }}>
+            <Box sx={{ my: 2 }}>
               <Typography color="textPrimary" variant="h4">
                 Sign in
               </Typography>
@@ -56,38 +61,23 @@ const Login: FC = () => {
                 Sign in to access the dashboard
               </Typography>
             </Box>
-            <Controller
-              name="user_email"
-              control={control}
-              render={({ field }) => (
-                <TextField
-                  {...field}
-                  fullWidth
+            <CustomGrid
+              gridItem={[
+                <TextInput
+                  control={control}
                   label="Email Address"
-                  margin="normal"
-                  name="email"
-                  type="email"
-                  variant="outlined"
-                />
-              )}
-            />
-            <Controller
-              name="password"
-              control={control}
-              render={({ field }) => (
-                <TextField
-                  {...field}
-                  fullWidth
+                  name="user_email"
+                  type="text"
+                />,
+                <TextInput
+                  control={control}
                   label="Password"
-                  margin="normal"
                   name="password"
                   type="password"
-                  variant="outlined"
-                  autoComplete="on"
-                />
-              )}
+                />,
+              ]}
             />
-            <Box sx={{ py: 2 }}>
+            <Box sx={{ py: 3 }}>
               <Button
                 color="primary"
                 disabled={isLoading}

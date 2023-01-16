@@ -1,6 +1,6 @@
 import { css } from '@emotion/react';
 
-export const loaderContainerCx = (isDarkTheme: boolean) => css`
+export const SplashScreenContainerCx = (isDarkTheme: boolean) => css`
   display: flex;
   min-height: 100%;
   overflow: hidden;

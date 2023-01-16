@@ -4,13 +4,13 @@ import { useCustomTheme } from '@/context/CustomThemeContext';
 import logoLight from '@/assets/logo-gifs/logo-light.gif';
 import logoDark from '@/assets/logo-gifs/logo-dark.gif';
 
-import { loaderContainerCx } from './styles';
+import { SplashScreenContainerCx } from './styles';
 
-const Loader: FC = () => {
+const SplashScreen: FC = () => {
   const { isDarkTheme } = useCustomTheme();
 
   return (
-    <div css={loaderContainerCx(isDarkTheme)}>
+    <div css={SplashScreenContainerCx(isDarkTheme)}>
       {isDarkTheme ? (
         <img src={logoDark} alt="" />
       ) : (
@@ -20,4 +20,4 @@ const Loader: FC = () => {
   );
 };
 
-export default Loader;
+export default SplashScreen;
