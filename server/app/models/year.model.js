@@ -1,18 +1,20 @@
 const { DataTypes } = require('sequelize');
 const db = require('../config/db.config.js');
 
-const Role = db.define(
-  'roles',
+const Year = db.define(
+  'years',
   {
-    role_id: {
+    year_id: {
       type: DataTypes.INTEGER,
       primaryKey: true,
+      autoIncrement: true,
     },
-    role_name: {
-      type: DataTypes.STRING,
+    year_value: {
+      type: DataTypes.INTEGER,
+      unique: true,
     },
   },
   { timestamps: false }
 );
 
-module.exports = { Role };
+module.exports = { Year };

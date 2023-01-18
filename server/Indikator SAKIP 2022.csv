@@ -1,0 +1,69 @@
+No,Kode Indikator,Nama Indikator,Jurusan,Tahun,Q1,Q2,Q3,Q4,Target,Jurusan,Tahun,Q1,Q2,Q3,Q4,Target
+1,1.1.1,Lulusan Bekerja kurang dari 6 bulan,Teknik Komputer,2001,27,27,36,63,92,Teknik Komputer,2002,35,37,58,99,344
+2,1.1.2,Lulusan Berwirausaha kurang dari 6 bulan,Teknik Komputer,2001,52,64,22,52,360,Teknik Komputer,2002,24,76,68,92,242
+3,1.1.3,Lulusan melanjutkan studi kurang dari 12 bulan,Teknologi Informasi,2001,26,13,31,69,70,Pendidikan Teknologi Informasi,2002,26,29,70,72,422
+4,1.2,Lulusan Bersertifikasi Kompetensi dan atau Profesi,Teknologi Informasi,2001,33,66,80,35,165,Teknologi Informasi,2002,61,38,99,43,81
+5,2.1.1,Mahasiswa Magang Bersertifikat,Sistem Informasi,2001,2,52,29,67,210,Teknik Komputer,2002,93,57,99,87,111
+6,2.1.2,Mahasiswa Proyek di Desa,Teknik Informatika,2001,12,61,64,80,180,Pendidikan Teknologi Informasi,2002,12,64,86,8,296
+7,2.1.3,Mahasiswa Pertukaran Pelajar,Pendidikan Teknologi Informasi,2001,92,21,58,94,497,Teknik Informatika,2002,78,38,4,40,383
+8,2.1.4,Mahasiswa Penelitian,Teknologi Informasi,2001,73,50,70,31,319,Sistem Informasi,2002,61,89,53,62,283
+9,2.1.5,Mahasiswa Wirausaha,Teknik Informatika,2001,15,15,23,87,274,Sistem Informasi,2002,72,16,55,18,249
+10,2.1.6,Mahasiswa Studi Independen,Sistem Informasi,2001,51,64,7,32,315,Sistem Informasi,2002,62,1,85,23,147
+11,2.1.7,Mahasiswa Proyek Kemanusiaan,Pendidikan Teknologi Informasi,2001,77,47,87,27,99,Magister Ilmu Komputer,2002,5,10,29,33,225
+12,2.1.8,Mahasiswa Mengajar di Sekolah,Teknologi Informasi,2001,70,23,28,43,211,Sistem Informasi,2002,95,16,76,11,7
+13,2.2,Jumlah Mahasiswa Berprestasi,Teknik Informatika,2001,29,20,54,53,97,Teknik Informatika,2002,52,8,4,16,203
+14,2.3,Jumlah Mahasiswa Inbound,Pendidikan Teknologi Informasi,2001,38,77,45,73,454,Sistem Informasi,2002,5,9,86,51,165
+15,2.4,Jumlah Mahasiswa Outbound,Teknik Komputer,2001,86,97,28,54,331,Teknik Komputer,2002,45,90,98,50,144
+16,3.1,Jumlah Dosen Bekerja di Luar Kampus,Teknologi Informasi,2001,84,71,36,80,35,Teknik Informatika,2002,21,20,91,62,94
+17,3.2,Jumlah Dosen Pembimbing Mahasiswa Berprestasi,Teknologi Informasi,2001,14,95,86,26,418,Magister Ilmu Komputer,2002,89,71,62,64,206
+18,4.1,Jumlah Dosen yang memiliki Sertifikasi dan Kompetensi,Teknik Komputer,2001,29,73,70,51,394,Sistem Informasi,2002,95,88,95,8,184
+19,4.2,Jumlah Dosen yang mengikuti Kegiatan Konfrensi Internasional,Teknik Informatika,2001,89,47,96,26,39,Teknologi Informasi,2002,56,85,64,70,365
+20,4.3,Jumlah Dosen berkualifikasi Doktor,Teknik Informatika,2001,65,61,27,29,281,Magister Ilmu Komputer,2002,2,18,99,83,491
+21,4.4,Jumlah Dosen dengan Jabatan Lektor Kepala,Teknik Informatika,2001,15,44,37,67,49,Pendidikan Teknologi Informasi,2002,85,98,94,50,262
+22,4.5,Jumlah Dosen dengan Jabatan Guru Besar,Teknik Informatika,2001,82,83,1,98,283,Magister Ilmu Komputer,2002,85,43,71,77,434
+23,4.6,Jumlah Praktisi Mengajar di Dalam Kampus,Magister Ilmu Komputer,2001,78,79,57,95,202,Magister Ilmu Komputer,2002,56,18,50,51,309
+24,5.1,Jumlah Publikasi Terindeks Nasional,Magister Ilmu Komputer,2001,9,11,74,19,27,Teknik Komputer,2002,33,66,15,1,301
+25,5.1,Jumlah Inovasi,Sistem Informasi,2001,92,8,41,65,17,Pendidikan Teknologi Informasi,2002,53,53,9,68,34
+26,5.11,Jumlah Pusat Unggulan IPTEK,Teknik Komputer,2001,98,87,96,9,50,Sistem Informasi,2002,2,92,43,13,290
+27,5.12,Jumlah Jurnal Bereputasi Terindeks Nasional,Teknik Informatika,2001,70,34,7,15,70,Teknik Komputer,2002,81,21,0,87,49
+28,5.13,Jumlah Jurnal Bereputasi Terindeks Global,Teknologi Informasi,2001,33,29,99,91,107,Sistem Informasi,2002,98,52,51,18,351
+29,5.14,Jumlah Penelitian yang didanai Internal Unit,Teknik Informatika,2001,68,58,72,17,311,Teknik Informatika,2002,71,75,88,26,174
+30,5.15,Jumlah Pengabdian Masyarakat yang didanai Internal Unit,Teknologi Informasi,2001,36,47,27,29,463,Pendidikan Teknologi Informasi,2002,85,41,8,15,426
+31,5.16,Jumlah Penelitian yang didanai PT,Pendidikan Teknologi Informasi,2001,67,24,55,69,34,Teknik Informatika,2002,52,87,9,32,240
+32,5.17,Jumlah Pengabdian Masyarakat yang didanai PT,Teknik Informatika,2001,99,57,57,66,316,Sistem Informasi,2002,87,71,74,91,109
+33,5.18,Jumlah Penelitian yang didanai pihak diluar PT,Sistem Informasi,2001,67,52,16,85,161,Sistem Informasi,2002,32,66,84,80,102
+34,5.19,Jumlah Pengabdian Masyarakat yang didanai pihak diluar PT,Sistem Informasi,2001,91,58,92,78,465,Sistem Informasi,2002,45,12,1,46,427
+35,5.2,Jumlah Publikasi Terindeks Internasional,Magister Ilmu Komputer,2001,35,70,80,70,126,Pendidikan Teknologi Informasi,2002,5,89,74,49,148
+36,5.3,Jumlah Publikasi Profesor,Teknik Komputer,2001,15,27,92,8,185,Sistem Informasi,2002,11,98,12,91,415
+37,5.4,Jumlah Publikasi Buku,Magister Ilmu Komputer,2001,70,72,19,90,325,Pendidikan Teknologi Informasi,2002,21,97,97,96,227
+38,5.5,Jumlah Penghargaan Dosen Tingkat Nasional dan Internasional,Sistem Informasi,2001,84,88,34,95,276,Teknologi Informasi,2002,41,51,73,68,372
+39,5.6,Jumlah HKI,Teknik Informatika,2001,1,27,79,98,1,Pendidikan Teknologi Informasi,2002,36,43,4,41,101
+40,5.7,Jumlah Paten,Sistem Informasi,2001,80,87,58,52,81,Teknologi Informasi,2002,32,10,41,82,481
+41,5.8,Jumlah Prototype R & D,Teknik Komputer,2001,41,38,61,63,308,Sistem Informasi,2002,94,64,46,16,396
+42,5.9,Jumlah Prototype Industri,Pendidikan Teknologi Informasi,2001,6,95,8,70,301,Magister Ilmu Komputer,2002,21,55,98,85,244
+43,6.1,"Jumlah Prodi Melaksanakan Kerjasama dengan Mitra PT (Meliputi Penyusunan kurikulum bersama, Program Magang, Penelitian, Supervisi, dan/atau Tridharma Lainnya)",Teknik Informatika,2001,21,85,62,38,210,Teknik Informatika,2002,18,97,30,70,391
+44,6.2,"Jumlah Prodi Melaksanakan Kerjasama dengan Mitra non PT (Meliputi Penyusunan kurikulum bersama, Program Magang, Penelitian, Supervisi, dan/atau Tridharma Lainnya)",Teknik Komputer,2001,5,5,7,17,82,Magister Ilmu Komputer,2002,2,90,76,16,254
+45,7.1,Jumlah MK Pembelajaran Case Method,Magister Ilmu Komputer,2001,2,7,19,73,404,Pendidikan Teknologi Informasi,2002,98,4,60,18,203
+46,7.2,Jumlah MK Pembelajaran Team - Based Project,Sistem Informasi,2001,11,73,0,12,204,Teknik Komputer,2002,67,58,20,95,331
+47,8.1,Jumlah Prodi Terakreditasi A atau Unggul,Teknik Informatika,2001,29,99,36,20,6,Teknik Komputer,2002,51,72,48,6,320
+48,8.2,Jumlah Prodi Akreditasi Internasional,Pendidikan Teknologi Informasi,2001,76,86,55,96,20,Pendidikan Teknologi Informasi,2002,30,67,78,32,443
+49,8.3,Jumlah Prodi Sertifikasi Internasional,Sistem Informasi,2001,24,83,35,79,69,Teknologi Informasi,2002,1,0,2,50,355
+50,8.4,Jumlah Prodi yang menerapkan Pembelajaran Kampus Merdeka,Magister Ilmu Komputer,2001,1,1,48,39,47,Magister Ilmu Komputer,2002,8,89,9,88,81
+51,8.5,Jumlah Dosen Asing,Teknik Komputer,2001,53,25,37,51,366,Magister Ilmu Komputer,2002,92,68,60,31,186
+52,8.6,Jumlah Seminar Internasional yang dilaksanakan,Sistem Informasi,2001,50,13,66,80,65,Magister Ilmu Komputer,2002,45,49,44,40,425
+53,8.7,Jumlah Sitasi Prodi,Teknik Informatika,2001,85,58,80,48,143,Teknik Komputer,2002,27,97,66,8,416
+54,10.1,Persentase Kuantitas Tindak Lanjut Temuan BPK,Teknik Informatika,2001,84,78,95,51,89,Teknologi Informasi,2002,27,39,59,54,393
+55,10.2,Persentase Tindak Lanjut Bernilai Rupiah Temuan BPK,Sistem Informasi,2001,90,19,38,30,329,Teknologi Informasi,2002,21,32,84,45,118
+56,10.3,Persentase Keterserapan Pagu Anggaran (Laporan pada TW4),Sistem Informasi,2001,12,80,26,79,1,Pendidikan Teknologi Informasi,2002,17,90,82,72,46
+57,10.4,Persentase Piutang Mahasiswa (Laporan pada TW4),Sistem Informasi,2001,39,62,86,65,112,Pendidikan Teknologi Informasi,2002,0,76,47,96,155
+58,10.5,Jumlah Pendapatan yang berasal dari Pemanfaatan Aset termasuk didalamnya kerjasama dari selain Kemdikbudristek (Laporan pada TW4),Sistem Informasi,2001,92,97,53,1,61,Sistem Informasi,2002,52,73,61,90,33
+59,9.1,Rencana Strategis,Teknik Informatika,2001,10,77,47,3,111,Teknik Komputer,2002,61,61,44,74,372
+60,9.1,Laporan Serapan Anggaran Triwulan,Teknologi Informasi,2001,53,53,77,71,107,Teknik Komputer,2002,45,16,53,70,323
+61,9.2,Rencana Kinerja Tahunan,Magister Ilmu Komputer,2001,81,23,71,81,281,Pendidikan Teknologi Informasi,2002,59,60,30,34,140
+62,9.3,Program Kerja Unit Akademik,Pendidikan Teknologi Informasi,2001,58,37,58,72,441,Teknik Komputer,2002,20,6,16,90,30
+63,9.4,Perjanjian Kinerja,Sistem Informasi,2001,82,88,78,88,272,Sistem Informasi,2002,68,54,79,15,481
+64,9.5,Sasaran Kinerja Pegawai (SKP),Teknik Komputer,2001,12,17,98,0,118,Magister Ilmu Komputer,2002,41,42,24,5,388
+65,9.6,SOP Layanan,Teknik Informatika,2001,62,46,34,87,336,Teknik Informatika,2002,13,47,51,60,488
+66,9.7,Laporan Kinerja Triwulan,Teknik Komputer,2001,39,69,65,29,20,Teknik Informatika,2002,70,14,25,5,216
+67,9.8,Laporan Kinerja Semester,Sistem Informasi,2001,1,44,62,66,379,Pendidikan Teknologi Informasi,2002,34,12,3,53,328
+68,9.9,Laporan Kinerja Tahunan,Pendidikan Teknologi Informasi,2001,16,71,41,99,483,Teknologi Informasi,2002,5,33,65,70,455

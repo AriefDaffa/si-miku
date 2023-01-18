@@ -11,7 +11,7 @@ const registerUser = async (req, res) => {
 
   try {
     // check if there is duplicate email
-    const user = await model.user.findOne({
+    const user = await model.User.findOne({
       where: {
         user_email,
       },
@@ -24,7 +24,7 @@ const registerUser = async (req, res) => {
       });
     }
 
-    await model.user.create({
+    await model.User.create({
       user_name,
       user_email,
       password,
@@ -39,9 +39,9 @@ const registerUser = async (req, res) => {
 
 const getUsers = async (req, res) => {
   try {
-    const users = await model.user.findAll({
+    const users = await model.User.findAll({
       include: {
-        model: model.role,
+        model: model.Role,
       },
     });
     res.json(users);
@@ -53,11 +53,11 @@ const getUsers = async (req, res) => {
 const getUserByRole = async (req, res) => {
   const { id } = req.params;
   try {
-    const user = await model.role.findOne({
+    const user = await model.Role.findOne({
       where: {
         id,
       },
-      include: model.user,
+      include: model.User,
     });
 
     res.json(user);
@@ -68,7 +68,7 @@ const getUserByRole = async (req, res) => {
 
 const getRoles = async (req, res) => {
   try {
-    const roles = await model.role.findAll();
+    const roles = await model.Role.findAll();
 
     res.json(roles);
   } catch (error) {

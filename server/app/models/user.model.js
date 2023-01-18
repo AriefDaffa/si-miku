@@ -25,4 +25,4 @@ useBcrypt(User, {
   compare: 'authenticate',
 });
 
-module.exports = User;
+module.exports = { User };

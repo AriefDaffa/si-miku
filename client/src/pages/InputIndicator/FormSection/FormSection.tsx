@@ -1,5 +1,5 @@
 import { useForm, useFieldArray } from 'react-hook-form';
-
+import { split } from 'lodash';
 import moment from 'moment';
 import type { FC } from 'react';
 
@@ -41,13 +41,18 @@ const FormSection: FC = () => {
   const { fields, append, remove } = useFieldArray({
     control,
     name: 'indicatorValue',
+    rules: {
+      required: true,
+    },
   });
 
   const onSubmit = (data: FormValues) => {
     const { indicatorCode, indicatorName, indicatorValue, jurusan } = data;
 
     mutate({
-      indicator_id: indicatorCode,
+      indicator_id: split(indicatorCode, '.')
+        .filter((n) => n !== ' ')
+        .join('.'),
       indicator_name: indicatorName,
       major_id: Number(jurusan),
       indicator_year: indicatorValue.map(({ year, ...rest }) => {
@@ -63,7 +68,7 @@ const FormSection: FC = () => {
       q3: 0,
       q4: 0,
       target: 0,
-      year: moment().year(),
+      year: 2010,
     });
   };
 

@@ -9,15 +9,15 @@ const connectDB = async () => {
 
     // uncomment this line if we want to generate the table
     // await model.db.sync({ force: true }).then(() => {
-    //   model.role.create({
+    //   model.Role.create({
     //     role_id: 1,
     //     role_name: 'Manajemen',
     //   });
-    //   model.role.create({
+    //   model.Role.create({
     //     role_id: 2,
     //     role_name: 'Operator',
     //   });
-    //   model.Jurusan.bulkCreate([
+    //   model.Major.bulkCreate([
     //     { major_id: 1, major_name: 'Teknik Informatika' },
     //     { major_id: 2, major_name: 'Teknik Komputer' },
     //     { major_id: 3, major_name: 'Sistem Informasi' },

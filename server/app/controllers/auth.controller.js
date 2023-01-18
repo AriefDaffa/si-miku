@@ -5,7 +5,7 @@ const loginUser = async (req, res) => {
   const { user_email, password } = req.body;
 
   try {
-    const user = await model.user.findOne({
+    const user = await model.User.findOne({
       where: {
         user_email,
       },
@@ -31,16 +31,6 @@ const loginUser = async (req, res) => {
       process.env.ACCESS_TOKEN_SECRET,
       { expiresIn: '4h' }
     );
-
-    // create jwt
-    // const refreshToken = jwt.sign(
-    //   {
-    //     username: user.user_name,
-    //     email: user.user_email,
-    //   },
-    //   process.env.REFRESH_TOKEN_SECRET,
-    //   { expiresIn: '5h' }
-    // );
 
     // set http-only cookie
     res.cookie('accessToken', accessToken, {

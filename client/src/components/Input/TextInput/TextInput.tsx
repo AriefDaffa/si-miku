@@ -25,7 +25,15 @@ const TextInput: FC<TextInputProps> = (props) => {
       <Controller
         name={name}
         control={control}
-        render={({ field }) => <TextField type={type} {...field} />}
+        rules={{ required: true }}
+        render={({ field, fieldState }) => (
+          <TextField
+            type={type}
+            error={fieldState.error ? true : false}
+            helperText={fieldState.error ? 'Form tidak boleh kosong' : ''}
+            {...field}
+          />
+        )}
       />
     </Flexer>
   );
