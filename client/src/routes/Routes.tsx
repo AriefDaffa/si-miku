@@ -6,8 +6,6 @@ import {
   Login,
   NotFound,
   ListIndicator,
-  Indicator,
-  ListTarget,
   InputIndicator,
   InputTarget,
 } from '@/pages';
@@ -29,9 +27,7 @@ const Router = () => {
           children: [
             { element: <Navigate to="/dashboard/overview" />, index: true },
             { path: 'overview', element: <Home /> },
-            { path: 'indicator', element: <Indicator /> },
             { path: 'indicator-list', element: <ListIndicator /> },
-            { path: 'target-list', element: <ListTarget /> },
             { path: 'indicator-input', element: <InputIndicator /> },
             { path: 'target-input', element: <InputTarget /> },
           ],

@@ -8,7 +8,6 @@ import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import type { SelectChangeEvent } from '@mui/material/Select';
 
-import SimpleCard from '@/components/Card/SimpleCard';
 import type { IndicatorResponseNormalized } from '@/repository/query/IndicatorQuery/types';
 
 interface ToolbarSectionProps {
@@ -32,7 +31,7 @@ const ToolbarSection: FC<ToolbarSectionProps> = (props) => {
   };
 
   return (
-    <SimpleCard>
+    <>
       <Typography variant="h6" sx={{ pb: 2 }}>
         Pilih Indikator
       </Typography>
@@ -58,7 +57,7 @@ const ToolbarSection: FC<ToolbarSectionProps> = (props) => {
         onChange={(e, values) => handleChange(e, values)}
         renderInput={(params) => <TextField {...params} label="Indikator" />}
       />
-    </SimpleCard>
+    </>
   );
 };
 

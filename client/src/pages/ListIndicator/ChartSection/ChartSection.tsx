@@ -6,7 +6,6 @@ import { Grid, Typography } from '@mui/material';
 
 import useChartStyle from '@/hooks/use-chart-style';
 import { ERROR, PRIMARY, SUCCESS } from '@/theme/Colors';
-import SimpleCard from '@/components/Card/SimpleCard';
 import type { IndicatorByYearNormalized } from '@/repository/query/IndicatorByYearQuery/types';
 
 interface ChartSectionProps {
@@ -81,7 +80,7 @@ const ChartSection: FC<ChartSectionProps> = (props) => {
 
   return (
     <Grid container spacing={3}>
-      <Grid item xs={12} md={8}>
+      {/* <Grid item xs={12} md={8}>
         <SimpleCard title="Grafik perkembangan indikator" withHeader>
           <Typography variant="h6" sx={{ mb: 2 }}>
             Grafik indikator pada tahun
@@ -91,9 +90,9 @@ const ChartSection: FC<ChartSectionProps> = (props) => {
       </Grid>
       <Grid item xs={12} md={4}>
         <SimpleCard title="Jumlah Indikator" withHeader>
-          {/* <Chart options={pieOptions} series={[78, 80]} type="pie" /> */}
+          <Chart options={pieOptions} series={[78, 80]} type="pie" />
         </SimpleCard>
-      </Grid>
+      </Grid> */}
     </Grid>
   );
 };

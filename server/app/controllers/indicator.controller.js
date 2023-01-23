@@ -1,23 +1,25 @@
 const jwt = require('jsonwebtoken');
-const { QueryTypes } = require('sequelize');
 const model = require('../models');
+const fs = require('fs');
+const path = require('path');
+const { parse } = require('csv-parse');
 
 const getAllIndicators = async (req, res) => {
   try {
     const indicator = await model.Indicator.findAll({
       attributes: ['indicator_id', 'indicator_name'],
-      include: {
-        model: model.IndicatorMajor,
-        attributes: ['major_id'],
-        include: [
-          model.Major,
-          {
-            model: model.IndicatorMajorYear,
-            attributes: ['indicator_major_year_id'],
-            include: [model.TargetQuarters, model.Year],
-          },
-        ],
-      },
+      // include: {
+      //   model: model.IndicatorMajor,
+      //   attributes: ['major_id'],
+      //   include: [
+      //     model.Major,
+      //     {
+      //       model: model.IndicatorMajorYear,
+      //       attributes: ['indicator_major_year_id'],
+      //       include: [model.TargetQuarters, model.Year],
+      //     },
+      //   ],
+      // },
     });
 
     res.json(indicator);
@@ -82,6 +84,7 @@ const getIndicatorsByYear = async (req, res) => {
               { model: model.Major },
             ],
           },
+          model.TargetQuarters,
         ],
       },
     });
@@ -122,6 +125,15 @@ const getIndicatorByMajorId = async (req, res) => {
     });
 
     res.json(indicator);
+  } catch (error) {
+    res.json(error);
+  }
+};
+
+const createBulkIndicator = async (req, res) => {
+  try {
+    console.log(req.body);
+    res.json(req.body);
   } catch (error) {
     res.json(error);
   }
@@ -185,6 +197,8 @@ const createIndicator = async (req, res) => {
               q2: data.q2,
               q3: data.q3,
               q4: data.q4,
+              is_target_fulfilled:
+                data.q1 + data.q2 + data.q3 + data.q4 >= data.target,
             });
 
             // check if the inputted year is already existed in the table
@@ -225,25 +239,117 @@ const createIndicator = async (req, res) => {
   }
 };
 
-const getTotalIndicator = async (req, res) => {
+const getIndicatorCount = async (req, res) => {
   try {
-    const total = await model.Indicator.findAndCountAll();
-    const [failed] = await model.Indicator.sequelize.query(
-      'SELECT COUNT(target) as total FROM `target_quarters` WHERE q1 + q2 + q3 + q4 <= target',
-      { type: QueryTypes.SELECT }
-    );
-    const [success] = await model.Indicator.sequelize.query(
-      'SELECT COUNT(target) as total FROM `target_quarters` WHERE q1 + q2 + q3 + q4 >= target',
-      { type: QueryTypes.SELECT }
-    );
+    const year = await model.Year.findAll({
+      include: {
+        model: model.IndicatorMajorYear,
+        attributes: ['indicator_major_year_id'],
+        include: {
+          model: model.TargetQuarters,
+          attributes: ['is_target_fulfilled'],
+        },
+      },
+    });
 
-    return res.json({
-      total: total.count,
-      failed: failed.total,
-      success: success.total,
+    const normalizedResult = year.reduce((acc, cur) => {
+      cur.indicator_major_years.forEach((item) => {
+        if (item.target_quarter.is_target_fulfilled !== null) {
+          const targetFulfillment = acc.find(
+            (target) =>
+              target.is_target_fulfilled ===
+              item.target_quarter.is_target_fulfilled
+          );
+
+          if (targetFulfillment) {
+            const year = targetFulfillment.years.find(
+              (year) => year.year_value === cur.year_value
+            );
+
+            if (year) {
+              year.is_target_fulfilled.push(
+                item.target_quarter.is_target_fulfilled
+              );
+              year.count = year.is_target_fulfilled.length;
+            } else {
+              targetFulfillment.years.push({
+                year_value: cur.year_value,
+                is_target_fulfilled: [item.target_quarter.is_target_fulfilled],
+                count: 1,
+              });
+            }
+
+            targetFulfillment.totalCount += 1;
+          } else {
+            acc.push({
+              is_target_fulfilled: item.target_quarter.is_target_fulfilled,
+              years: [
+                {
+                  year_value: cur.year_value,
+                  is_target_fulfilled: [
+                    item.target_quarter.is_target_fulfilled,
+                  ],
+                  count: 1,
+                },
+              ],
+              totalCount: 1,
+            });
+          }
+        }
+      });
+      return acc;
+    }, []);
+
+    res.json(normalizedResult);
+  } catch (error) {
+    res.json(error);
+  }
+};
+
+const getTargetQuarterByYear = async (req, res) => {
+  try {
+    const targetSuccess = await model.Year.findAll({
+      include: {
+        model: model.IndicatorMajorYear,
+        include: {
+          model: model.TargetQuarters,
+          where: {
+            is_target_fulfilled: true,
+          },
+        },
+      },
+    });
+
+    const targetFailed = await model.Year.findAll({
+      include: {
+        model: model.IndicatorMajorYear,
+        include: {
+          model: model.TargetQuarters,
+          where: {
+            is_target_fulfilled: false,
+          },
+        },
+      },
+    });
+
+    res.json({
+      failed_target: targetFailed.map((data) => {
+        return {
+          year_id: data.year_id,
+          year_value: data.year_value,
+          total: data.indicator_major_years.length,
+        };
+      }),
+      success_target: targetSuccess.map((data) => {
+        return {
+          year_id: data.year_id,
+          year_value: data.year_value,
+          total: data.indicator_major_years.length,
+        };
+      }),
     });
   } catch (error) {
-    return res.json(error);
+    res.json(error);
   }
 };
 
@@ -270,7 +376,7 @@ const deleteIndicatorById = async (req, res) => {
 const getYear = async (req, res) => {
   try {
     const year = await model.Year.findAll({
-      attributes: ['year_id'],
+      attributes: ['year_value'],
     });
 
     return res.json(year);
@@ -280,12 +386,14 @@ const getYear = async (req, res) => {
 };
 
 module.exports = {
-  getTotalIndicator,
+  getIndicatorCount,
   getAllIndicators,
   getIndicatorById,
   getIndicatorsByYear,
   getIndicatorByMajorId,
   getYear,
+  getTargetQuarterByYear,
   deleteIndicatorById,
   createIndicator,
+  createBulkIndicator,
 };

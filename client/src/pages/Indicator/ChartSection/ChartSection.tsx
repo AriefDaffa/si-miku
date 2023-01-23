@@ -6,7 +6,6 @@ import Typography from '@mui/material/Typography';
 
 import useChartStyle from '@/hooks/use-chart-style';
 import { ERROR, PRIMARY, SUCCESS } from '@/theme/Colors';
-import SimpleCard from '@/components/Card/SimpleCard';
 import type { IndicatorByIdResponseNormalized } from '@/repository/query/IndicatorByIdQuery/types';
 
 interface ChartSectionProps {
@@ -75,12 +74,12 @@ const ChartSection: FC<ChartSectionProps> = (props) => {
   }, [indicator]);
 
   return (
-    <SimpleCard>
+    <>
       <Typography variant="h6" sx={{ mb: 2 }}>
         Grafik perkembangan Indikator per-tahun
       </Typography>
       <Chart options={options} series={series} type="bar" />
-    </SimpleCard>
+    </>
   );
 };
 

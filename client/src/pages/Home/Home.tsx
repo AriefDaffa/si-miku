@@ -1,36 +1,29 @@
 import type { FC } from 'react';
-import { Helmet } from 'react-helmet';
 
 import { Container } from '@mui/material';
 
-import { MainHeader } from '@/components/Typography';
+import { PageTitle } from '@/components/Typography';
+import Helmet from '@/components/Helmet';
 import useIndicatorCountQuery from '@/repository/query/IndicatorCountQuery';
+import useYearQuery from '@/repository/query/YearQuery';
 
 import CardCountSection from './CardCountSection';
-import ChartSection from './ChartSection';
+import JurusanSection from './JurusanSection';
 
 const Home: FC = () => {
-  const { data, isLoading } = useIndicatorCountQuery();
+  const { data: year } = useYearQuery();
+  const { data: indicator } = useIndicatorCountQuery();
 
   return (
-    <>
-      <Helmet>
-        <title>Dashboard | SI-Miku</title>
-      </Helmet>
-      <Container maxWidth="xl">
-        <MainHeader
-          title="Overview"
-          subTitle="Menampilkan Overview indikator semua jurusan"
-        />
-        <CardCountSection
-          totalIndicator={data.total}
-          failedIndicator={data.failed}
-          successIndicator={data.success}
-          isLoading={isLoading}
-        />
-        <ChartSection />
-      </Container>
-    </>
+    <Container maxWidth="xl">
+      <Helmet title="Dashboard | SI-MIKU" />
+      <PageTitle
+        title="Overview"
+        subTitle="Menampilkan Overview indikator semua jurusan"
+      />
+      <CardCountSection year={year} indicator={indicator} />
+      <JurusanSection />
+    </Container>
   );
 };
 

@@ -1,3 +1,4 @@
+import { HelmetProvider } from 'react-helmet-async';
 import type { FC, ReactNode } from 'react';
 
 import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment';
@@ -16,11 +17,13 @@ const RootProvider: FC<RootProviderProps> = (props) => {
 
   return (
     <ReactQueryProvider>
-      <LocalizationProvider dateAdapter={AdapterMoment}>
-        <AuthContextProvider>
-          <CustomThemeProvider>{children}</CustomThemeProvider>
-        </AuthContextProvider>
-      </LocalizationProvider>
+      <HelmetProvider>
+        <LocalizationProvider dateAdapter={AdapterMoment}>
+          <AuthContextProvider>
+            <CustomThemeProvider>{children}</CustomThemeProvider>
+          </AuthContextProvider>
+        </LocalizationProvider>
+      </HelmetProvider>
     </ReactQueryProvider>
   );
 };

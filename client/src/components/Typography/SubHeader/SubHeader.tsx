@@ -1,38 +1,19 @@
-import { noop } from 'lodash';
 import type { FC } from 'react';
 
-import Box from '@mui/material/Box';
-import FormControl from '@mui/material/FormControl';
-import Select from '@mui/material/Select';
-import MenuItem from '@mui/material/MenuItem';
 import Typography from '@mui/material/Typography';
 
-import type { SubHeaderProps } from './types';
+interface SubHeaderProps {
+  text?: string;
+  sx?: object;
+}
 
 const SubHeader: FC<SubHeaderProps> = (props) => {
-  const {
-    text,
-    withSelect = false,
-    selectValue,
-    onChange = noop,
-    menuItem = [],
-  } = props;
+  const { text, sx } = props;
 
   return (
-    <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
-      <Typography variant="h5">{text}</Typography>
-      {withSelect && (
-        <FormControl size="small" variant="standard">
-          <Select value={selectValue} autoWidth label="Age" onChange={onChange}>
-            {menuItem.map((data, idx) => (
-              <MenuItem key={idx} value={data.value}>
-                {data.title}
-              </MenuItem>
-            ))}
-          </Select>
-        </FormControl>
-      )}
-    </Box>
+    <Typography variant="subtitle2" sx={{ opacity: 0.7, ...sx }}>
+      {text}
+    </Typography>
   );
 };
 

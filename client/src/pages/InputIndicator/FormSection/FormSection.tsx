@@ -5,9 +5,9 @@ import type { FC } from 'react';
 
 import Button from '@mui/material/Button';
 
-import SimpleCard from '@/components/Card/SimpleCard';
 import CustomGrid from '@/components/CustomGrid';
 import Divider from '@mui/material/Divider';
+import Typography from '@mui/material/Typography';
 
 import { SelectInput, TextInput } from '@/components/Input';
 import { SubHeader } from '@/components/Typography';
@@ -73,12 +73,17 @@ const FormSection: FC = () => {
   };
 
   return (
-    <SimpleCard>
+    <>
       <form onSubmit={handleSubmit(onSubmit)}>
         <CustomGrid
           sm={[12, 6, 6, 6]}
           gridItem={[
-            <SubHeader text="Form input indikator" />,
+            <>
+              <SubHeader text="Form input indikator" />
+              <Typography variant="subtitle2" sx={{ opacity: 0.7 }}>
+                Lengkapi form dibawah untuk memasukkan data kedalam sistem
+              </Typography>
+            </>,
             <IndicatorCodeInput control={control} />,
             <SelectInput
               control={control}
@@ -135,7 +140,7 @@ const FormSection: FC = () => {
           ]}
         />
       </form>
-    </SimpleCard>
+    </>
   );
 };
 

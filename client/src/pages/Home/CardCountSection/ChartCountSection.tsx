@@ -1,94 +1,80 @@
+import { useForm } from 'react-hook-form';
+import { useMemo } from 'react';
 import type { FC } from 'react';
 
-import { Grid, Box, Typography, Avatar, LinearProgress } from '@mui/material';
-
-import { CountCard } from '@/components/Card';
-
-import TrackChangesIcon from '@mui/icons-material/TrackChanges';
-import DoneAllIcon from '@mui/icons-material/DoneAll';
 import DoNotDisturbIcon from '@mui/icons-material/DoNotDisturb';
+import DoneAllIcon from '@mui/icons-material/DoneAll';
 
-import { ERROR, SUCCESS, PRIMARY } from '@/theme/Colors';
-import SimpleCard from '@/components/Card/SimpleCard';
-import CustomChart from '@/components/CustomChart';
-import useChartStyle from '@/hooks/use-chart-style';
+import { ERROR, SUCCESS } from '@/theme/Colors';
+import CustomGrid from '@/components/CustomGrid';
+import type { YearDataNormalized } from '@/repository/query/YearQuery/types';
+import type { IndicatorCountNormalized } from '@/repository/query/IndicatorCountQuery/types';
+
+import CountCard from './CountCard';
+import ProgressChart from './ProgressChart';
+import LineChart from './LineChart';
+import { defaultVal } from './constant';
 
 interface CardCountSectionProps {
-  totalIndicator: number;
-  successIndicator: number;
-  failedIndicator: number;
-  isLoading: boolean;
+  year: YearDataNormalized[];
+  indicator: IndicatorCountNormalized[];
 }
 
 const CardCountSection: FC<CardCountSectionProps> = (props) => {
-  const { totalIndicator, successIndicator, failedIndicator, isLoading } =
-    props;
+  const { year, indicator } = props;
 
-  const chartOptions = useChartStyle({
-    legend: { floating: false, horizontalAlign: 'center', position: 'bottom' },
-    dataLabels: { enabled: false, dropShadow: { enabled: false } },
-    colors: [SUCCESS.main],
-    labels: ['Indikator Memenuhi Target'],
-  });
+  const getValue = useMemo(() => {
+    if (!indicator || indicator.length === 0) {
+      return defaultVal;
+    }
+
+    const fulfilledVal = indicator.find(
+      (item) => item.isTargetFulfilled === true
+    );
+    const failedVal = indicator.find(
+      (item) => item.isTargetFulfilled === false
+    );
+
+    return {
+      fulfilledCount: fulfilledVal?.totalCount || defaultVal.fulfilledCount,
+      failedCount: failedVal?.totalCount || defaultVal.failedCount,
+      fulfilledVal: fulfilledVal || defaultVal.fulfilledVal,
+      failedVal: failedVal || defaultVal.failedVal,
+    };
+  }, [indicator]);
 
   return (
-    <Box
-      component="main"
-      sx={{
-        flexGrow: 1,
-        py: 2,
-      }}
-    >
-      <Grid container spacing={3}>
-        {/* <Grid item xs={12} md={3}>
-          <CountCard
-            title={'Total Indikator'}
-            value={totalIndicator}
-            Icon={TrackChangesIcon}
-            iconColor={PRIMARY.main}
-            isLoading={isLoading}
-          />
-        </Grid> */}
-        <Grid item xs={12} md={6}>
-          <CountCard
-            title={'Indikator Memenuhi Target'}
-            value={successIndicator}
-            Icon={DoneAllIcon}
-            iconColor={SUCCESS.main}
-            isLoading={isLoading}
-          />
-        </Grid>
-        <Grid item xs={12} md={6}>
-          <CountCard
-            title={'Indikator Belum Memenuhi Target'}
-            value={failedIndicator}
-            Icon={DoNotDisturbIcon}
-            iconColor={ERROR.main}
-            isLoading={isLoading}
-          />
-        </Grid>
-        {/* <Grid item xs={12} md={4}> */}
-        {/* <SimpleCard isCenter>
-            <CustomChart
-              type="radialBar"
-              chartOptions={chartOptions}
-              series={[70]}
-              width={400}
-            />
-          </SimpleCard> */}
-        {/* </Grid> */}
-        {/* <Grid item xs={12} md={3}>
-          <SimpleCard isCenter title="Overview Grafik">
-            <CustomChart
-              type="pie"
-              chartOptions={chartOptions}
-              series={[70, 60]}
-              width={400}
-            />
-          </SimpleCard>
-        </Grid> */}
-      </Grid>
-    </Box>
+    <CustomGrid
+      sm={[6, 6]}
+      sx={{ pt: 3 }}
+      gridItem={[
+        <LineChart
+          fulfilledVal={getValue.fulfilledVal}
+          failedVal={getValue.failedVal}
+        />,
+        <CustomGrid
+          sm={[6, 6]}
+          gridItem={[
+            <CountCard
+              backgroundColor={SUCCESS.dark}
+              Icon={DoneAllIcon}
+              value={`${getValue.fulfilledCount}`}
+              text="Indikator memenuhi target"
+            />,
+            <CountCard
+              backgroundColor={ERROR.dark}
+              Icon={DoNotDisturbIcon}
+              value={`${getValue.failedCount}`}
+              text="Indikator belum memenuhi target"
+            />,
+            <ProgressChart
+              fulfilledVal={getValue.fulfilledCount}
+              failedVal={getValue.failedCount}
+            />,
+          ]}
+        />,
+      ]}
+    />
   );
 };
 

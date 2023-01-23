@@ -3,7 +3,7 @@ import type { FC } from 'react';
 
 import Container from '@mui/material/Container';
 
-import { MainHeader } from '@/components/Typography';
+import { PageTitle } from '@/components/Typography';
 
 import FormSection from './FormSection';
 import ToolbarSection from './ToolbarSection';
@@ -16,7 +16,7 @@ const InputIndicator: FC = () => {
         <title>Input Indikator | SI-MIKU</title>
       </Helmet>
       <Container maxWidth="xl">
-        <MainHeader
+        <PageTitle
           title="Input Indikator"
           subTitle="Masukkan data indikator kedalam sistem"
         />

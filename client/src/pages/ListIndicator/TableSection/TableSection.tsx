@@ -4,39 +4,30 @@ import type { FC } from 'react';
 import { Box, Card } from '@mui/material';
 
 import Table from '@/components/Table';
-import type { IndicatorByYearNormalized } from '@/repository/query/IndicatorByYearQuery/types';
 
 import TableToolbar from './TableToolbar';
+import type { IndicatorResponseNormalized } from '@/repository/query/IndicatorQuery/types';
 
 interface TableSectionProps {
-  indicatorData: IndicatorByYearNormalized;
-  isIndicatorLoading: boolean;
+  isLoading: boolean;
+  data: IndicatorResponseNormalized[];
 }
 
 const TableSection: FC<TableSectionProps> = (props) => {
-  const { indicatorData, isIndicatorLoading } = props;
+  const { data, isLoading } = props;
 
   const headerTitle = [
-    { title: 'ID', value: 'indicatorId' },
+    { title: 'ID Indikator', value: 'indicatorID' },
     { title: 'Nama Indikator', value: 'indicatorName' },
-    { title: 'Target', value: 'target' },
-    { title: 'Kuartil 1', value: 'quarterOne' },
-    { title: 'Kuartil 2', value: 'quarterTwo' },
-    { title: 'Kuartil 3', value: 'quarterThree' },
-    { title: 'Kuartil 4', value: 'quarterFour' },
-    { title: 'Status', value: 'status' },
-    { title: '', value: '' },
+    { title: 'Menu', value: '' },
   ];
 
+  // @TODO Add pagination (low prio)
   return (
-    <Card>
+    <Card sx={{ mt: 2 }}>
       <TableToolbar />
       <Box sx={{ overflowX: 'auto' }}>
-        <Table
-          headerTitle={headerTitle}
-          isLoading={isIndicatorLoading}
-          content={indicatorData.indicator}
-        />
+        <Table headerTitle={headerTitle} isLoading={isLoading} content={data} />
       </Box>
     </Card>
   );

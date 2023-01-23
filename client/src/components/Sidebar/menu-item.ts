@@ -12,13 +12,13 @@ export const NAV_ITEM = [
     Icon: HomeIcon,
   },
   {
-    title: 'Detail Indikator',
-    path: 'indicator',
+    title: 'List Indikator',
+    path: 'indicator-list',
     Icon: ArticleIcon,
   },
   {
     title: 'Indikator per-Tahun',
-    path: 'indicator-list',
+    path: 'indicator',
     Icon: BarChartIcon,
   },
   {

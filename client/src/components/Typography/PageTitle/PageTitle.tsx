@@ -3,12 +3,12 @@ import type { FC } from 'react';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 
-interface MainHeaderProps {
+interface PageTitleProps {
   title: string;
   subTitle: string;
 }
 
-const MainHeader: FC<MainHeaderProps> = (props) => {
+const PageTitle: FC<PageTitleProps> = (props) => {
   const { title, subTitle } = props;
 
   return (
@@ -32,4 +32,4 @@ const MainHeader: FC<MainHeaderProps> = (props) => {
   );
 };
 
-export default MainHeader;
+export default PageTitle;

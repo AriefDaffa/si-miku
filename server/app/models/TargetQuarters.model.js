@@ -24,6 +24,9 @@ const TargetQuarters = db.define(
     q4: {
       type: DataTypes.INTEGER,
     },
+    is_target_fulfilled: {
+      type: DataTypes.BOOLEAN,
+    },
   },
   { timestamps: false }
 );

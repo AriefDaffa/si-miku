@@ -7,14 +7,15 @@ interface CustomGridProps {
   xs?: number[];
   md?: number[];
   sm?: number[];
+  sx?: object;
   gridItem: ReactNode[];
 }
 
 const CustomGrid: FC<CustomGridProps> = (props) => {
-  const { gridItem, spacing = 3, xs = [], md = [], sm = [] } = props;
+  const { gridItem, spacing = 3, xs = [], md = [], sm = [], sx = {} } = props;
 
   return (
-    <Grid container spacing={spacing}>
+    <Grid container spacing={spacing} sx={sx}>
       {gridItem.map((item, idx) => (
         <Grid item key={idx} xs={xs[idx] || 12} sm={sm[idx]} md={md[idx]}>
           {item}

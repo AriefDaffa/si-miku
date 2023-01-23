@@ -4,19 +4,19 @@ import { useQuery } from 'react-query';
 
 import baseAPI from '@/utils/axios-utils';
 
-import type { YearResponse, YearData } from './types';
+import type { YearResponse, YearData, YearDataNormalized } from './types';
 
 // normalize the data to prevent undefined value
 const normalizer = (Deps?: YearResponse) => {
-  const result: YearData[] = [];
+  const result: YearDataNormalized[] = [];
 
   if (Deps !== void 0 && !(Deps instanceof AxiosError)) {
-    Deps.data.map<YearData[]>((item) => {
-      if (!item || !item.year_id) {
+    Deps.data.map((item) => {
+      if (!item || !item.year_value) {
         return result;
       }
 
-      result.push({ year_id: item.year_id || 0 });
+      result.push({ yearValue: item.year_value || 0 });
       return result;
     });
   }
