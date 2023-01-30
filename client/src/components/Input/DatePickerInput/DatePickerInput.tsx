@@ -5,8 +5,7 @@ import type { FC } from 'react';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
-
-import Flexer from '@/components/Flexer';
+import Stack from '@mui/material/Stack';
 
 interface DatePickerInputProps {
   name: string;
@@ -19,7 +18,7 @@ const DatePickerInput: FC<DatePickerInputProps> = (props) => {
   const { control, name, label, isYearOnly } = props;
 
   return (
-    <Flexer>
+    <Stack>
       <Typography color="textSecondary" gutterBottom variant="overline">
         {label}
       </Typography>
@@ -35,7 +34,7 @@ const DatePickerInput: FC<DatePickerInputProps> = (props) => {
           />
         )}
       />
-    </Flexer>
+    </Stack>
   );
 };
 

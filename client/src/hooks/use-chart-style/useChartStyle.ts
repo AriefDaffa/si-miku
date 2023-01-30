@@ -134,9 +134,9 @@ const useChartStyle = (options: any) => {
       pie: {
         donut: {
           labels: {
-            show: true,
-            value: LABEL_VALUE,
-            total: LABEL_TOTAL,
+            show: false,
+            // value: LABEL_VALUE,
+            // total: LABEL_TOTAL,
           },
         },
       },

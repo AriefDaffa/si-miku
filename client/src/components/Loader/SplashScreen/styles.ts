@@ -1,10 +1,10 @@
 import { css } from '@emotion/react';
 
-export const SplashScreenContainerCx = (isDarkTheme: boolean) => css`
+export const SplashScreenContainerCx = css`
   display: flex;
   min-height: 100%;
   overflow: hidden;
   justify-content: center;
   align-items: center;
-  background-color: ${isDarkTheme ? '#121212' : '#f1f1f1'};
+  background-color: #f1f1f1;
 `;

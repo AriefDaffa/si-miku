@@ -11,7 +11,7 @@ import CardCountSection from './CardCountSection';
 import JurusanSection from './JurusanSection';
 
 const Home: FC = () => {
-  const { data: year } = useYearQuery();
+  // const { data: year } = useYearQuery();
   const { data: indicator } = useIndicatorCountQuery();
 
   return (
@@ -21,7 +21,7 @@ const Home: FC = () => {
         title="Overview"
         subTitle="Menampilkan Overview indikator semua jurusan"
       />
-      <CardCountSection year={year} indicator={indicator} />
+      <CardCountSection indicator={indicator} />
       <JurusanSection />
     </Container>
   );

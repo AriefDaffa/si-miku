@@ -4,9 +4,8 @@ import type { FC } from 'react';
 import Typography from '@mui/material/Typography';
 import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
+import Stack from '@mui/material/Stack';
 import FormControl from '@mui/material/FormControl';
-
-import Flexer from '@/components/Flexer';
 
 import type { SelectInputProps } from './types';
 
@@ -14,7 +13,7 @@ const SelectInput: FC<SelectInputProps> = (props) => {
   const { control, name, label, menuItem, defaultValue } = props;
 
   return (
-    <Flexer>
+    <Stack>
       <Typography color="textSecondary" gutterBottom variant="overline">
         {label}
       </Typography>
@@ -33,7 +32,7 @@ const SelectInput: FC<SelectInputProps> = (props) => {
           )}
         />
       </FormControl>
-    </Flexer>
+    </Stack>
   );
 };
 

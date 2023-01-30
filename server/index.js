@@ -4,7 +4,10 @@ const cors = require('cors');
 const cookieParser = require('cookie-parser');
 
 const connectDB = require('./app/utils/connectDB.js');
-const router = require('./app/routes/index.js');
+
+const indicatorRoutes = require('./app/routes/indicator.routes.js');
+const userRoutes = require('./app/routes/user.routes.js');
+const authRoutes = require('./app/routes/auth.routes.js');
 
 const app = express();
 
@@ -17,7 +20,9 @@ app.use(cookieParser());
 connectDB();
 
 //import router
-app.use(router);
+app.use(indicatorRoutes);
+app.use(userRoutes);
+app.use(authRoutes);
 
 const PORT = 5000;
 

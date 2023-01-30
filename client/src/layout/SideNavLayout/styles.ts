@@ -10,7 +10,7 @@ export const containerCx = css`
 
 export const pageContainerCx = (isDarkTheme: boolean) => css`
   flex-grow: 1;
-  overflow: auto;
+  overflow: scroll;
   min-height: 100%;
   padding-top: ${64 + 24}px;
   padding-bottom: 80px;

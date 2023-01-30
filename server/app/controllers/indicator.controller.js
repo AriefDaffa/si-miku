@@ -306,6 +306,40 @@ const getIndicatorCount = async (req, res) => {
   }
 };
 
+const getOverviewMajor = async (req, res) => {
+  try {
+    const majors = await model.Major.findAll({
+      include: {
+        model: model.IndicatorMajor,
+        include: {
+          model: model.IndicatorMajorYear,
+          include: [model.TargetQuarters],
+        },
+      },
+    });
+
+    // const normalizedMajor = majors.reduce((acc, cur) => {
+    //   acc.push({
+    //     major_id: cur.major_id,
+    //     major_name: cur.major_name,
+    //     total_indicator: cur.indicator_majors.length,
+    //     count: cur.indicator_majors.map((data) => {
+    //       return data.indicator_major_years.map((item) => {
+    //         return item.target_quarter.is_target_fulfilled;
+    //       });
+    //     }),
+    //   });
+
+    //   return acc;
+    // }, []);
+
+    // res.json(normalizedMajor);
+    res.json(majors);
+  } catch (error) {
+    res.json(error);
+  }
+};
+
 const getTargetQuarterByYear = async (req, res) => {
   try {
     const targetSuccess = await model.Year.findAll({
@@ -392,6 +426,7 @@ module.exports = {
   getIndicatorsByYear,
   getIndicatorByMajorId,
   getYear,
+  getOverviewMajor,
   getTargetQuarterByYear,
   deleteIndicatorById,
   createIndicator,

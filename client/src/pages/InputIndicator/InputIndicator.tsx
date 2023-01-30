@@ -1,4 +1,3 @@
-import { Helmet } from 'react-helmet';
 import type { FC } from 'react';
 
 import Container from '@mui/material/Container';
@@ -8,13 +7,12 @@ import { PageTitle } from '@/components/Typography';
 import FormSection from './FormSection';
 import ToolbarSection from './ToolbarSection';
 import CustomGrid from '@/components/CustomGrid';
+import Helmet from '@/components/Helmet';
 
 const InputIndicator: FC = () => {
   return (
     <>
-      <Helmet>
-        <title>Input Indikator | SI-MIKU</title>
-      </Helmet>
+      <Helmet title="Login | SI-MIKU" />
       <Container maxWidth="xl">
         <PageTitle
           title="Input Indikator"

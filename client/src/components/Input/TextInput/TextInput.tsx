@@ -4,8 +4,7 @@ import type { FC } from 'react';
 
 import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
-
-import Flexer from '@/components/Flexer';
+import Stack from '@mui/material/Stack';
 
 interface TextInputProps {
   name: string;
@@ -18,7 +17,7 @@ const TextInput: FC<TextInputProps> = (props) => {
   const { control, name, label, type } = props;
 
   return (
-    <Flexer>
+    <Stack>
       <Typography color="textSecondary" gutterBottom variant="overline">
         {label}
       </Typography>
@@ -35,7 +34,7 @@ const TextInput: FC<TextInputProps> = (props) => {
           />
         )}
       />
-    </Flexer>
+    </Stack>
   );
 };
 

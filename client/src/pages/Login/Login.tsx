@@ -1,4 +1,3 @@
-import { Helmet } from 'react-helmet';
 import { useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import type { FC } from 'react';
@@ -12,6 +11,7 @@ import { useAuthContext } from '@/context/AuthContext';
 import { useLoginMutation } from '@/repository/mutation/LoginMutation';
 import { TextInput } from '@/components/Input';
 import CustomGrid from '@/components/CustomGrid';
+import Helmet from '@/components/Helmet';
 
 import type { LoginData } from './types';
 
@@ -39,9 +39,7 @@ const Login: FC = () => {
 
   return (
     <>
-      <Helmet>
-        <title>Login | SI-Miku</title>
-      </Helmet>
+      <Helmet title="Login | SI-MIKU" />
       <Box
         component="main"
         sx={{

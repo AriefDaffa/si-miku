@@ -1,14 +1,7 @@
 import { Navigate, useRoutes } from 'react-router-dom';
 
-import { SideNavLayout } from '@/layout';
-import {
-  Home,
-  Login,
-  NotFound,
-  ListIndicator,
-  InputIndicator,
-  InputTarget,
-} from '@/pages';
+import { SideNavLayout, BasicLayout } from '@/layout';
+import { Home, Login, NotFound, ListIndicator, InputIndicator } from '@/pages';
 
 import PrivateRoute from './PrivateRoute';
 
@@ -29,18 +22,16 @@ const Router = () => {
             { path: 'overview', element: <Home /> },
             { path: 'indicator-list', element: <ListIndicator /> },
             { path: 'indicator-input', element: <InputIndicator /> },
-            { path: 'target-input', element: <InputTarget /> },
           ],
         },
       ],
     },
     {
-      path: '/login',
-      element: <Login />,
-    },
-    {
-      path: '*',
-      element: <NotFound />,
+      element: <BasicLayout />,
+      children: [
+        { path: '*', element: <NotFound /> },
+        { path: '/login', element: <Login /> },
+      ],
     },
   ]);
 

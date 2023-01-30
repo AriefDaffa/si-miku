@@ -1,10 +1,10 @@
 import type { Control, UseFieldArrayRemove } from 'react-hook-form';
 import type { FC } from 'react';
 
-import Flexer from '@/components/Flexer';
 import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
 import Box from '@mui/material/Box';
+import Stack from '@mui/material/Stack';
 import CloseIcon from '@mui/icons-material/Close';
 
 import { SubHeader } from '@/components/Typography';
@@ -32,7 +32,7 @@ const DynamicInput: FC<DynamicInputProps> = (props) => {
         sm={[12, 12, 6, 6]}
         gridItem={[
           <Divider />,
-          <Flexer
+          <Stack
             flexDirection="row"
             alignItems="center"
             justifyContent="space-between"
@@ -50,7 +50,7 @@ const DynamicInput: FC<DynamicInputProps> = (props) => {
                 <CloseIcon />
               </IconButton>
             )}
-          </Flexer>,
+          </Stack>,
           <DatePickerInput
             control={control}
             label="Tahun"

@@ -6,8 +6,7 @@ import type { FC } from 'react';
 import Typography from '@mui/material/Typography';
 import FormControl from '@mui/material/FormControl';
 import TextField from '@mui/material/TextField';
-
-import Flexer from '@/components/Flexer';
+import Stack from '@mui/material/Stack';
 
 interface IndicatorCodeInputProps {
   control: Control<any, any>;
@@ -17,7 +16,7 @@ const IndicatorCodeInput: FC<IndicatorCodeInputProps> = (props) => {
   const { control } = props;
 
   return (
-    <Flexer>
+    <Stack>
       <Typography color="textSecondary" gutterBottom variant="overline">
         Kode Indikator
       </Typography>
@@ -38,7 +37,7 @@ const IndicatorCodeInput: FC<IndicatorCodeInputProps> = (props) => {
           )}
         />
       </FormControl>
-    </Flexer>
+    </Stack>
   );
 };
 

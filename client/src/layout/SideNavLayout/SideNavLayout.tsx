@@ -4,10 +4,10 @@ import type { FC } from 'react';
 
 import { useCurrentUserQuery } from '@/repository/query/CurrentUserQuery';
 import { useCustomTheme } from '@/context/CustomThemeContext';
-import Header from '@/components/Header';
-import Sidebar from '@/components/Sidebar';
 
 import { containerCx, pageContainerCx } from './styles';
+import NavBar from './NavBar';
+import Sidebar from './SideBar';
 
 const SideNavLayout: FC = () => {
   const [open, setOpen] = useState(false);
@@ -24,7 +24,7 @@ const SideNavLayout: FC = () => {
 
   return (
     <div css={containerCx}>
-      <Header onOpenNav={handleOpenNav} />
+      <NavBar onOpenNav={handleOpenNav} />
       <Sidebar
         isOpen={open}
         onClose={handleOnClose}

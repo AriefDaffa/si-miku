@@ -22,6 +22,14 @@ const ProgressChart: FC<ProgressChartProps> = (props) => {
     legend: {
       show: false,
     },
+    pie: {
+      donut: {
+        labels: {
+          show: false,
+          total: { show: false },
+        },
+      },
+    },
     colors: [SUCCESS.dark, ERROR.dark],
     labels: ['Indikator memenuhi Target', 'Indikator belum memenuhi Target'],
   });
@@ -46,7 +54,7 @@ const ProgressChart: FC<ProgressChartProps> = (props) => {
           <CustomChart
             chartOptions={chartOptions}
             series={[fulfilledVal, failedVal]}
-            type="donut"
+            type="pie"
           />
         </div>
         <Stack justifyContent="center">

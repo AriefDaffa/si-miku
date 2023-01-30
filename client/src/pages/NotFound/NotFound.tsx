@@ -1,9 +1,9 @@
-import { Helmet } from 'react-helmet';
 import { Link as RouterLink } from 'react-router-dom';
 import type { FC } from 'react';
 
 import { Button, Typography, Container, Box } from '@mui/material';
 
+import Helmet from '@/components/Helmet';
 import logo404 from '@/assets/logo/404.svg';
 
 import { notFoundCx } from './styles';
@@ -11,9 +11,7 @@ import { notFoundCx } from './styles';
 const NotFound: FC = () => {
   return (
     <>
-      <Helmet>
-        <title> 404 Page Not Found | SI-MIKU </title>
-      </Helmet>
+      <Helmet title="404 Page Not Found | SI-MIKU" />
       <Container>
         <div css={notFoundCx}>
           <Typography variant="h3" paragraph>
