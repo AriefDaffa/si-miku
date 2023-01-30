@@ -5,9 +5,10 @@ import Toolbar from '@mui/material/Toolbar';
 import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
 import IconButton from '@mui/material/IconButton';
-import MenuIcon from '@mui/icons-material/Menu';
+import Avatar from '@mui/material/Avatar';
 
 import { LIGHT } from '@/theme/Colors';
+import icon from '@/assets/logo/icon.png';
 
 interface NavBarProps {}
 
@@ -20,7 +21,6 @@ const NavBar: FC = () => {
       }}
     >
       <Toolbar>
-        <Box sx={{ flexGrow: 1 }} />
         <Stack
           direction="row"
           alignItems="center"
@@ -29,7 +29,9 @@ const NavBar: FC = () => {
             sm: 1,
           }}
         >
-          {/* <ProfileIcon /> */}
+          <IconButton>
+            <Avatar src={icon} alt="photoURL" />
+          </IconButton>
         </Stack>
       </Toolbar>
     </AppBar>

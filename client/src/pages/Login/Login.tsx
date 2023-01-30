@@ -10,6 +10,7 @@ import Typography from '@mui/material/Typography';
 import { useAuthContext } from '@/context/AuthContext';
 import { useLoginMutation } from '@/repository/mutation/LoginMutation';
 import { TextInput } from '@/components/Input';
+import logo from '@/assets/logo/logo.png';
 import CustomGrid from '@/components/CustomGrid';
 import Helmet from '@/components/Helmet';
 
@@ -52,7 +53,8 @@ const Login: FC = () => {
         <Container maxWidth="sm">
           <form onSubmit={handleSubmit(onSubmit)}>
             <Box sx={{ my: 2 }}>
-              <Typography color="textPrimary" variant="h4">
+              <img src={logo} alt="" />
+              <Typography color="textPrimary" variant="h4" sx={{ pt: 4 }}>
                 Sign in
               </Typography>
               <Typography color="textSecondary" gutterBottom variant="body2">

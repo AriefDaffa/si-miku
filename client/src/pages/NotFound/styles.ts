@@ -1,9 +1,7 @@
 import { css } from '@emotion/react';
 
 export const notFoundCx = css`
-  max-width: 480;
   margin: auto;
-  min-height: 100vh;
   display: flex;
   justify-content: center;
   flex-direction: column;

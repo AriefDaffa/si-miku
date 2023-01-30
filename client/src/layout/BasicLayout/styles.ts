@@ -4,8 +4,8 @@ import { LIGHT } from '@/theme/Colors';
 
 export const containerCx = css`
   height: 100vh;
-  overflow-y: hidden;
   display: flex;
+  overflow-y: hidden;
 `;
 
 export const pageContainerCx = () => css`
