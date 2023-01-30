@@ -6,6 +6,7 @@ import { LocalizationProvider } from '@mui/x-date-pickers';
 
 import { AuthContextProvider } from './AuthContext';
 import { CustomThemeProvider } from './CustomThemeContext';
+import { SideBarProvider } from './SideBarContext';
 import ReactQueryProvider from './ReactQueryContext';
 
 interface RootProviderProps {
@@ -20,7 +21,9 @@ const RootProvider: FC<RootProviderProps> = (props) => {
       <HelmetProvider>
         <LocalizationProvider dateAdapter={AdapterMoment}>
           <AuthContextProvider>
-            <CustomThemeProvider>{children}</CustomThemeProvider>
+            <CustomThemeProvider>
+              <SideBarProvider>{children}</SideBarProvider>
+            </CustomThemeProvider>
           </AuthContextProvider>
         </LocalizationProvider>
       </HelmetProvider>

@@ -5,6 +5,7 @@ import LogoutIcon from '@mui/icons-material/Logout';
 
 import { useCustomTheme } from '@/context/CustomThemeContext';
 import { useLogoutMutation } from '@/repository/mutation/LogoutMutation';
+import { useSideBar } from '@/context/SideBarContext';
 
 import { ButtonWrapperCx, navIconCx } from './styles';
 
@@ -12,6 +13,7 @@ const LogoutButton: FC = () => {
   const navigate = useNavigate();
   const { isDarkTheme } = useCustomTheme();
   const { mutate } = useLogoutMutation();
+  const { isMinimized } = useSideBar();
 
   const logout = () => {
     mutate(undefined, {
@@ -24,7 +26,7 @@ const LogoutButton: FC = () => {
       <div css={navIconCx}>
         <LogoutIcon />
       </div>
-      <div>Logout</div>
+      {!isMinimized && <div>Logout</div>}
     </div>
   );
 };

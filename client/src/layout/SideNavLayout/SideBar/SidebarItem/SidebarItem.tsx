@@ -10,6 +10,8 @@ import {
 import type { SvgIconTypeMap } from '@mui/material';
 import type { OverridableComponent } from '@mui/material/OverridableComponent';
 
+import { useSideBar } from '@/context/SideBarContext';
+
 import { navIconCx } from './styles';
 
 interface SidebarItemProps {
@@ -23,6 +25,7 @@ const SidebarItem: FC<SidebarItemProps> = (props) => {
   const { path, title, Icon, onCloseNav } = props;
 
   const theme = useTheme();
+  const { isMinimized } = useSideBar();
 
   return (
     <ListItemButton
@@ -34,6 +37,8 @@ const SidebarItem: FC<SidebarItemProps> = (props) => {
         ...theme.typography.body2,
         height: 48,
         position: 'relative',
+        display: 'flex',
+        justifyContent: 'center',
         textTransform: 'capitalize',
         color: theme.palette.text.secondary,
         borderRadius: 1,
@@ -48,7 +53,7 @@ const SidebarItem: FC<SidebarItemProps> = (props) => {
       <ListItemIcon css={navIconCx}>
         <Icon />
       </ListItemIcon>
-      <ListItemText disableTypography primary={title} />
+      {!isMinimized && <ListItemText disableTypography primary={title} />}
     </ListItemButton>
   );
 };

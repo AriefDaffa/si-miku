@@ -6,8 +6,11 @@ import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
+import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
+import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 
 import { useCustomTheme } from '@/context/CustomThemeContext';
+import { useSideBar } from '@/context/SideBarContext';
 import { DARK } from '@/theme/Colors';
 
 import ProfileIcon from './ProfileIcon';
@@ -16,8 +19,14 @@ interface NavBarProps {
   onOpenNav: () => void;
 }
 
-const NavBar: FC<NavBarProps> = ({ onOpenNav }) => {
+const NavBar: FC<NavBarProps> = (props) => {
+  const { onOpenNav } = props;
+  const { isMinimized, setIsMinimized } = useSideBar();
   const { isDarkTheme } = useCustomTheme();
+
+  const handleMinimize = () => {
+    setIsMinimized(!isMinimized);
+  };
 
   return (
     <AppBar
@@ -36,6 +45,18 @@ const NavBar: FC<NavBarProps> = ({ onOpenNav }) => {
           }}
         >
           <MenuIcon />
+        </IconButton>
+        <IconButton
+          onClick={handleMinimize}
+          sx={{
+            mr: 1,
+            ml: isMinimized ? '70px' : '270px',
+            color: 'text.primary',
+            transition: 'all 0.5s',
+            display: { xs: 'none', lg: 'block' },
+          }}
+        >
+          {isMinimized ? <ArrowForwardIosIcon /> : <ArrowBackIosIcon />}
         </IconButton>
         <Box sx={{ flexGrow: 1 }} />
         <Stack

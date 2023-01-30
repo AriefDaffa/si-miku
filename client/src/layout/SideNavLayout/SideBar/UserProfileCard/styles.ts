@@ -4,16 +4,17 @@ import { INFO } from '@/theme/Colors';
 
 export const profileCardWrapperCx = css`
   display: flex;
-  flex-direction: column;
   height: 120px;
+  padding: 0 8px;
   justify-content: center;
-  padding: 0 16px;
+  flex-direction: column;
 `;
 
 export const profileCardCx = (isDarkTheme: boolean) => css`
   display: flex;
   align-items: center;
   border-radius: 8px;
-  padding: 16px;
+  padding: 16px 8px;
+  justify-content: center;
   background-color: ${isDarkTheme ? '#212121' : INFO.darker};
 `;
