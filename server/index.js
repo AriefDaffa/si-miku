@@ -8,6 +8,7 @@ const connectDB = require('./app/utils/connectDB.js');
 const indicatorRoutes = require('./app/routes/indicator.routes.js');
 const userRoutes = require('./app/routes/user.routes.js');
 const authRoutes = require('./app/routes/auth.routes.js');
+const majorRoutes = require('./app/routes/major.routes.js');
 
 const app = express();
 
@@ -23,6 +24,7 @@ connectDB();
 app.use(indicatorRoutes);
 app.use(userRoutes);
 app.use(authRoutes);
+app.use(majorRoutes);
 
 const PORT = 5000;
 

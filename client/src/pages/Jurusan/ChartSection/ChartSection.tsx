@@ -1,15 +1,77 @@
+import { useMemo } from 'react';
 import type { FC } from 'react';
+
+import Divider from '@mui/material/Divider';
 
 import CustomGrid from '@/components/CustomGrid';
 
 import CustomCard from '@/components/CustomCard';
+import { Header } from '@/components/Typography';
+import type { MajorOverviewNormalized } from '@/repository/query/MajorOverviewQuery/types';
+import CustomChart from '@/components/CustomChart';
+import useChartStyle from '@/hooks/use-chart-style';
 
-interface ChartSectionProps {}
+interface ChartSectionProps {
+  majorData: MajorOverviewNormalized[];
+}
 
 const ChartSection: FC<ChartSectionProps> = (props) => {
-  const {} = props;
+  const { majorData } = props;
 
-  return <CustomGrid sm={[6, 6, 12, 8, 4]} sx={{ pt: 2 }} gridItem={[]} />;
+  const chartOptions = useChartStyle({
+    // chart: {
+    //   stacked: true,
+    //   stackType: '100%',
+    // },
+    plotOptions: {
+      bar: { horizontal: true, barHeight: '50%', borderRadius: 2 },
+    },
+    legend: { floating: false, horizontalAlign: 'center', position: 'bottom' },
+    // colors: [SUCCESS.dark, ERROR.dark],
+  });
+
+  const series = useMemo(() => {
+    return [
+      {
+        name: 'Indikator memenuhi target',
+        data: majorData.map((item) => {
+          return {
+            x: item.majorName,
+            y: item.totalFulfilled,
+          };
+        }),
+      },
+      {
+        name: 'Indikator belum memenuhi target',
+        data: majorData.map((item) => {
+          return {
+            x: item.majorName,
+            y: item.totalFailed,
+          };
+        }),
+      },
+    ];
+  }, [majorData]);
+
+  return (
+    <CustomGrid
+      sx={{ pt: 2 }}
+      gridItem={[
+        <CustomCard>
+          <Header text="Progress Jurusan" variant="h6" sx={{ pb: 1 }} />
+          <Divider sx={{ mt: 2, mb: 3 }} />
+          <div>
+            <CustomChart
+              chartOptions={chartOptions}
+              series={series}
+              type="bar"
+              height={400}
+            />
+          </div>
+        </CustomCard>,
+      ]}
+    />
+  );
 };
 
 export default ChartSection;

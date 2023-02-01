@@ -124,7 +124,30 @@ const getIndicatorByMajorId = async (req, res) => {
       },
     });
 
-    res.json(indicator);
+    const normalizeResult = {
+      major_id: indicator.major_id,
+      major_name: indicator.major_name,
+      indicator_majors: indicator.indicator_majors.map((data) => {
+        return {
+          indicator_id: data.indicator.indicator_id,
+          indicator_name: data.indicator.indicator_name,
+          year_data: data.indicator_major_years.map((year) => {
+            return {
+              year_id: year.year.year_id,
+              year_value: year.year.year_value,
+              q1: year.target_quarter.q1,
+              q2: year.target_quarter.q2,
+              q3: year.target_quarter.q3,
+              q4: year.target_quarter.q4,
+              target: year.target_quarter.target_value,
+              is_target_fulfilled: year.target_quarter.is_target_fulfilled,
+            };
+          }),
+        };
+      }),
+    };
+
+    res.json(normalizeResult);
   } catch (error) {
     res.json(error);
   }
