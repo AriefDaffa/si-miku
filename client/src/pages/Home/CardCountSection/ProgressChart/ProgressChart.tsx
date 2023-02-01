@@ -1,10 +1,9 @@
-import { useMemo } from 'react';
 import type { FC } from 'react';
 
 import Stack from '@mui/material/Stack';
-import Box from '@mui/material/Box';
+import Divider from '@mui/material/Divider';
 
-import { Header, SubHeader } from '@/components/Typography';
+import { Header } from '@/components/Typography';
 import { ERROR, SUCCESS } from '@/theme/Colors';
 import CustomCard from '@/components/CustomCard';
 import CustomChart from '@/components/CustomChart';
@@ -19,9 +18,8 @@ const ProgressChart: FC<ProgressChartProps> = (props) => {
   const { fulfilledVal, failedVal } = props;
 
   const chartOptions = useChartStyle({
-    legend: {
-      show: false,
-    },
+    legend: { floating: false, horizontalAlign: 'center', position: 'bottom' },
+    dataLabels: { enabled: true, dropShadow: { enabled: false } },
     pie: {
       donut: {
         labels: {
@@ -34,39 +32,19 @@ const ProgressChart: FC<ProgressChartProps> = (props) => {
     labels: ['Indikator memenuhi Target', 'Indikator belum memenuhi Target'],
   });
 
-  const getPercentage = useMemo(() => {
-    const total = fulfilledVal + failedVal;
-
-    const resultFailed = (failedVal / total) * 100;
-    const resultFulfilled = (fulfilledVal / total) * 100;
-
-    return {
-      resultFailed: resultFailed || 0,
-      resultFulfilled: resultFulfilled || 0,
-    };
-  }, [failedVal, fulfilledVal]);
-
   return (
     <CustomCard>
       <Header text="Progress indikator" variant="h6" sx={{ pb: 1 }} />
-      <Stack flexDirection="row" direction={{ xs: 'column', sm: 'row' }}>
+      <Divider sx={{ mt: 2, mb: 3 }} />
+      <Stack flexDirection="column" justifyContent="center">
         <div>
           <CustomChart
             chartOptions={chartOptions}
             series={[fulfilledVal, failedVal]}
             type="pie"
+            height={400}
           />
         </div>
-        <Stack justifyContent="center">
-          <Box>
-            <Header text={`${getPercentage.resultFulfilled}%`} />
-            <SubHeader text="Indikator memenuhi target" />
-          </Box>
-          <Box sx={{ mt: 2 }}>
-            <Header text={`${getPercentage.resultFailed}%`} />
-            <SubHeader text="Indikator belum memenuhi target" />
-          </Box>
-        </Stack>
       </Stack>
     </CustomCard>
   );

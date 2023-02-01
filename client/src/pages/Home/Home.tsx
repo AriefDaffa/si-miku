@@ -5,6 +5,7 @@ import { Container } from '@mui/material';
 import { PageTitle } from '@/components/Typography';
 import Helmet from '@/components/Helmet';
 import useIndicatorCountQuery from '@/repository/query/IndicatorCountQuery';
+import useMajorOverviewQuery from '@/repository/query/MajorOverviewQuery';
 import useYearQuery from '@/repository/query/YearQuery';
 
 import CardCountSection from './CardCountSection';
@@ -13,6 +14,7 @@ import JurusanSection from './JurusanSection';
 const Home: FC = () => {
   // const { data: year } = useYearQuery();
   const { data: indicator } = useIndicatorCountQuery();
+  const { data: major } = useMajorOverviewQuery();
 
   return (
     <Container maxWidth="xl">
@@ -21,8 +23,8 @@ const Home: FC = () => {
         title="Overview"
         subTitle="Menampilkan Overview indikator semua jurusan"
       />
-      <CardCountSection indicator={indicator} />
-      <JurusanSection />
+      <CardCountSection indicator={indicator} major={major} />
+      {/* <JurusanSection /> */}
     </Container>
   );
 };

@@ -17,14 +17,14 @@ export const NAV_ITEM = [
     Icon: ArticleIcon,
   },
   {
+    title: 'Jurusan',
+    path: 'jurusan',
+    Icon: SchoolIcon,
+  },
+  {
     title: 'Indikator per-Tahun',
     path: 'indicator',
     Icon: BarChartIcon,
-  },
-  {
-    title: 'Indikator per-Jurusan',
-    path: 'target-list',
-    Icon: SchoolIcon,
   },
   {
     title: 'Input Indikator',

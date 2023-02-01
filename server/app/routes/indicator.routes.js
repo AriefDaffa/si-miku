@@ -11,6 +11,7 @@ const {
   deleteIndicatorById,
   createBulkIndicator,
   getOverviewMajor,
+  getYear,
 } = require('../controllers/indicator.controller.js');
 const { verifyAccessToken } = require('../middleware/verifyToken.js');
 
@@ -38,6 +39,7 @@ router.get(
 router.get('/indicator/:id', verifyAccessToken, getIndicatorById);
 router.get('/indicator/year/:id', verifyAccessToken, getIndicatorsByYear);
 router.get('/indicator/major/:id', verifyAccessToken, getIndicatorByMajorId);
+router.get('/year', verifyAccessToken, getYear);
 router.post('/indicator', verifyAccessToken, createIndicator);
 router.post(
   '/indicator/bulk',

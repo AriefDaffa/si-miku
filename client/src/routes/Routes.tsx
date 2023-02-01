@@ -1,7 +1,14 @@
 import { Navigate, useRoutes } from 'react-router-dom';
 
 import { SideNavLayout, BasicLayout } from '@/layout';
-import { Home, Login, NotFound, ListIndicator, InputIndicator } from '@/pages';
+import {
+  Home,
+  Login,
+  NotFound,
+  ListIndicator,
+  InputIndicator,
+  Jurusan,
+} from '@/pages';
 
 import PrivateRoute from './PrivateRoute';
 
@@ -22,6 +29,7 @@ const Router = () => {
             { path: 'overview', element: <Home /> },
             { path: 'indicator-list', element: <ListIndicator /> },
             { path: 'indicator-input', element: <InputIndicator /> },
+            { path: 'jurusan', element: <Jurusan /> },
           ],
         },
       ],

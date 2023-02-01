@@ -8,23 +8,27 @@ import type { IndicatorCountResponse, IndicatorCountNormalized } from './types';
 
 // normalize the data to prevent undefined value
 const normalizer = (Deps?: IndicatorCountResponse) => {
-  const result: IndicatorCountNormalized[] = [];
+  const result: IndicatorCountNormalized = {
+    years: [],
+    totalFailed: 0,
+    totalFulfilled: 0,
+  };
 
   if (Deps !== void 0 && !(Deps instanceof AxiosError)) {
-    Deps.data.map((item) => {
-      result.push({
-        isTargetFulfilled: item.is_target_fulfilled || false,
-        totalCount: item.totalCount || 0,
-        years: item.years.map((year) => {
-          return {
-            count: year.count || 0,
-            isTargetFulfilled: year.is_target_fulfilled.map(
-              (target) => target || false
-            ),
-            yearValue: year.year_value || 0,
-          };
-        }),
+    result.totalFulfilled = Deps.data.total_fulfilled;
+    result.totalFailed = Deps.data.total_failed;
+    Deps.data.years.map((item) => {
+      if (!item) {
+        return result;
+      }
+
+      result.years.push({
+        failed: item.failed || 0,
+        fulfilled: item.fulfilled || 0,
+        yearValue: item.year_value || 0,
       });
+
+      return result;
     });
   }
 

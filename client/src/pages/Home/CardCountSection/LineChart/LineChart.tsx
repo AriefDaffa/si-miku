@@ -2,21 +2,21 @@ import { useMemo } from 'react';
 import type { FC } from 'react';
 
 import Stack from '@mui/material/Stack';
+import Divider from '@mui/material/Divider';
 
 import { ERROR, SUCCESS } from '@/theme/Colors';
 import { Header } from '@/components/Typography';
 import CustomCard from '@/components/CustomCard';
 import useChartStyle from '@/hooks/use-chart-style';
 import CustomChart from '@/components/CustomChart';
-import type { IndicatorCountNormalized } from '@/repository/query/IndicatorCountQuery/types';
+import type { YearCountNormalized } from '@/repository/query/IndicatorCountQuery/types';
 
 interface LineChartProps {
-  fulfilledVal: IndicatorCountNormalized;
-  failedVal: IndicatorCountNormalized;
+  years: YearCountNormalized[];
 }
 
 const LineChart: FC<LineChartProps> = (props) => {
-  const { fulfilledVal, failedVal } = props;
+  const { years } = props;
 
   const chartOptions = useChartStyle({
     legend: { floating: false, horizontalAlign: 'center', position: 'bottom' },
@@ -32,34 +32,36 @@ const LineChart: FC<LineChartProps> = (props) => {
     return [
       {
         name: 'Indikator memenuhi target',
-        data: fulfilledVal.years.map((item) => {
+        data: years.map((item) => {
           return {
             x: item.yearValue,
-            y: item.count,
+            y: item.fulfilled,
           };
         }),
       },
       {
         name: 'Indikator belum memenuhi target',
-        data: failedVal.years.map((item) => {
+        data: years.map((item) => {
           return {
             x: item.yearValue,
-            y: item.count,
+            y: item.failed,
           };
         }),
       },
     ];
-  }, [fulfilledVal, failedVal]);
+  }, [years]);
 
   return (
     <CustomCard>
       <Header text="Grafik perkembangan indikator" variant="h6" />
+      <Divider sx={{ mt: 2, mb: 3 }} />
       <Stack alignSelf="center">
         <div>
           <CustomChart
             chartOptions={chartOptions}
             series={series}
             type="area"
+            height={400}
           />
         </div>
       </Stack>

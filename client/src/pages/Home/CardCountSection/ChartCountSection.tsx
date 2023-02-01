@@ -1,5 +1,3 @@
-import { useForm } from 'react-hook-form';
-import { useMemo } from 'react';
 import type { FC } from 'react';
 
 import DoNotDisturbIcon from '@mui/icons-material/DoNotDisturb';
@@ -7,71 +5,45 @@ import DoneAllIcon from '@mui/icons-material/DoneAll';
 
 import { ERROR, SUCCESS } from '@/theme/Colors';
 import CustomGrid from '@/components/CustomGrid';
-import type { YearDataNormalized } from '@/repository/query/YearQuery/types';
 import type { IndicatorCountNormalized } from '@/repository/query/IndicatorCountQuery/types';
+import type { MajorOverviewNormalized } from '@/repository/query/MajorOverviewQuery/types';
 
 import CountCard from './CountCard';
 import ProgressChart from './ProgressChart';
 import LineChart from './LineChart';
-import { defaultVal } from './constant';
+import CustomCard from '@/components/CustomCard';
+import JurusanCard from './JurusanCard';
 
 interface CardCountSectionProps {
-  year: YearDataNormalized[];
-  indicator: IndicatorCountNormalized[];
+  major: MajorOverviewNormalized[];
+  indicator: IndicatorCountNormalized;
 }
 
 const CardCountSection: FC<CardCountSectionProps> = (props) => {
-  const { year, indicator } = props;
-
-  const getValue = useMemo(() => {
-    if (!indicator || indicator.length === 0) {
-      return defaultVal;
-    }
-
-    const fulfilledVal = indicator.find(
-      (item) => item.isTargetFulfilled === true
-    );
-    const failedVal = indicator.find(
-      (item) => item.isTargetFulfilled === false
-    );
-
-    return {
-      fulfilledCount: fulfilledVal?.totalCount || defaultVal.fulfilledCount,
-      failedCount: failedVal?.totalCount || defaultVal.failedCount,
-      fulfilledVal: fulfilledVal || defaultVal.fulfilledVal,
-      failedVal: failedVal || defaultVal.failedVal,
-    };
-  }, [indicator]);
+  const { major, indicator } = props;
 
   return (
     <CustomGrid
-      sm={[6, 6]}
-      sx={{ pt: 3 }}
+      sm={[6, 6, 12, 8, 4]}
+      sx={{ pt: 2 }}
       gridItem={[
-        <LineChart
-          fulfilledVal={getValue.fulfilledVal}
-          failedVal={getValue.failedVal}
+        <CountCard
+          backgroundColor={SUCCESS.dark}
+          Icon={DoneAllIcon}
+          value={`${indicator.totalFulfilled}`}
+          text="Indikator memenuhi target"
         />,
-        <CustomGrid
-          sm={[6, 6]}
-          gridItem={[
-            <CountCard
-              backgroundColor={SUCCESS.dark}
-              Icon={DoneAllIcon}
-              value={`${getValue.fulfilledCount}`}
-              text="Indikator memenuhi target"
-            />,
-            <CountCard
-              backgroundColor={ERROR.dark}
-              Icon={DoNotDisturbIcon}
-              value={`${getValue.failedCount}`}
-              text="Indikator belum memenuhi target"
-            />,
-            <ProgressChart
-              fulfilledVal={getValue.fulfilledCount}
-              failedVal={getValue.failedCount}
-            />,
-          ]}
+        <CountCard
+          backgroundColor={ERROR.dark}
+          Icon={DoNotDisturbIcon}
+          value={`${indicator.totalFailed}`}
+          text="Indikator belum memenuhi target"
+        />,
+        <LineChart years={indicator.years} />,
+        <JurusanCard majorData={major} />,
+        <ProgressChart
+          fulfilledVal={indicator.totalFulfilled}
+          failedVal={indicator.totalFailed}
         />,
       ]}
     />

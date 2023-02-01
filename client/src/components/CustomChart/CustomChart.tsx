@@ -27,14 +27,23 @@ interface CustomChartProps {
     | 'polarArea'
     | 'rangeBar';
   width?: number;
+  height?: number;
 }
 
 const CustomChart: FC<CustomChartProps> = (props) => {
-  const { chartOptions, series, type, width } = props;
+  const { chartOptions, series, type, width, height } = props;
 
   const options = useChartStyle(chartOptions);
 
-  return <Chart options={options} series={series} type={type} width={width} />;
+  return (
+    <Chart
+      options={options}
+      series={series}
+      type={type}
+      width={width}
+      height={height}
+    />
+  );
 };
 
 export default memo(CustomChart);
