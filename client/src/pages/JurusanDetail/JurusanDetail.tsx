@@ -1,59 +1,40 @@
-import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 import type { FC } from 'react';
 
 import Container from '@mui/material/Container';
-import Box from '@mui/material/Box';
-import Stack from '@mui/material/Stack';
-import Typography from '@mui/material/Typography';
-import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
-import { PageTitle } from '@/components/Typography';
-
-import CustomGrid from '@/components/CustomGrid';
 import Helmet from '@/components/Helmet';
+import useYearQuery from '@/repository/query/YearQuery';
 import useIndicatorByMajorQuery from '@/repository/query/IndicatorByMajorQuery';
 
+import TableSection from './TableSection';
+import HeadSection from './HeadSection';
+import ChartSection from './ChartSection';
+
 const JurusanDetail: FC = () => {
-  const navigate = useNavigate();
   const params = useParams();
 
   const id = params.id || '';
 
-  const { data: major, isLoading: isMajorLoading } =
-    useIndicatorByMajorQuery(id);
-
-  const handleBackButton = () => {
-    navigate('/dashboard/jurusan', { replace: true });
-  };
+  const { data: year, isLoading: isYearLoading } = useYearQuery();
+  const { data: major, isLoading: isMajorLoading } = useIndicatorByMajorQuery(
+    id,
+    isYearLoading
+  );
 
   return (
     <>
-      <Helmet title={`${123} | SI-MIKU`} />
+      <Helmet title={`${major.majorName} | SI-MIKU`} />
       <Container maxWidth="xl">
-        <Box
-          sx={{
-            display: 'flex',
-            justifyContent: 'space-between',
-            alignItems: 'middle',
-          }}
-        >
-          <Box>
-            <Typography
-              variant="subtitle2"
-              sx={{ opacity: 0.7, ':hover': { cursor: 'pointer' } }}
-              onClick={handleBackButton}
-            >
-              <Stack flexDirection="row" alignItems="center">
-                <ArrowBackIcon fontSize="small" sx={{ mr: 0.5 }} />
-                <div>Kembali</div>
-              </Stack>
-            </Typography>
-            <Typography variant="h2">{major.majorName}</Typography>
-            <Typography variant="subtitle2" sx={{ mb: 2, opacity: 0.7 }}>
-              Menampilkan indikator jurusan {major.majorName}
-            </Typography>
-          </Box>
-        </Box>
+        <HeadSection id={id} majorData={major} />
+        <ChartSection majorData={major} />
+        <TableSection
+          yearData={year}
+          isYearLoading={isYearLoading}
+          majorData={major}
+          isLoading={isMajorLoading}
+        />
       </Container>
     </>
   );

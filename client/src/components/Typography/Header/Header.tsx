@@ -1,6 +1,7 @@
 import type { FC } from 'react';
 
 import Typography from '@mui/material/Typography';
+import type { SxProps } from '@mui/material';
 
 interface HeaderProps {
   text: string;
@@ -19,7 +20,7 @@ interface HeaderProps {
     | 'button'
     | 'overline'
     | 'inherit';
-  sx?: object;
+  sx?: SxProps;
 }
 
 const Header: FC<HeaderProps> = (props) => {

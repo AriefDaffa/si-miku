@@ -7,7 +7,7 @@ const { parse } = require('csv-parse');
 const getAllIndicators = async (req, res) => {
   try {
     const indicator = await model.Indicator.findAll({
-      attributes: ['indicator_id', 'indicator_name'],
+      attributes: ['indicator_code', 'indicator_name'],
       // include: {
       //   model: model.IndicatorMajor,
       //   attributes: ['major_id'],
@@ -34,9 +34,9 @@ const getIndicatorById = async (req, res) => {
   try {
     const user = await model.Indicator.findOne({
       where: {
-        indicator_id: id,
+        indicator_code: id,
       },
-      attributes: ['indicator_id', 'indicator_name'],
+      attributes: ['indicator_code', 'indicator_name'],
       include: {
         model: model.IndicatorMajor,
         attributes: ['major_id'],
@@ -79,7 +79,7 @@ const getIndicatorsByYear = async (req, res) => {
             include: [
               {
                 model: model.Indicator,
-                attributes: ['indicator_id', 'indicator_name'],
+                attributes: ['indicator_code', 'indicator_name'],
               },
               { model: model.Major },
             ],
@@ -101,6 +101,7 @@ const getIndicatorsByYear = async (req, res) => {
 
 const getIndicatorByMajorId = async (req, res) => {
   const { id } = req.params;
+  const { year_val } = req.query;
 
   try {
     const indicator = await model.Major.findOne({
@@ -113,12 +114,18 @@ const getIndicatorByMajorId = async (req, res) => {
         include: [
           {
             model: model.Indicator,
-            attributes: ['indicator_id', 'indicator_name'],
+            attributes: ['indicator_id', 'indicator_code', 'indicator_name'],
           },
           {
             model: model.IndicatorMajorYear,
             attributes: ['indicator_major_year_id'],
-            include: [model.Year, model.TargetQuarters],
+            include: [
+              {
+                model: model.Year,
+                where: year_val ? { year_value: year_val } : {},
+              },
+              model.TargetQuarters,
+            ],
           },
         ],
       },
@@ -130,6 +137,7 @@ const getIndicatorByMajorId = async (req, res) => {
       indicator_majors: indicator.indicator_majors.map((data) => {
         return {
           indicator_id: data.indicator.indicator_id,
+          indicator_code: data.indicator.indicator_code,
           indicator_name: data.indicator.indicator_name,
           year_data: data.indicator_major_years.map((year) => {
             return {
@@ -163,7 +171,7 @@ const createBulkIndicator = async (req, res) => {
 };
 
 const createIndicator = async (req, res) => {
-  const { indicator_name, indicator_id, indicator_year } = req.body;
+  const { indicator_name, indicator_code, indicator_year } = req.body;
   const cookies = req.cookies.accessToken;
 
   try {
@@ -182,7 +190,7 @@ const createIndicator = async (req, res) => {
         // check duplicate indicator_id
         const indicatorId = await model.Indicator.findOne({
           where: {
-            indicator_id,
+            indicator_code,
           },
         });
 
@@ -194,7 +202,7 @@ const createIndicator = async (req, res) => {
 
         // create new indicator if there is no indicator
         const indicator = await model.Indicator.create({
-          indicator_id,
+          indicator_code,
           indicator_name,
           created_by: decodedVal.user_id,
         });
@@ -223,7 +231,7 @@ const createIndicator = async (req, res) => {
               data.year_data.map(async (item) => {
                 const indicatorMajor = await model.IndicatorMajor.findOne({
                   where: {
-                    indicator_id,
+                    indicator_id: indicator.indicator_id,
                     major_id: data.major_id,
                   },
                 });
@@ -398,11 +406,11 @@ const getTargetQuarterByYear = async (req, res) => {
 
 const deleteIndicatorById = async (req, res) => {
   try {
-    const { indicator_id } = req.body;
+    const { indicator_code } = req.body;
 
     const remove = await model.Indicator.destroy({
       where: {
-        indicator_id,
+        indicator_code,
       },
     });
 

@@ -21,9 +21,9 @@ const ListIndicator: FC = () => {
           title="List Indikator"
           subTitle="Menampilkan list indikator yang terdapat pada sistem"
         />
-        <CustomGrid
+        {/* <CustomGrid
           gridItem={[<TableSection data={data} isLoading={isLoading} />]}
-        />
+        /> */}
       </Container>
     </>
   );

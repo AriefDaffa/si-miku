@@ -11,6 +11,7 @@ export interface IndicatorByMajorTargetQuarters {
 
 export interface IndicatorByMajorArray {
   indicator_id: number;
+  indicator_code: string;
   indicator_name: string;
   year_data: IndicatorByMajorTargetQuarters[];
 }
@@ -40,6 +41,7 @@ export interface IndicatorByMajorTargetQuartersNormalized {
 
 export interface IndicatorByMajorNormalizedData {
   indicatorId: number;
+  indicatorCode: string;
   indicatorName: string;
   yearData: IndicatorByMajorTargetQuartersNormalized[];
 }

@@ -1,13 +1,14 @@
 import type { FC, ReactNode } from 'react';
 
 import Grid from '@mui/material/Grid';
+import type { SxProps } from '@mui/material';
 
 interface CustomGridProps {
   spacing?: number;
   xs?: number[];
   md?: number[];
   sm?: number[];
-  sx?: object;
+  sx?: SxProps;
   gridItem: ReactNode[];
 }
 

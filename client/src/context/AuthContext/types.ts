@@ -1,15 +1,9 @@
-import { Dispatch } from 'react';
-import type { ReactNode, SetStateAction } from 'react';
-
-// export interface User {
-//   userName: string;
-//   email: string;
-// }
+import type { ReactNode } from 'react';
+import type { CurrentUserResponseNormalized } from '@/repository/query/CurrentUserQuery/types';
 
 export interface AuthContextInterface {
-  isAuthenticated: boolean;
-  // isLoading: boolean;
-  setIsAuthenticated: Dispatch<SetStateAction<boolean>>;
+  isLoading: boolean;
+  user: CurrentUserResponseNormalized;
 }
 
 export interface AuthContextProps {

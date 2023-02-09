@@ -1,6 +1,7 @@
 export interface CurrentUserData {
   username: string;
   email: string;
+  userImage: string;
 }
 
 export interface CurrentUserResponse {
@@ -12,4 +13,5 @@ export interface CurrentUserResponse {
 export interface CurrentUserResponseNormalized {
   userName: string;
   email: string;
+  userImage: string;
 }

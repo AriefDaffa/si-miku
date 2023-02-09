@@ -1,16 +1,16 @@
-import type { FC } from 'react';
+import type { FC, ReactNode } from 'react';
 
 import { PillContainerCx } from './styles';
 
 interface PillProps {
-  text: string;
   isError: boolean;
+  children: ReactNode;
 }
 
 const Pill: FC<PillProps> = (props) => {
-  const { text, isError } = props;
+  const { children, isError } = props;
 
-  return <div css={PillContainerCx(isError)}>{text}</div>;
+  return <div css={PillContainerCx(isError)}>{children}</div>;
 };
 
 export default Pill;

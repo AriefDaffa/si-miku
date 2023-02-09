@@ -2,19 +2,20 @@ import { useState } from 'react';
 import { Outlet } from 'react-router-dom';
 import type { FC } from 'react';
 
-import { useCurrentUserQuery } from '@/repository/query/CurrentUserQuery';
 import { useCustomTheme } from '@/context/CustomThemeContext';
 
-import { containerCx, pageContainerCx } from './styles';
+import { useAuthContext } from '@/context/AuthContext';
+
 import NavBar from './NavBar';
-import SideMenuSwitcher from './SideMenuSwitcher';
 import SideBar from './SideBar';
+import SideMenuSwitcher from './SideMenuSwitcher';
+import { containerCx, pageContainerCx } from './styles';
 
 const SideNavLayout: FC = () => {
   const [open, setOpen] = useState(false);
 
   const { isDarkTheme } = useCustomTheme();
-  const { data, isLoading } = useCurrentUserQuery();
+  const { user, isLoading } = useAuthContext();
 
   const handleOnClose = () => {
     setOpen(false);
@@ -31,7 +32,7 @@ const SideNavLayout: FC = () => {
         <SideBar
           isOpen={open}
           onClose={handleOnClose}
-          data={data}
+          data={user}
           isLoading={isLoading}
         />
       </SideMenuSwitcher>

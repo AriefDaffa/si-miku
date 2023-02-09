@@ -7,7 +7,6 @@ import Button from '@mui/material/Button';
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
 
-import { useAuthContext } from '@/context/AuthContext';
 import { useLoginMutation } from '@/repository/mutation/LoginMutation';
 import { TextInput } from '@/components/Input';
 import logo from '@/assets/logo/logo.png';
@@ -27,12 +26,10 @@ const Login: FC = () => {
 
   const navigate = useNavigate();
   const { mutate, isLoading } = useLoginMutation();
-  const { setIsAuthenticated } = useAuthContext();
 
   const onSubmit = (data: LoginData) => {
     mutate(data, {
       onSuccess: () => {
-        setIsAuthenticated(true);
         navigate('/');
       },
     });

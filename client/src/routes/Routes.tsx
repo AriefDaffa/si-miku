@@ -9,6 +9,7 @@ import {
   InputIndicator,
   Jurusan,
   JurusanDetail,
+  Profile,
 } from '@/pages';
 
 import PrivateRoute from './PrivateRoute';
@@ -32,6 +33,7 @@ const Router = () => {
             { path: 'indicator-input', element: <InputIndicator /> },
             { path: 'jurusan', element: <Jurusan /> },
             { path: 'jurusan/:id', element: <JurusanDetail /> },
+            { path: 'profile', element: <Profile /> },
           ],
         },
       ],

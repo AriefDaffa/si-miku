@@ -115,6 +115,7 @@ const getCurrentUser = async (req, res) => {
       return res.json({
         username: decodedVal.username,
         email: decodedVal.email,
+        userImage: decodedVal.user_image,
       });
     });
   } catch (error) {

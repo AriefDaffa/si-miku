@@ -14,11 +14,13 @@ const normalizer = (Deps?: CurrentUserResponse) => {
   const result: CurrentUserResponseNormalized = {
     userName: '',
     email: '',
+    userImage: '',
   };
 
   if (Deps !== void 0 && !(Deps instanceof AxiosError)) {
     result.userName = Deps.data.username || '';
     result.email = Deps.data.email || '';
+    result.userImage = Deps.data.userImage || '';
   }
 
   return result;
@@ -30,7 +32,6 @@ const useCurrentUserQuery = () => {
     () => baseAPI.get('current-user'),
     {
       refetchOnWindowFocus: false,
-      retry: false,
     }
   );
 

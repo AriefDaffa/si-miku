@@ -10,11 +10,13 @@ interface TextInputProps {
   name: string;
   label: string;
   type: string;
+  defaultValue?: string;
+  labelInside?: string;
   control: Control<any, any>;
 }
 
 const TextInput: FC<TextInputProps> = (props) => {
-  const { control, name, label, type } = props;
+  const { control, name, label, type, defaultValue, labelInside } = props;
 
   return (
     <Stack>
@@ -25,10 +27,12 @@ const TextInput: FC<TextInputProps> = (props) => {
         name={name}
         control={control}
         rules={{ required: true }}
+        defaultValue={defaultValue}
         render={({ field, fieldState }) => (
           <TextField
             type={type}
             error={fieldState.error ? true : false}
+            label={labelInside}
             helperText={fieldState.error ? 'Form tidak boleh kosong' : ''}
             {...field}
           />

@@ -1,10 +1,11 @@
 import type { FC } from 'react';
 
 import Typography from '@mui/material/Typography';
+import type { SxProps } from '@mui/material';
 
 interface SubHeaderProps {
   text?: string;
-  sx?: object;
+  sx?: SxProps;
 }
 
 const SubHeader: FC<SubHeaderProps> = (props) => {

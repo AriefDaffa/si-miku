@@ -6,8 +6,6 @@ import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
-import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
-import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 
 import { useCustomTheme } from '@/context/CustomThemeContext';
 import { useSideBar } from '@/context/SideBarContext';
@@ -56,7 +54,7 @@ const NavBar: FC<NavBarProps> = (props) => {
             display: { xs: 'none', lg: 'block' },
           }}
         >
-          {isMinimized ? <ArrowForwardIosIcon /> : <ArrowBackIosIcon />}
+          <MenuIcon />
         </IconButton>
         <Box sx={{ flexGrow: 1 }} />
         <Stack
@@ -67,7 +65,7 @@ const NavBar: FC<NavBarProps> = (props) => {
             sm: 1,
           }}
         >
-          <ProfileIcon />
+          {/* <ProfileIcon /> */}
         </Stack>
       </Toolbar>
     </AppBar>

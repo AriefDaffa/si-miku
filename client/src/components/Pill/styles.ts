@@ -5,7 +5,7 @@ import { ERROR, SUCCESS } from '@/theme/Colors';
 export const PillContainerCx = (isError: boolean) => css`
   padding: 4px 8px;
   width: fit-content;
-  border-radius: 8px;
+  border-radius: 15px;
   font-weight: bold;
   white-space: nowrap;
   overflow: hidden;

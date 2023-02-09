@@ -11,11 +11,12 @@ interface DatePickerInputProps {
   name: string;
   label: string;
   isYearOnly: boolean;
+  labelInside?: string;
   control: Control<any, any>;
 }
 
 const DatePickerInput: FC<DatePickerInputProps> = (props) => {
-  const { control, name, label, isYearOnly } = props;
+  const { control, name, label, isYearOnly, labelInside } = props;
 
   return (
     <Stack>
@@ -27,6 +28,7 @@ const DatePickerInput: FC<DatePickerInputProps> = (props) => {
         control={control}
         render={({ field }) => (
           <DatePicker
+            label={labelInside}
             views={isYearOnly ? ['year'] : ['year', 'day']}
             openTo={isYearOnly ? 'year' : 'day'}
             renderInput={(params) => <TextField {...params} />}

@@ -1,13 +1,14 @@
 import type { FC, ReactNode } from 'react';
 
-import { Card as MuiCard } from '@mui/material';
 import CardContent from '@mui/material/CardContent';
+import { Card as MuiCard } from '@mui/material';
+import type { SxProps } from '@mui/material';
 
 import { cardContainerCx } from './styles';
 
 interface CustomCardProps {
   isCenter?: boolean;
-  sx?: object;
+  sx?: SxProps;
   children: ReactNode;
 }
 
