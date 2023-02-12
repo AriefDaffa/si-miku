@@ -1,7 +1,7 @@
 import type { FC } from 'react';
 
 import Stack from '@mui/material/Stack';
-import Avatar from '@mui/material/Avatar';
+import Box from '@mui/material/Box';
 import type { SvgIconTypeMap } from '@mui/material';
 import type { OverridableComponent } from '@mui/material/OverridableComponent';
 
@@ -12,31 +12,23 @@ interface CountCardProps {
   backgroundColor: string;
   value: string;
   text: string;
-  Icon: OverridableComponent<SvgIconTypeMap<{}, 'svg'>>;
+  // Icon: OverridableComponent<SvgIconTypeMap<{}, 'svg'>>;
 }
 
 const CountCard: FC<CountCardProps> = (props) => {
-  const { backgroundColor, Icon, value, text } = props;
+  const { backgroundColor, value, text } = props;
 
   return (
     <CustomCard>
-      <Stack justifyContent="center" alignItems="center">
-        <Avatar
-          sx={{
-            backgroundColor,
-            height: 56,
-            width: 56,
-          }}
-        >
-          <Icon />
-        </Avatar>
+      <Box sx={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
+        <SubHeader text={text} sx={{ flex: 2 }} />
         <Header
           text={value}
-          variant="h3"
-          sx={{ color: backgroundColor, py: 1 }}
+          variant="h2"
+          sx={{ color: backgroundColor, textAlign: 'center' }}
         />
-        <SubHeader text={text} sx={{ textAlign: 'center' }} />
-      </Stack>
+        <Box sx={{ flex: 1 }}></Box>
+      </Box>
     </CustomCard>
   );
 };

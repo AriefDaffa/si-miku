@@ -272,6 +272,8 @@ const createIndicator = async (req, res) => {
 
 const getIndicatorCount = async (req, res) => {
   try {
+    const indicator = await model.Indicator.findAndCountAll();
+
     const year = await model.Year.findAll({
       include: {
         model: model.IndicatorMajorYear,
@@ -297,6 +299,7 @@ const getIndicatorCount = async (req, res) => {
 
     const result = {
       years: normalize,
+      indicator_count: indicator.count,
       total_fulfilled: normalize.reduce((acc, cur) => acc + cur.fulfilled, 0),
       total_failed: normalize.reduce((acc, cur) => acc + cur.failed, 0),
     };

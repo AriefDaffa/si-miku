@@ -10,6 +10,7 @@ import type { IndicatorCountResponse, IndicatorCountNormalized } from './types';
 const normalizer = (Deps?: IndicatorCountResponse) => {
   const result: IndicatorCountNormalized = {
     years: [],
+    indicatorCount: 0,
     totalFailed: 0,
     totalFulfilled: 0,
   };
@@ -17,6 +18,7 @@ const normalizer = (Deps?: IndicatorCountResponse) => {
   if (Deps !== void 0 && !(Deps instanceof AxiosError)) {
     result.totalFulfilled = Deps.data.total_fulfilled;
     result.totalFailed = Deps.data.total_failed;
+    result.indicatorCount = Deps.data.indicator_count;
     Deps.data.years.map((item) => {
       if (!item) {
         return result;

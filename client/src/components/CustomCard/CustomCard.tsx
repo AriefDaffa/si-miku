@@ -16,7 +16,7 @@ const CustomCard: FC<CustomCardProps> = (props) => {
   const { isCenter = false, children, sx } = props;
   return (
     <MuiCard css={cardContainerCx(isCenter)} sx={sx}>
-      <CardContent>{children}</CardContent>
+      <CardContent sx={{ height: '100%' }}>{children}</CardContent>
     </MuiCard>
   );
 };

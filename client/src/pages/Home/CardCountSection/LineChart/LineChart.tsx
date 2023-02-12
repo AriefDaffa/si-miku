@@ -5,7 +5,7 @@ import Stack from '@mui/material/Stack';
 import Divider from '@mui/material/Divider';
 
 import { ERROR, SUCCESS } from '@/theme/Colors';
-import { Header } from '@/components/Typography';
+import { Header, SubHeader } from '@/components/Typography';
 import CustomCard from '@/components/CustomCard';
 import useChartStyle from '@/hooks/use-chart-style';
 import CustomChart from '@/components/CustomChart';
@@ -53,9 +53,9 @@ const LineChart: FC<LineChartProps> = (props) => {
 
   return (
     <CustomCard>
-      <Header text="Grafik perkembangan indikator" variant="h6" />
-      <Divider sx={{ mt: 2, mb: 3 }} />
-      <Stack alignSelf="center">
+      <SubHeader text="Grafik perkembangan indikator" />
+      {/* <Divider sx={{ mt: 2, mb: 3 }} /> */}
+      <Stack alignSelf="center" sx={{ mt: 2 }}>
         <div>
           <CustomChart
             chartOptions={chartOptions}

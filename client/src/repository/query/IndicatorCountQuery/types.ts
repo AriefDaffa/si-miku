@@ -6,6 +6,7 @@ interface YearCount {
 
 export interface IndicatorCountData {
   years: YearCount[];
+  indicator_count: number;
   total_fulfilled: number;
   total_failed: number;
 }
@@ -24,6 +25,7 @@ export interface YearCountNormalized {
 
 export interface IndicatorCountNormalized {
   years: YearCountNormalized[];
+  indicatorCount: number;
   totalFulfilled: number;
   totalFailed: number;
 }

@@ -1,52 +1,61 @@
 import type { FC } from 'react';
 
-import DoNotDisturbIcon from '@mui/icons-material/DoNotDisturb';
-import DoneAllIcon from '@mui/icons-material/DoneAll';
+import Box from '@mui/material/Box';
 
-import { ERROR, SUCCESS } from '@/theme/Colors';
 import CustomGrid from '@/components/CustomGrid';
-import type { IndicatorCountNormalized } from '@/repository/query/IndicatorCountQuery/types';
-import type { MajorOverviewNormalized } from '@/repository/query/MajorOverviewQuery/types';
-
-import CountCard from './CountCard';
-import ProgressChart from './ProgressChart';
-import LineChart from './LineChart';
 import CustomCard from '@/components/CustomCard';
-import JurusanCard from './JurusanCard';
+import CountCard from '@/components/CountCard';
+import ProgressCard from '@/components/ProgressCard';
+import { Header } from '@/components/Typography';
+import { ERROR, GREY, SUCCESS } from '@/theme/Colors';
+import { getPercentage } from '@/utils/get-percentage';
+import type { IndicatorCountNormalized } from '@/repository/query/IndicatorCountQuery/types';
+
+import LineChart from './LineChart';
 
 interface CardCountSectionProps {
-  major: MajorOverviewNormalized[];
   indicator: IndicatorCountNormalized;
 }
 
 const CardCountSection: FC<CardCountSectionProps> = (props) => {
-  const { major, indicator } = props;
+  const { indicator } = props;
 
   return (
-    <CustomGrid
-      sm={[6, 6, 12, 8, 4]}
-      sx={{ pt: 2 }}
-      gridItem={[
-        <CountCard
-          backgroundColor={SUCCESS.dark}
-          Icon={DoneAllIcon}
-          value={`${indicator.totalFulfilled}`}
-          text="Indikator memenuhi target"
-        />,
-        <CountCard
-          backgroundColor={ERROR.dark}
-          Icon={DoNotDisturbIcon}
-          value={`${indicator.totalFailed}`}
-          text="Indikator belum memenuhi target"
-        />,
-        <LineChart years={indicator.years} />,
-        <JurusanCard majorData={major} />,
-        <ProgressChart
-          fulfilledVal={indicator.totalFulfilled}
-          failedVal={indicator.totalFailed}
-        />,
-      ]}
-    />
+    <CustomCard>
+      <Header
+        text={`Perkembangan indikator pada ${indicator.years.length} tahun terakhir`}
+      />
+      <Box sx={{ backgroundColor: GREY[200], p: 1, mt: 2, borderRadius: 2 }}>
+        <CustomGrid
+          sm={[4, 4, 4]}
+          spacing={1}
+          gridItem={[
+            <CountCard
+              backgroundColor={SUCCESS.dark}
+              value={`${indicator.totalFulfilled}`}
+              text="Indikator memenuhi target"
+            />,
+            <CountCard
+              backgroundColor={ERROR.dark}
+              value={`${indicator.totalFailed}`}
+              text="Indikator belum memenuhi target"
+            />,
+            <ProgressCard
+              value={getPercentage(
+                indicator.totalFulfilled,
+                indicator.totalFulfilled + indicator.totalFailed
+              )}
+            />,
+            <LineChart years={indicator.years} />,
+            // <JurusanCard majorData={major} />,
+            // <ProgressChart
+            //   fulfilledVal={indicator.totalFulfilled}
+            //   failedVal={indicator.totalFailed}
+            // />,
+          ]}
+        />
+      </Box>
+    </CustomCard>
   );
 };
 

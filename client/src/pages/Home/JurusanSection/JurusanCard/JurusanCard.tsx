@@ -1,49 +1,32 @@
 import type { FC } from 'react';
 
 import Box from '@mui/material/Box';
-import Stack from '@mui/material/Stack';
-import Divider from '@mui/material/Divider';
-import Avatar from '@mui/material/Avatar';
-import TrackChangesIcon from '@mui/icons-material/TrackChanges';
-import DoNotDisturbIcon from '@mui/icons-material/DoNotDisturb';
-import DoneAllIcon from '@mui/icons-material/DoneAll';
 
-import { Header } from '@/components/Typography';
 import CustomCard from '@/components/CustomCard';
 import CustomGrid from '@/components/CustomGrid';
-
-import { ERROR, GREY, PRIMARY, SUCCESS } from '@/theme/Colors';
-
-import CountCard from '@/pages/Home/CardCountSection/CountCard';
-
-import IndicatorChart from './IndicatorChart';
+import CountCard from '@/components/CountCard';
+import ProgressCard from '@/components/ProgressCard';
+import { Header } from '@/components/Typography';
+import { getPercentage } from '@/utils/get-percentage';
+import { ERROR, GREY, SUCCESS } from '@/theme/Colors';
+import type { MajorOverviewNormalized } from '@/repository/query/MajorOverviewQuery/types';
 
 interface JurusanCardProps {
-  jurusan: string;
-  imageSrc: string;
+  major: MajorOverviewNormalized;
 }
 
 const JurusanCard: FC<JurusanCardProps> = (props) => {
-  const { jurusan, imageSrc } = props;
+  const { major } = props;
 
   return (
     <CustomCard>
-      <Stack flexDirection="row" alignItems="center">
-        <Avatar
-          src={imageSrc}
-          alt="tif"
-          variant="rounded"
-          sx={{ width: 'fit-content' }}
-        />
-        <Divider orientation="vertical" flexItem sx={{ mx: 2 }} />
-        <Header text={jurusan} variant="h6" />
-      </Stack>
+      <Header text={major.majorName} />
       <Box
         sx={{
+          backgroundColor: GREY[200],
           p: 1,
           mt: 2,
-          backgroundColor: GREY[200],
-          borderRadius: 1,
+          borderRadius: 2,
         }}
       >
         <CustomGrid
@@ -51,24 +34,21 @@ const JurusanCard: FC<JurusanCardProps> = (props) => {
           spacing={1}
           gridItem={[
             <CountCard
-              backgroundColor={PRIMARY.dark}
-              Icon={TrackChangesIcon}
-              value="120"
-              text="Total indikator"
-            />,
-            <CountCard
               backgroundColor={SUCCESS.dark}
-              Icon={DoneAllIcon}
-              value="50"
+              value={`${major.totalFulfilled}`}
               text="Indikator memenuhi target"
             />,
             <CountCard
               backgroundColor={ERROR.dark}
-              Icon={DoNotDisturbIcon}
-              value="70"
+              value={`${major.totalFailed}`}
               text="Indikator belum memenuhi target"
             />,
-            // <IndicatorChart />,
+            <ProgressCard
+              value={getPercentage(
+                major.totalFulfilled,
+                major.totalFulfilled + major.totalFailed
+              )}
+            />,
           ]}
         />
       </Box>
