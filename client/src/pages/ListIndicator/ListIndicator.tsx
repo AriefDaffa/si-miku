@@ -8,11 +8,11 @@ import useIndicatorQuery from '@/repository/query/IndicatorQuery';
 import Helmet from '@/components/Helmet';
 
 import TableSection from './TableSection';
-import ChartSection from './ChartSection';
-import ToolbarSection from './ToolbarSection';
 
 const ListIndicator: FC = () => {
-  const { data, isLoading } = useIndicatorQuery();
+  const { data: indicator, isLoading: isIndicatorLoading } =
+    useIndicatorQuery();
+
   return (
     <>
       <Helmet title="List Indikator | SI-MIKU" />
@@ -21,9 +21,7 @@ const ListIndicator: FC = () => {
           title="List Indikator"
           subTitle="Menampilkan list indikator yang terdapat pada sistem"
         />
-        {/* <CustomGrid
-          gridItem={[<TableSection data={data} isLoading={isLoading} />]}
-        /> */}
+        <TableSection data={indicator} isLoading={isIndicatorLoading} />
       </Container>
     </>
   );

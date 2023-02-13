@@ -19,6 +19,7 @@ const normalizer = (Deps?: IndicatorResponse) => {
       result.push({
         indicatorID: item.indicator_id || 0,
         indicatorName: item.indicator_name || '',
+        indicatorCode: item.indicator_code || '',
         // years: item.years.map((data) => ({
         //   yearId: data.year_id || 0,
         //   targetQuarters: {

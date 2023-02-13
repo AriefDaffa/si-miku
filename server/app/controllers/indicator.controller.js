@@ -7,7 +7,7 @@ const { parse } = require('csv-parse');
 const getAllIndicators = async (req, res) => {
   try {
     const indicator = await model.Indicator.findAll({
-      attributes: ['indicator_code', 'indicator_name'],
+      attributes: ['indicator_id', 'indicator_code', 'indicator_name'],
       // include: {
       //   model: model.IndicatorMajor,
       //   attributes: ['major_id'],
