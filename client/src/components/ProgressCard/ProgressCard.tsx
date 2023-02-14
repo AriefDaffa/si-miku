@@ -6,6 +6,7 @@ import CircularProgress from '@mui/material/CircularProgress';
 import CustomCard from '@/components/CustomCard';
 import { Header, SubHeader } from '@/components/Typography';
 import { ERROR, GREY, SUCCESS, WARNING } from '@/theme/Colors';
+import { getProgressColor } from '@/utils/get-progress-bar-color';
 
 interface ProgressCardProps {
   value: number;
@@ -13,16 +14,6 @@ interface ProgressCardProps {
 
 const ProgressCard: FC<ProgressCardProps> = (props) => {
   const { value } = props;
-
-  const colorChange = () => {
-    if (value >= 70) {
-      return SUCCESS.dark;
-    } else if (value >= 40 && value < 70) {
-      return WARNING.light;
-    } else {
-      return ERROR.dark;
-    }
-  };
 
   return (
     <CustomCard>
@@ -40,7 +31,7 @@ const ProgressCard: FC<ProgressCardProps> = (props) => {
           value={value}
           size={100}
           sx={{
-            color: colorChange(),
+            color: getProgressColor(value),
             boxShadow: `inset 0 0 1px 8px ${GREY[300]}`,
             borderRadius: '50%',
           }}

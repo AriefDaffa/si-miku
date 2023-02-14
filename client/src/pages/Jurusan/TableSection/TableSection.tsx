@@ -23,6 +23,9 @@ import { Header, SubHeader } from '@/components/Typography';
 import { getPercentage } from '@/utils/get-percentage';
 import type { MajorOverviewNormalized } from '@/repository/query/MajorOverviewQuery/types';
 import { GREY } from '@/theme/Colors';
+import CustomTable from '@/components/CustomTable';
+import { tableHeader } from './constant';
+import ProgressBar from './ProgressBar';
 
 interface TableSectionProps {
   isLoading: boolean;
@@ -44,93 +47,44 @@ const TableSection: FC<TableSectionProps> = (props) => {
             <SubHeader text="Pilih salah satu untuk melihat detail dari jurusan" />
           </Box>
           <Divider sx={{ width: '100%' }} />
-          <Table sx={{ minWidth: 1050 }}>
-            <TableHead>
-              <TableRow>
+          <CustomTable header={tableHeader} isLoading={isLoading}>
+            {majorData.map((item, idx) => (
+              <TableRow
+                key={idx}
+                sx={{
+                  ':hover': { backgroundColor: GREY[300], cursor: 'pointer' },
+                }}
+                onClick={() => navigate(`${item.majorId}`)}
+              >
                 <TableCell>
-                  <SubHeader text="No." />
+                  <Header
+                    variant="subtitle2"
+                    text={`${idx + 1}`}
+                    sx={{ py: 1 }}
+                  />
                 </TableCell>
                 <TableCell>
-                  <SubHeader text="Jurusan" />
+                  <Header variant="subtitle2" text={`${item.majorName}`} />
                 </TableCell>
                 <TableCell>
-                  <SubHeader text="Indikator memenuhi target" />
+                  <Header variant="subtitle2" text={`${item.totalFulfilled}`} />
                 </TableCell>
                 <TableCell>
-                  <SubHeader text="Indikator belum memenuhi target" />
+                  <Header variant="subtitle2" text={`${item.totalFailed}`} />
                 </TableCell>
                 <TableCell>
-                  <SubHeader text="Progress" />
+                  <ProgressBar
+                    value={
+                      getPercentage(
+                        item.totalFulfilled,
+                        item.totalFulfilled + item.totalFailed
+                      ) || 0
+                    }
+                  />
                 </TableCell>
               </TableRow>
-            </TableHead>
-            <TableBody>
-              {majorData.map((data, idx) => (
-                <TableRow
-                  key={idx}
-                  sx={{
-                    ':hover': { backgroundColor: GREY[300], cursor: 'pointer' },
-                  }}
-                  onClick={() => navigate(`${data.majorId}`)}
-                >
-                  <TableCell>
-                    <Header
-                      variant="subtitle2"
-                      text={`${idx + 1}`}
-                      sx={{ py: 1 }}
-                    />
-                  </TableCell>
-                  <TableCell>
-                    <Header variant="subtitle2" text={`${data.majorName}`} />
-                  </TableCell>
-                  <TableCell>
-                    <Header
-                      variant="subtitle2"
-                      text={`${data.totalFulfilled}`}
-                    />
-                  </TableCell>
-                  <TableCell>
-                    <Header variant="subtitle2" text={`${data.totalFailed}`} />
-                  </TableCell>
-                  <TableCell>
-                    <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                      <Box sx={{ width: '100%', mr: 1 }}>
-                        <LinearProgress
-                          variant="determinate"
-                          value={
-                            getPercentage(
-                              data.totalFulfilled,
-                              data.totalFulfilled + data.totalFailed
-                            ) || 0
-                          }
-                        />
-                      </Box>
-                      <Box sx={{ minWidth: 35 }}>
-                        <Header
-                          variant="subtitle2"
-                          text={`${
-                            getPercentage(
-                              data.totalFulfilled,
-                              data.totalFulfilled + data.totalFailed
-                            ) || 0
-                          }%`}
-                        />
-                      </Box>
-                    </Box>
-                  </TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-          {/* <TablePagination
-            rowsPerPageOptions={[5, 10, 25]}
-            component="div"
-            count={majorD}
-            rowsPerPage={6}
-            page={1}
-            onPageChange={() => {}}
-            onRowsPerPageChange={() => {}}
-          /> */}
+            ))}
+          </CustomTable>
         </CustomCard>,
       ]}
     />

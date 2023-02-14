@@ -1,5 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
+import { useState } from 'react';
 import type { FC } from 'react';
 
 import Box from '@mui/material/Box';
@@ -14,9 +15,11 @@ import CustomGrid from '@/components/CustomGrid';
 import Helmet from '@/components/Helmet';
 
 import type { LoginData } from './types';
+import LoadingPopup from '@/components/Loader/LoadingPopup';
 
 // @TODO Add error handling
 const Login: FC = () => {
+  const [loading, setLoading] = useState(false);
   const { handleSubmit, control } = useForm({
     defaultValues: {
       user_email: '',
@@ -28,10 +31,13 @@ const Login: FC = () => {
   const { mutate, isLoading } = useLoginMutation();
 
   const onSubmit = (data: LoginData) => {
+    setLoading(true);
     mutate(data, {
       onSuccess: () => {
         navigate('/');
+        setLoading(false);
       },
+      onError: () => setLoading(false),
     });
   };
 
@@ -87,6 +93,7 @@ const Login: FC = () => {
               </Button>
             </Box>
           </form>
+          <LoadingPopup open={loading} />
         </Container>
       </Box>
     </>
