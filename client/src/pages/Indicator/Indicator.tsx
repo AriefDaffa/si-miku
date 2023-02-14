@@ -2,14 +2,13 @@ import type { FC } from 'react';
 
 import Container from '@mui/material/Container';
 
-import { PageTitle } from '@/components/Typography';
-import CustomGrid from '@/components/CustomGrid';
 import useIndicatorQuery from '@/repository/query/IndicatorQuery';
 import Helmet from '@/components/Helmet';
+import { PageTitle } from '@/components/Typography';
 
 import TableSection from './TableSection';
 
-const ListIndicator: FC = () => {
+const Indicator: FC = () => {
   const { data: indicator, isLoading: isIndicatorLoading } =
     useIndicatorQuery();
 
@@ -27,4 +26,4 @@ const ListIndicator: FC = () => {
   );
 };
 
-export default ListIndicator;
+export default Indicator;

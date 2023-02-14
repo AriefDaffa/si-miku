@@ -5,11 +5,12 @@ import {
   Home,
   Login,
   NotFound,
-  ListIndicator,
   InputIndicator,
   Jurusan,
   JurusanDetail,
   Profile,
+  IndicatorDetail,
+  Indicator,
 } from '@/pages';
 
 import PrivateRoute from './PrivateRoute';
@@ -29,7 +30,8 @@ const Router = () => {
           children: [
             { element: <Navigate to="/dashboard/overview" />, index: true },
             { path: 'overview', element: <Home /> },
-            { path: 'indicator-list', element: <ListIndicator /> },
+            { path: 'indicator', element: <Indicator /> },
+            { path: 'indicator/:id', element: <IndicatorDetail /> },
             { path: 'indicator-input', element: <InputIndicator /> },
             { path: 'jurusan', element: <Jurusan /> },
             { path: 'jurusan/:id', element: <JurusanDetail /> },

@@ -105,27 +105,27 @@ const FormSection: FC = () => {
               name="indicatorName"
               type="text"
             />,
-            <CustomGrid
-              gridItem={[
-                fields.map((field, index) => (
-                  <DynamicInput
-                    key={field.id}
-                    control={control}
-                    index={index}
-                    remove={remove}
-                  />
-                )),
-                <Button
-                  color="primary"
-                  size="large"
-                  variant="outlined"
-                  fullWidth
-                  onClick={addYearSection}
-                >
-                  Tambah Input Tahun
-                </Button>,
-              ]}
-            />,
+            // <CustomGrid
+            //   gridItem={[
+            //     fields.map((field, index) => (
+            //       <DynamicInput
+            //         key={field.id}
+            //         control={control}
+            //         index={index}
+            //         remove={remove}
+            //       />
+            //     )),
+            //     <Button
+            //       color="primary"
+            //       size="large"
+            //       variant="outlined"
+            //       fullWidth
+            //       onClick={addYearSection}
+            //     >
+            //       Tambah Input Tahun
+            //     </Button>,
+            //   ]}
+            // />,
             <Divider />,
             <Button
               color="primary"

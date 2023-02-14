@@ -1,4 +1,4 @@
-import type { FC } from 'react';
+import type { FC, SyntheticEvent } from 'react';
 
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
@@ -12,8 +12,8 @@ interface DialogPopupProps {
   title: string;
   bodyText: string;
   buttonText: string;
-  handleAccept: () => void;
-  handleClose: () => void;
+  handleAccept: (e: SyntheticEvent<HTMLButtonElement>) => void;
+  handleClose: (e: SyntheticEvent<HTMLButtonElement>) => void;
 }
 
 const DialogPopup: FC<DialogPopupProps> = (props) => {

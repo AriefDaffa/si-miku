@@ -1,20 +1,32 @@
-export interface IndicatorByIdTargetQuarters {
+export interface Year {
+  year_id: number;
+  year_value: number;
+}
+
+export interface IndicatorData {
   q1: number;
   q2: number;
   q3: number;
   q4: number;
   target: number;
+  is_target_fulfilled: boolean;
+  year: Year;
+}
+export interface Majors {
+  major_id: number;
+  major_name: string;
 }
 
-export interface IndicatorByIdYear {
-  year_id: number;
-  target_quarters: IndicatorByIdTargetQuarters;
+export interface IndicatorByIdMajors {
+  major: Majors;
+  indicator_data: IndicatorData[];
 }
 
 export interface IndicatorByIdData {
   indicator_id: number;
+  indicator_code: string;
   indicator_name: string;
-  years: IndicatorByIdYear[];
+  indicator_majors: IndicatorByIdMajors[];
 }
 
 export interface IndicatorByIdResponse {
@@ -23,28 +35,33 @@ export interface IndicatorByIdResponse {
 
 // -- NORMALIZED TYPES -- //
 
-export interface IndicatorTargetQuartersNormalized {
-  quarterOne: number;
-  quarterTwo: number;
-  quarterThree: number;
-  quarterFour: number;
-  target: number;
-  status: string;
-}
-
-export interface IndicatorYearNormalized {
+export interface YearNormalized {
   yearId: number;
-  //   targetQuarters: IndicatorTargetQuartersNormalized;
-  quarterOne: number;
-  quarterTwo: number;
-  quarterThree: number;
-  quarterFour: number;
-  target: number;
-  status: string;
+  yearValue: number;
 }
 
-export interface IndicatorByIdResponseNormalized {
-  indicatorID: number;
+export interface IndicatorDataNormalized {
+  q1: number;
+  q2: number;
+  q3: number;
+  q4: number;
+  target: number;
+  isTargetFulfilled: boolean;
+  year: YearNormalized;
+}
+export interface MajorsNormalized {
+  majorId: number;
+  majorName: string;
+}
+
+export interface IndicatorByIdMajorsNormalized {
+  major: MajorsNormalized;
+  indicatorData: IndicatorDataNormalized[];
+}
+
+export interface IndicatorByIdNormalized {
+  indicatorId: number;
+  indicatorCode: string;
   indicatorName: string;
-  years: IndicatorYearNormalized[];
+  indicatorMajors: IndicatorByIdMajorsNormalized[];
 }

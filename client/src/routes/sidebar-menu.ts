@@ -12,7 +12,7 @@ export const NAV_ITEM = [
   },
   {
     title: 'Indikator',
-    path: 'indicator-list',
+    path: 'indicator',
     Icon: BarChartIcon,
   },
   {

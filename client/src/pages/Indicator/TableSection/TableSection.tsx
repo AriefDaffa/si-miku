@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router-dom';
 import type { FC } from 'react';
 
 import Box from '@mui/material/Box';
@@ -12,6 +13,7 @@ import { GREY } from '@/theme/Colors';
 import type { IndicatorResponseNormalized } from '@/repository/query/IndicatorQuery/types';
 
 import TableToolbar from './TableToolbar';
+import DeleteButton from './DeleteButton';
 import { tableHeader } from './constant';
 
 interface TableSectionProps {
@@ -21,6 +23,8 @@ interface TableSectionProps {
 
 const TableSection: FC<TableSectionProps> = (props) => {
   const { data, isLoading } = props;
+
+  const navigate = useNavigate();
 
   // @TODO Add pagination (low prio)
   return (
@@ -39,15 +43,23 @@ const TableSection: FC<TableSectionProps> = (props) => {
                 sx={{
                   ':hover': { backgroundColor: GREY[300], cursor: 'pointer' },
                 }}
+                onClick={() =>
+                  navigate(`/dashboard/indicator/${item.indicatorID}`, {
+                    replace: true,
+                  })
+                }
               >
                 <TableCell>
-                  <Header variant="subtitle2" text={`${item.indicatorID}`} />
+                  <Header variant="subtitle2" text={`${idx + 1}`} />
                 </TableCell>
                 <TableCell>
                   <Header variant="subtitle2" text={`${item.indicatorCode}`} />
                 </TableCell>
                 <TableCell>
                   <Header variant="subtitle2" text={`${item.indicatorName}`} />
+                </TableCell>
+                <TableCell>
+                  <DeleteButton id={item.indicatorID} />
                 </TableCell>
               </TableRow>
             ))}

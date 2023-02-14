@@ -20,16 +20,6 @@ const normalizer = (Deps?: IndicatorResponse) => {
         indicatorID: item.indicator_id || 0,
         indicatorName: item.indicator_name || '',
         indicatorCode: item.indicator_code || '',
-        // years: item.years.map((data) => ({
-        //   yearId: data.year_id || 0,
-        //   targetQuarters: {
-        //     target: data.target_quarters.target || 0,
-        //     quarterOne: data.target_quarters.q1 || 0,
-        //     quarterTwo: data.target_quarters.q2 || 0,
-        //     quarterThree: data.target_quarters.q3 || 0,
-        //     quarterFour: data.target_quarters.q4 || 0,
-        //   },
-        // })),
       });
 
       return result;

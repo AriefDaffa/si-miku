@@ -62,7 +62,7 @@ const FormInputSection: FC = () => {
                   type="text"
                 />,
                 // <Header text="Data Jurusan" variant="subtitle1" />,
-                <DataJurusanInput control={control} />,
+                // <DataJurusanInput control={control} />,
               ]}
             />
             {/* <Divider sx={{ pt: 6, mb: 2 }} /> */}

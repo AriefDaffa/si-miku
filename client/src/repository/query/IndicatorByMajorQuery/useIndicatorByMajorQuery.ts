@@ -26,8 +26,10 @@ const normalizer = (Deps?: IndicatorByMajorResponse) => {
           indicatorCode: item.indicator_code || '',
           indicatorName: item.indicator_name || '',
           yearData: item.year_data.map((year) => {
+            const total = year.q1 + year.q2 + year.q3 + year.q4;
+
             return {
-              isTargetFulfilled: year.is_target_fulfilled,
+              isTargetFulfilled: total === 0 ? false : total >= year.target,
               q1: year.q1,
               q2: year.q2,
               q3: year.q3,

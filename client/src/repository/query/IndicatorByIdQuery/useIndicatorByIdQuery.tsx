@@ -4,46 +4,44 @@ import { useQuery } from 'react-query';
 
 import baseAPI from '@/utils/axios-utils';
 
-import type {
-  IndicatorByIdResponse,
-  IndicatorByIdResponseNormalized,
-} from './types';
+import type { IndicatorByIdResponse, IndicatorByIdNormalized } from './types';
 
 // normalize the data to prevent undefined value
 const normalizer = (Deps?: IndicatorByIdResponse) => {
-  const result: IndicatorByIdResponseNormalized = {
-    indicatorID: 0,
+  const result: IndicatorByIdNormalized = {
+    indicatorId: 0,
+    indicatorCode: '',
     indicatorName: '',
-    years: [],
+    indicatorMajors: [],
   };
 
   if (Deps !== void 0 && !(Deps instanceof AxiosError)) {
-    (result.indicatorID = Deps.data.indicator_id || 0),
-      (result.indicatorName = Deps.data.indicator_name || ''),
-      Deps.data.years.map((item) => {
-        if (!item || !item.target_quarters || !item.year_id) {
-          return result;
-        }
-
-        result.years.push({
-          yearId: item.year_id || 0,
-          quarterOne: item.target_quarters.q1 || 0,
-          quarterTwo: item.target_quarters.q2 || 0,
-          quarterThree: item.target_quarters.q3 || 0,
-          quarterFour: item.target_quarters.q4 || 0,
-          target: item.target_quarters.target || 0,
-          status:
-            item.target_quarters.q1 +
-              item.target_quarters.q2 +
-              item.target_quarters.q3 +
-              item.target_quarters.q4 >=
-            item.target_quarters.target
-              ? 'Memenuhi'
-              : 'Belum Memenuhi',
-        });
-
-        return result;
+    result.indicatorId = Deps.data.indicator_id;
+    result.indicatorCode = Deps.data.indicator_code;
+    result.indicatorName = Deps.data.indicator_name;
+    Deps.data.indicator_majors.map((item) => {
+      result.indicatorMajors.push({
+        major: {
+          majorId: item.major.major_id,
+          majorName: item.major.major_name,
+        },
+        indicatorData: item.indicator_data.map((data) => {
+          const total = data.q1 + data.q2 + data.q3 + data.q4;
+          return {
+            q1: data.q1,
+            q2: data.q2,
+            q3: data.q3,
+            q4: data.q4,
+            target: data.target,
+            isTargetFulfilled: total === 0 ? false : total >= data.target,
+            year: {
+              yearId: data.year.year_id,
+              yearValue: data.year.year_value,
+            },
+          };
+        }),
       });
+    });
   }
   return result;
 };
@@ -54,6 +52,7 @@ const useIndicatorByIdQuery = (id: string, enabled?: boolean) => {
     () => baseAPI.get(`indicator/${id}`),
     {
       refetchOnWindowFocus: false,
+      retry: false,
       enabled,
     }
   );

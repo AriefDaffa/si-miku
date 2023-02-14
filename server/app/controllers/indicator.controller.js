@@ -34,9 +34,9 @@ const getIndicatorById = async (req, res) => {
   try {
     const user = await model.Indicator.findOne({
       where: {
-        indicator_code: id,
+        indicator_id: id,
       },
-      attributes: ['indicator_code', 'indicator_name'],
+      attributes: ['indicator_id', 'indicator_code', 'indicator_name'],
       include: {
         model: model.IndicatorMajor,
         attributes: ['major_id'],
@@ -55,7 +55,29 @@ const getIndicatorById = async (req, res) => {
       return res.status(404).json({ message: 'Error! Indicator not found' });
     }
 
-    res.json(user);
+    const normalize = {
+      indicator_id: user.indicator_id,
+      indicator_code: user.indicator_code,
+      indicator_name: user.indicator_name,
+      indicator_majors: user.indicator_majors.map((item) => {
+        return {
+          major: item.major,
+          indicator_data: item.indicator_major_years.map((data) => {
+            return {
+              year: data.year,
+              target: data.target_quarter.target_value,
+              q1: data.target_quarter.q1,
+              q2: data.target_quarter.q2,
+              q3: data.target_quarter.q3,
+              q4: data.target_quarter.q4,
+              is_target_fulfilled: data.target_quarter.is_target_fulfilled,
+            };
+          }),
+        };
+      }),
+    };
+
+    res.json(normalize);
   } catch (error) {
     console.log(error);
   }
@@ -170,6 +192,7 @@ const createBulkIndicator = async (req, res) => {
   }
 };
 
+//@TODO Remove is_target_fulfilled from db
 const createIndicator = async (req, res) => {
   const { indicator_name, indicator_code, indicator_year } = req.body;
   const cookies = req.cookies.accessToken;
@@ -229,6 +252,8 @@ const createIndicator = async (req, res) => {
 
             await Promise.all(
               data.year_data.map(async (item) => {
+                const total = (await item.q1) + item.q2 + item.q3 + item.q4;
+
                 const indicatorMajor = await model.IndicatorMajor.findOne({
                   where: {
                     indicator_id: indicator.indicator_id,
@@ -243,7 +268,7 @@ const createIndicator = async (req, res) => {
                   q3: item.q3,
                   q4: item.q4,
                   is_target_fulfilled:
-                    item.q1 + item.q2 + item.q3 + item.q4 >= item.target,
+                    total === 0 ? false : total >= item.target,
                 });
 
                 const findYear = await model.Year.findOne({
@@ -409,11 +434,11 @@ const getTargetQuarterByYear = async (req, res) => {
 
 const deleteIndicatorById = async (req, res) => {
   try {
-    const { indicator_code } = req.body;
+    const { indicator_id } = req.body;
 
     const remove = await model.Indicator.destroy({
       where: {
-        indicator_code,
+        indicator_id,
       },
     });
 
