@@ -3,6 +3,6 @@ interface Data {
   indicator_name: string;
 }
 
-export interface IndicatorMutationData {
+export interface DefaultValueTypes {
   indicator: Data[];
 }

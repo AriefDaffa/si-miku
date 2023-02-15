@@ -183,18 +183,9 @@ const getIndicatorByMajorId = async (req, res) => {
   }
 };
 
-const createBulkIndicator = async (req, res) => {
-  try {
-    console.log(req.body);
-    res.json(req.body);
-  } catch (error) {
-    res.json(error);
-  }
-};
-
 //@TODO Remove is_target_fulfilled from db
 const createIndicator = async (req, res) => {
-  const { indicator_name, indicator_code, indicator_year } = req.body;
+  const { indicator } = req.body;
   const cookies = req.cookies.accessToken;
 
   try {
@@ -210,78 +201,36 @@ const createIndicator = async (req, res) => {
           attributes: ['major_id'],
         });
 
-        // check duplicate indicator_id
-        const indicatorId = await model.Indicator.findOne({
+        const findIndicators = await model.Indicator.findAll({
           where: {
-            indicator_code,
+            indicator_code: indicator.map((item) => item.indicator_code),
           },
         });
 
-        if (indicatorId) {
+        if (findIndicators.length !== 0) {
           return res.status(400).json({
-            message: 'Error! Duplicate Indicators',
+            message: 'Error! Indikator sudah terdapat pada sistem',
           });
         }
 
-        // create new indicator if there is no indicator
-        const indicator = await model.Indicator.create({
-          indicator_code,
-          indicator_name,
-          created_by: decodedVal.user_id,
-        });
-
-        await model.IndicatorMajor.bulkCreate(
-          majorId.map((data) => {
+        const indicators = await model.Indicator.bulkCreate(
+          indicator.map((item) => {
             return {
-              indicator_id: indicator.indicator_id,
-              major_id: data.major_id,
+              indicator_code: item.indicator_code,
+              indicator_name: item.indicator_name,
+              created_by: decodedVal.user_id,
             };
           })
         );
 
         await Promise.all(
-          indicator_year.map(async (data) => {
-            await model.Year.bulkCreate(
-              data.year_data.map((item) => {
+          indicators.map(async (item) => {
+            await model.IndicatorMajor.bulkCreate(
+              majorId.map((data) => {
                 return {
-                  year_value: item.year,
+                  indicator_id: item.indicator_id,
+                  major_id: data.major_id,
                 };
-              }),
-              { ignoreDuplicates: true }
-            );
-
-            await Promise.all(
-              data.year_data.map(async (item) => {
-                const total = (await item.q1) + item.q2 + item.q3 + item.q4;
-
-                const indicatorMajor = await model.IndicatorMajor.findOne({
-                  where: {
-                    indicator_id: indicator.indicator_id,
-                    major_id: data.major_id,
-                  },
-                });
-
-                const quarterTarget = await model.TargetQuarters.create({
-                  target_value: item.target,
-                  q1: item.q1,
-                  q2: item.q2,
-                  q3: item.q3,
-                  q4: item.q4,
-                  is_target_fulfilled:
-                    total === 0 ? false : total >= item.target,
-                });
-
-                const findYear = await model.Year.findOne({
-                  where: {
-                    year_value: item.year,
-                  },
-                });
-
-                await model.IndicatorMajorYear.create({
-                  indicator_major_id: indicatorMajor.indicator_major_id,
-                  year_id: findYear.year_id,
-                  target_quarter_id: quarterTarget.target_quarter_id,
-                });
               })
             );
           })
@@ -475,5 +424,4 @@ module.exports = {
   getTargetQuarterByYear,
   deleteIndicatorById,
   createIndicator,
-  createBulkIndicator,
 };

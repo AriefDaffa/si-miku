@@ -2,7 +2,6 @@ interface Data {
   indicator_code: string;
   indicator_name: string;
 }
-
-export interface IndicatorMutationData {
+export interface DefaultVal {
   indicator: Data[];
 }

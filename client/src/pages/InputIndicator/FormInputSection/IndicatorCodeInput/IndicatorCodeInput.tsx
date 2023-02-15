@@ -9,11 +9,12 @@ import TextField from '@mui/material/TextField';
 import Stack from '@mui/material/Stack';
 
 interface IndicatorCodeInputProps {
+  idx: number;
   control: Control<any, any>;
 }
 
 const IndicatorCodeInput: FC<IndicatorCodeInputProps> = (props) => {
-  const { control } = props;
+  const { control, idx } = props;
 
   return (
     <Stack>
@@ -22,7 +23,7 @@ const IndicatorCodeInput: FC<IndicatorCodeInputProps> = (props) => {
       </Typography> */}
       <FormControl>
         <Controller
-          name="indicator_code"
+          name={`indicator[${idx}].indicator_code`}
           control={control}
           render={({ field: { onChange, name, value, ref } }) => (
             <PatternFormat

@@ -12,7 +12,6 @@ import { Header, SubHeader } from '@/components/Typography';
 import { GREY } from '@/theme/Colors';
 import type { IndicatorResponseNormalized } from '@/repository/query/IndicatorQuery/types';
 
-import TableToolbar from './TableToolbar';
 import DeleteButton from './DeleteButton';
 import { tableHeader } from './constant';
 
@@ -52,7 +51,7 @@ const TableSection: FC<TableSectionProps> = (props) => {
                 <TableCell>
                   <Header variant="subtitle2" text={`${idx + 1}`} />
                 </TableCell>
-                <TableCell>
+                <TableCell sx={{ minWidth: '120px' }}>
                   <Header variant="subtitle2" text={`${item.indicatorCode}`} />
                 </TableCell>
                 <TableCell>
