@@ -8,7 +8,6 @@ import useYearQuery from '@/repository/query/YearQuery';
 import useIndicatorByIdQuery from '@/repository/query/IndicatorByIdQuery';
 
 import HeadSection from './HeadSection';
-import ChartSection from './ChartSection';
 import JurusanSection from './JurusanSection';
 
 const IndicatorDetail: FC = () => {
@@ -31,13 +30,16 @@ const IndicatorDetail: FC = () => {
         <HeadSection
           indicatorName={`${indicator.indicatorCode} ${indicator.indicatorName}`}
         />
-        <ChartSection
+        {/* <ChartSection
           indicatorData={indicator}
           yearData={year}
           isIndicatorLoading={isIndicatorLoading}
           isYearLoading={isYearLoading}
+        /> */}
+        <JurusanSection
+          indicatorData={indicator}
+          isIndicatorLoading={isIndicatorLoading}
         />
-        <JurusanSection indicatorData={indicator} />
       </Container>
     </>
   );

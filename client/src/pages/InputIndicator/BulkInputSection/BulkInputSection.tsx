@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useCSVReader } from 'react-papaparse';
 import { isEmpty } from 'lodash';
-import type { FC } from 'react';
+import type { FC, SyntheticEvent } from 'react';
 
 import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
@@ -9,15 +9,17 @@ import Divider from '@mui/material/Divider';
 
 import CustomCard from '@/components/CustomCard';
 import useInputIndicatorMutation from '@/repository/mutation/InputIndicatorMutation';
+import LoadingPopup from '@/components/Loader/LoadingPopup';
+import DialogPopup from '@/components/DialogPopup';
 import { Header, SubHeader } from '@/components/Typography';
 
 import CSVUpload from './CSVUpload';
 import { defaultVal } from './constant';
-import LoadingPopup from '@/components/Loader/LoadingPopup';
 
 // @TODO ADD Error handling
 const BulkInputSection: FC = () => {
   const [openLoading, setOpenLoading] = useState(false);
+  const [openDialog, setOpenDialog] = useState(false);
   const [parseResult, setParseResult] = useState(defaultVal);
   const { CSVReader } = useCSVReader();
 
@@ -30,9 +32,20 @@ const BulkInputSection: FC = () => {
 
     setOpenLoading(true);
     mutate(parseResult, {
-      onSuccess: () => setOpenLoading(false),
+      onSuccess: () => {
+        setOpenLoading(false);
+        setOpenDialog(true);
+        setParseResult({
+          indicator: [{ indicator_code: '', indicator_name: '' }],
+        });
+      },
       onError: () => setOpenLoading(false),
     });
+  };
+
+  const handleClose = (e: SyntheticEvent<HTMLButtonElement>) => {
+    e.stopPropagation();
+    setOpenDialog(false);
   };
 
   return (
@@ -86,6 +99,14 @@ const BulkInputSection: FC = () => {
         </Button>
       </Stack>
       <LoadingPopup open={openLoading} />
+      <DialogPopup
+        title="Success"
+        bodyText="Input data secara bulk berhasil dilakukan, silahkan cek indikator yang telah diupload pada halaman list indikator"
+        buttonText="Ok"
+        handleClose={handleClose}
+        handleAccept={handleClose}
+        open={openDialog}
+      />
     </CustomCard>
   );
 };

@@ -391,10 +391,10 @@ const deleteIndicatorById = async (req, res) => {
       },
     });
 
-    if (remove === 1) {
-      res.json({ message: 'Indikator berhasil dihapus' });
-    } else {
+    if (remove === 0) {
       res.json({ message: 'Delete Error!' });
+    } else {
+      res.json({ message: 'Indikator berhasil dihapus' });
     }
   } catch (error) {
     res.json(error);

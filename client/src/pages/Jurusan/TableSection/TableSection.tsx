@@ -47,7 +47,11 @@ const TableSection: FC<TableSectionProps> = (props) => {
             <SubHeader text="Pilih salah satu untuk melihat detail dari jurusan" />
           </Box>
           <Divider sx={{ width: '100%' }} />
-          <CustomTable header={tableHeader} isLoading={isLoading}>
+          <CustomTable
+            header={tableHeader}
+            isLoading={isLoading}
+            arrayLength={majorData.length}
+          >
             {majorData.map((item, idx) => (
               <TableRow
                 key={idx}

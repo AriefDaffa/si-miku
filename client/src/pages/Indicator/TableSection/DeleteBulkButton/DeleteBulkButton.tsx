@@ -1,21 +1,21 @@
+import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import type { FC, SyntheticEvent, Dispatch, SetStateAction } from 'react';
 
-import IconButton from '@mui/material/IconButton';
-import DeleteIcon from '@mui/icons-material/Delete';
-
+import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
 import DialogPopup from '@/components/DialogPopup';
+import LoadingPopup from '@/components/Loader/LoadingPopup';
 import useDeleteIndicatorMutation from '@/repository/mutation/DeleteIndicatorMutation';
 import useIndicatorQuery from '@/repository/query/IndicatorQuery';
-import LoadingPopup from '@/components/Loader/LoadingPopup';
 
-interface DeleteButtonProps {
-  id: number;
+interface DeleteBulkButtonProps {
+  selectedData: number[];
   setSelected: Dispatch<SetStateAction<number[]>>;
 }
 
-const DeleteButton: FC<DeleteButtonProps> = (props) => {
-  const { id, setSelected } = props;
+const DeleteBulkButton: FC<DeleteBulkButtonProps> = (props) => {
+  const { selectedData, setSelected } = props;
 
   const [openDialog, setOpenDialog] = useState(false);
   const [successDialog, setSuccessDialog] = useState(false);
@@ -28,7 +28,7 @@ const DeleteButton: FC<DeleteButtonProps> = (props) => {
     e.stopPropagation();
     setOpenDialog(false);
     setLoading(true);
-    mutate([id], {
+    mutate(selectedData, {
       onSuccess: () =>
         refetch().then(() => {
           setLoading(false);
@@ -55,13 +55,18 @@ const DeleteButton: FC<DeleteButtonProps> = (props) => {
   };
 
   return (
-    <>
-      <IconButton sx={{ p: 0 }} onClick={handleOpen}>
-        <DeleteIcon />
-      </IconButton>
+    <Box sx={{ mt: 2 }}>
+      <Button
+        color="error"
+        variant="contained"
+        disabled={!selectedData.length}
+        onClick={handleOpen}
+      >
+        Delete Bulk
+      </Button>
       <DialogPopup
-        title="Hapus Indikator"
-        bodyText="Apakah anda yakin ingin menghapus indikator tersebut?"
+        title="Hapus Bulk Indikator"
+        bodyText={`Apakah anda yakin ingin menghapus ${selectedData.length} indikator?`}
         buttonText="Hapus"
         handleClose={handleClose}
         handleAccept={handleOnclick}
@@ -69,15 +74,15 @@ const DeleteButton: FC<DeleteButtonProps> = (props) => {
       />
       <DialogPopup
         title="Success"
-        bodyText="Indikator berhasil dihapus"
+        bodyText={`Indikator berhasil dihapus`}
         buttonText="Ok"
         handleClose={handleMessageClose}
         handleAccept={handleMessageClose}
         open={successDialog}
       />
       <LoadingPopup open={loading} />
-    </>
+    </Box>
   );
 };
 
-export default DeleteButton;
+export default DeleteBulkButton;

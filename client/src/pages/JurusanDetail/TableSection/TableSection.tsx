@@ -19,6 +19,7 @@ import { Header, SubHeader } from '@/components/Typography';
 import { GREY } from '@/theme/Colors';
 import type { IndicatorByMajorNormalized } from '@/repository/query/IndicatorByMajorQuery/types';
 import type { YearDataNormalized } from '@/repository/query/YearQuery/types';
+
 import { tableHeader } from './constant';
 
 interface TableSectionProps {
@@ -77,7 +78,11 @@ const TableSection: FC<TableSectionProps> = (props) => {
               <Skeleton width={80} />
             )}
           </Stack>
-          <CustomTable header={tableHeader} isLoading={isYearLoading}>
+          <CustomTable
+            header={tableHeader}
+            isLoading={isYearLoading}
+            arrayLength={majorData.indicatorMajors.length}
+          >
             {majorData.indicatorMajors
               .filter((item) =>
                 item.yearData.some(
