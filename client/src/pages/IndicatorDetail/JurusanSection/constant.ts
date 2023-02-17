@@ -9,3 +9,8 @@ export const tableHeader = [
   'Status indikator',
   '',
 ];
+
+export const DialogStateDefaultValue = {
+  state: false,
+  major: { majorId: 0, majorName: '' },
+};

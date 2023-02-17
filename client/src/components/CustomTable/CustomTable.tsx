@@ -20,6 +20,8 @@ interface CustomTableProps {
   arrayLength: number;
   header: string[];
   children: ReactNode;
+  withCheckbox?: boolean;
+  checkboxId?: number;
   totalSelected?: number;
   onSelectAll?: (e: ChangeEvent<HTMLInputElement>) => void;
 }
@@ -30,6 +32,8 @@ const CustomTable: FC<CustomTableProps> = (props) => {
     children,
     isLoading,
     arrayLength,
+    checkboxId,
+    withCheckbox = false,
     totalSelected = 0,
     onSelectAll = noop,
   } = props;
@@ -39,9 +43,10 @@ const CustomTable: FC<CustomTableProps> = (props) => {
       <Table sx={{ overflowX: 'auto' }}>
         <TableHead sx={{ borderTop: '1px solid rgba(224, 224, 224, 1);' }}>
           <TableRow>
-            {onSelectAll && (
+            {withCheckbox && (
               <TableCell padding="checkbox">
                 <Checkbox
+                  id={`checkbox-${checkboxId}`}
                   onClick={onSelectAll}
                   checked={arrayLength > 0 && totalSelected === arrayLength}
                 />

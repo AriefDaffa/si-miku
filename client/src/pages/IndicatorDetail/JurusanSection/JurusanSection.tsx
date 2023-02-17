@@ -1,26 +1,25 @@
 import { useState } from 'react';
-import type { FC } from 'react';
+import type { FC, ChangeEvent } from 'react';
 
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
-import Checkbox from '@mui/material/Checkbox';
-import TableRow from '@mui/material/TableRow';
-import TableCell from '@mui/material/TableCell';
-import IconButton from '@mui/material/IconButton';
-import DeleteIcon from '@mui/icons-material/Delete';
 
-import Pill from '@/components/Pill';
 import CustomCard from '@/components/CustomCard';
 import CustomTable from '@/components/CustomTable';
+import LoadingPopup from '@/components/Loader/LoadingPopup';
 import { GREY } from '@/theme/Colors';
 import { Header, SubHeader } from '@/components/Typography';
 import type {
   IndicatorByIdNormalized,
+  IndicatorDataNormalized,
   MajorsNormalized,
 } from '@/repository/query/IndicatorByIdQuery/types';
 
 import FormDialog from './FormDialog';
-import { tableHeader } from './constant';
+import TableContents from './TableContents';
+import DeleteBulkButton from './DeleteBulkButton';
+import { DialogStateDefaultValue, tableHeader } from './constant';
+import type { DialogStateTypes } from './types';
 
 interface JurusanSectionProps {
   isIndicatorLoading: boolean;
@@ -29,10 +28,12 @@ interface JurusanSectionProps {
 
 const JurusanSection: FC<JurusanSectionProps> = (props) => {
   const { indicatorData, isIndicatorLoading } = props;
-  const [openDialog, setOpenDialog] = useState<{
-    state: boolean;
-    major: MajorsNormalized;
-  }>({ state: false, major: { majorId: 0, majorName: '' } });
+
+  const [selected, setSelected] = useState<number[]>([]);
+  const [openDialog, setOpenDialog] = useState<DialogStateTypes>(
+    DialogStateDefaultValue
+  );
+  const [openLoading, setOpenLoading] = useState(false);
 
   const handleOpenDialog = (major: MajorsNormalized) => {
     setOpenDialog({ state: true, major });
@@ -40,6 +41,18 @@ const JurusanSection: FC<JurusanSectionProps> = (props) => {
 
   const handleCloseDialog = () => {
     setOpenDialog({ state: false, major: { majorId: 0, majorName: '' } });
+  };
+
+  const handleSelectAllClick = (
+    e: ChangeEvent<HTMLInputElement>,
+    data: IndicatorDataNormalized[]
+  ) => {
+    if (e.target.checked) {
+      const newSelecteds = data.map((item) => item.indicatorMajorYearId);
+      setSelected(newSelecteds);
+      return;
+    }
+    setSelected([]);
   };
 
   return (
@@ -55,101 +68,40 @@ const JurusanSection: FC<JurusanSectionProps> = (props) => {
               <CustomCard>
                 <Header text={item.major.majorName} sx={{ mb: 2 }} />
                 <CustomTable
+                  withCheckbox
+                  checkboxId={idx}
                   header={tableHeader}
                   isLoading={isIndicatorLoading}
                   arrayLength={item.indicatorData.length}
+                  totalSelected={selected.length}
+                  onSelectAll={(e) =>
+                    handleSelectAllClick(e, item.indicatorData)
+                  }
                 >
                   {item.indicatorData
                     .sort((a, b) => a.year.yearValue - b.year.yearValue)
                     .map((data, index) => (
-                      <TableRow
+                      <TableContents
                         key={index}
-                        sx={{
-                          ':hover': {
-                            backgroundColor: GREY[300],
-                            cursor: 'pointer',
-                          },
-                        }}
-                      >
-                        <TableCell padding="checkbox">
-                          <Checkbox />
-                        </TableCell>
-                        <TableCell>
-                          <Header
-                            variant="subtitle2"
-                            text={`${index + 1}`}
-                            sx={{ py: 1 }}
-                          />
-                        </TableCell>
-                        <TableCell>
-                          <Header
-                            variant="subtitle2"
-                            text={`${data.year.yearValue}`}
-                            sx={{ py: 1 }}
-                          />
-                        </TableCell>
-                        <TableCell>
-                          <Header
-                            variant="subtitle2"
-                            text={`${data.q1}`}
-                            sx={{ py: 1 }}
-                          />
-                        </TableCell>
-                        <TableCell>
-                          <Header
-                            variant="subtitle2"
-                            text={`${data.q2}`}
-                            sx={{ py: 1 }}
-                          />
-                        </TableCell>
-                        <TableCell>
-                          <Header
-                            variant="subtitle2"
-                            text={`${data.q3}`}
-                            sx={{ py: 1 }}
-                          />
-                        </TableCell>
-                        <TableCell>
-                          <Header
-                            variant="subtitle2"
-                            text={`${data.q4}`}
-                            sx={{ py: 1 }}
-                          />
-                        </TableCell>
-                        <TableCell>
-                          <Header
-                            variant="subtitle2"
-                            text={`${data.target}`}
-                            sx={{ py: 1 }}
-                          />
-                        </TableCell>
-                        <TableCell>
-                          <Pill isError={data.isTargetFulfilled === false}>
-                            <Header
-                              variant="subtitle2"
-                              text={`${
-                                data.isTargetFulfilled === true
-                                  ? 'Memenuhi'
-                                  : 'Belum Memenuhi'
-                              }`}
-                            />
-                          </Pill>
-                        </TableCell>
-                        <TableCell>
-                          <IconButton sx={{ p: 0 }}>
-                            <DeleteIcon />
-                          </IconButton>
-                        </TableCell>
-                      </TableRow>
+                        data={data}
+                        index={index}
+                        selected={selected}
+                        setSelected={setSelected}
+                      />
                     ))}
                 </CustomTable>
                 <Box sx={{ float: 'right', my: 2 }}>
                   <Button
                     variant="outlined"
                     onClick={() => handleOpenDialog(item.major)}
+                    sx={{ mr: 1 }}
                   >
                     Input Data
                   </Button>
+                  <DeleteBulkButton
+                    selected={selected}
+                    setSelected={setSelected}
+                  />
                 </Box>
               </CustomCard>
             </Box>
@@ -158,7 +110,9 @@ const JurusanSection: FC<JurusanSectionProps> = (props) => {
             open={openDialog.state}
             major={openDialog.major}
             handleClose={handleCloseDialog}
+            setOpenLoading={setOpenLoading}
           />
+          <LoadingPopup open={openLoading} />
         </Box>
       </Box>
     </CustomCard>

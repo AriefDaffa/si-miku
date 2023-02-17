@@ -74,6 +74,7 @@ const TableSection: FC<TableSectionProps> = (props) => {
             <SubHeader text="Pilih salah satu indikator dibawah untuk melihat perkembangan indikator tersebut" />
           </Box>
           <CustomTable
+            withCheckbox
             header={tableHeader}
             isLoading={isLoading}
             arrayLength={data.length}

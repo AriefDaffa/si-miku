@@ -64,6 +64,7 @@ const getIndicatorById = async (req, res) => {
           major: item.major,
           indicator_data: item.indicator_major_years.map((data) => {
             return {
+              indicator_major_year_id: data.indicator_major_year_id,
               year: data.year,
               target: data.target_quarter.target_value,
               q1: data.target_quarter.q1,
@@ -249,6 +250,8 @@ const createIndicatorDataByMajor = async (req, res) => {
     const { year_value, target_value, q1, q2, q3, q4, major_id, indicator_id } =
       req.body;
 
+    const total = q1 + q2 + q3 + q4;
+    const is_target_fulfilled = total === 0 ? false : total >= target_value;
     let year_id = 0;
 
     const indicatorMajorId = await model.IndicatorMajor.findOne({
@@ -293,7 +296,10 @@ const createIndicatorDataByMajor = async (req, res) => {
       q2,
       q3,
       q4,
+      is_target_fulfilled,
     });
+
+    console.log(total >= target_value);
 
     await model.IndicatorMajorYear.create({
       year_id,
@@ -444,6 +450,42 @@ const deleteIndicatorById = async (req, res) => {
   }
 };
 
+const deleteIndicatorData = async (req, res) => {
+  try {
+    const { indicator_major_year_id } = req.body;
+
+    const findMajorYear = await model.IndicatorMajorYear.findAll({
+      where: {
+        indicator_major_year_id,
+      },
+    });
+
+    if (findMajorYear.length === 0) {
+      return res.json({ message: 'Error! Data indikator tidak ditemukan' });
+    }
+
+    const removeMajorYear = await model.IndicatorMajorYear.destroy({
+      where: {
+        indicator_major_year_id,
+      },
+    });
+
+    const removeTargetQuarter = await model.TargetQuarters.destroy({
+      where: {
+        target_quarter_id: findMajorYear.map((item) => item.target_quarter_id),
+      },
+    });
+
+    if (removeMajorYear === 0 && removeTargetQuarter === 0) {
+      res.json({ message: 'Delete Error!' });
+    } else {
+      res.json({ message: 'Indikator berhasil dihapus' });
+    }
+  } catch (error) {
+    res.json(error);
+  }
+};
+
 const getYear = async (req, res) => {
   try {
     const year = await model.Year.findAll({
@@ -466,6 +508,7 @@ module.exports = {
   getOverviewMajor,
   getTargetQuarterByYear,
   deleteIndicatorById,
+  deleteIndicatorData,
   createIndicator,
   createIndicatorDataByMajor,
 };

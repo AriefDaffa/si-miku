@@ -9,6 +9,7 @@ const {
   getTargetQuarterByYear,
   getIndicatorByMajorId,
   deleteIndicatorById,
+  deleteIndicatorData,
   getOverviewMajor,
   getYear,
 } = require('../controllers/indicator.controller.js');
@@ -35,5 +36,6 @@ router.post(
   createIndicatorDataByMajor
 );
 router.delete('/indicator', verifyAccessToken, deleteIndicatorById);
+router.delete('/indicator-data', verifyAccessToken, deleteIndicatorData);
 
 module.exports = router;

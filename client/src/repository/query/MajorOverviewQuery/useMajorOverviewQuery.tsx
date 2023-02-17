@@ -19,11 +19,9 @@ const normalizer = (Deps?: MajorOverviewResponse) => {
         indicatorMajors: item.indicator_majors.map((data) => {
           return data.indicator_major_years.reduce(
             (acc, cur) => {
-              const { q1, q2, q3, q4, target_value } = cur.target_quarter;
+              const { is_target_fulfilled } = cur.target_quarter;
 
-              const total = q1 + q2 + q3 + q4;
-
-              if (total >= target_value) {
+              if (is_target_fulfilled) {
                 acc.fulfilled += 1;
               } else {
                 acc.failed += 1;
@@ -39,7 +37,7 @@ const normalizer = (Deps?: MajorOverviewResponse) => {
         (acc, cur) => {
           if (cur.fulfilled) {
             acc.fulfilled += cur.fulfilled;
-          } else {
+          } else if (cur.failed) {
             acc.failed += cur.failed;
           }
 

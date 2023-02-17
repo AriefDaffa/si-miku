@@ -1,4 +1,5 @@
 interface TargetQuarter {
+  is_target_fulfilled: boolean;
   target_value: number;
   q1: number;
   q2: number;

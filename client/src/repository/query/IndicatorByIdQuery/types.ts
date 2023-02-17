@@ -4,6 +4,7 @@ export interface Year {
 }
 
 export interface IndicatorData {
+  indicator_major_year_id: number;
   q1: number;
   q2: number;
   q3: number;
@@ -41,6 +42,7 @@ export interface YearNormalized {
 }
 
 export interface IndicatorDataNormalized {
+  indicatorMajorYearId: number;
   q1: number;
   q2: number;
   q3: number;

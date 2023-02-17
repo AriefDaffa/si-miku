@@ -26,14 +26,14 @@ const normalizer = (Deps?: IndicatorByIdResponse) => {
           majorName: item.major.major_name || '',
         },
         indicatorData: item.indicator_data.map((data) => {
-          const total = data.q1 + data.q2 + data.q3 + data.q4;
           return {
-            q1: data.q1 || 0,
-            q2: data.q2 || 0,
-            q3: data.q3 || 0,
-            q4: data.q4 || 0,
-            target: data.target || 0,
-            isTargetFulfilled: total === 0 ? false : total >= data.target,
+            indicatorMajorYearId: data.indicator_major_year_id,
+            q1: data.q1,
+            q2: data.q2,
+            q3: data.q3,
+            q4: data.q4,
+            target: data.target,
+            isTargetFulfilled: data.is_target_fulfilled,
             year: {
               yearId: data.year.year_id || 0,
               yearValue: data.year.year_value || 0,
