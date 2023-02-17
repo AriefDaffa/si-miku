@@ -244,39 +244,82 @@ const createIndicator = async (req, res) => {
   }
 };
 
+const createIndicatorDataByMajor = async (req, res) => {
+  try {
+    const { year_value, target_value, q1, q2, q3, q4, major_id, indicator_id } =
+      req.body;
+
+    let year_id = 0;
+
+    const indicatorMajorId = await model.IndicatorMajor.findOne({
+      where: {
+        major_id,
+        indicator_id,
+      },
+    });
+
+    const findYear = await model.Year.findOne({
+      where: {
+        year_value,
+      },
+    });
+
+    if (!findYear) {
+      const createdYear = await model.Year.create({
+        year_value,
+      });
+
+      year_id = createdYear.year_id;
+    } else {
+      year_id = findYear.year_id;
+    }
+
+    const isAlreadyCreated = await model.IndicatorMajorYear.findOne({
+      where: {
+        indicator_major_id: indicatorMajorId.indicator_major_id,
+        year_id,
+      },
+    });
+
+    if (isAlreadyCreated) {
+      return res
+        .status(400)
+        .json({ message: 'Error! Data for that year already exist!' });
+    }
+
+    const targetQuarter = await model.TargetQuarters.create({
+      target_value,
+      q1,
+      q2,
+      q3,
+      q4,
+    });
+
+    await model.IndicatorMajorYear.create({
+      year_id,
+      indicator_major_id: indicatorMajorId.indicator_major_id,
+      target_quarter_id: targetQuarter.target_quarter_id,
+    });
+
+    res.json({ message: 'Success! Data created' });
+  } catch (error) {
+    res.json(error);
+  }
+};
+
 const getIndicatorCount = async (req, res) => {
   try {
-    const indicator = await model.Indicator.findAndCountAll();
+    // const indicator = await model.Indicator.findAndCountAll();
 
-    const year = await model.Year.findAll({
+    const result = await model.Year.findAll({
       include: {
         model: model.IndicatorMajorYear,
         attributes: ['indicator_major_year_id'],
         include: {
           model: model.TargetQuarters,
-          attributes: ['is_target_fulfilled'],
         },
       },
     });
-
-    const normalize = year.map((data) => {
-      return {
-        year_value: data.year_value,
-        fulfilled: data.indicator_major_years.filter((year) => {
-          return year.target_quarter.is_target_fulfilled === true;
-        }).length,
-        failed: data.indicator_major_years.filter((year) => {
-          return year.target_quarter.is_target_fulfilled === false;
-        }).length,
-      };
-    });
-
-    const result = {
-      years: normalize,
-      indicator_count: indicator.count,
-      total_fulfilled: normalize.reduce((acc, cur) => acc + cur.fulfilled, 0),
-      total_failed: normalize.reduce((acc, cur) => acc + cur.failed, 0),
-    };
 
     res.json(result);
   } catch (error) {
@@ -296,39 +339,39 @@ const getOverviewMajor = async (req, res) => {
       },
     });
 
-    const normalize = majors.map((data) => {
-      return {
-        major_id: data.major_id,
-        major_name: data.major_name,
-        indicator_majors: data.indicator_majors.map((indicator) => {
-          return {
-            fulfilled: indicator.indicator_major_years.filter(
-              (item) => item.target_quarter.is_target_fulfilled === true
-            ).length,
-            failed: indicator.indicator_major_years.filter(
-              (item) => item.target_quarter.is_target_fulfilled === false
-            ).length,
-          };
-        }),
-      };
-    });
+    // const normalize = majors.map((data) => {
+    //   return {
+    //     major_id: data.major_id,
+    //     major_name: data.major_name,
+    //     indicator_majors: data.indicator_majors.map((indicator) => {
+    //       return {
+    //         fulfilled: indicator.indicator_major_years.filter(
+    //           (item) => item.target_quarter.is_target_fulfilled === true
+    //         ).length,
+    //         failed: indicator.indicator_major_years.filter(
+    //           (item) => item.target_quarter.is_target_fulfilled === false
+    //         ).length,
+    //       };
+    //     }),
+    //   };
+    // });
 
-    const result = normalize.map(({ indicator_majors, ...rest }) => {
-      return {
-        ...rest,
-        indicator_majors,
-        total_fulfilled: indicator_majors.reduce(
-          (acc, cur) => acc + cur.fulfilled,
-          0
-        ),
-        total_failed: indicator_majors.reduce(
-          (acc, cur) => acc + cur.failed,
-          0
-        ),
-      };
-    });
+    // const result = normalize.map(({ indicator_majors, ...rest }) => {
+    //   return {
+    //     ...rest,
+    //     indicator_majors,
+    //     total_fulfilled: indicator_majors.reduce(
+    //       (acc, cur) => acc + cur.fulfilled,
+    //       0
+    //     ),
+    //     total_failed: indicator_majors.reduce(
+    //       (acc, cur) => acc + cur.failed,
+    //       0
+    //     ),
+    //   };
+    // });
 
-    res.json(result);
+    res.json(majors);
   } catch (error) {
     res.json(error);
   }
@@ -424,4 +467,5 @@ module.exports = {
   getTargetQuarterByYear,
   deleteIndicatorById,
   createIndicator,
+  createIndicatorDataByMajor,
 };

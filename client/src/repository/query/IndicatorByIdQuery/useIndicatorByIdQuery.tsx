@@ -16,27 +16,27 @@ const normalizer = (Deps?: IndicatorByIdResponse) => {
   };
 
   if (Deps !== void 0 && !(Deps instanceof AxiosError)) {
-    result.indicatorId = Deps.data.indicator_id;
-    result.indicatorCode = Deps.data.indicator_code;
-    result.indicatorName = Deps.data.indicator_name;
+    result.indicatorId = Deps.data.indicator_id || 0;
+    result.indicatorCode = Deps.data.indicator_code || '';
+    result.indicatorName = Deps.data.indicator_name || '';
     Deps.data.indicator_majors.map((item) => {
       result.indicatorMajors.push({
         major: {
-          majorId: item.major.major_id,
-          majorName: item.major.major_name,
+          majorId: item.major.major_id || 0,
+          majorName: item.major.major_name || '',
         },
         indicatorData: item.indicator_data.map((data) => {
           const total = data.q1 + data.q2 + data.q3 + data.q4;
           return {
-            q1: data.q1,
-            q2: data.q2,
-            q3: data.q3,
-            q4: data.q4,
-            target: data.target,
+            q1: data.q1 || 0,
+            q2: data.q2 || 0,
+            q3: data.q3 || 0,
+            q4: data.q4 || 0,
+            target: data.target || 0,
             isTargetFulfilled: total === 0 ? false : total >= data.target,
             year: {
-              yearId: data.year.year_id,
-              yearValue: data.year.year_value,
+              yearId: data.year.year_id || 0,
+              yearValue: data.year.year_value || 0,
             },
           };
         }),

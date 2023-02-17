@@ -35,18 +35,18 @@ const JurusanCard: FC<JurusanCardProps> = (props) => {
           gridItem={[
             <CountCard
               backgroundColor={SUCCESS.dark}
-              value={`${major.totalFulfilled}`}
+              value={`${major.total.fulfilled}`}
               text="Indikator memenuhi target"
             />,
             <CountCard
               backgroundColor={ERROR.dark}
-              value={`${major.totalFailed}`}
+              value={`${major.total.failed}`}
               text="Indikator belum memenuhi target"
             />,
             <ProgressCard
               value={getPercentage(
-                major.totalFulfilled,
-                major.totalFulfilled + major.totalFailed
+                major.total.fulfilled,
+                major.total.fulfilled + major.total.failed
               )}
             />,
           ]}

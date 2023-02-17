@@ -32,18 +32,18 @@ const CardCountSection: FC<CardCountSectionProps> = (props) => {
           gridItem={[
             <CountCard
               backgroundColor={SUCCESS.dark}
-              value={`${indicator.totalFulfilled}`}
+              value={`${indicator.total.fulfilled}`}
               text="Indikator memenuhi target"
             />,
             <CountCard
               backgroundColor={ERROR.dark}
-              value={`${indicator.totalFailed}`}
+              value={`${indicator.total.failed}`}
               text="Indikator belum memenuhi target"
             />,
             <ProgressCard
               value={getPercentage(
-                indicator.totalFulfilled,
-                indicator.totalFulfilled + indicator.totalFailed
+                indicator.total.fulfilled,
+                indicator.total.fulfilled + indicator.total.failed
               )}
             />,
             <LineChart years={indicator.years} />,

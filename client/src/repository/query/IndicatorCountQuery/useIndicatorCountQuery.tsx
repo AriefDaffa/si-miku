@@ -10,28 +10,49 @@ import type { IndicatorCountResponse, IndicatorCountNormalized } from './types';
 const normalizer = (Deps?: IndicatorCountResponse) => {
   const result: IndicatorCountNormalized = {
     years: [],
-    indicatorCount: 0,
-    totalFailed: 0,
-    totalFulfilled: 0,
+    total: {
+      failed: 0,
+      fulfilled: 0,
+    },
   };
 
   if (Deps !== void 0 && !(Deps instanceof AxiosError)) {
-    result.totalFulfilled = Deps.data.total_fulfilled;
-    result.totalFailed = Deps.data.total_failed;
-    result.indicatorCount = Deps.data.indicator_count;
-    Deps.data.years.map((item) => {
-      if (!item) {
-        return result;
-      }
-
+    Deps.data.map((item) => {
       result.years.push({
-        failed: item.failed || 0,
-        fulfilled: item.fulfilled || 0,
-        yearValue: item.year_value || 0,
-      });
+        yearValue: item.year_value,
+        target: item.indicator_major_years.reduce(
+          (acc, cur) => {
+            const { target_quarter } = cur;
+            const total =
+              target_quarter.q1 +
+              target_quarter.q2 +
+              target_quarter.q3 +
+              target_quarter.q4;
 
-      return result;
+            if (total >= target_quarter.target_value) {
+              acc.fulfilled += 1;
+            } else {
+              acc.failed += 1;
+            }
+
+            return acc;
+          },
+          { failed: 0, fulfilled: 0 }
+        ),
+      });
     });
+    result.total = result.years.reduce(
+      (acc, cur) => {
+        if (cur.target.fulfilled) {
+          acc.fulfilled += 1;
+        } else {
+          acc.failed += 1;
+        }
+
+        return acc;
+      },
+      { fulfilled: 0, failed: 0 }
+    );
   }
 
   return result;

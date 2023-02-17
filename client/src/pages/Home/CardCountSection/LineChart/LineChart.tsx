@@ -32,21 +32,25 @@ const LineChart: FC<LineChartProps> = (props) => {
     return [
       {
         name: 'Indikator memenuhi target',
-        data: years.map((item) => {
-          return {
-            x: item.yearValue,
-            y: item.fulfilled,
-          };
-        }),
+        data: years
+          .sort((a, b) => a.yearValue - b.yearValue)
+          .map((item) => {
+            return {
+              x: item.yearValue,
+              y: item.target.fulfilled,
+            };
+          }),
       },
       {
         name: 'Indikator belum memenuhi target',
-        data: years.map((item) => {
-          return {
-            x: item.yearValue,
-            y: item.failed,
-          };
-        }),
+        data: years
+          .sort((a, b) => a.yearValue - b.yearValue)
+          .map((item) => {
+            return {
+              x: item.yearValue,
+              y: item.target.failed,
+            };
+          }),
       },
     ];
   }, [years]);

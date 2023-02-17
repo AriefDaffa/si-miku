@@ -16,6 +16,8 @@ const Home: FC = () => {
   const { data: indicator } = useIndicatorCountQuery();
   const { data: major } = useMajorOverviewQuery();
 
+  console.log(major);
+
   return (
     <Container maxWidth="xl">
       <Helmet title="Dashboard | SI-MIKU" />

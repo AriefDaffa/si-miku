@@ -1,31 +1,44 @@
-interface YearCount {
-  year_value: number;
-  fulfilled: number;
-  failed: number;
+interface TargetQuarter {
+  target_value: number;
+  q1: number;
+  q2: number;
+  q3: number;
+  q4: number;
+}
+
+interface IndicatorMajorYears {
+  indicator_major_year_id: number;
+  target_quarter: TargetQuarter;
 }
 
 export interface IndicatorCountData {
-  years: YearCount[];
-  indicator_count: number;
-  total_fulfilled: number;
-  total_failed: number;
+  year_id: number;
+  year_value: number;
+  indicator_major_years: IndicatorMajorYears[];
 }
 
 export interface IndicatorCountResponse {
-  data: IndicatorCountData;
+  data: IndicatorCountData[];
 }
 
 // -- NORMALIZED TYPES -- //
 
-export interface YearCountNormalized {
-  yearValue: number;
+interface TargetNormalized {
   fulfilled: number;
   failed: number;
 }
 
+interface TotalNormalized {
+  fulfilled: number;
+  failed: number;
+}
+
+export interface YearCountNormalized {
+  yearValue: number;
+  target: TargetNormalized;
+}
+
 export interface IndicatorCountNormalized {
   years: YearCountNormalized[];
-  indicatorCount: number;
-  totalFulfilled: number;
-  totalFailed: number;
+  total: TotalNormalized;
 }

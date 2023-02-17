@@ -5,6 +5,7 @@ const {
   getIndicatorsByYear,
   getIndicatorCount,
   createIndicator,
+  createIndicatorDataByMajor,
   getTargetQuarterByYear,
   getIndicatorByMajorId,
   deleteIndicatorById,
@@ -28,6 +29,11 @@ router.get('/indicator/year/:id', verifyAccessToken, getIndicatorsByYear);
 router.get('/indicator/major/:id', verifyAccessToken, getIndicatorByMajorId);
 router.get('/year', verifyAccessToken, getYear);
 router.post('/indicator', verifyAccessToken, createIndicator);
+router.post(
+  '/indicator/add-major',
+  verifyAccessToken,
+  createIndicatorDataByMajor
+);
 router.delete('/indicator', verifyAccessToken, deleteIndicatorById);
 
 module.exports = router;

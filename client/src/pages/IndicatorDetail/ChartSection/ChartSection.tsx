@@ -57,7 +57,7 @@ const ChartSection: FC<ChartSectionProps> = (props) => {
   //   }, [years]);
 
   return (
-    <CustomCard>
+    <CustomCard sx={{ mb: 2 }}>
       <Stack>
         <Header text="Perkembangan Indikator" />
       </Stack>

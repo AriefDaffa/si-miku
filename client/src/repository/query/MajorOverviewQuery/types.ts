@@ -1,13 +1,24 @@
+interface TargetQuarter {
+  target_value: number;
+  q1: number;
+  q2: number;
+  q3: number;
+  q4: number;
+}
+
+interface IndicatorMajorYear {
+  indicator_major_year_id: number;
+  target_quarter: TargetQuarter;
+}
+
 interface IndicatorMajorCount {
-  fulfilled: number;
-  failed: number;
+  indicator_major_id: number;
+  indicator_major_years: IndicatorMajorYear[];
 }
 
 export interface MajorOverviewData {
   major_id: number;
   major_name: string;
-  total_fulfilled: number;
-  total_failed: number;
   indicator_majors: IndicatorMajorCount[];
 }
 
@@ -17,6 +28,11 @@ export interface MajorOverviewResponse {
 
 // -- NORMALIZED TYPES -- //
 
+interface TotalNormalized {
+  fulfilled: number;
+  failed: number;
+}
+
 export interface IndicatorMajorNormalized {
   fulfilled: number;
   failed: number;
@@ -25,7 +41,6 @@ export interface IndicatorMajorNormalized {
 export interface MajorOverviewNormalized {
   majorId: number;
   majorName: string;
-  totalFulfilled: number;
-  totalFailed: number;
+  total: TotalNormalized;
   indicatorMajors: IndicatorMajorNormalized[];
 }
