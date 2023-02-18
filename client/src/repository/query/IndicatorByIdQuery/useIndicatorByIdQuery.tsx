@@ -25,6 +25,18 @@ const normalizer = (Deps?: IndicatorByIdResponse) => {
           majorId: item.major.major_id || 0,
           majorName: item.major.major_name || '',
         },
+        total: item.indicator_data.reduce(
+          (acc, cur) => {
+            if (cur.is_target_fulfilled) {
+              acc.fulfilled += 1;
+            } else if (cur.is_target_fulfilled === false) {
+              acc.failed += 1;
+            }
+
+            return acc;
+          },
+          { failed: 0, fulfilled: 0 }
+        ),
         indicatorData: item.indicator_data.map((data) => {
           return {
             indicatorMajorYearId: data.indicator_major_year_id,

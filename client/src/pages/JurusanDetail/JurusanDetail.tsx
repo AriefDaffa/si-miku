@@ -11,6 +11,7 @@ import useIndicatorByMajorQuery from '@/repository/query/IndicatorByMajorQuery';
 import TableSection from './TableSection';
 import HeadSection from './HeadSection';
 import ChartSection from './ChartSection';
+import ProgressSection from './ProgressSection';
 
 const JurusanDetail: FC = () => {
   const params = useParams();
@@ -18,16 +19,19 @@ const JurusanDetail: FC = () => {
   const id = params.id || '';
 
   const { data: year, isLoading: isYearLoading } = useYearQuery();
-  const { data: major, isLoading: isMajorLoading } = useIndicatorByMajorQuery(
-    id,
-    isYearLoading
-  );
+  const { data: major, isLoading: isMajorLoading } =
+    useIndicatorByMajorQuery(id);
 
   return (
     <>
       <Helmet title={`${major.majorName} | SI-MIKU`} />
       <Container maxWidth="xl">
         <HeadSection id={id} majorData={major} />
+        <ProgressSection
+          indicatorCount={major.indicatorMajors.length}
+          indicatorFailed={major.totalVal.failed}
+          indicatorFulfilled={major.totalVal.fulfilled}
+        />
         <ChartSection majorData={major} />
         <TableSection
           yearData={year}

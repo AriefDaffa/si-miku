@@ -14,51 +14,60 @@ const normalizer = (Deps?: IndicatorByMajorResponse) => {
   const result: IndicatorByMajorNormalized = {
     majorId: 0,
     majorName: '',
+    totalVal: {
+      failed: 0,
+      fulfilled: 0,
+    },
     indicatorMajors: [],
   };
 
   if (Deps !== void 0 && !(Deps instanceof AxiosError)) {
-    (result.majorId = Deps.data.major_id || 0),
-      (result.majorName = Deps.data.major_name || ''),
-      Deps.data.indicator_majors.map((item) => {
-        result.indicatorMajors.push({
-          indicatorId: item.indicator_id || 0,
-          indicatorCode: item.indicator_code || '',
-          indicatorName: item.indicator_name || '',
-          yearData: item.year_data.map((year) => {
-            const total = year.q1 + year.q2 + year.q3 + year.q4;
+    result.majorId = Deps.data.major_id || 0;
+    result.majorName = Deps.data.major_name || '';
+    Deps.data.indicator_majors.map((item) => {
+      result.indicatorMajors.push({
+        indicatorId: item.indicator_id || 0,
+        indicatorCode: item.indicator_code || '',
+        indicatorName: item.indicator_name || '',
+        total: item.year_data.reduce(
+          (acc, cur) => {
+            if (cur.is_target_fulfilled === true) {
+              acc.fulfilled += 1;
+              result.totalVal.fulfilled += 1;
+            }
 
-            return {
-              isTargetFulfilled: total === 0 ? false : total >= year.target,
-              q1: year.q1,
-              q2: year.q2,
-              q3: year.q3,
-              q4: year.q4,
-              target: year.target,
-              yearId: year.year_id,
-              yearValue: year.year_value,
-            };
-          }),
-        });
+            if (cur.is_target_fulfilled === false) {
+              acc.failed += 1;
+              result.totalVal.failed += 1;
+            }
+
+            return acc;
+          },
+          { failed: 0, fulfilled: 0 }
+        ),
+        yearData: item.year_data.map((year) => {
+          return {
+            isTargetFulfilled: year.is_target_fulfilled,
+            q1: year.q1,
+            q2: year.q2,
+            q3: year.q3,
+            q4: year.q4,
+            target: year.target,
+            yearId: year.year_id,
+            yearValue: year.year_value,
+          };
+        }),
       });
+    });
   }
 
   return result;
 };
 
-const useIndicatorByMajorQuery = (
-  major: string,
-  enabled?: boolean,
-  yearVal?: number
-) => {
+const useIndicatorByMajorQuery = (major: string, enabled?: boolean) => {
   const { data, ...rest } = useQuery<IndicatorByMajorResponse>(
     ['indicatorPerMajor', major],
-    () =>
-      baseAPI.get(`indicator/major/${major}`, {
-        params: {
-          year_val: yearVal,
-        },
-      }),
+    () => baseAPI.get(`indicator/major/${major}`),
     {
       refetchOnWindowFocus: false,
       enabled,

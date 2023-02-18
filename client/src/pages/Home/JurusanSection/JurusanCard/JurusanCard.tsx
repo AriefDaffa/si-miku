@@ -44,6 +44,7 @@ const JurusanCard: FC<JurusanCardProps> = (props) => {
               text="Indikator belum memenuhi target"
             />,
             <ProgressCard
+              headertext="Progress jurusan"
               value={getPercentage(
                 major.total.fulfilled,
                 major.total.fulfilled + major.total.failed

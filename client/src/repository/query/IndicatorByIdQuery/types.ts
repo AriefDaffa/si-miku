@@ -36,6 +36,11 @@ export interface IndicatorByIdResponse {
 
 // -- NORMALIZED TYPES -- //
 
+interface TotalNormalized {
+  failed: number;
+  fulfilled: number;
+}
+
 export interface YearNormalized {
   yearId: number;
   yearValue: number;
@@ -59,6 +64,7 @@ export interface MajorsNormalized {
 export interface IndicatorByIdMajorsNormalized {
   major: MajorsNormalized;
   indicatorData: IndicatorDataNormalized[];
+  total: TotalNormalized;
 }
 
 export interface IndicatorByIdNormalized {

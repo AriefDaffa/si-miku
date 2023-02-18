@@ -37,7 +37,7 @@ const ChartSection: FC<ChartSectionProps> = (props) => {
         data: majorData.map((item) => {
           return {
             x: item.majorName,
-            y: item.totalFulfilled,
+            y: item.total.fulfilled,
           };
         }),
       },
@@ -46,7 +46,7 @@ const ChartSection: FC<ChartSectionProps> = (props) => {
         data: majorData.map((item) => {
           return {
             x: item.majorName,
-            y: item.totalFailed,
+            y: item.total.failed,
           };
         }),
       },

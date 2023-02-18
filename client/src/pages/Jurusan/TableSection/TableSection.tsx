@@ -71,17 +71,20 @@ const TableSection: FC<TableSectionProps> = (props) => {
                   <Header variant="subtitle2" text={`${item.majorName}`} />
                 </TableCell>
                 <TableCell>
-                  <Header variant="subtitle2" text={`${item.totalFulfilled}`} />
+                  <Header
+                    variant="subtitle2"
+                    text={`${item.total.fulfilled}`}
+                  />
                 </TableCell>
                 <TableCell>
-                  <Header variant="subtitle2" text={`${item.totalFailed}`} />
+                  <Header variant="subtitle2" text={`${item.total.failed}`} />
                 </TableCell>
                 <TableCell>
                   <ProgressBar
                     value={
                       getPercentage(
-                        item.totalFulfilled,
-                        item.totalFulfilled + item.totalFailed
+                        item.total.fulfilled,
+                        item.total.fulfilled + item.total.failed
                       ) || 0
                     }
                   />

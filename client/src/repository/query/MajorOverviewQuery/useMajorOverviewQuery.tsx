@@ -21,9 +21,9 @@ const normalizer = (Deps?: MajorOverviewResponse) => {
             (acc, cur) => {
               const { is_target_fulfilled } = cur.target_quarter;
 
-              if (is_target_fulfilled) {
+              if (is_target_fulfilled === true) {
                 acc.fulfilled += 1;
-              } else {
+              } else if (is_target_fulfilled === false) {
                 acc.failed += 1;
               }
 
@@ -37,7 +37,9 @@ const normalizer = (Deps?: MajorOverviewResponse) => {
         (acc, cur) => {
           if (cur.fulfilled) {
             acc.fulfilled += cur.fulfilled;
-          } else if (cur.failed) {
+          }
+
+          if (cur.failed) {
             acc.failed += cur.failed;
           }
 

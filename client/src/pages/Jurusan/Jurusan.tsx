@@ -13,6 +13,7 @@ import TableSection from './TableSection';
 
 const Jurusan: FC = () => {
   const { data: major, isLoading: isMajorLoading } = useMajorOverviewQuery();
+
   return (
     <>
       <Helmet title="Jurusan | SI-MIKU" />

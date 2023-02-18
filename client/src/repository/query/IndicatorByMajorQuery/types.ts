@@ -28,6 +28,11 @@ export interface IndicatorByMajorResponse {
 
 // -- NORMALIZED TYPES -- //
 
+interface TotalNormalized {
+  fulfilled: number;
+  failed: number;
+}
+
 export interface IndicatorByMajorTargetQuartersNormalized {
   yearId: number;
   yearValue: number;
@@ -43,11 +48,13 @@ export interface IndicatorByMajorNormalizedData {
   indicatorId: number;
   indicatorCode: string;
   indicatorName: string;
+  total: TotalNormalized;
   yearData: IndicatorByMajorTargetQuartersNormalized[];
 }
 
 export interface IndicatorByMajorNormalized {
   majorId: number;
   majorName: string;
+  totalVal: TotalNormalized;
   indicatorMajors: IndicatorByMajorNormalizedData[];
 }

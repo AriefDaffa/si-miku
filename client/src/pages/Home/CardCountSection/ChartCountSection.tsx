@@ -41,6 +41,7 @@ const CardCountSection: FC<CardCountSectionProps> = (props) => {
               text="Indikator belum memenuhi target"
             />,
             <ProgressCard
+              headertext="Progress indikator"
               value={getPercentage(
                 indicator.total.fulfilled,
                 indicator.total.fulfilled + indicator.total.failed

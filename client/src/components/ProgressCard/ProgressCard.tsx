@@ -10,14 +10,15 @@ import { getProgressColor } from '@/utils/get-progress-bar-color';
 
 interface ProgressCardProps {
   value: number;
+  headertext: string;
 }
 
 const ProgressCard: FC<ProgressCardProps> = (props) => {
-  const { value } = props;
+  const { value, headertext } = props;
 
   return (
     <CustomCard>
-      <SubHeader text="Progress indikator" />
+      <SubHeader text={headertext} />
       <Box
         sx={{
           mt: 2,

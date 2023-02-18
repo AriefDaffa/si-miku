@@ -27,34 +27,33 @@ const ChartSection: FC<ChartSectionProps> = (props) => {
     legend: { floating: false, horizontalAlign: 'center', position: 'bottom' },
     dataLabels: { enabled: false, dropShadow: { enabled: false } },
     colors: [SUCCESS.dark, ERROR.dark],
-    fill: { type: 'gradient' },
     markers: {
       size: 5,
     },
   });
 
-  //   const series = useMemo(() => {
-  //     return [
-  //       {
-  //         name: 'Indikator memenuhi target',
-  //         data: indicatorData.indicatorMajors.map((item) => {
-  //           return {
-  //             x: item.yearValue,
-  //             y: item.fulfilled,
-  //           };
-  //         }),
-  //       },
-  //       {
-  //         name: 'Indikator belum memenuhi target',
-  //         data: years.map((item) => {
-  //           return {
-  //             x: item.yearValue,
-  //             y: item.failed,
-  //           };
-  //         }),
-  //       },
-  //     ];
-  //   }, [years]);
+  const series = useMemo(() => {
+    return [
+      {
+        name: 'Indikator memenuhi target',
+        data: indicatorData.indicatorMajors.map((item) => {
+          return {
+            x: item.major.majorName,
+            y: item.total.fulfilled,
+          };
+        }),
+      },
+      {
+        name: 'Indikator belum memenuhi target',
+        data: indicatorData.indicatorMajors.map((item) => {
+          return {
+            x: item.major.majorName,
+            y: item.total.failed,
+          };
+        }),
+      },
+    ];
+  }, [indicatorData]);
 
   return (
     <CustomCard sx={{ mb: 2 }}>
@@ -67,12 +66,12 @@ const ChartSection: FC<ChartSectionProps> = (props) => {
           gridItem={[
             <CustomCard>
               <div>
-                {/* <CustomChart
+                <CustomChart
                   chartOptions={chartOptions}
                   series={series}
-                  type="area"
+                  type="bar"
                   height={400}
-                /> */}
+                />
               </div>
             </CustomCard>,
             // indicator.indicatorMajors.map((item, idx) => (

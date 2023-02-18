@@ -124,7 +124,6 @@ const getIndicatorsByYear = async (req, res) => {
 
 const getIndicatorByMajorId = async (req, res) => {
   const { id } = req.params;
-  const { year_val } = req.query;
 
   try {
     const indicator = await model.Major.findOne({
@@ -145,7 +144,6 @@ const getIndicatorByMajorId = async (req, res) => {
             include: [
               {
                 model: model.Year,
-                where: year_val ? { year_value: year_val } : {},
               },
               model.TargetQuarters,
             ],
