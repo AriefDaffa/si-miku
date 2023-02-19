@@ -70,11 +70,10 @@ const FormInputSection: FC = () => {
 
   return (
     <CustomGrid
-      sx={{ pt: 2 }}
       gridItem={[
         <CustomCard>
           <Header text="Form Input" />
-          <SubHeader text="Input data indikator melalui form dibawah ini" />
+          <SubHeader text="Input indikator baru melalui form dibawah ini" />
           <Divider sx={{ mt: 2, mb: 2 }} />
           <form onSubmit={handleSubmit(handleOnSubmit)}>
             <CustomGrid

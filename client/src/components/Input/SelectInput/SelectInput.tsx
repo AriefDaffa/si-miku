@@ -10,7 +10,7 @@ import FormControl from '@mui/material/FormControl';
 import type { SelectInputProps } from './types';
 
 const SelectInput: FC<SelectInputProps> = (props) => {
-  const { control, name, label, menuItem, defaultValue } = props;
+  const { control, name, label, menuItem, defaultValue, labelInside } = props;
 
   return (
     <Stack>
@@ -22,7 +22,12 @@ const SelectInput: FC<SelectInputProps> = (props) => {
           name={name}
           control={control}
           render={({ field }) => (
-            <Select autoWidth defaultValue={defaultValue} {...field}>
+            <Select
+              autoWidth
+              defaultValue={defaultValue}
+              label={labelInside}
+              {...field}
+            >
               {menuItem.map((data, idx) => (
                 <MenuItem key={idx} value={data.itemValue}>
                   {data.itemTitle}

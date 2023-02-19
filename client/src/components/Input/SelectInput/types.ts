@@ -9,6 +9,7 @@ export interface SelectInputProps {
   name: string;
   label: string;
   defaultValue: any;
+  labelInside?: string;
   menuItem: Item[];
   control: Control<any, any>;
 }

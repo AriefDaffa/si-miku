@@ -21,8 +21,8 @@ const DeleteButton: FC<DeleteButtonProps> = (props) => {
   const [successDialog, setSuccessDialog] = useState(false);
   const [loading, setLoading] = useState(false);
 
-  const { mutate, isLoading } = useDeleteIndicatorMutation();
-  const { refetch } = useIndicatorQuery();
+  const { mutate } = useDeleteIndicatorMutation();
+  const { refetch } = useIndicatorQuery(true);
 
   const handleOnclick = (e: SyntheticEvent<HTMLButtonElement>) => {
     e.stopPropagation();

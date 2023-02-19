@@ -51,7 +51,7 @@ const BulkInputSection: FC = () => {
   return (
     <CustomCard>
       <Header text="Bulk Input" />
-      <SubHeader text="Upload file CSV untuk memasukkan data secara bulk" />
+      <SubHeader text="Upload file CSV untuk memasukkan indikator baru secara bulk" />
       <Divider sx={{ mt: 2, mb: 3 }} />
       <CSVReader
         config={{ header: true, skipEmptyLines: true }}

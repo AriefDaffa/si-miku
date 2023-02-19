@@ -28,12 +28,13 @@ const normalizer = (Deps?: IndicatorResponse) => {
   return result;
 };
 
-const useIndicatorQuery = () => {
+const useIndicatorQuery = (disabled?: boolean) => {
   const { data, ...rest } = useQuery<IndicatorResponse>(
     'indicator',
     () => baseAPI.get('indicator'),
     {
       refetchOnWindowFocus: false,
+      enabled: !disabled,
     }
   );
 

@@ -1,12 +1,17 @@
 import type { FC } from 'react';
 
 import Container from '@mui/material/Container';
+import Box from '@mui/material/Box';
 
 import Helmet from '@/components/Helmet';
-import { PageTitle } from '@/components/Typography';
+import CustomCard from '@/components/CustomCard';
+import CustomGrid from '@/components/CustomGrid';
+import { Header, PageTitle } from '@/components/Typography';
+import { GREY } from '@/theme/Colors';
 
 import BulkInputSection from './BulkInputSection';
 import FormInputSection from './FormInputSection';
+import FormInputDataSection from './FormInputDataSection';
 
 const InputIndicator: FC = () => {
   return (
@@ -17,8 +22,25 @@ const InputIndicator: FC = () => {
           title="Input Indikator"
           subTitle="Masukkan data indikator kedalam sistem"
         />
-        <BulkInputSection />
-        <FormInputSection />
+        <CustomCard sx={{ mb: 2 }}>
+          <Header text={`Tambah indikator baru`} />
+          <Box
+            sx={{ backgroundColor: GREY[200], p: 1, mt: 2, borderRadius: 2 }}
+          >
+            <CustomGrid
+              spacing={1}
+              gridItem={[<BulkInputSection />, <FormInputSection />]}
+            />
+          </Box>
+        </CustomCard>
+        <CustomCard>
+          <Header text={`Tambah data indikator`} />
+          <Box
+            sx={{ backgroundColor: GREY[200], p: 1, mt: 2, borderRadius: 2 }}
+          >
+            <CustomGrid spacing={1} gridItem={[<FormInputDataSection />]} />
+          </Box>
+        </CustomCard>
       </Container>
     </>
   );
