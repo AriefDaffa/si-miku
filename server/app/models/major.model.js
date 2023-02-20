@@ -12,6 +12,9 @@ const Major = db.define(
     major_name: {
       type: DataTypes.STRING,
     },
+    major_image: {
+      type: DataTypes.STRING,
+    },
   },
   { timestamps: false }
 );

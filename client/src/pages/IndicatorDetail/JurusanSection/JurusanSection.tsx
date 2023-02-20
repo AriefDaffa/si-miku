@@ -3,6 +3,9 @@ import type { FC, ChangeEvent } from 'react';
 
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
+import Stack from '@mui/material/Stack';
+import Avatar from '@mui/material/Avatar';
+import Divider from '@mui/material/Divider';
 
 import CustomCard from '@/components/CustomCard';
 import CustomTable from '@/components/CustomTable';
@@ -40,7 +43,7 @@ const JurusanSection: FC<JurusanSectionProps> = (props) => {
   };
 
   const handleCloseDialog = () => {
-    setOpenDialog({ state: false, major: { majorId: 0, majorName: '' } });
+    setOpenDialog(DialogStateDefaultValue);
   };
 
   const handleSelectAllClick = (
@@ -66,7 +69,20 @@ const JurusanSection: FC<JurusanSectionProps> = (props) => {
           {indicatorData.indicatorMajors.map((item, idx) => (
             <Box key={idx} sx={{ mb: 2 }}>
               <CustomCard>
-                <Header text={item.major.majorName} sx={{ mb: 2 }} />
+                <Stack
+                  alignItems="center"
+                  direction={{ xs: 'column', sm: 'row' }}
+                  sx={{ mt: 1, mb: 2 }}
+                >
+                  <Avatar
+                    src={item.major.majorImage}
+                    alt="tif"
+                    variant="rounded"
+                    sx={{ width: 'fit-content' }}
+                  />
+                  <Divider orientation="vertical" flexItem sx={{ mx: 2 }} />
+                  <Header text={item.major.majorName} />
+                </Stack>
                 <CustomTable
                   withCheckbox
                   checkboxId={idx}

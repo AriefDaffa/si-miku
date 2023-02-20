@@ -12,5 +12,5 @@ export const tableHeader = [
 
 export const DialogStateDefaultValue = {
   state: false,
-  major: { majorId: 0, majorName: '' },
+  major: { majorId: 0, majorName: '', majorImage: '' },
 };

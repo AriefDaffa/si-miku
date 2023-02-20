@@ -19,6 +19,7 @@ export interface IndicatorByMajorArray {
 export interface IndicatorByMajorData {
   major_id: number;
   major_name: string;
+  major_image: string;
   indicator_majors: IndicatorByMajorArray[];
 }
 
@@ -55,6 +56,7 @@ export interface IndicatorByMajorNormalizedData {
 export interface IndicatorByMajorNormalized {
   majorId: number;
   majorName: string;
+  majorImage: string;
   totalVal: TotalNormalized;
   indicatorMajors: IndicatorByMajorNormalizedData[];
 }

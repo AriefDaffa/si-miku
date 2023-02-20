@@ -20,8 +20,6 @@ interface ChartSectionProps {
 const ChartSection: FC<ChartSectionProps> = (props) => {
   const { majorData } = props;
 
-  console.log(majorData);
-
   const chartOptions = useChartStyle({
     // chart: {
     //   stacked: true,

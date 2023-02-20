@@ -15,6 +15,7 @@ const normalizer = (Deps?: MajorOverviewResponse) => {
       result.push({
         majorId: item.major_id || 0,
         majorName: item.major_name || '',
+        majorImage: import.meta.env.VITE_BASE_API_URL + item.major_image || '',
         total: { failed: 0, fulfilled: 0 },
         indicatorMajors: item.indicator_majors.map((data) => {
           return data.indicator_major_years.reduce(

@@ -1,6 +1,9 @@
 import type { FC } from 'react';
 
 import Box from '@mui/material/Box';
+import Stack from '@mui/material/Stack';
+import Avatar from '@mui/material/Avatar';
+import Divider from '@mui/material/Divider';
 
 import CustomCard from '@/components/CustomCard';
 import CustomGrid from '@/components/CustomGrid';
@@ -20,7 +23,21 @@ const JurusanCard: FC<JurusanCardProps> = (props) => {
 
   return (
     <CustomCard>
-      <Header text={major.majorName} />
+      <Stack
+        alignItems="center"
+        direction={{ xs: 'column', sm: 'row' }}
+        sx={{ my: 1 }}
+      >
+        <Avatar
+          src={major.majorImage}
+          alt="tif"
+          variant="rounded"
+          sx={{ width: 'fit-content' }}
+        />
+        <Divider orientation="vertical" flexItem sx={{ mx: 2 }} />
+        <Header text={major.majorName} />
+      </Stack>
+
       <Box
         sx={{
           backgroundColor: GREY[200],

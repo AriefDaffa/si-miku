@@ -24,6 +24,8 @@ const normalizer = (Deps?: IndicatorByIdResponse) => {
         major: {
           majorId: item.major.major_id || 0,
           majorName: item.major.major_name || '',
+          majorImage:
+            import.meta.env.VITE_BASE_API_URL + item.major.major_image || '',
         },
         total: item.indicator_data.reduce(
           (acc, cur) => {

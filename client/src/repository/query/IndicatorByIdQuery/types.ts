@@ -16,6 +16,7 @@ export interface IndicatorData {
 export interface Majors {
   major_id: number;
   major_name: string;
+  major_image: string;
 }
 
 export interface IndicatorByIdMajors {
@@ -59,6 +60,7 @@ export interface IndicatorDataNormalized {
 export interface MajorsNormalized {
   majorId: number;
   majorName: string;
+  majorImage: string;
 }
 
 export interface IndicatorByIdMajorsNormalized {

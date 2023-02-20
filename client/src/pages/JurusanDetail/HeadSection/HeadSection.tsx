@@ -64,7 +64,7 @@ const HeadSection: FC<HeadSectionProps> = (props) => {
           sx={{ my: 1 }}
         >
           <Avatar
-            src={logo.find((item) => `${item.id}` === id)?.image}
+            src={majorData.majorImage}
             alt="tif"
             variant="rounded"
             sx={{ width: 'fit-content' }}

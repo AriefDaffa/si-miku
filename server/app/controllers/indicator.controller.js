@@ -155,6 +155,7 @@ const getIndicatorByMajorId = async (req, res) => {
     const normalizeResult = {
       major_id: indicator.major_id,
       major_name: indicator.major_name,
+      major_image: indicator.major_image,
       indicator_majors: indicator.indicator_majors.map((data) => {
         return {
           indicator_id: data.indicator.indicator_id,
@@ -313,8 +314,6 @@ const createIndicatorDataByMajor = async (req, res) => {
 
 const getIndicatorCount = async (req, res) => {
   try {
-    // const indicator = await model.Indicator.findAndCountAll();
-
     const result = await model.Year.findAll({
       include: {
         model: model.IndicatorMajorYear,
@@ -342,38 +341,6 @@ const getOverviewMajor = async (req, res) => {
         },
       },
     });
-
-    // const normalize = majors.map((data) => {
-    //   return {
-    //     major_id: data.major_id,
-    //     major_name: data.major_name,
-    //     indicator_majors: data.indicator_majors.map((indicator) => {
-    //       return {
-    //         fulfilled: indicator.indicator_major_years.filter(
-    //           (item) => item.target_quarter.is_target_fulfilled === true
-    //         ).length,
-    //         failed: indicator.indicator_major_years.filter(
-    //           (item) => item.target_quarter.is_target_fulfilled === false
-    //         ).length,
-    //       };
-    //     }),
-    //   };
-    // });
-
-    // const result = normalize.map(({ indicator_majors, ...rest }) => {
-    //   return {
-    //     ...rest,
-    //     indicator_majors,
-    //     total_fulfilled: indicator_majors.reduce(
-    //       (acc, cur) => acc + cur.fulfilled,
-    //       0
-    //     ),
-    //     total_failed: indicator_majors.reduce(
-    //       (acc, cur) => acc + cur.failed,
-    //       0
-    //     ),
-    //   };
-    // });
 
     res.json(majors);
   } catch (error) {
@@ -432,9 +399,37 @@ const deleteIndicatorById = async (req, res) => {
   try {
     const { indicator_id } = req.body;
 
+    // const remove = await model.Indicator.destroy({
+    //   where: {
+    //     indicator_id,
+    //   },
+    // });
+
+    const indicatorMajorId = await model.IndicatorMajor.findAll({
+      where: {
+        indicator_id,
+      },
+    });
+
+    const indicatorMajorYear = await model.IndicatorMajorYear.findAll({
+      where: {
+        indicator_major_id: indicatorMajorId.map(
+          (item) => item.indicator_major_id
+        ),
+      },
+    });
+
     const remove = await model.Indicator.destroy({
       where: {
         indicator_id,
+      },
+    });
+
+    const removeTargetQuarter = await model.TargetQuarters.destroy({
+      where: {
+        target_quarter_id: indicatorMajorYear.map(
+          (item) => item.target_quarter_id
+        ),
       },
     });
 

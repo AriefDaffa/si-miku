@@ -20,6 +20,7 @@ interface IndicatorMajorCount {
 export interface MajorOverviewData {
   major_id: number;
   major_name: string;
+  major_image: string;
   indicator_majors: IndicatorMajorCount[];
 }
 
@@ -42,6 +43,7 @@ export interface IndicatorMajorNormalized {
 export interface MajorOverviewNormalized {
   majorId: number;
   majorName: string;
+  majorImage: string;
   total: TotalNormalized;
   indicatorMajors: IndicatorMajorNormalized[];
 }

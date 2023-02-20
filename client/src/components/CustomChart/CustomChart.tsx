@@ -6,26 +6,12 @@ import type { FC } from 'react';
 
 import useChartStyle from '@/hooks/use-chart-style';
 
+import type { ChartTypes } from './types';
+
 interface CustomChartProps {
   chartOptions: object;
   series: ApexOptions['series'];
-  type:
-    | 'line'
-    | 'area'
-    | 'bar'
-    | 'histogram'
-    | 'pie'
-    | 'donut'
-    | 'radialBar'
-    | 'scatter'
-    | 'bubble'
-    | 'heatmap'
-    | 'treemap'
-    | 'boxPlot'
-    | 'candlestick'
-    | 'radar'
-    | 'polarArea'
-    | 'rangeBar';
+  type: ChartTypes;
   width?: number;
   height?: number;
 }

@@ -33,12 +33,12 @@ const JurusanDetail: FC = () => {
           indicatorFulfilled={major.totalVal.fulfilled}
         />
         <ChartSection majorData={major} />
-        <TableSection
+        {/* <TableSection
           yearData={year}
           isYearLoading={isYearLoading}
           majorData={major}
           isLoading={isMajorLoading}
-        />
+        /> */}
       </Container>
     </>
   );
