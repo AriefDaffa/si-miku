@@ -37,7 +37,7 @@ const FormInputSection: FC = () => {
     name: `indicator`,
   });
 
-  const handleOnSubmit = (data: DefaultValueTypes) => {
+  const handleOnUpload = (data: DefaultValueTypes) => {
     setOpenLoading(true);
 
     mutate(
@@ -75,7 +75,7 @@ const FormInputSection: FC = () => {
           <Header text="Form Input" />
           <SubHeader text="Input indikator baru melalui form dibawah ini" />
           <Divider sx={{ mt: 2, mb: 2 }} />
-          <form onSubmit={handleSubmit(handleOnSubmit)}>
+          <form onSubmit={handleSubmit(handleOnUpload)}>
             <CustomGrid
               sx={{ mb: 2 }}
               spacing={1}

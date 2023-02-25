@@ -8,19 +8,34 @@ import TableCell from '@mui/material/TableCell';
 import Pill from '@/components/Pill';
 import { GREY } from '@/theme/Colors';
 import { Header, SubHeader } from '@/components/Typography';
-import type { IndicatorDataNormalized } from '@/repository/query/IndicatorByIdQuery/types';
+import type {
+  IndicatorDataNormalized,
+  MajorsNormalized,
+} from '@/repository/query/IndicatorByIdQuery/types';
 
 import DeleteButton from '../DeleteButton';
+import type { DialogFullVal } from '../types';
 
 interface JurusanSectionProps {
   index: number;
   selected: number[];
+  indicatorName: string;
+  major: MajorsNormalized;
   data: IndicatorDataNormalized;
   setSelected: Dispatch<SetStateAction<number[]>>;
+  setOpenFullDialog: Dispatch<SetStateAction<DialogFullVal>>;
 }
 
 const JurusanSection: FC<JurusanSectionProps> = (props) => {
-  const { data, index, selected, setSelected } = props;
+  const {
+    data,
+    index,
+    selected,
+    setSelected,
+    setOpenFullDialog,
+    indicatorName,
+    major,
+  } = props;
 
   const handleCheckboxClick = (
     e: SyntheticEvent<HTMLButtonElement>,
@@ -46,6 +61,15 @@ const JurusanSection: FC<JurusanSectionProps> = (props) => {
     setSelected(newSelected);
   };
 
+  const handleOpenFullDialog = () => {
+    setOpenFullDialog({
+      state: true,
+      indicatorName,
+      major,
+      data,
+    });
+  };
+
   return (
     <TableRow
       sx={{
@@ -54,6 +78,7 @@ const JurusanSection: FC<JurusanSectionProps> = (props) => {
           cursor: 'pointer',
         },
       }}
+      onClick={handleOpenFullDialog}
     >
       <TableCell padding="checkbox">
         <Checkbox

@@ -21,8 +21,13 @@ import type {
 import FormDialog from './FormDialog';
 import TableContents from './TableContents';
 import DeleteBulkButton from './DeleteBulkButton';
-import { DialogStateDefaultValue, tableHeader } from './constant';
-import type { DialogStateTypes } from './types';
+import {
+  DialogFullValue,
+  DialogStateDefaultValue,
+  tableHeader,
+} from './constant';
+import type { DialogFullVal, DialogStateTypes } from './types';
+import FullScreenDialog from './FullScreenDialog';
 
 interface JurusanSectionProps {
   isIndicatorLoading: boolean;
@@ -33,10 +38,12 @@ const JurusanSection: FC<JurusanSectionProps> = (props) => {
   const { indicatorData, isIndicatorLoading } = props;
 
   const [selected, setSelected] = useState<number[]>([]);
+  const [openLoading, setOpenLoading] = useState(false);
   const [openDialog, setOpenDialog] = useState<DialogStateTypes>(
     DialogStateDefaultValue
   );
-  const [openLoading, setOpenLoading] = useState(false);
+  const [openFullDialog, setopenFullDialog] =
+    useState<DialogFullVal>(DialogFullValue);
 
   const handleOpenDialog = (major: MajorsNormalized) => {
     setOpenDialog({ state: true, major });
@@ -101,8 +108,11 @@ const JurusanSection: FC<JurusanSectionProps> = (props) => {
                         key={index}
                         data={data}
                         index={index}
+                        major={item.major}
+                        indicatorName={indicatorData.indicatorName}
                         selected={selected}
                         setSelected={setSelected}
+                        setOpenFullDialog={setopenFullDialog}
                       />
                     ))}
                 </CustomTable>
@@ -129,6 +139,10 @@ const JurusanSection: FC<JurusanSectionProps> = (props) => {
             setOpenLoading={setOpenLoading}
           />
           <LoadingPopup open={openLoading} />
+          <FullScreenDialog
+            openFullDialog={openFullDialog}
+            setOpenFullDialog={setopenFullDialog}
+          />
         </Box>
       </Box>
     </CustomCard>

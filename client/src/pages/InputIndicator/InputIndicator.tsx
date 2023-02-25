@@ -33,14 +33,14 @@ const InputIndicator: FC = () => {
             />
           </Box>
         </CustomCard>
-        <CustomCard>
+        {/* <CustomCard>
           <Header text={`Tambah data indikator`} />
           <Box
             sx={{ backgroundColor: GREY[200], p: 1, mt: 2, borderRadius: 2 }}
           >
             <CustomGrid spacing={1} gridItem={[<FormInputDataSection />]} />
           </Box>
-        </CustomCard>
+        </CustomCard> */}
       </Container>
     </>
   );
