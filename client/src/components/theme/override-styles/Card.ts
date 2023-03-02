@@ -1,7 +1,7 @@
 import { Theme } from '@mui/system';
 import { alpha } from '@mui/material/styles';
 
-import { GREY } from '@/theme/Colors';
+import { GREY } from '@/components/theme/Colors';
 
 const Card = (theme: Theme) => {
   const color = GREY[500];

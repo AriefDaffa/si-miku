@@ -12,9 +12,9 @@ import CssBaseline from '@mui/material/CssBaseline';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { GlobalStyles } from '@mui/styled-engine';
 
-import { GlobalStylesOptions } from '@/theme';
-import { customTypography } from '@/theme/Typography';
-import ComponentsOverrides from '@/theme/override-styles';
+import { GlobalStylesOptions } from '@/components/theme';
+import { customTypography } from '@/components/theme/Typography';
+import ComponentsOverrides from '@/components/theme/override-styles';
 
 interface CustomThemeType {
   isDarkTheme: boolean;

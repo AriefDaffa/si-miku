@@ -5,8 +5,8 @@ import Avatar from '@mui/material/Avatar';
 import type { SvgIconTypeMap } from '@mui/material';
 import type { OverridableComponent } from '@mui/material/OverridableComponent';
 
-import CustomCard from '@/components/CustomCard';
-import { Header, SubHeader } from '@/components/Typography';
+import CustomCard from '@/components/UI/CustomCard';
+import { Header, SubHeader } from '@/components/UI/Typography';
 
 interface CountCard {
   title: string;

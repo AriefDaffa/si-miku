@@ -3,7 +3,7 @@ import type { FC } from 'react';
 import LinearProgress from '@mui/material/LinearProgress';
 import Box from '@mui/material/Box';
 
-import { Header } from '@/components/Typography';
+import { Header } from '@/components/UI/Typography';
 import { getProgressColor } from '@/utils/get-progress-bar-color';
 
 interface ProgressBarProps {

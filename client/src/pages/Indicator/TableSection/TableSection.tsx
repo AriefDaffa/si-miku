@@ -8,11 +8,11 @@ import Checkbox from '@mui/material/Checkbox';
 import TableRow from '@mui/material/TableRow';
 import TableCell from '@mui/material/TableCell';
 
-import CustomGrid from '@/components/CustomGrid';
-import CustomCard from '@/components/CustomCard';
-import CustomTable from '@/components/CustomTable';
-import { Header, SubHeader } from '@/components/Typography';
-import { GREY } from '@/theme/Colors';
+import CustomGrid from '@/components/UI/CustomGrid';
+import CustomCard from '@/components/UI/CustomCard';
+import CustomTable from '@/components/UI/CustomTable';
+import { Header, SubHeader } from '@/components/UI/Typography';
+import { GREY } from '@/components/theme/Colors';
 import type { IndicatorResponseNormalized } from '@/repository/query/IndicatorQuery/types';
 
 import DeleteButton from './DeleteButton';

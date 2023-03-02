@@ -3,16 +3,16 @@ import type { FC } from 'react';
 import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
 
-import CustomGrid from '@/components/CustomGrid';
+import CustomGrid from '@/components/UI/CustomGrid';
 import tifLogo from '@/assets/logo-jurusan/tif-logo.png';
 import siLogo from '@/assets/logo-jurusan/si-logo.png';
 import tekkomLogo from '@/assets/logo-jurusan/tekkom-logo.png';
 import ptiLogo from '@/assets/logo-jurusan/pti-logo.png';
 import tiLogo from '@/assets/logo-jurusan/ti-logo.png';
 import mikLogo from '@/assets/logo-jurusan/mik-logo.png';
-import CustomCard from '@/components/CustomCard';
-import { Header } from '@/components/Typography';
-import { GREY } from '@/theme/Colors';
+import CustomCard from '@/components/UI/CustomCard';
+import { Header } from '@/components/UI/Typography';
+import { GREY } from '@/components/theme/Colors';
 import type { MajorOverviewNormalized } from '@/repository/query/MajorOverviewQuery/types';
 
 import JurusanCard from './JurusanCard';

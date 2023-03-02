@@ -11,19 +11,19 @@ import TablePagination from '@mui/material/TablePagination';
 import Divider from '@mui/material/Divider';
 import Box from '@mui/material/Box';
 
-import CustomCard from '@/components/CustomCard';
-import CustomGrid from '@/components/CustomGrid';
+import CustomCard from '@/components/UI/CustomCard';
+import CustomGrid from '@/components/UI/CustomGrid';
 import tifLogo from '@/assets/logo-jurusan/tif-logo.png';
 import siLogo from '@/assets/logo-jurusan/si-logo.png';
 import tekkomLogo from '@/assets/logo-jurusan/tekkom-logo.png';
 import ptiLogo from '@/assets/logo-jurusan/pti-logo.png';
 import tiLogo from '@/assets/logo-jurusan/ti-logo.png';
 import mikLogo from '@/assets/logo-jurusan/mik-logo.png';
-import { Header, SubHeader } from '@/components/Typography';
+import { Header, SubHeader } from '@/components/UI/Typography';
 import { getPercentage } from '@/utils/get-percentage';
 import type { MajorOverviewNormalized } from '@/repository/query/MajorOverviewQuery/types';
-import { GREY } from '@/theme/Colors';
-import CustomTable from '@/components/CustomTable';
+import { GREY } from '@/components/theme/Colors';
+import CustomTable from '@/components/UI/CustomTable';
 import { tableHeader } from './constant';
 import ProgressBar from './ProgressBar';
 

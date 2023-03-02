@@ -4,8 +4,8 @@ import type { FC, SyntheticEvent, Dispatch, SetStateAction } from 'react';
 
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
-import DialogPopup from '@/components/DialogPopup';
-import LoadingPopup from '@/components/Loader/LoadingPopup';
+import DialogPopup from '@/components/UI/DialogPopup';
+import LoadingPopup from '@/components/UI/Loader/LoadingPopup';
 import useDeleteIndicatorMutation from '@/repository/mutation/DeleteIndicatorMutation';
 import useIndicatorQuery from '@/repository/query/IndicatorQuery';
 

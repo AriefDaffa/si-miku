@@ -3,8 +3,8 @@ import type { FC } from 'react';
 import Container from '@mui/material/Container';
 
 import useIndicatorQuery from '@/repository/query/IndicatorQuery';
-import Helmet from '@/components/Helmet';
-import { PageTitle } from '@/components/Typography';
+import Helmet from '@/components/UI/Helmet';
+import { PageTitle } from '@/components/UI/Typography';
 
 import TableSection from './TableSection';
 

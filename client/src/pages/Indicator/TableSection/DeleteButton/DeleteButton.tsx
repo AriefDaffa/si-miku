@@ -4,10 +4,10 @@ import type { FC, SyntheticEvent, Dispatch, SetStateAction } from 'react';
 import IconButton from '@mui/material/IconButton';
 import DeleteIcon from '@mui/icons-material/Delete';
 
-import DialogPopup from '@/components/DialogPopup';
+import DialogPopup from '@/components/UI/DialogPopup';
 import useDeleteIndicatorMutation from '@/repository/mutation/DeleteIndicatorMutation';
 import useIndicatorQuery from '@/repository/query/IndicatorQuery';
-import LoadingPopup from '@/components/Loader/LoadingPopup';
+import LoadingPopup from '@/components/UI/Loader/LoadingPopup';
 
 interface DeleteButtonProps {
   id: number;

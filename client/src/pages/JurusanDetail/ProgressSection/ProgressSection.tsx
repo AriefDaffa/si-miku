@@ -5,12 +5,12 @@ import TrackChangesIcon from '@mui/icons-material/TrackChanges';
 import DoneAllIcon from '@mui/icons-material/DoneAll';
 import CancelIcon from '@mui/icons-material/Cancel';
 
-import CustomCard from '@/components/CustomCard';
-import CustomGrid from '@/components/CustomGrid';
-import ProgressCard from '@/components/ProgressCard';
+import CustomCard from '@/components/UI/CustomCard';
+import CustomGrid from '@/components/UI/CustomGrid';
+import ProgressCard from '@/components/UI/ProgressCard';
 import { getPercentage } from '@/utils/get-percentage';
-import { Header } from '@/components/Typography';
-import { ERROR, GREY, PRIMARY, SUCCESS } from '@/theme/Colors';
+import { Header } from '@/components/UI/Typography';
+import { ERROR, GREY, PRIMARY, SUCCESS } from '@/components/theme/Colors';
 
 import CountCard from './CountCard';
 

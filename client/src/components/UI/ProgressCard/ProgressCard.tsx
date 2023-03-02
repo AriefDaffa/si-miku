@@ -3,9 +3,9 @@ import type { FC } from 'react';
 import Box from '@mui/material/Box';
 import CircularProgress from '@mui/material/CircularProgress';
 
-import CustomCard from '@/components/CustomCard';
-import { Header, SubHeader } from '@/components/Typography';
-import { ERROR, GREY, SUCCESS, WARNING } from '@/theme/Colors';
+import CustomCard from '@/components/UI/CustomCard';
+import { Header, SubHeader } from '@/components/UI/Typography';
+import { ERROR, GREY, SUCCESS, WARNING } from '@/components/theme/Colors';
 import { getProgressColor } from '@/utils/get-progress-bar-color';
 
 interface ProgressCardProps {

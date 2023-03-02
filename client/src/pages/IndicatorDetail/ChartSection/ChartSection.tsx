@@ -5,11 +5,11 @@ import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
 
 import useChartStyle from '@/hooks/use-chart-style';
-import CustomCard from '@/components/CustomCard';
-import CustomGrid from '@/components/CustomGrid';
-import CustomChart from '@/components/CustomChart';
-import { Header } from '@/components/Typography';
-import { ERROR, GREY, SUCCESS } from '@/theme/Colors';
+import CustomCard from '@/components/UI/CustomCard';
+import CustomGrid from '@/components/UI/CustomGrid';
+import CustomChart from '@/components/UI/CustomChart';
+import { Header } from '@/components/UI/Typography';
+import { ERROR, GREY, SUCCESS } from '@/components/theme/Colors';
 import type { IndicatorByIdNormalized } from '@/repository/query/IndicatorByIdQuery/types';
 import type { YearDataNormalized } from '@/repository/query/YearQuery/types';
 

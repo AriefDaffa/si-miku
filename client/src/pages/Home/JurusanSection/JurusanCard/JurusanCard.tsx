@@ -5,13 +5,13 @@ import Stack from '@mui/material/Stack';
 import Avatar from '@mui/material/Avatar';
 import Divider from '@mui/material/Divider';
 
-import CustomCard from '@/components/CustomCard';
-import CustomGrid from '@/components/CustomGrid';
-import CountCard from '@/components/CountCard';
-import ProgressCard from '@/components/ProgressCard';
-import { Header } from '@/components/Typography';
+import CustomCard from '@/components/UI/CustomCard';
+import CustomGrid from '@/components/UI/CustomGrid';
+import CountCard from '@/components/UI/CountCard';
+import ProgressCard from '@/components/UI/ProgressCard';
+import { Header } from '@/components/UI/Typography';
 import { getPercentage } from '@/utils/get-percentage';
-import { ERROR, GREY, SUCCESS } from '@/theme/Colors';
+import { ERROR, GREY, SUCCESS } from '@/components/theme/Colors';
 import type { MajorOverviewNormalized } from '@/repository/query/MajorOverviewQuery/types';
 
 interface JurusanCardProps {

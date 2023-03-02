@@ -3,11 +3,11 @@ import type { FC } from 'react';
 import Container from '@mui/material/Container';
 import Box from '@mui/material/Box';
 
-import Helmet from '@/components/Helmet';
-import CustomCard from '@/components/CustomCard';
-import CustomGrid from '@/components/CustomGrid';
-import { Header, PageTitle } from '@/components/Typography';
-import { GREY } from '@/theme/Colors';
+import Helmet from '@/components/UI/Helmet';
+import CustomCard from '@/components/UI/CustomCard';
+import CustomGrid from '@/components/UI/CustomGrid';
+import { Header, PageTitle } from '@/components/UI/Typography';
+import { GREY } from '@/components/theme/Colors';
 
 import BulkInputSection from './BulkInputSection';
 import FormInputSection from './FormInputSection';

@@ -1,6 +1,6 @@
 import { css } from '@emotion/react';
 
-import { GREY } from '@/theme/Colors';
+import { GREY } from '@/components/theme/Colors';
 
 export const containerCx = css`
   display: flex;

@@ -3,7 +3,7 @@ import type { FC } from 'react';
 
 import Container from '@mui/material/Container';
 
-import Helmet from '@/components/Helmet';
+import Helmet from '@/components/UI/Helmet';
 import useYearQuery from '@/repository/query/YearQuery';
 import useIndicatorByIdQuery from '@/repository/query/IndicatorByIdQuery';
 

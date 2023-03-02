@@ -12,15 +12,15 @@ import TrackChangesIcon from '@mui/icons-material/TrackChanges';
 import DoneAllIcon from '@mui/icons-material/DoneAll';
 import CancelIcon from '@mui/icons-material/Cancel';
 
-import CustomChart from '@/components/CustomChart';
+import CustomChart from '@/components/UI/CustomChart';
 import useChartStyle from '@/hooks/use-chart-style';
-import CustomCard from '@/components/CustomCard';
-import ProgressCard from '@/components/ProgressCard';
-import Pill from '@/components/Pill';
-import CustomGrid from '@/components/CustomGrid';
+import CustomCard from '@/components/UI/CustomCard';
+import ProgressCard from '@/components/UI/ProgressCard';
+import Pill from '@/components/UI/Pill';
+import CustomGrid from '@/components/UI/CustomGrid';
 import { getPercentage } from '@/utils/get-percentage';
-import { ERROR, LIGHT, PRIMARY, SUCCESS } from '@/theme/Colors';
-import { Header, SubHeader } from '@/components/Typography';
+import { ERROR, LIGHT, PRIMARY, SUCCESS } from '@/components/theme/Colors';
+import { Header, SubHeader } from '@/components/UI/Typography';
 
 import CountCard from './CountCard';
 import { DialogFullValue } from '../constant';

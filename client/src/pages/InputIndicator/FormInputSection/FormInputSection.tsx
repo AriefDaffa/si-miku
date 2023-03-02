@@ -11,17 +11,17 @@ import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 
 import useInputIndicatorMutation from '@/repository/mutation/InputIndicatorMutation';
-import CustomCard from '@/components/CustomCard';
-import CustomGrid from '@/components/CustomGrid';
-import LoadingPopup from '@/components/Loader/LoadingPopup';
-import { Header, SubHeader } from '@/components/Typography';
-import { TextInput } from '@/components/Input';
+import CustomCard from '@/components/UI/CustomCard';
+import CustomGrid from '@/components/UI/CustomGrid';
+import LoadingPopup from '@/components/UI/Loader/LoadingPopup';
+import DialogPopup from '@/components/UI/DialogPopup';
+import { Header, SubHeader } from '@/components/UI/Typography';
+import { TextInput } from '@/components/UI/Input';
 
 import IndicatorCodeInput from './IndicatorCodeInput';
 
 import { defaultValues } from './constant';
 import type { DefaultValueTypes } from './types';
-import DialogPopup from '@/components/DialogPopup';
 
 const FormInputSection: FC = () => {
   const [openLoading, setOpenLoading] = useState(false);

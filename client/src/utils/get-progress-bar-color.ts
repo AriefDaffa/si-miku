@@ -1,4 +1,4 @@
-import { ERROR, SUCCESS, WARNING } from '@/theme/Colors';
+import { ERROR, SUCCESS, WARNING } from '@/components/theme/Colors';
 
 export const getProgressColor = (value: number) => {
   if (value >= 70) {

@@ -11,7 +11,7 @@ import TableBody from '@mui/material/TableBody';
 import TableContainer from '@mui/material/TableContainer';
 
 import emptyIcon from '@/assets/logo/empty.png';
-import { Header, SubHeader } from '@/components/Typography';
+import { Header, SubHeader } from '@/components/UI/Typography';
 
 import TableLoader from './TableLoader';
 

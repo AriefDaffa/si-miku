@@ -2,10 +2,10 @@ import type { FC } from 'react';
 
 import Container from '@mui/material/Container';
 
-import { PageTitle } from '@/components/Typography';
+import { PageTitle } from '@/components/UI/Typography';
 
-import CustomGrid from '@/components/CustomGrid';
-import Helmet from '@/components/Helmet';
+import CustomGrid from '@/components/UI/CustomGrid';
+import Helmet from '@/components/UI/Helmet';
 import useMajorOverviewQuery from '@/repository/query/MajorOverviewQuery';
 
 import ChartSection from './ChartSection';

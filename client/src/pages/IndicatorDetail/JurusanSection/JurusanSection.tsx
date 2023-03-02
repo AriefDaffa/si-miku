@@ -7,11 +7,11 @@ import Stack from '@mui/material/Stack';
 import Avatar from '@mui/material/Avatar';
 import Divider from '@mui/material/Divider';
 
-import CustomCard from '@/components/CustomCard';
-import CustomTable from '@/components/CustomTable';
-import LoadingPopup from '@/components/Loader/LoadingPopup';
-import { GREY } from '@/theme/Colors';
-import { Header, SubHeader } from '@/components/Typography';
+import CustomCard from '@/components/UI/CustomCard';
+import CustomTable from '@/components/UI/CustomTable';
+import LoadingPopup from '@/components/UI/Loader/LoadingPopup';
+import { GREY } from '@/components/theme/Colors';
+import { Header, SubHeader } from '@/components/UI/Typography';
 import type {
   IndicatorByIdNormalized,
   IndicatorDataNormalized,

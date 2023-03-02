@@ -5,8 +5,8 @@ import Box from '@mui/material/Box';
 import type { SvgIconTypeMap } from '@mui/material';
 import type { OverridableComponent } from '@mui/material/OverridableComponent';
 
-import CustomCard from '@/components/CustomCard';
-import { SubHeader, Header } from '@/components/Typography';
+import CustomCard from '@/components/UI/CustomCard';
+import { SubHeader, Header } from '@/components/UI/Typography';
 
 interface CountCardProps {
   backgroundColor: string;

@@ -7,11 +7,11 @@ import Divider from '@mui/material/Divider';
 import Avatar from '@mui/material/Avatar';
 import Box from '@mui/material/Box';
 
-import Helmet from '@/components/Helmet';
-import CustomCard from '@/components/CustomCard';
+import Helmet from '@/components/UI/Helmet';
+import CustomCard from '@/components/UI/CustomCard';
 
-import { Header, PageTitle, SubHeader } from '@/components/Typography';
-import { TextInput } from '@/components/Input';
+import { Header, PageTitle, SubHeader } from '@/components/UI/Typography';
+import { TextInput } from '@/components/UI/Input';
 import { useAuthContext } from '@/context/AuthContext';
 
 const Profile: FC = () => {

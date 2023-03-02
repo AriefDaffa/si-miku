@@ -13,12 +13,12 @@ import Autocomplete from '@mui/material/Autocomplete';
 import CircularProgress from '@mui/material/CircularProgress';
 import CloseIcon from '@mui/icons-material/Close';
 
-import CustomCard from '@/components/CustomCard';
-import CustomGrid from '@/components/CustomGrid';
-import LoadingPopup from '@/components/Loader/LoadingPopup';
-import DialogPopup from '@/components/DialogPopup';
-import { Header, SubHeader } from '@/components/Typography';
-import { SelectInput, TextInput } from '@/components/Input';
+import CustomCard from '@/components/UI/CustomCard';
+import CustomGrid from '@/components/UI/CustomGrid';
+import LoadingPopup from '@/components/UI/Loader/LoadingPopup';
+import DialogPopup from '@/components/UI/DialogPopup';
+import { Header, SubHeader } from '@/components/UI/Typography';
+import { SelectInput, TextInput } from '@/components/UI/Input';
 
 interface JurusanCardInputProps {
   index: number;

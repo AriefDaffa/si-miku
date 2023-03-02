@@ -5,9 +5,9 @@ import Checkbox from '@mui/material/Checkbox';
 import TableRow from '@mui/material/TableRow';
 import TableCell from '@mui/material/TableCell';
 
-import Pill from '@/components/Pill';
-import { GREY } from '@/theme/Colors';
-import { Header, SubHeader } from '@/components/Typography';
+import Pill from '@/components/UI/Pill';
+import { GREY } from '@/components/theme/Colors';
+import { Header, SubHeader } from '@/components/UI/Typography';
 import type {
   IndicatorDataNormalized,
   MajorsNormalized,

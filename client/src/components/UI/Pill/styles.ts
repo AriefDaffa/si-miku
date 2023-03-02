@@ -1,6 +1,6 @@
 import { css } from '@emotion/react';
 
-import { ERROR, SUCCESS } from '@/theme/Colors';
+import { ERROR, SUCCESS } from '@/components/theme/Colors';
 
 export const PillContainerCx = (isError: boolean) => css`
   padding: 4px 8px;

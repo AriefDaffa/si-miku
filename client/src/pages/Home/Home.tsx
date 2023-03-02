@@ -2,11 +2,11 @@ import type { FC } from 'react';
 
 import { Container } from '@mui/material';
 
-import Helmet from '@/components/Helmet';
+import Helmet from '@/components/UI/Helmet';
 import useIndicatorCountQuery from '@/repository/query/IndicatorCountQuery';
 import useMajorOverviewQuery from '@/repository/query/MajorOverviewQuery';
 import useYearQuery from '@/repository/query/YearQuery';
-import { PageTitle } from '@/components/Typography';
+import { PageTitle } from '@/components/UI/Typography';
 
 import CardCountSection from './CardCountSection';
 import JurusanSection from './JurusanSection';

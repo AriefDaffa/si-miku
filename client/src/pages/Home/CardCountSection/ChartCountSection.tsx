@@ -2,12 +2,12 @@ import type { FC } from 'react';
 
 import Box from '@mui/material/Box';
 
-import CustomGrid from '@/components/CustomGrid';
-import CustomCard from '@/components/CustomCard';
-import CountCard from '@/components/CountCard';
-import ProgressCard from '@/components/ProgressCard';
-import { Header } from '@/components/Typography';
-import { ERROR, GREY, SUCCESS } from '@/theme/Colors';
+import CustomGrid from '@/components/UI/CustomGrid';
+import CustomCard from '@/components/UI/CustomCard';
+import CountCard from '@/components/UI/CountCard';
+import ProgressCard from '@/components/UI/ProgressCard';
+import { Header } from '@/components/UI/Typography';
+import { ERROR, GREY, SUCCESS } from '@/components/theme/Colors';
 import { getPercentage } from '@/utils/get-percentage';
 import type { IndicatorCountNormalized } from '@/repository/query/IndicatorCountQuery/types';
 

@@ -8,9 +8,9 @@ import DialogTitle from '@mui/material/DialogTitle';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogActions from '@mui/material/DialogActions';
-import CustomGrid from '@/components/CustomGrid';
+import CustomGrid from '@/components/UI/CustomGrid';
 import useInputIndicatorDataMutation from '@/repository/mutation/InputIndicatorDataMutation';
-import { DatePickerInput, TextInput } from '@/components/Input';
+import { DatePickerInput, TextInput } from '@/components/UI/Input';
 import type { MajorsNormalized } from '@/repository/query/IndicatorByIdQuery/types';
 
 import type { DataValue } from './types';
