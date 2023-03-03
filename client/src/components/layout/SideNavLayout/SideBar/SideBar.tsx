@@ -4,7 +4,7 @@ import Box from '@mui/material/Box';
 import List from '@mui/material/List';
 import Divider from '@mui/material/Divider';
 
-import { NAV_ITEM } from '@/routes/sidebar-menu';
+import { NAV_ITEM } from '@/constant/sidebar-menu';
 import type { CurrentUserResponseNormalized } from '@/repository/query/CurrentUserQuery/types';
 
 import UserProfileCard from './UserProfileCard';

@@ -6,6 +6,7 @@ import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
+import MenuOpenIcon from '@mui/icons-material/MenuOpen';
 
 import { useCustomTheme } from '@/context/CustomThemeContext';
 import { useSideBar } from '@/context/SideBarContext';
@@ -54,7 +55,7 @@ const NavBar: FC<NavBarProps> = (props) => {
             display: { xs: 'none', lg: 'block' },
           }}
         >
-          <MenuIcon />
+          {isMinimized ? <MenuIcon /> : <MenuOpenIcon />}
         </IconButton>
         <Box sx={{ flexGrow: 1 }} />
         <Stack

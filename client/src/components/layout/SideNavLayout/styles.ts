@@ -18,7 +18,7 @@ export const pageContainerCx = (isDarkTheme: boolean) => css`
 
   @media (min-width: 1200px) {
     padding-top: 86px;
-    padding-left: 16px;
-    padding-right: 16px;
+    /* padding-left: 16px;
+    padding-right: 16px; */
   }
 `;
