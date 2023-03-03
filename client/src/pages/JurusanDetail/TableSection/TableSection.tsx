@@ -11,9 +11,9 @@ import FormControl from '@mui/material/FormControl';
 import MenuItem from '@mui/material/MenuItem';
 import type { SelectChangeEvent } from '@mui/material/Select';
 
-import CustomCard from '@/components/UI/CustomCard';
-import CustomGrid from '@/components/UI/CustomGrid';
-import CustomTable from '@/components/UI/CustomTable';
+import Card from '@/components/UI/Card';
+import Grid from '@/components/UI/Grid';
+import Table from '@/components/UI/Table';
 import Pill from '@/components/UI/Pill';
 import { Header, SubHeader } from '@/components/UI/Typography';
 import { GREY } from '@/components/theme/Colors';
@@ -44,10 +44,10 @@ const TableSection: FC<TableSectionProps> = (props) => {
   }, [isYearLoading]);
 
   return (
-    <CustomGrid
+    <Grid
       sx={{ pt: 2 }}
       gridItem={[
-        <CustomCard sx={{ overflowX: 'auto' }}>
+        <Card sx={{ overflowX: 'auto' }}>
           <Stack
             flexDirection="row"
             justifyContent="space-between"
@@ -78,7 +78,7 @@ const TableSection: FC<TableSectionProps> = (props) => {
               <Skeleton width={80} />
             )}
           </Stack>
-          <CustomTable
+          <Table
             header={tableHeader}
             isLoading={isYearLoading}
             arrayLength={majorData.indicatorMajors.length}
@@ -150,8 +150,8 @@ const TableSection: FC<TableSectionProps> = (props) => {
                     ))}
                 </TableRow>
               ))}
-          </CustomTable>
-        </CustomCard>,
+          </Table>
+        </Card>,
       ]}
     />
   );

@@ -11,7 +11,7 @@ import Typography from '@mui/material/Typography';
 import { useLoginMutation } from '@/repository/mutation/LoginMutation';
 import { TextInput } from '@/components/UI/Input';
 import logo from '@/assets/logo/logo.png';
-import CustomGrid from '@/components/UI/CustomGrid';
+import Grid from '@/components/UI/Grid';
 import Helmet from '@/components/UI/Helmet';
 
 import type { LoginData } from './types';
@@ -64,7 +64,7 @@ const Login: FC = () => {
                 Sign in to access the dashboard
               </Typography>
             </Box>
-            <CustomGrid
+            <Grid
               gridItem={[
                 <TextInput
                   control={control}

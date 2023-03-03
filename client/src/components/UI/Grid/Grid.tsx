@@ -1,9 +1,9 @@
 import type { FC, ReactNode } from 'react';
 
-import Grid from '@mui/material/Grid';
+import { Grid as MuiGrid } from '@mui/material';
 import type { SxProps } from '@mui/material';
 
-interface CustomGridProps {
+interface GridProps {
   spacing?: number;
   xs?: number[];
   md?: number[];
@@ -12,18 +12,18 @@ interface CustomGridProps {
   gridItem: ReactNode[];
 }
 
-const CustomGrid: FC<CustomGridProps> = (props) => {
+const Grid: FC<GridProps> = (props) => {
   const { gridItem, spacing = 3, xs = [], md = [], sm = [], sx = {} } = props;
 
   return (
-    <Grid container spacing={spacing} sx={sx}>
+    <MuiGrid container spacing={spacing} sx={sx}>
       {gridItem.map((item, idx) => (
-        <Grid item key={idx} xs={xs[idx] || 12} sm={sm[idx]} md={md[idx]}>
+        <MuiGrid item key={idx} xs={xs[idx] || 12} sm={sm[idx]} md={md[idx]}>
           {item}
-        </Grid>
+        </MuiGrid>
       ))}
-    </Grid>
+    </MuiGrid>
   );
 };
 
-export default CustomGrid;
+export default Grid;

@@ -8,7 +8,7 @@ import DialogTitle from '@mui/material/DialogTitle';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogActions from '@mui/material/DialogActions';
-import CustomGrid from '@/components/UI/CustomGrid';
+import Grid from '@/components/UI/Grid';
 import useInputIndicatorDataMutation from '@/repository/mutation/InputIndicatorDataMutation';
 import { DatePickerInput, TextInput } from '@/components/UI/Input';
 import type { MajorsNormalized } from '@/repository/query/IndicatorByIdQuery/types';
@@ -81,7 +81,7 @@ const FormDialog: FC<FormDialogProps> = (props) => {
             Isi form dibawah untuk menambahkan data indikator pada jurusan{' '}
             <b>{major.majorName}</b>
           </DialogContentText>
-          <CustomGrid
+          <Grid
             sx={{ mt: 2, mb: 3 }}
             sm={[6, 6, 3, 3, 3, 3]}
             gridItem={[

@@ -14,10 +14,10 @@ import CancelIcon from '@mui/icons-material/Cancel';
 
 import CustomChart from '@/components/UI/CustomChart';
 import useChartStyle from '@/hooks/use-chart-style';
-import CustomCard from '@/components/UI/CustomCard';
+import Card from '@/components/UI/Card';
 import ProgressCard from '@/components/UI/ProgressCard';
 import Pill from '@/components/UI/Pill';
-import CustomGrid from '@/components/UI/CustomGrid';
+import Grid from '@/components/UI/Grid';
 import { getPercentage } from '@/utils/get-percentage';
 import { ERROR, LIGHT, PRIMARY, SUCCESS } from '@/components/theme/Colors';
 import { Header, SubHeader } from '@/components/UI/Typography';
@@ -97,7 +97,7 @@ const FullScreenDialog: FC<FullScreenDialogProps> = (props) => {
             text={`${openFullDialog.major.majorName} - ${year.yearValue}`}
           />
         </Box>
-        <CustomCard sx={{ my: 1 }}>
+        <Card sx={{ my: 1 }}>
           <div>
             <CustomChart
               chartOptions={chartOptions}
@@ -106,8 +106,8 @@ const FullScreenDialog: FC<FullScreenDialogProps> = (props) => {
               height={400}
             />
           </div>
-        </CustomCard>
-        <CustomGrid
+        </Card>
+        <Grid
           sm={[12, 12, 6, 6]}
           spacing={1}
           gridItem={[
@@ -127,7 +127,7 @@ const FullScreenDialog: FC<FullScreenDialogProps> = (props) => {
               headertext="progress indikator"
               value={percentage >= 100 ? 100 : percentage}
             />,
-            <CustomCard>
+            <Card>
               <SubHeader text="Status indikator" />
               <Stack
                 justifyContent="center"
@@ -158,7 +158,7 @@ const FullScreenDialog: FC<FullScreenDialogProps> = (props) => {
                   />
                 </Pill>
               </Stack>
-            </CustomCard>,
+            </Card>,
           ]}
         />
         <Box sx={{ float: 'right', my: 2 }}>

@@ -7,7 +7,7 @@ import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
 import Divider from '@mui/material/Divider';
 
-import CustomCard from '@/components/UI/CustomCard';
+import Card from '@/components/UI/Card';
 import useInputIndicatorMutation from '@/repository/mutation/InputIndicatorMutation';
 import LoadingPopup from '@/components/UI/Loader/LoadingPopup';
 import DialogPopup from '@/components/UI/DialogPopup';
@@ -49,7 +49,7 @@ const BulkInputSection: FC = () => {
   };
 
   return (
-    <CustomCard>
+    <Card>
       <Header text="Bulk Input" />
       <SubHeader text="Upload file CSV untuk memasukkan indikator baru secara bulk" />
       <Divider sx={{ mt: 2, mb: 3 }} />
@@ -107,7 +107,7 @@ const BulkInputSection: FC = () => {
         handleAccept={handleClose}
         open={openDialog}
       />
-    </CustomCard>
+    </Card>
   );
 };
 

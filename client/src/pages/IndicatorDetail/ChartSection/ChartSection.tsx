@@ -5,8 +5,8 @@ import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
 
 import useChartStyle from '@/hooks/use-chart-style';
-import CustomCard from '@/components/UI/CustomCard';
-import CustomGrid from '@/components/UI/CustomGrid';
+import Card from '@/components/UI/Card';
+import Grid from '@/components/UI/Grid';
 import CustomChart from '@/components/UI/CustomChart';
 import { Header } from '@/components/UI/Typography';
 import { ERROR, GREY, SUCCESS } from '@/components/theme/Colors';
@@ -56,15 +56,15 @@ const ChartSection: FC<ChartSectionProps> = (props) => {
   }, [indicatorData]);
 
   return (
-    <CustomCard sx={{ mb: 2 }}>
+    <Card sx={{ mb: 2 }}>
       <Stack>
         <Header text="Perkembangan Indikator" />
       </Stack>
       <Box sx={{ backgroundColor: GREY[200], p: 1, mt: 2, borderRadius: 2 }}>
-        <CustomGrid
+        <Grid
           spacing={1}
           gridItem={[
-            <CustomCard>
+            <Card>
               <div>
                 <CustomChart
                   chartOptions={chartOptions}
@@ -73,16 +73,16 @@ const ChartSection: FC<ChartSectionProps> = (props) => {
                   height={400}
                 />
               </div>
-            </CustomCard>,
+            </Card>,
             // indicator.indicatorMajors.map((item, idx) => (
             //   <Box key={idx} sx={{ mb: 1 }}>
-            //     <CustomCard>{item.major.majorName}</CustomCard>
+            //     <Card>{item.major.majorName}</Card>
             //   </Box>
             // )),
           ]}
         />
       </Box>
-    </CustomCard>
+    </Card>
   );
 };
 

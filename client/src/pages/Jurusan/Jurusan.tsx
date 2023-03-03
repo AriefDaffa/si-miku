@@ -4,7 +4,7 @@ import Container from '@mui/material/Container';
 
 import { PageTitle } from '@/components/UI/Typography';
 
-import CustomGrid from '@/components/UI/CustomGrid';
+import Grid from '@/components/UI/Grid';
 import Helmet from '@/components/UI/Helmet';
 import useMajorOverviewQuery from '@/repository/query/MajorOverviewQuery';
 

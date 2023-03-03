@@ -13,8 +13,8 @@ import Autocomplete from '@mui/material/Autocomplete';
 import CircularProgress from '@mui/material/CircularProgress';
 import CloseIcon from '@mui/icons-material/Close';
 
-import CustomCard from '@/components/UI/CustomCard';
-import CustomGrid from '@/components/UI/CustomGrid';
+import Card from '@/components/UI/Card';
+import Grid from '@/components/UI/Grid';
 import LoadingPopup from '@/components/UI/Loader/LoadingPopup';
 import DialogPopup from '@/components/UI/DialogPopup';
 import { Header, SubHeader } from '@/components/UI/Typography';

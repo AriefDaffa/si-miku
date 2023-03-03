@@ -12,8 +12,8 @@ import IconButton from '@mui/material/IconButton';
 import CircularProgress from '@mui/material/CircularProgress';
 import CloseIcon from '@mui/icons-material/Close';
 
-import CustomCard from '@/components/UI/CustomCard';
-import CustomGrid from '@/components/UI/CustomGrid';
+import Card from '@/components/UI/Card';
+import Grid from '@/components/UI/Grid';
 import LoadingPopup from '@/components/UI/Loader/LoadingPopup';
 import DialogPopup from '@/components/UI/DialogPopup';
 import useMajorQuery from '@/repository/query/MajorQuery';
@@ -85,19 +85,19 @@ const FormInputDataSection: FC = () => {
   };
 
   return (
-    <CustomGrid
+    <Grid
       gridItem={[
-        <CustomCard>
+        <Card>
           <Header text="Form Input" />
           <SubHeader text="Input data indikator yang terdapat pada sistem melalui form dibawah ini" />
           <Divider sx={{ mt: 2, mb: 2 }} />
           <form onSubmit={handleSubmit(handleOnSubmit)}>
-            <CustomGrid
+            <Grid
               sx={{ mb: 2 }}
               spacing={1}
               gridItem={[
                 <AutocompleteInput control={control} />,
-                <CustomGrid
+                <Grid
                   sx={{ mb: 2, mt: 2 }}
                   //   sm={[6]}
                   spacing={1}
@@ -164,7 +164,7 @@ const FormInputDataSection: FC = () => {
             open={openDialog}
           />
           <LoadingPopup open={openLoading} />
-        </CustomCard>,
+        </Card>,
       ]}
     />
   );

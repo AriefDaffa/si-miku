@@ -11,8 +11,8 @@ import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 
 import useInputIndicatorMutation from '@/repository/mutation/InputIndicatorMutation';
-import CustomCard from '@/components/UI/CustomCard';
-import CustomGrid from '@/components/UI/CustomGrid';
+import Card from '@/components/UI/Card';
+import Grid from '@/components/UI/Grid';
 import LoadingPopup from '@/components/UI/Loader/LoadingPopup';
 import DialogPopup from '@/components/UI/DialogPopup';
 import { Header, SubHeader } from '@/components/UI/Typography';
@@ -69,14 +69,14 @@ const FormInputSection: FC = () => {
   };
 
   return (
-    <CustomGrid
+    <Grid
       gridItem={[
-        <CustomCard>
+        <Card>
           <Header text="Form Input" />
           <SubHeader text="Input indikator baru melalui form dibawah ini" />
           <Divider sx={{ mt: 2, mb: 2 }} />
           <form onSubmit={handleSubmit(handleOnUpload)}>
-            <CustomGrid
+            <Grid
               sx={{ mb: 2 }}
               spacing={1}
               gridItem={[
@@ -102,7 +102,7 @@ const FormInputSection: FC = () => {
                         </IconButton>
                       )}
                     </Stack>
-                    <CustomGrid
+                    <Grid
                       sm={[3, 9]}
                       sx={{ mb: 2 }}
                       spacing={1}
@@ -144,7 +144,7 @@ const FormInputSection: FC = () => {
             open={openDialog}
           />
           <LoadingPopup open={openLoading} />
-        </CustomCard>,
+        </Card>,
       ]}
     />
   );

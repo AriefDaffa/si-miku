@@ -5,8 +5,8 @@ import Stack from '@mui/material/Stack';
 import Avatar from '@mui/material/Avatar';
 import Divider from '@mui/material/Divider';
 
-import CustomCard from '@/components/UI/CustomCard';
-import CustomGrid from '@/components/UI/CustomGrid';
+import Card from '@/components/UI/Card';
+import Grid from '@/components/UI/Grid';
 import CountCard from '@/components/UI/CountCard';
 import ProgressCard from '@/components/UI/ProgressCard';
 import { Header } from '@/components/UI/Typography';
@@ -22,7 +22,7 @@ const JurusanCard: FC<JurusanCardProps> = (props) => {
   const { major } = props;
 
   return (
-    <CustomCard>
+    <Card>
       <Stack
         alignItems="center"
         direction={{ xs: 'column', sm: 'row' }}
@@ -46,7 +46,7 @@ const JurusanCard: FC<JurusanCardProps> = (props) => {
           borderRadius: 2,
         }}
       >
-        <CustomGrid
+        <Grid
           sm={[4, 4, 4]}
           spacing={1}
           gridItem={[
@@ -70,7 +70,7 @@ const JurusanCard: FC<JurusanCardProps> = (props) => {
           ]}
         />
       </Box>
-    </CustomCard>
+    </Card>
   );
 };
 

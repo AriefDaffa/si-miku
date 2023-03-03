@@ -8,9 +8,9 @@ import Checkbox from '@mui/material/Checkbox';
 import TableRow from '@mui/material/TableRow';
 import TableCell from '@mui/material/TableCell';
 
-import CustomGrid from '@/components/UI/CustomGrid';
-import CustomCard from '@/components/UI/CustomCard';
-import CustomTable from '@/components/UI/CustomTable';
+import Grid from '@/components/UI/Grid';
+import Card from '@/components/UI/Card';
+import Table from '@/components/UI/Table';
 import { Header, SubHeader } from '@/components/UI/Typography';
 import { GREY } from '@/components/theme/Colors';
 import type { IndicatorResponseNormalized } from '@/repository/query/IndicatorQuery/types';
@@ -65,15 +65,15 @@ const TableSection: FC<TableSectionProps> = (props) => {
 
   // @TODO Add pagination (low prio)
   return (
-    <CustomGrid
+    <Grid
       sx={{ pt: 2 }}
       gridItem={[
-        <CustomCard sx={{ overflowX: 'auto' }}>
+        <Card sx={{ overflowX: 'auto' }}>
           <Box sx={{ mb: 2 }}>
             <Header text="List Indikator" variant="h6" />
             <SubHeader text="Pilih salah satu indikator dibawah untuk melihat perkembangan indikator tersebut" />
           </Box>
-          <CustomTable
+          <Table
             withCheckbox
             header={tableHeader}
             isLoading={isLoading}
@@ -116,9 +116,9 @@ const TableSection: FC<TableSectionProps> = (props) => {
                 </TableCell>
               </TableRow>
             ))}
-          </CustomTable>
+          </Table>
           <DeleteBulkButton selectedData={selected} setSelected={setSelected} />
-        </CustomCard>,
+        </Card>,
       ]}
     />
   );

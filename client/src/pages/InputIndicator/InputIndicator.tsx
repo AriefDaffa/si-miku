@@ -4,8 +4,8 @@ import Container from '@mui/material/Container';
 import Box from '@mui/material/Box';
 
 import Helmet from '@/components/UI/Helmet';
-import CustomCard from '@/components/UI/CustomCard';
-import CustomGrid from '@/components/UI/CustomGrid';
+import Card from '@/components/UI/Card';
+import Grid from '@/components/UI/Grid';
 import { Header, PageTitle } from '@/components/UI/Typography';
 import { GREY } from '@/components/theme/Colors';
 
@@ -22,25 +22,25 @@ const InputIndicator: FC = () => {
           title="Input Indikator"
           subTitle="Masukkan data indikator kedalam sistem"
         />
-        <CustomCard sx={{ mb: 2 }}>
+        <Card sx={{ mb: 2 }}>
           <Header text={`Tambah indikator baru`} />
           <Box
             sx={{ backgroundColor: GREY[200], p: 1, mt: 2, borderRadius: 2 }}
           >
-            <CustomGrid
+            <Grid
               spacing={1}
               gridItem={[<BulkInputSection />, <FormInputSection />]}
             />
           </Box>
-        </CustomCard>
-        {/* <CustomCard>
+        </Card>
+        {/* <Card>
           <Header text={`Tambah data indikator`} />
           <Box
             sx={{ backgroundColor: GREY[200], p: 1, mt: 2, borderRadius: 2 }}
           >
-            <CustomGrid spacing={1} gridItem={[<FormInputDataSection />]} />
+            <Grid spacing={1} gridItem={[<FormInputDataSection />]} />
           </Box>
-        </CustomCard> */}
+        </Card> */}
       </Container>
     </>
   );

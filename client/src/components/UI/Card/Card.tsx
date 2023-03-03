@@ -6,13 +6,13 @@ import type { SxProps } from '@mui/material';
 
 import { cardContainerCx } from './styles';
 
-interface CustomCardProps {
+interface CardProps {
   isCenter?: boolean;
   sx?: SxProps;
   children: ReactNode;
 }
 
-const CustomCard: FC<CustomCardProps> = (props) => {
+const Card: FC<CardProps> = (props) => {
   const { isCenter = false, children, sx } = props;
   return (
     <MuiCard css={cardContainerCx(isCenter)} sx={sx}>
@@ -21,4 +21,4 @@ const CustomCard: FC<CustomCardProps> = (props) => {
   );
 };
 
-export default CustomCard;
+export default Card;

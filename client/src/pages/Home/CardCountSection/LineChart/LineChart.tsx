@@ -5,7 +5,7 @@ import Stack from '@mui/material/Stack';
 
 import { ERROR, SUCCESS } from '@/components/theme/Colors';
 import { Header, SubHeader } from '@/components/UI/Typography';
-import CustomCard from '@/components/UI/CustomCard';
+import Card from '@/components/UI/Card';
 import useChartStyle from '@/hooks/use-chart-style';
 import CustomChart from '@/components/UI/CustomChart';
 import type { YearCountNormalized } from '@/repository/query/IndicatorCountQuery/types';
@@ -58,7 +58,7 @@ const LineChart: FC<LineChartProps> = (props) => {
   }, [years]);
 
   return (
-    <CustomCard>
+    <Card>
       <SubHeader text="Grafik perkembangan indikator" />
       {/* <Divider sx={{ mt: 2, mb: 3 }} /> */}
       <Stack alignSelf="center" sx={{ mt: 2 }}>
@@ -71,7 +71,7 @@ const LineChart: FC<LineChartProps> = (props) => {
           />
         </div>
       </Stack>
-    </CustomCard>
+    </Card>
   );
 };
 

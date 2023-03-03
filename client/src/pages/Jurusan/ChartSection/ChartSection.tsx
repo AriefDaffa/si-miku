@@ -3,9 +3,9 @@ import type { FC } from 'react';
 
 import Divider from '@mui/material/Divider';
 
-import CustomGrid from '@/components/UI/CustomGrid';
+import Grid from '@/components/UI/Grid';
 
-import CustomCard from '@/components/UI/CustomCard';
+import Card from '@/components/UI/Card';
 import { Header } from '@/components/UI/Typography';
 import type { MajorOverviewNormalized } from '@/repository/query/MajorOverviewQuery/types';
 import CustomChart from '@/components/UI/CustomChart';
@@ -54,10 +54,10 @@ const ChartSection: FC<ChartSectionProps> = (props) => {
   }, [majorData]);
 
   return (
-    <CustomGrid
+    <Grid
       sx={{ pt: 2 }}
       gridItem={[
-        <CustomCard>
+        <Card>
           <Header text="Progress Jurusan" variant="h6" sx={{ pb: 1 }} />
           <Divider sx={{ mt: 2, mb: 3 }} />
           <div>
@@ -68,7 +68,7 @@ const ChartSection: FC<ChartSectionProps> = (props) => {
               height={400}
             />
           </div>
-        </CustomCard>,
+        </Card>,
       ]}
     />
   );

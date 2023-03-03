@@ -7,8 +7,8 @@ import Stack from '@mui/material/Stack';
 import Avatar from '@mui/material/Avatar';
 import Divider from '@mui/material/Divider';
 
-import CustomCard from '@/components/UI/CustomCard';
-import CustomTable from '@/components/UI/CustomTable';
+import Card from '@/components/UI/Card';
+import Table from '@/components/UI/Table';
 import LoadingPopup from '@/components/UI/Loader/LoadingPopup';
 import { GREY } from '@/components/theme/Colors';
 import { Header, SubHeader } from '@/components/UI/Typography';
@@ -66,7 +66,7 @@ const JurusanSection: FC<JurusanSectionProps> = (props) => {
   };
 
   return (
-    <CustomCard>
+    <Card>
       <Box>
         <Header text="Data indikator pada jurusan" />
         <SubHeader text="Menampilkan data indikator pada seluruh jurusan" />
@@ -75,7 +75,7 @@ const JurusanSection: FC<JurusanSectionProps> = (props) => {
         <Box sx={{ mb: 2 }}>
           {indicatorData.indicatorMajors.map((item, idx) => (
             <Box key={idx} sx={{ mb: 2 }}>
-              <CustomCard>
+              <Card>
                 <Stack
                   alignItems="center"
                   direction={{ xs: 'column', sm: 'row' }}
@@ -90,7 +90,7 @@ const JurusanSection: FC<JurusanSectionProps> = (props) => {
                   <Divider orientation="vertical" flexItem sx={{ mx: 2 }} />
                   <Header text={item.major.majorName} />
                 </Stack>
-                <CustomTable
+                <Table
                   withCheckbox
                   checkboxId={idx}
                   header={tableHeader}
@@ -115,7 +115,7 @@ const JurusanSection: FC<JurusanSectionProps> = (props) => {
                         setOpenFullDialog={setopenFullDialog}
                       />
                     ))}
-                </CustomTable>
+                </Table>
                 <Box sx={{ float: 'right', my: 2 }}>
                   <Button
                     variant="outlined"
@@ -129,7 +129,7 @@ const JurusanSection: FC<JurusanSectionProps> = (props) => {
                     setSelected={setSelected}
                   />
                 </Box>
-              </CustomCard>
+              </Card>
             </Box>
           ))}
           <FormDialog
@@ -145,7 +145,7 @@ const JurusanSection: FC<JurusanSectionProps> = (props) => {
           />
         </Box>
       </Box>
-    </CustomCard>
+    </Card>
   );
 };
 

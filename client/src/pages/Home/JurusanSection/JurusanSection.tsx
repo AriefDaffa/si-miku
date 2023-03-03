@@ -3,14 +3,14 @@ import type { FC } from 'react';
 import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
 
-import CustomGrid from '@/components/UI/CustomGrid';
+import Grid from '@/components/UI/Grid';
 import tifLogo from '@/assets/logo-jurusan/tif-logo.png';
 import siLogo from '@/assets/logo-jurusan/si-logo.png';
 import tekkomLogo from '@/assets/logo-jurusan/tekkom-logo.png';
 import ptiLogo from '@/assets/logo-jurusan/pti-logo.png';
 import tiLogo from '@/assets/logo-jurusan/ti-logo.png';
 import mikLogo from '@/assets/logo-jurusan/mik-logo.png';
-import CustomCard from '@/components/UI/CustomCard';
+import Card from '@/components/UI/Card';
 import { Header } from '@/components/UI/Typography';
 import { GREY } from '@/components/theme/Colors';
 import type { MajorOverviewNormalized } from '@/repository/query/MajorOverviewQuery/types';
@@ -35,12 +35,12 @@ const JurusanSection: FC<JurusanSectionProps> = (props) => {
   ];
 
   return (
-    <CustomCard sx={{ mt: 2 }}>
+    <Card sx={{ mt: 2 }}>
       <Header
         text={`Perkembangan indikator pada setiap jurusan selama ${yearLength} tahun terakhir`}
       />
       <Box sx={{ backgroundColor: GREY[200], p: 1, mt: 2, borderRadius: 2 }}>
-        <CustomGrid
+        <Grid
           spacing={1}
           gridItem={[
             major.map((item, idx) => (
@@ -51,7 +51,7 @@ const JurusanSection: FC<JurusanSectionProps> = (props) => {
           ]}
         />
       </Box>
-    </CustomCard>
+    </Card>
   );
 };
 

@@ -3,19 +3,19 @@ import type { FC, ReactNode, ChangeEvent } from 'react';
 
 import Stack from '@mui/material/Stack';
 import Checkbox from '@mui/material/Checkbox';
-import Table from '@mui/material/Table';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import TableCell from '@mui/material/TableCell';
 import TableBody from '@mui/material/TableBody';
 import TableContainer from '@mui/material/TableContainer';
+import { Table as MuiTable } from '@mui/material';
 
 import emptyIcon from '@/assets/logo/empty.png';
 import { Header, SubHeader } from '@/components/UI/Typography';
 
 import TableLoader from './TableLoader';
 
-interface CustomTableProps {
+interface TableProps {
   isLoading: boolean;
   arrayLength: number;
   header: string[];
@@ -26,7 +26,7 @@ interface CustomTableProps {
   onSelectAll?: (e: ChangeEvent<HTMLInputElement>) => void;
 }
 
-const CustomTable: FC<CustomTableProps> = (props) => {
+const Table: FC<TableProps> = (props) => {
   const {
     header,
     children,
@@ -40,7 +40,7 @@ const CustomTable: FC<CustomTableProps> = (props) => {
 
   return (
     <TableContainer>
-      <Table sx={{ overflowX: 'auto' }}>
+      <MuiTable sx={{ overflowX: 'auto' }}>
         <TableHead sx={{ borderTop: '1px solid rgba(224, 224, 224, 1);' }}>
           <TableRow>
             {withCheckbox && (
@@ -83,9 +83,9 @@ const CustomTable: FC<CustomTableProps> = (props) => {
             children
           )}
         </TableBody>
-      </Table>
+      </MuiTable>
     </TableContainer>
   );
 };
 
-export default CustomTable;
+export default Table;

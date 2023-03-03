@@ -5,7 +5,7 @@ import Box from '@mui/material/Box';
 import type { SvgIconTypeMap } from '@mui/material';
 import type { OverridableComponent } from '@mui/material/OverridableComponent';
 
-import CustomCard from '@/components/UI/CustomCard';
+import Card from '@/components/UI/Card';
 import { SubHeader, Header } from '@/components/UI/Typography';
 
 interface CountCardProps {
@@ -19,7 +19,7 @@ const CountCard: FC<CountCardProps> = (props) => {
   const { backgroundColor, value, text } = props;
 
   return (
-    <CustomCard>
+    <Card>
       <Box sx={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
         <SubHeader text={text} sx={{ flex: 2 }} />
         <Header
@@ -29,7 +29,7 @@ const CountCard: FC<CountCardProps> = (props) => {
         />
         <Box sx={{ flex: 1 }}></Box>
       </Box>
-    </CustomCard>
+    </Card>
   );
 };
 

@@ -8,8 +8,7 @@ import Avatar from '@mui/material/Avatar';
 import Box from '@mui/material/Box';
 
 import Helmet from '@/components/UI/Helmet';
-import CustomCard from '@/components/UI/CustomCard';
-
+import Card from '@/components/UI/Card';
 import { Header, PageTitle, SubHeader } from '@/components/UI/Typography';
 import { TextInput } from '@/components/UI/Input';
 import { useAuthContext } from '@/context/AuthContext';
@@ -29,7 +28,7 @@ const Profile: FC = () => {
       <Helmet title="Profile | SI-MIKU" />
       <Container>
         <PageTitle title="Profile" subTitle="Menampilkan profile pengguna" />
-        <CustomCard>
+        <Card>
           <Header text="Edit profile" />
           <SubHeader
             text="Ubah informasi di bawah untuk mengubah profile"
@@ -63,7 +62,7 @@ const Profile: FC = () => {
               />
             </Box>
           </Stack>
-        </CustomCard>
+        </Card>
       </Container>
     </>
   );

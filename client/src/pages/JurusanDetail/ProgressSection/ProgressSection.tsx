@@ -5,8 +5,8 @@ import TrackChangesIcon from '@mui/icons-material/TrackChanges';
 import DoneAllIcon from '@mui/icons-material/DoneAll';
 import CancelIcon from '@mui/icons-material/Cancel';
 
-import CustomCard from '@/components/UI/CustomCard';
-import CustomGrid from '@/components/UI/CustomGrid';
+import Card from '@/components/UI/Card';
+import Grid from '@/components/UI/Grid';
 import ProgressCard from '@/components/UI/ProgressCard';
 import { getPercentage } from '@/utils/get-percentage';
 import { Header } from '@/components/UI/Typography';
@@ -25,14 +25,14 @@ const ProgressSection: FC<ProgressSection> = (props) => {
 
   return (
     <Box>
-      <CustomCard>
+      <Card>
         <Header text={`Overview perkembangan jurusan`} />
         <Box sx={{ backgroundColor: GREY[200], p: 1, mt: 2, borderRadius: 2 }}>
-          <CustomGrid
+          <Grid
             sm={[8, 4]}
             spacing={1}
             gridItem={[
-              <CustomGrid
+              <Grid
                 spacing={1}
                 gridItem={[
                   //   <CountCard
@@ -65,7 +65,7 @@ const ProgressSection: FC<ProgressSection> = (props) => {
             ]}
           />
         </Box>
-      </CustomCard>
+      </Card>
     </Box>
   );
 };

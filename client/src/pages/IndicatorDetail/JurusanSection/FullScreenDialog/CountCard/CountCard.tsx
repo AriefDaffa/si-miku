@@ -5,7 +5,7 @@ import Avatar from '@mui/material/Avatar';
 import type { SvgIconTypeMap } from '@mui/material';
 import type { OverridableComponent } from '@mui/material/OverridableComponent';
 
-import CustomCard from '@/components/UI/CustomCard';
+import Card from '@/components/UI/Card';
 import { Header, SubHeader } from '@/components/UI/Typography';
 
 interface CountCard {
@@ -19,7 +19,7 @@ const CountCard: FC<CountCard> = (props) => {
   const { title, value, color, Icon } = props;
 
   return (
-    <CustomCard>
+    <Card>
       <Stack flexDirection="row" alignItems="center">
         <Avatar sx={{ mr: 1, backgroundColor: color }}>
           <Icon />
@@ -34,7 +34,7 @@ const CountCard: FC<CountCard> = (props) => {
           <Header variant="subtitle1" text={value} />
         </Stack>
       </Stack>
-    </CustomCard>
+    </Card>
   );
 };
 

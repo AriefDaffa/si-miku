@@ -1,5 +1,5 @@
-import { memo } from 'react';
 import Chart from 'react-apexcharts';
+import { memo } from 'react';
 import type { ApexOptions } from 'apexcharts';
 
 import type { FC } from 'react';

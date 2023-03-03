@@ -11,7 +11,7 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogActions from '@mui/material/DialogActions';
 
-import CustomGrid from '@/components/UI/CustomGrid';
+import Grid from '@/components/UI/Grid';
 import type { MajorOverviewNormalized } from '@/repository/query/MajorQuery/types';
 
 interface DropdownDialogProps {
@@ -28,7 +28,7 @@ const DropdownDialog: FC<DropdownDialogProps> = (props) => {
       {/* <DialogTitle>Input data jurusan {major.majorName}</DialogTitle> */}
       <DialogContent>
         <DialogContentText>Pilih jurusan dibawah ini</DialogContentText>
-        <CustomGrid
+        <Grid
           sx={{ mt: 2, mb: 3 }}
           gridItem={[
             <FormControl>

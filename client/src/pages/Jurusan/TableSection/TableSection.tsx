@@ -1,29 +1,19 @@
 import { useNavigate } from 'react-router-dom';
 import type { FC } from 'react';
 
-import Table from '@mui/material/Table';
-import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import TableCell from '@mui/material/TableCell';
-import TableBody from '@mui/material/TableBody';
-import LinearProgress from '@mui/material/LinearProgress';
-import TablePagination from '@mui/material/TablePagination';
 import Divider from '@mui/material/Divider';
 import Box from '@mui/material/Box';
 
-import CustomCard from '@/components/UI/CustomCard';
-import CustomGrid from '@/components/UI/CustomGrid';
-import tifLogo from '@/assets/logo-jurusan/tif-logo.png';
-import siLogo from '@/assets/logo-jurusan/si-logo.png';
-import tekkomLogo from '@/assets/logo-jurusan/tekkom-logo.png';
-import ptiLogo from '@/assets/logo-jurusan/pti-logo.png';
-import tiLogo from '@/assets/logo-jurusan/ti-logo.png';
-import mikLogo from '@/assets/logo-jurusan/mik-logo.png';
+import Card from '@/components/UI/Card';
+import Grid from '@/components/UI/Grid';
+import Table from '@/components/UI/Table';
 import { Header, SubHeader } from '@/components/UI/Typography';
 import { getPercentage } from '@/utils/get-percentage';
-import type { MajorOverviewNormalized } from '@/repository/query/MajorOverviewQuery/types';
 import { GREY } from '@/components/theme/Colors';
-import CustomTable from '@/components/UI/CustomTable';
+import type { MajorOverviewNormalized } from '@/repository/query/MajorOverviewQuery/types';
+
 import { tableHeader } from './constant';
 import ProgressBar from './ProgressBar';
 
@@ -38,16 +28,16 @@ const TableSection: FC<TableSectionProps> = (props) => {
   const navigate = useNavigate();
 
   return (
-    <CustomGrid
+    <Grid
       sx={{ pt: 2 }}
       gridItem={[
-        <CustomCard sx={{ overflowX: 'auto' }}>
+        <Card sx={{ overflowX: 'auto' }}>
           <Box sx={{ pb: 3 }}>
             <Header text="Tabel jurusan" variant="h6" />
             <SubHeader text="Pilih salah satu untuk melihat detail dari jurusan" />
           </Box>
           <Divider sx={{ width: '100%' }} />
-          <CustomTable
+          <Table
             header={tableHeader}
             isLoading={isLoading}
             arrayLength={majorData.length}
@@ -91,8 +81,8 @@ const TableSection: FC<TableSectionProps> = (props) => {
                 </TableCell>
               </TableRow>
             ))}
-          </CustomTable>
-        </CustomCard>,
+          </Table>
+        </Card>,
       ]}
     />
   );

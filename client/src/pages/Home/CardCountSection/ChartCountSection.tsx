@@ -2,8 +2,8 @@ import type { FC } from 'react';
 
 import Box from '@mui/material/Box';
 
-import CustomGrid from '@/components/UI/CustomGrid';
-import CustomCard from '@/components/UI/CustomCard';
+import Grid from '@/components/UI/Grid';
+import Card from '@/components/UI/Card';
 import CountCard from '@/components/UI/CountCard';
 import ProgressCard from '@/components/UI/ProgressCard';
 import { Header } from '@/components/UI/Typography';
@@ -21,12 +21,12 @@ const CardCountSection: FC<CardCountSectionProps> = (props) => {
   const { indicator } = props;
 
   return (
-    <CustomCard>
+    <Card>
       <Header
         text={`Perkembangan indikator pada ${indicator.years.length} tahun terakhir`}
       />
       <Box sx={{ backgroundColor: GREY[200], p: 1, mt: 2, borderRadius: 2 }}>
-        <CustomGrid
+        <Grid
           sm={[4, 4, 4]}
           spacing={1}
           gridItem={[
@@ -56,7 +56,7 @@ const CardCountSection: FC<CardCountSectionProps> = (props) => {
           ]}
         />
       </Box>
-    </CustomCard>
+    </Card>
   );
 };
 

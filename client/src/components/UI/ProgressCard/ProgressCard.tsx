@@ -3,9 +3,9 @@ import type { FC } from 'react';
 import Box from '@mui/material/Box';
 import CircularProgress from '@mui/material/CircularProgress';
 
-import CustomCard from '@/components/UI/CustomCard';
+import Card from '@/components/UI/Card';
 import { Header, SubHeader } from '@/components/UI/Typography';
-import { ERROR, GREY, SUCCESS, WARNING } from '@/components/theme/Colors';
+import { GREY } from '@/components/theme/Colors';
 import { getProgressColor } from '@/utils/get-progress-bar-color';
 
 interface ProgressCardProps {
@@ -17,7 +17,7 @@ const ProgressCard: FC<ProgressCardProps> = (props) => {
   const { value, headertext } = props;
 
   return (
-    <CustomCard>
+    <Card>
       <SubHeader text={headertext} />
       <Box
         sx={{
@@ -49,7 +49,7 @@ const ProgressCard: FC<ProgressCardProps> = (props) => {
           <Header text={`${value}%`} />
         </Box>
       </Box>
-    </CustomCard>
+    </Card>
   );
 };
 
