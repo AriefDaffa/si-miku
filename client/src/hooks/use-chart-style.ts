@@ -62,13 +62,13 @@ const useChartStyle = (options: any) => {
     // Fill
     fill: {
       opacity: 1,
-      gradient: {
-        type: 'vertical',
-        shadeIntensity: 0,
-        opacityFrom: 0.4,
-        opacityTo: 0,
-        stops: [0, 100],
-      },
+      // gradient: {
+      //   type: 'vertical',
+      //   shadeIntensity: 0,
+      //   opacityFrom: 0.4,
+      //   opacityTo: 0,
+      //   stops: [0, 100],
+      // },
     },
 
     // Datalabels
@@ -126,8 +126,8 @@ const useChartStyle = (options: any) => {
     plotOptions: {
       // Bar
       bar: {
-        borderRadius: 4,
-        columnWidth: '28%',
+        // borderRadius: 4,
+        columnWidth: '30%',
       },
 
       // Pie + Donut

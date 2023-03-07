@@ -2,7 +2,7 @@ import BarChartIcon from '@mui/icons-material/BarChart';
 import HomeIcon from '@mui/icons-material/Home';
 import SchoolIcon from '@mui/icons-material/School';
 import EditIcon from '@mui/icons-material/Edit';
-import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import AccountBalanceIcon from '@mui/icons-material/AccountBalance';
 
 export const NAV_ITEM = [
   {
@@ -16,9 +16,14 @@ export const NAV_ITEM = [
     Icon: BarChartIcon,
   },
   {
-    title: 'Jurusan',
+    title: 'Fakultas',
     path: 'jurusan',
     Icon: SchoolIcon,
+  },
+  {
+    title: 'Departemen',
+    path: 'jurusan',
+    Icon: AccountBalanceIcon,
   },
   {
     title: 'Input Indikator',

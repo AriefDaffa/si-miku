@@ -4,7 +4,8 @@ import type { FC } from 'react';
 import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
-import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
+import { SubHeader } from '@/components/UI/Typography';
 
 interface HeadSectionProps {
   indicatorName: string;
@@ -28,22 +29,21 @@ const HeadSection: FC<HeadSectionProps> = (props) => {
       }}
     >
       <Box>
-        <Typography
-          variant="subtitle2"
-          sx={{ opacity: 0.7, ':hover': { cursor: 'pointer' } }}
-          onClick={handleBackButton}
-        >
-          <Stack flexDirection="row" alignItems="center">
-            <ArrowBackIcon fontSize="small" sx={{ mr: 0.5 }} />
-            <div>Kembali</div>
-          </Stack>
-        </Typography>
         <Stack
+          flexDirection="row"
           alignItems="center"
-          direction={{ xs: 'column', sm: 'row' }}
-          sx={{ my: 1 }}
+          onClick={handleBackButton}
+          sx={{
+            width: 'min-content',
+            ':hover': { cursor: 'pointer' },
+          }}
         >
+          <ArrowBackIosIcon fontSize="small" sx={{ opacity: 0.7 }} />
+          <SubHeader text="Kembali" />
+        </Stack>
+        <Stack flexDirection="column" sx={{ my: 1 }}>
           <Typography variant="h2">{indicatorName}</Typography>
+          <SubHeader text="Menampilkan detail data pada indikator" />
         </Stack>
       </Box>
     </Box>

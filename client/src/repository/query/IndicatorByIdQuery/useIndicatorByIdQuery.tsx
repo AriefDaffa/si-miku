@@ -4,59 +4,98 @@ import { useQuery } from 'react-query';
 
 import baseAPI from '@/utils/axios-utils';
 
-import type { IndicatorByIdResponse, IndicatorByIdNormalized } from './types';
+import type {
+  IndicatorByIdResponse,
+  IndicatorByIdDataNormalized,
+} from './types';
 
 // normalize the data to prevent undefined value
 const normalizer = (Deps?: IndicatorByIdResponse) => {
-  const result: IndicatorByIdNormalized = {
-    indicatorId: 0,
+  const result: IndicatorByIdDataNormalized = {
+    indicatorID: 0,
     indicatorCode: '',
     indicatorName: '',
-    indicatorMajors: [],
+    isFacultyIndicator: false,
+    facultyIndicators: {
+      count: {
+        failed: 0,
+        fulfilled: 0,
+      },
+      data: [],
+    },
+    majorIndicators: {
+      count: {
+        failed: 0,
+        fulfilled: 0,
+      },
+      data: [],
+    },
   };
 
   if (Deps !== void 0 && !(Deps instanceof AxiosError)) {
-    result.indicatorId = Deps.data.indicator_id || 0;
-    result.indicatorCode = Deps.data.indicator_code || '';
-    result.indicatorName = Deps.data.indicator_name || '';
-    Deps.data.indicator_majors.map((item) => {
-      result.indicatorMajors.push({
-        major: {
-          majorId: item.major.major_id || 0,
-          majorName: item.major.major_name || '',
-          majorImage:
-            import.meta.env.VITE_BASE_API_URL + item.major.major_image || '',
-        },
-        total: item.indicator_data.reduce(
-          (acc, cur) => {
-            if (cur.is_target_fulfilled) {
-              acc.fulfilled += 1;
-            } else if (cur.is_target_fulfilled === false) {
-              acc.failed += 1;
-            }
+    result.indicatorID = Deps.data.indicator_id;
+    result.indicatorCode = Deps.data.indicator_code;
+    result.indicatorName = Deps.data.indicator_name;
+    result.isFacultyIndicator = Deps.data.is_faculty_indicator;
+    result.facultyIndicators.count = Deps.data.faculty_indicators.count;
+    result.majorIndicators.count = Deps.data.major_indicators.count;
+    Deps.data.faculty_indicators.data.map((item) => {
+      const {
+        is_target_fulfilled,
+        q1,
+        q2,
+        q3,
+        q4,
+        target_value,
+        year_id,
+        year_value,
+      } = item;
 
-            return acc;
-          },
-          { failed: 0, fulfilled: 0 }
-        ),
-        indicatorData: item.indicator_data.map((data) => {
+      result.facultyIndicators.data.push({
+        isTargetFulfilled: is_target_fulfilled,
+        q1,
+        q2,
+        q3,
+        q4,
+        targetValue: target_value,
+        yearID: year_id,
+        yearValue: year_value,
+      });
+    });
+    Deps.data.major_indicators.data.map((item) => {
+      const { major_data, major_id, major_image, major_name } = item;
+
+      result.majorIndicators.data.push({
+        majorID: major_id,
+        majorImage: major_image,
+        majorName: major_name,
+        majorData: major_data.map((data) => {
+          const {
+            is_target_fulfilled,
+            q1,
+            q2,
+            q3,
+            q4,
+            target_value,
+            year_id,
+            year_value,
+          } = data;
+
           return {
-            indicatorMajorYearId: data.indicator_major_year_id,
-            q1: data.q1,
-            q2: data.q2,
-            q3: data.q3,
-            q4: data.q4,
-            target: data.target,
-            isTargetFulfilled: data.is_target_fulfilled,
-            year: {
-              yearId: data.year.year_id || 0,
-              yearValue: data.year.year_value || 0,
-            },
+            isTargetFulfilled: is_target_fulfilled,
+            q1,
+            q2,
+            q3,
+            q4,
+            targetValue: target_value,
+            yearID: year_id,
+            yearValue: year_value,
           };
         }),
       });
     });
   }
+
   return result;
 };
 

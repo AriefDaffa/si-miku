@@ -10,19 +10,23 @@ import useIndicatorByIdQuery from '@/repository/query/IndicatorByIdQuery';
 import HeadSection from './HeadSection';
 import ChartSection from './ChartSection';
 import JurusanSection from './JurusanSection';
+import OverviewSection from './OverviewSection';
+import TableSection from './TableSection';
 
 const IndicatorDetail: FC = () => {
   const params = useParams();
 
   const id = params.id || '';
 
-  const { data: year, isLoading: isYearLoading } = useYearQuery();
+  // const { data: year, isLoading: isYearLoading } = useYearQuery();
   const { data: indicator, isLoading: isIndicatorLoading } =
     useIndicatorByIdQuery(id);
 
   if (!isIndicatorLoading && indicator.indicatorCode === '') {
     return <Navigate to="/not-found" />;
   }
+
+  const isFaculty = indicator.isFacultyIndicator === true;
 
   return (
     <>
@@ -31,16 +35,25 @@ const IndicatorDetail: FC = () => {
         <HeadSection
           indicatorName={`${indicator.indicatorCode} ${indicator.indicatorName}`}
         />
+        <OverviewSection
+          indicatorData={indicator}
+          isIndicatorLoading={isIndicatorLoading}
+        />
         <ChartSection
-          indicatorData={indicator}
-          yearData={year}
-          isIndicatorLoading={isIndicatorLoading}
-          isYearLoading={isYearLoading}
-        />
-        <JurusanSection
-          indicatorData={indicator}
+          indicatorData={indicator.facultyIndicators.data}
           isIndicatorLoading={isIndicatorLoading}
         />
+        <TableSection
+          data={indicator.facultyIndicators.data}
+          isLoading={isIndicatorLoading}
+          indicatorID={indicator.indicatorID}
+          indicatorCode={indicator.indicatorCode}
+          indicatorName={indicator.indicatorName}
+        />
+        {/* <JurusanSection
+          indicatorData={indicator}
+          isIndicatorLoading={isIndicatorLoading}
+        /> */}
       </Container>
     </>
   );

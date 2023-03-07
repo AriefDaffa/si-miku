@@ -36,7 +36,13 @@ const BulkInputSection: FC = () => {
         setOpenLoading(false);
         setOpenDialog(true);
         setParseResult({
-          indicator: [{ indicator_code: '', indicator_name: '' }],
+          indicator: [
+            {
+              indicator_code: '',
+              indicator_name: '',
+              is_faculty_indicator: true,
+            },
+          ],
         });
       },
       onError: () => setOpenLoading(false),
@@ -47,6 +53,8 @@ const BulkInputSection: FC = () => {
     e.stopPropagation();
     setOpenDialog(false);
   };
+
+  console.log(parseResult);
 
   return (
     <Card>
@@ -61,6 +69,7 @@ const BulkInputSection: FC = () => {
               return {
                 indicator_code: item.indicator_code,
                 indicator_name: item.indicator_name,
+                is_faculty_indicator: /^true$/i.test(item.is_faculty_indicator),
               };
             }),
           });

@@ -4,12 +4,13 @@ import Container from '@mui/material/Container';
 
 import useIndicatorQuery from '@/repository/query/IndicatorQuery';
 import Helmet from '@/components/UI/Helmet';
+import Grid from '@/components/UI/Grid';
 import { PageTitle } from '@/components/UI/Typography';
 
 import TableSection from './TableSection';
 
 const Indicator: FC = () => {
-  const { data: indicator, isLoading: isIndicatorLoading } =
+  const { data: listIndicator, isLoading: isListIndicatorLoading } =
     useIndicatorQuery();
 
   return (
@@ -18,9 +19,17 @@ const Indicator: FC = () => {
       <Container maxWidth="xl">
         <PageTitle
           title="List Indikator"
-          subTitle="Menampilkan list indikator yang terdapat pada sistem"
+          subTitle="Menampilkan seluruh data indikator yang terdapat pada sistem"
         />
-        <TableSection data={indicator} isLoading={isIndicatorLoading} />
+        <Grid
+          spacing={2}
+          gridItem={[
+            <TableSection
+              data={listIndicator}
+              isLoading={isListIndicatorLoading}
+            />,
+          ]}
+        />
       </Container>
     </>
   );

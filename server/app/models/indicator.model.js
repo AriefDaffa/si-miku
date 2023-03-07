@@ -14,6 +14,9 @@ const Indicator = db.define('indicators', {
   indicator_name: {
     type: DataTypes.STRING,
   },
+  is_faculty_indicator: {
+    type: DataTypes.BOOLEAN,
+  },
 });
 
 module.exports = { Indicator };

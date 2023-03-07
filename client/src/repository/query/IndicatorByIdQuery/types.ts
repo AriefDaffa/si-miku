@@ -1,34 +1,42 @@
-export interface Year {
-  year_id: number;
-  year_value: number;
+export interface Count {
+  fulfilled: number;
+  failed: number;
 }
 
-export interface IndicatorData {
-  indicator_major_year_id: number;
+export interface FacultyIndicators {
+  count: Count;
+  data: TargetQuarters[];
+}
+
+export interface MajorIndicatorData {
+  count: Count;
+  data: MajorIndicator[];
+}
+
+export interface TargetQuarters {
+  year_id: number;
+  year_value: number;
+  target_value: number;
   q1: number;
   q2: number;
   q3: number;
   q4: number;
-  target: number;
   is_target_fulfilled: boolean;
-  year: Year;
 }
-export interface Majors {
+export interface MajorIndicator {
   major_id: number;
   major_name: string;
   major_image: string;
-}
-
-export interface IndicatorByIdMajors {
-  major: Majors;
-  indicator_data: IndicatorData[];
+  major_data: TargetQuarters[];
 }
 
 export interface IndicatorByIdData {
   indicator_id: number;
   indicator_code: string;
   indicator_name: string;
-  indicator_majors: IndicatorByIdMajors[];
+  is_faculty_indicator: boolean;
+  major_indicators: MajorIndicatorData;
+  faculty_indicators: FacultyIndicators;
 }
 
 export interface IndicatorByIdResponse {
@@ -37,41 +45,38 @@ export interface IndicatorByIdResponse {
 
 // -- NORMALIZED TYPES -- //
 
-interface TotalNormalized {
-  failed: number;
-  fulfilled: number;
+export interface FacultyIndicatorsNormalized {
+  count: Count;
+  data: TargetQuartersNormalized[];
 }
 
-export interface YearNormalized {
-  yearId: number;
+export interface MajorIndicatorDataNormalized {
+  count: Count;
+  data: MajorIndicatorNormalized[];
+}
+
+export interface TargetQuartersNormalized {
+  yearID: number;
   yearValue: number;
-}
-
-export interface IndicatorDataNormalized {
-  indicatorMajorYearId: number;
+  targetValue: number;
   q1: number;
   q2: number;
   q3: number;
   q4: number;
-  target: number;
   isTargetFulfilled: boolean;
-  year: YearNormalized;
 }
-export interface MajorsNormalized {
-  majorId: number;
+export interface MajorIndicatorNormalized {
+  majorID: number;
   majorName: string;
   majorImage: string;
+  majorData: TargetQuartersNormalized[];
 }
 
-export interface IndicatorByIdMajorsNormalized {
-  major: MajorsNormalized;
-  indicatorData: IndicatorDataNormalized[];
-  total: TotalNormalized;
-}
-
-export interface IndicatorByIdNormalized {
-  indicatorId: number;
+export interface IndicatorByIdDataNormalized {
+  indicatorID: number;
   indicatorCode: string;
   indicatorName: string;
-  indicatorMajors: IndicatorByIdMajorsNormalized[];
+  isFacultyIndicator: boolean;
+  majorIndicators: MajorIndicatorDataNormalized;
+  facultyIndicators: FacultyIndicatorsNormalized;
 }

@@ -13,6 +13,7 @@ const User = db.define('users', {
   },
   user_email: {
     type: DataTypes.STRING,
+    unique: true,
   },
   user_image: {
     type: DataTypes.BLOB('long'),

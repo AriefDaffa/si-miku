@@ -1,10 +1,9 @@
 const express = require('express');
-const {
-  loginUser,
-  logout,
-  authStatus,
-} = require('../controllers/auth.controller');
-const { verifyAccessToken } = require('../middleware/verifyToken.js');
+
+const loginUser = require('../controllers/auth/login');
+const authStatus = require('../controllers/auth/auth-status');
+const logout = require('../controllers/auth/logout');
+const { verifyAccessToken } = require('../middleware/verifyToken');
 
 const router = express.Router();
 

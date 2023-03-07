@@ -32,6 +32,7 @@ const useCurrentUserQuery = () => {
     () => baseAPI.get('current-user'),
     {
       refetchOnWindowFocus: false,
+      retry: false,
     }
   );
 
