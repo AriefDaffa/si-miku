@@ -10,9 +10,9 @@ import TextField from '@mui/material/TextField';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 
-import Table from '@/components/UI/Table';
-import Card from '@/components/UI/Card';
-import { Header, SubHeader } from '@/components/UI/Typography';
+import Table from '@/components/UI/atoms/Table';
+import Card from '@/components/UI/atoms/Card';
+import { Header, SubHeader } from '@/components/UI/atoms/Typography';
 import { GREY } from '@/components/theme/Colors';
 import { getPercentage } from '@/utils/get-percentage';
 import { getProgressColor } from '@/utils/get-progress-bar-color';

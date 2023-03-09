@@ -5,10 +5,10 @@ import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
 
 import useChartStyle from '@/hooks/use-chart-style';
-import Card from '@/components/UI/Card';
-import Grid from '@/components/UI/Grid';
-import CustomChart from '@/components/UI/CustomChart';
-import { Header } from '@/components/UI/Typography';
+import Card from '@/components/UI/atoms/Card';
+import Grid from '@/components/UI/atoms/Grid';
+import CustomChart from '@/components/UI/atoms/CustomChart';
+import { Header } from '@/components/UI/atoms/Typography';
 import { ERROR, GREY, SUCCESS } from '@/components/theme/Colors';
 import type { IndicatorByIdDataNormalized } from '@/repository/query/IndicatorByIdQuery';
 import type { YearDataNormalized } from '@/repository/query/YearQuery/types';

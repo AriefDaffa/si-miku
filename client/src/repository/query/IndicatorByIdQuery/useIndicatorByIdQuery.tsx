@@ -67,7 +67,7 @@ const normalizer = (Deps?: IndicatorByIdResponse) => {
 
       result.majorIndicators.data.push({
         majorID: major_id,
-        majorImage: major_image,
+        majorImage: import.meta.env.VITE_BASE_API_URL + major_image,
         majorName: major_name,
         majorData: major_data.map((data) => {
           const {

@@ -3,15 +3,15 @@ import type { FC } from 'react';
 
 import Container from '@mui/material/Container';
 
-import Helmet from '@/components/UI/Helmet';
+import Helmet from '@/components/UI/atoms/Helmet';
 import useYearQuery from '@/repository/query/YearQuery';
 import useIndicatorByIdQuery from '@/repository/query/IndicatorByIdQuery';
 
 import HeadSection from './HeadSection';
 import ChartSection from './ChartSection';
-import JurusanSection from './JurusanSection';
 import OverviewSection from './OverviewSection';
-import TableSection from './TableSection';
+import FacultySection from './FacultySection';
+import MajorSection from './MajorSection';
 
 const IndicatorDetail: FC = () => {
   const params = useParams();
@@ -39,7 +39,12 @@ const IndicatorDetail: FC = () => {
           indicatorData={indicator}
           isIndicatorLoading={isIndicatorLoading}
         />
-        <ChartSection
+        {isFaculty ? (
+          <FacultySection data={indicator} isLoading={isIndicatorLoading} />
+        ) : (
+          <MajorSection data={indicator} isLoading={isIndicatorLoading} />
+        )}
+        {/* <ChartSection
           indicatorData={indicator.facultyIndicators.data}
           isIndicatorLoading={isIndicatorLoading}
         />
@@ -49,7 +54,7 @@ const IndicatorDetail: FC = () => {
           indicatorID={indicator.indicatorID}
           indicatorCode={indicator.indicatorCode}
           indicatorName={indicator.indicatorName}
-        />
+        /> */}
         {/* <JurusanSection
           indicatorData={indicator}
           isIndicatorLoading={isIndicatorLoading}

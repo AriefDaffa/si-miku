@@ -6,10 +6,10 @@ import TableCell from '@mui/material/TableCell';
 import Divider from '@mui/material/Divider';
 import Box from '@mui/material/Box';
 
-import Card from '@/components/UI/Card';
-import Grid from '@/components/UI/Grid';
-import Table from '@/components/UI/Table';
-import { Header, SubHeader } from '@/components/UI/Typography';
+import Card from '@/components/UI/atoms/Card';
+import Grid from '@/components/UI/atoms/Grid';
+import Table from '@/components/UI/atoms/Table';
+import { Header, SubHeader } from '@/components/UI/atoms/Typography';
 import { getPercentage } from '@/utils/get-percentage';
 import { GREY } from '@/components/theme/Colors';
 import type { MajorOverviewNormalized } from '@/repository/query/MajorOverviewQuery/types';

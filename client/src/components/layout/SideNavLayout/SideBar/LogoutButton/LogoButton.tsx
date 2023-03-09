@@ -9,7 +9,7 @@ import { useLogoutMutation } from '@/repository/mutation/LogoutMutation';
 import { useSideBar } from '@/context/SideBarContext';
 
 import { ButtonWrapperCx, navIconCx } from './styles';
-import DialogPopup from '@/components/UI/DialogPopup';
+import DialogPopup from '@/components/UI/atoms/DialogPopup';
 
 const LogoutButton: FC = () => {
   const navigate = useNavigate();

@@ -9,13 +9,13 @@ import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
 
 import { useLoginMutation } from '@/repository/mutation/LoginMutation';
-import { TextInput } from '@/components/UI/Input';
+import { TextInput } from '@/components/UI/atoms/Input';
 import logo from '@/assets/logo/logo.png';
-import Grid from '@/components/UI/Grid';
-import Helmet from '@/components/UI/Helmet';
+import Grid from '@/components/UI/atoms/Grid';
+import Helmet from '@/components/UI/atoms/Helmet';
 
 import type { LoginData } from './types';
-import LoadingPopup from '@/components/UI/Loader/LoadingPopup';
+import LoadingPopup from '@/components/UI/atoms/Loader/LoadingPopup';
 
 // @TODO Add error handling
 const Login: FC = () => {

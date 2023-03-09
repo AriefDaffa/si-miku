@@ -17,14 +17,14 @@ import Select, { SelectChangeEvent } from '@mui/material/Select';
 // import IconButton from '@mui/material/IconButton';
 // import FilterListIcon from '@mui/icons-material/FilterList';
 
-import Grid from '@/components/UI/Grid';
-import Card from '@/components/UI/Card';
-import Table from '@/components/UI/Table';
-import { Header, SubHeader } from '@/components/UI/Typography';
+import Grid from '@/components/UI/atoms/Grid';
+import Card from '@/components/UI/atoms/Card';
+import Table from '@/components/UI/atoms/Table';
+import { Header, SubHeader } from '@/components/UI/atoms/Typography';
 import { GREY } from '@/components/theme/Colors';
 import { getProgressColor } from '@/utils/get-progress-bar-color';
 import { getPercentage } from '@/utils/get-percentage';
-import type { IndicatorNormalized } from '@/repository/query/IndicatorQuery';
+import type { IndicatorListNormalized } from '@/repository/query/IndicatorQuery';
 
 import DeleteButton from './DeleteButton';
 import DeleteBulkButton from './DeleteBulkButton';
@@ -33,7 +33,7 @@ import EditButton from './EditButton';
 
 interface TableSectionProps {
   isLoading: boolean;
-  data: IndicatorNormalized;
+  data: IndicatorListNormalized[];
 }
 
 const TableSection: FC<TableSectionProps> = (props) => {
@@ -49,7 +49,7 @@ const TableSection: FC<TableSectionProps> = (props) => {
 
   const handleSelectAllClick = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.checked) {
-      const newSelecteds = data.indicatorList.map((item) => item.indicatorID);
+      const newSelecteds = data.map((item) => item.indicatorID);
       setSelected(newSelecteds);
       return;
     }
@@ -97,7 +97,7 @@ const TableSection: FC<TableSectionProps> = (props) => {
     setSort(sort === 'asc' ? 'desc' : 'asc');
   };
 
-  const modifiedData = data.indicatorList
+  const modifiedData = data
     .filter((a) =>
       a.indicatorName.concat(a.indicatorCode).toLowerCase().includes(keyword)
     )
@@ -106,7 +106,6 @@ const TableSection: FC<TableSectionProps> = (props) => {
   return (
     <Grid
       spacing={1}
-      sx={{ pt: 2 }}
       gridItem={[
         <Card sx={{ overflowX: 'auto' }}>
           {/* <Box sx={{ mb: 2 }}>
@@ -124,7 +123,7 @@ const TableSection: FC<TableSectionProps> = (props) => {
               <TextField
                 label="Search Indicator"
                 sx={{ maxWidth: 500, width: '100%' }}
-                disabled={!data.indicatorList.length}
+                disabled={!data.length}
                 onChange={debounce(handleChange, 300)}
               />
               {/* <IconButton>
@@ -151,9 +150,7 @@ const TableSection: FC<TableSectionProps> = (props) => {
             withCheckbox
             header={tableHeader}
             isLoading={isLoading}
-            arrayLength={
-              !keyword ? data.indicatorList.length : modifiedData.length
-            }
+            arrayLength={!keyword ? data.length : modifiedData.length}
             totalSelected={selected.length}
             onSelectAll={handleSelectAllClick}
           >
@@ -261,17 +258,17 @@ const TableSection: FC<TableSectionProps> = (props) => {
                 </Select>
               </FormControl>
               <SubHeader
-                text={`data dari total ${data.indicatorList.length} data`}
+                text={`data dari total ${data.length} data`}
                 sx={{ mr: 1 }}
               />
             </Stack>
             <Pagination
               count={Math.ceil(
                 keyword
-                  ? data.indicatorList.filter((a) =>
+                  ? data.filter((a) =>
                       a.indicatorName.toLowerCase().includes(keyword)
                     ).length / rows
-                  : data.indicatorList.length / rows
+                  : data.length / rows
               )}
               onChange={handleTablePagination}
               page={page + 1}

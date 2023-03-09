@@ -5,7 +5,7 @@ import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
-import { SubHeader } from '@/components/UI/Typography';
+import { SubHeader } from '@/components/UI/atoms/Typography';
 
 interface HeadSectionProps {
   indicatorName: string;

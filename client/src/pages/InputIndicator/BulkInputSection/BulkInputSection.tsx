@@ -7,11 +7,11 @@ import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
 import Divider from '@mui/material/Divider';
 
-import Card from '@/components/UI/Card';
+import Card from '@/components/UI/atoms/Card';
 import useInputIndicatorMutation from '@/repository/mutation/InputIndicatorMutation';
-import LoadingPopup from '@/components/UI/Loader/LoadingPopup';
-import DialogPopup from '@/components/UI/DialogPopup';
-import { Header, SubHeader } from '@/components/UI/Typography';
+import LoadingPopup from '@/components/UI/atoms/Loader/LoadingPopup';
+import DialogPopup from '@/components/UI/atoms/DialogPopup';
+import { Header, SubHeader } from '@/components/UI/atoms/Typography';
 
 import CSVUpload from './CSVUpload';
 import { defaultVal } from './constant';

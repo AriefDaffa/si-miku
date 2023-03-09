@@ -11,11 +11,11 @@ import FormControl from '@mui/material/FormControl';
 import MenuItem from '@mui/material/MenuItem';
 import type { SelectChangeEvent } from '@mui/material/Select';
 
-import Card from '@/components/UI/Card';
-import Grid from '@/components/UI/Grid';
-import Table from '@/components/UI/Table';
-import Pill from '@/components/UI/Pill';
-import { Header, SubHeader } from '@/components/UI/Typography';
+import Card from '@/components/UI/atoms/Card';
+import Grid from '@/components/UI/atoms/Grid';
+import Table from '@/components/UI/atoms/Table';
+import Pill from '@/components/UI/atoms/Pill';
+import { Header, SubHeader } from '@/components/UI/atoms/Typography';
 import { GREY } from '@/components/theme/Colors';
 import type { IndicatorByMajorNormalized } from '@/repository/query/IndicatorByMajorQuery/types';
 import type { YearDataNormalized } from '@/repository/query/YearQuery/types';

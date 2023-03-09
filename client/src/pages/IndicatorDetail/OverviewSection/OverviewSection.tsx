@@ -8,10 +8,10 @@ import CancelIcon from '@mui/icons-material/Cancel';
 import TrackChangesIcon from '@mui/icons-material/TrackChanges';
 
 import useChartStyle from '@/hooks/use-chart-style';
-import Card from '@/components/UI/Card';
-import Grid from '@/components/UI/Grid';
-import CustomChart from '@/components/UI/CustomChart';
-import { Header } from '@/components/UI/Typography';
+import Card from '@/components/UI/atoms/Card';
+import Grid from '@/components/UI/atoms/Grid';
+import CustomChart from '@/components/UI/atoms/CustomChart';
+import { Header } from '@/components/UI/atoms/Typography';
 import { ERROR, GREY, PRIMARY, SUCCESS } from '@/components/theme/Colors';
 import type { IndicatorByIdDataNormalized } from '@/repository/query/IndicatorByIdQuery';
 import type { YearDataNormalized } from '@/repository/query/YearQuery/types';
@@ -26,8 +26,14 @@ interface OverviewSectionProps {
 const OverviewSection: FC<OverviewSectionProps> = (props) => {
   const { indicatorData, isIndicatorLoading } = props;
 
-  const fulfilled = indicatorData.facultyIndicators.count.fulfilled;
-  const failed = indicatorData.facultyIndicators.count.failed;
+  const isFacultyIndicator = indicatorData.isFacultyIndicator === true;
+
+  const fulfilled = isFacultyIndicator
+    ? indicatorData.facultyIndicators.count.fulfilled
+    : indicatorData.majorIndicators.count.fulfilled;
+  const failed = isFacultyIndicator
+    ? indicatorData.facultyIndicators.count.failed
+    : indicatorData.majorIndicators.count.failed;
 
   return (
     <Box sx={{ my: 2 }}>

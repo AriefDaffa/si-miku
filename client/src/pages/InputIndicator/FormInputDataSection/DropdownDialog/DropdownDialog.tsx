@@ -11,7 +11,7 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogActions from '@mui/material/DialogActions';
 
-import Grid from '@/components/UI/Grid';
+import Grid from '@/components/UI/atoms/Grid';
 import type { MajorOverviewNormalized } from '@/repository/query/MajorQuery/types';
 
 interface DropdownDialogProps {

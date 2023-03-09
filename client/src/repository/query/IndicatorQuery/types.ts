@@ -12,9 +12,9 @@ interface IndicatorList {
 }
 
 export interface IndicatorListData {
-  total_page: number;
-  total_data: number;
-  current_page: number;
+  // total_page: number;
+  // total_data: number;
+  // current_page: number;
   indicator_list: IndicatorList[];
 }
 
@@ -23,7 +23,6 @@ export interface IndicatorListResponse {
 }
 
 // -- NORMALIZED TYPES -- //
-
 export interface IndicatorListNormalized {
   indicatorID: number;
   indicatorName: string;
@@ -31,10 +30,15 @@ export interface IndicatorListNormalized {
   isFacultyIndicator: boolean;
   count: Count;
 }
+interface SplittedList {
+  facultyIndicator: IndicatorListNormalized[];
+  majorIndicator: IndicatorListNormalized[];
+}
 
 export interface IndicatorNormalized {
-  totalPage: number;
-  totalData: number;
-  currentPage: number;
+  // totalPage: number;
+  // totalData: number;
+  // currentPage: number;
   indicatorList: IndicatorListNormalized[];
+  splittedList: SplittedList;
 }

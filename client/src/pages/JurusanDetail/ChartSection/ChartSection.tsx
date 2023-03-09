@@ -4,13 +4,13 @@ import type { FC } from 'react';
 import Divider from '@mui/material/Divider';
 import Box from '@mui/material/Box';
 
-import Grid from '@/components/UI/Grid';
+import Grid from '@/components/UI/atoms/Grid';
 
-import Card from '@/components/UI/Card';
-import CustomChart from '@/components/UI/CustomChart';
+import Card from '@/components/UI/atoms/Card';
+import CustomChart from '@/components/UI/atoms/CustomChart';
 import useChartStyle from '@/hooks/use-chart-style';
 import { ERROR, SUCCESS } from '@/components/theme/Colors';
-import { Header } from '@/components/UI/Typography';
+import { Header } from '@/components/UI/atoms/Typography';
 import type { IndicatorByMajorNormalized } from '@/repository/query/IndicatorByMajorQuery/types';
 
 interface ChartSectionProps {

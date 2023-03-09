@@ -11,6 +11,7 @@ import {
   Profile,
   IndicatorDetail,
   Indicator,
+  Fakultas,
 } from '@/pages';
 
 import PrivateRoute from './PrivateRoute';
@@ -35,6 +36,7 @@ const Router = () => {
             { path: 'indicator-input', element: <InputIndicator /> },
             { path: 'jurusan', element: <Jurusan /> },
             { path: 'jurusan/:id', element: <JurusanDetail /> },
+            { path: 'fakultas', element: <Fakultas /> },
             { path: 'profile', element: <Profile /> },
           ],
         },

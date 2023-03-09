@@ -3,10 +3,10 @@ import type { FC } from 'react';
 import Container from '@mui/material/Container';
 import Box from '@mui/material/Box';
 
-import Helmet from '@/components/UI/Helmet';
-import Card from '@/components/UI/Card';
-import Grid from '@/components/UI/Grid';
-import { Header, PageTitle } from '@/components/UI/Typography';
+import Helmet from '@/components/UI/atoms/Helmet';
+import Card from '@/components/UI/atoms/Card';
+import Grid from '@/components/UI/atoms/Grid';
+import { Header, PageTitle } from '@/components/UI/atoms/Typography';
 import { GREY } from '@/components/theme/Colors';
 
 import BulkInputSection from './BulkInputSection';

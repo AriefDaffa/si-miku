@@ -1,7 +1,7 @@
 import { Navigate, Outlet } from 'react-router-dom';
 import type { FC } from 'react';
 
-import SplashScreen from '@/components/UI/Loader/SplashScreen';
+import SplashScreen from '@/components/UI/atoms/Loader/SplashScreen';
 import useAuthStatusQuery from '@/repository/query/AuthStatusQuery';
 
 const PrivateRoute: FC = () => {

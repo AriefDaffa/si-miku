@@ -3,12 +3,12 @@ import type { FC } from 'react';
 
 import Divider from '@mui/material/Divider';
 
-import Grid from '@/components/UI/Grid';
+import Grid from '@/components/UI/atoms/Grid';
 
-import Card from '@/components/UI/Card';
-import { Header } from '@/components/UI/Typography';
+import Card from '@/components/UI/atoms/Card';
+import { Header } from '@/components/UI/atoms/Typography';
 import type { MajorOverviewNormalized } from '@/repository/query/MajorOverviewQuery/types';
-import CustomChart from '@/components/UI/CustomChart';
+import CustomChart from '@/components/UI/atoms/CustomChart';
 import useChartStyle from '@/hooks/use-chart-style';
 
 interface ChartSectionProps {

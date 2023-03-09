@@ -6,9 +6,9 @@ import Stack from '@mui/material/Stack';
 import Skeleton from '@mui/material/Skeleton';
 
 import useChartStyle from '@/hooks/use-chart-style';
-import Card from '@/components/UI/Card';
-import CustomChart from '@/components/UI/CustomChart';
-import { Header, SubHeader } from '@/components/UI/Typography';
+import Card from '@/components/UI/atoms/Card';
+import CustomChart from '@/components/UI/atoms/CustomChart';
+import { Header, SubHeader } from '@/components/UI/atoms/Typography';
 import { ERROR, SUCCESS } from '@/components/theme/Colors';
 import type { TargetQuartersNormalized } from '@/repository/query/IndicatorByIdQuery';
 

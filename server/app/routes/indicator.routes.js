@@ -1,9 +1,4 @@
 const express = require('express');
-const {
-  deleteIndicatorData,
-  getYear,
-  updateIndicatorName,
-} = require('../controllers/indicator.controller.js');
 
 const getAllIndicators = require('../controllers/indicator/get-all-indicator');
 const getIndicatorById = require('../controllers/indicator/get-indicator-by-id');
@@ -12,9 +7,12 @@ const getIndicatorByMajorId = require('../controllers/indicator/get-indicator-by
 const getOverviewIndicator = require('../controllers/indicator/get-overview-indicator');
 const getOverviewMajor = require('../controllers/indicator/get-overview-major');
 const getTargetQuarterByYear = require('../controllers/indicator/get-target-quarter-by-year');
+const getYear = require('../controllers/indicator/get-year');
 
 const createIndicator = require('../controllers/indicator/post-indicator');
 const postDataToIndicator = require('../controllers/indicator/post-data-to-indicator');
+
+const updateIndicatorName = require('../controllers/indicator/put-indicator-name');
 
 const deleteIndicatorById = require('../controllers/indicator/delete-indicator-by-id');
 const deleteDataIndicator = require('../controllers/indicator/delete-data-indicator');

@@ -6,11 +6,8 @@ import Avatar from '@mui/material/Avatar';
 import type { SvgIconTypeMap } from '@mui/material';
 import type { OverridableComponent } from '@mui/material/OverridableComponent';
 
-import Card from '@/components/UI/Card';
-import CountCard from '@/components/UI/CountCard';
-import ProgressCard from '@/components/UI/ProgressCard';
-import { Header, SubHeader } from '@/components/UI/Typography';
-import { ERROR, GREY, SUCCESS } from '@/components/theme/Colors';
+import Card from '@/components/UI/atoms/Card';
+import { Header, SubHeader } from '@/components/UI/atoms/Typography';
 
 interface CardCountProps {
   value: number;

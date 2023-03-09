@@ -6,4 +6,5 @@ export { default as IndicatorDetail } from './IndicatorDetail';
 export { default as InputIndicator } from './InputIndicator';
 export { default as Jurusan } from './Jurusan';
 export { default as JurusanDetail } from './JurusanDetail';
+export { default as Fakultas } from './Fakultas';
 export { default as Profile } from './Profile';

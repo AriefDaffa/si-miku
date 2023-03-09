@@ -13,12 +13,12 @@ import DoneAllIcon from '@mui/icons-material/DoneAll';
 import CancelIcon from '@mui/icons-material/Cancel';
 
 import useChartStyle from '@/hooks/use-chart-style';
-import Card from '@/components/UI/Card';
-import CustomChart, { ChartTypes } from '@/components/UI/CustomChart';
-import { Header, SubHeader } from '@/components/UI/Typography';
+import Card from '@/components/UI/atoms/Card';
+import CustomChart, { ChartTypes } from '@/components/UI/atoms/CustomChart';
+import { Header, SubHeader } from '@/components/UI/atoms/Typography';
 import { ERROR, GREY, SUCCESS } from '@/components/theme/Colors';
 import type { IndicatorOverviewNormalized } from '@/repository/query/OverviewIndicator';
-import Grid from '@/components/UI/Grid';
+import Grid from '@/components/UI/atoms/Grid';
 
 interface ChartSectionProps {
   isLoading: boolean;

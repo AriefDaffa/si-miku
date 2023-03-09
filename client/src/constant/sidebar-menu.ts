@@ -11,19 +11,19 @@ export const NAV_ITEM = [
     Icon: HomeIcon,
   },
   {
-    title: 'Indikator',
+    title: 'List Indikator',
     path: 'indicator',
     Icon: BarChartIcon,
   },
   {
     title: 'Fakultas',
-    path: 'jurusan',
-    Icon: SchoolIcon,
+    path: 'fakultas',
+    Icon: AccountBalanceIcon,
   },
   {
     title: 'Departemen',
     path: 'jurusan',
-    Icon: AccountBalanceIcon,
+    Icon: SchoolIcon,
   },
   {
     title: 'Input Indikator',

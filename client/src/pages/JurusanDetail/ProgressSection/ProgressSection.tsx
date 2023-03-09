@@ -5,11 +5,11 @@ import TrackChangesIcon from '@mui/icons-material/TrackChanges';
 import DoneAllIcon from '@mui/icons-material/DoneAll';
 import CancelIcon from '@mui/icons-material/Cancel';
 
-import Card from '@/components/UI/Card';
-import Grid from '@/components/UI/Grid';
-import ProgressCard from '@/components/UI/ProgressCard';
+import Card from '@/components/UI/atoms/Card';
+import Grid from '@/components/UI/atoms/Grid';
+import ProgressCard from '@/components/UI/molecules/ProgressCard';
 import { getPercentage } from '@/utils/get-percentage';
-import { Header } from '@/components/UI/Typography';
+import { Header } from '@/components/UI/atoms/Typography';
 import { ERROR, GREY, PRIMARY, SUCCESS } from '@/components/theme/Colors';
 
 import CountCard from './CountCard';
