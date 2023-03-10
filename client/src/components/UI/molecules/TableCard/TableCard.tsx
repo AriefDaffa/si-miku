@@ -1,5 +1,3 @@
-import { useNavigate } from 'react-router-dom';
-import { debounce } from 'lodash';
 import { useState } from 'react';
 import type { FC, SyntheticEvent, ChangeEvent } from 'react';
 
@@ -10,7 +8,6 @@ import TableRow from '@mui/material/TableRow';
 import TableCell from '@mui/material/TableCell';
 import FormControl from '@mui/material/FormControl';
 import MenuItem from '@mui/material/MenuItem';
-import TextField from '@mui/material/TextField';
 import Pagination from '@mui/material/Pagination';
 import Button from '@mui/material/Button';
 import Pill from '@/components/UI/atoms/Pill';
@@ -21,6 +18,7 @@ import Card from '@/components/UI/atoms/Card';
 import Table from '@/components/UI/atoms/Table';
 import { Header, SubHeader } from '@/components/UI/atoms/Typography';
 import { GREY } from '@/components/theme/Colors';
+import { useAuthContext } from '@/context/AuthContext';
 import type { TargetQuartersNormalized } from '@/repository/query/IndicatorByIdQuery';
 
 import DeleteButton from './DeleteButton';
@@ -46,6 +44,8 @@ const TableSection: FC<TableSectionProps> = (props) => {
   const [dataOpen, SetDataOpen] =
     useState<TargetQuartersNormalized>(defaultVal);
   const [openFullDialog, setopenFullDialog] = useState(false);
+
+  const { isManagement } = useAuthContext();
 
   const handleOpenFullDialog = (data: TargetQuartersNormalized) => {
     setopenFullDialog(true);
@@ -107,7 +107,7 @@ const TableSection: FC<TableSectionProps> = (props) => {
             <SubHeader text="Klik pada salah satu data untuk melihat detail data tersebut" />
           </Box>
           <Table
-            withCheckbox
+            withCheckbox={isManagement}
             header={tableHeader}
             isLoading={isLoading}
             arrayLength={data.length}
@@ -122,12 +122,14 @@ const TableSection: FC<TableSectionProps> = (props) => {
                 }}
                 onClick={() => handleOpenFullDialog(item)}
               >
-                <TableCell padding="checkbox">
-                  <Checkbox
-                    checked={selected.indexOf(item.yearID) !== -1}
-                    onClick={(e) => handleCheckboxClick(e, item.yearID)}
-                  />
-                </TableCell>
+                {isManagement && (
+                  <TableCell padding="checkbox">
+                    <Checkbox
+                      checked={selected.indexOf(item.yearID) !== -1}
+                      onClick={(e) => handleCheckboxClick(e, item.yearID)}
+                    />
+                  </TableCell>
+                )}
                 <TableCell>
                   <Header
                     variant="subtitle2"
@@ -165,15 +167,20 @@ const TableSection: FC<TableSectionProps> = (props) => {
                   </Pill>
                 </TableCell>
                 <TableCell onClick={(e) => e.stopPropagation()}>
-                  <Stack flexDirection="row">
-                    <EditButton
-                      id={item.yearID}
-                      indicatorCode={'item.yearID'}
-                      indicatorName={'item.q1'}
-                      setSelected={setSelected}
-                    />
-                    <DeleteButton id={item.yearID} setSelected={setSelected} />
-                  </Stack>
+                  {isManagement && (
+                    <Stack flexDirection="row">
+                      <EditButton
+                        id={item.yearID}
+                        indicatorCode={'item.yearID'}
+                        indicatorName={'item.q1'}
+                        setSelected={setSelected}
+                      />
+                      <DeleteButton
+                        id={item.yearID}
+                        setSelected={setSelected}
+                      />
+                    </Stack>
+                  )}
                 </TableCell>
               </TableRow>
             ))}
@@ -212,25 +219,27 @@ const TableSection: FC<TableSectionProps> = (props) => {
               page={page + 1}
             />
           </Stack>
-          <Stack flexDirection="row" sx={{ float: 'right', mb: 2 }}>
-            <Box sx={{ mr: 1 }}>
-              <Button color="primary" variant="contained">
-                Tambah Data Indikator
-              </Button>
-            </Box>
-            <Box>
-              <DeleteBulkButton
-                selectedData={selected}
-                setSelected={setSelected}
-              />
-              {selected.length !== 0 && (
-                <SubHeader
-                  text={`Selected ${selected.length} data`}
-                  sx={{ opacity: 0.3, textAlign: 'center' }}
+          {isManagement && (
+            <Stack flexDirection="row" sx={{ float: 'right', mb: 2 }}>
+              <Box sx={{ mr: 1 }}>
+                <Button color="primary" variant="contained">
+                  Tambah Data Indikator
+                </Button>
+              </Box>
+              <Box>
+                <DeleteBulkButton
+                  selectedData={selected}
+                  setSelected={setSelected}
                 />
-              )}
-            </Box>
-          </Stack>
+                {selected.length !== 0 && (
+                  <SubHeader
+                    text={`Selected ${selected.length} data`}
+                    sx={{ opacity: 0.3, textAlign: 'center' }}
+                  />
+                )}
+              </Box>
+            </Stack>
+          )}
           <ProgressDialog
             data={dataOpen}
             indicatorName={indicatorName}

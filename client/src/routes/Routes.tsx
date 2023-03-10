@@ -12,6 +12,7 @@ import {
   IndicatorDetail,
   Indicator,
   Fakultas,
+  User,
 } from '@/pages';
 
 import PrivateRoute from './PrivateRoute';
@@ -38,6 +39,7 @@ const Router = () => {
             { path: 'jurusan/:id', element: <JurusanDetail /> },
             { path: 'fakultas', element: <Fakultas /> },
             { path: 'profile', element: <Profile /> },
+            { path: 'user', element: <User /> },
           ],
         },
       ],

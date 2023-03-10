@@ -7,20 +7,16 @@ import FormControl from '@mui/material/FormControl';
 import MenuItem from '@mui/material/MenuItem';
 import Stack from '@mui/material/Stack';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
-import TrackChangesIcon from '@mui/icons-material/TrackChanges';
-import AccountBalanceIcon from '@mui/icons-material/AccountBalance';
-import SchoolIcon from '@mui/icons-material/School';
 
 import useIndicatorQuery from '@/repository/query/IndicatorQuery';
 import Helmet from '@/components/UI/atoms/Helmet';
 import Grid from '@/components/UI/atoms/Grid';
+import Card from '@/components/UI/atoms/Card';
+import TableCardProgress from '@/components/UI/molecules/TableCardProgress';
+import { GREY, PRIMARY } from '@/components/theme/Colors';
 import { Header, PageTitle, SubHeader } from '@/components/UI/atoms/Typography';
 
-import TableSection from './TableSection';
-import CardCount from '../Home/CardCount';
-import { GREY, PRIMARY } from '@/components/theme/Colors';
 import OverviewSection from './OverviewSection';
-import Card from '@/components/UI/atoms/Card';
 
 const Indicator: FC = () => {
   const [indicatorType, setIndicatorType] = useState('1');
@@ -83,10 +79,14 @@ const Indicator: FC = () => {
                   borderRadius: 2,
                 }}
               >
-                <TableSection
+                <TableCardProgress
                   data={dataSwitcher()}
                   isLoading={isListIndicatorLoading}
                 />
+                {/* <TableSection
+                  data={dataSwitcher()}
+                  isLoading={isListIndicatorLoading}
+                /> */}
               </Box>
             </Card>,
           ]}

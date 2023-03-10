@@ -10,22 +10,25 @@ import type { AuthStatusNormalized, AuthStatusResponse } from './types';
 const normalizer = (Deps?: AuthStatusResponse) => {
   const result: AuthStatusNormalized = {
     isAuthenticated: false,
+    isManagement: false,
   };
 
   if (Deps !== void 0 && !(Deps instanceof AxiosError)) {
-    result.isAuthenticated = true;
+    result.isAuthenticated = Deps.data.isAuthenticated;
+    result.isManagement = Deps.data.isManagement;
   }
 
   return result;
 };
 
-const useAuthStatusQuery = () => {
+const useAuthStatusQuery = (disabled?: boolean) => {
   const { data, ...rest } = useQuery<AuthStatusResponse>(
     'authStatus',
     () => baseAPI.get('auth-status'),
     {
       refetchOnWindowFocus: false,
       retry: false,
+      enabled: !disabled,
     }
   );
 

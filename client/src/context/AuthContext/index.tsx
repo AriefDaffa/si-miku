@@ -1,27 +1,29 @@
+import { useLocation } from 'react-router-dom';
 import { createContext, useContext, useMemo } from 'react';
 import type { FC } from 'react';
 
-import { useCurrentUserQuery } from '@/repository/query/CurrentUserQuery';
+import useAuthStatusQuery from '@/repository/query/AuthStatusQuery';
 
 import type { AuthContextInterface, AuthContextProps } from './types';
 
 const AuthContext = createContext<AuthContextInterface>({
-  user: {
-    email: '',
-    userImage: '',
-    userName: '',
-  },
-  isLoading: true,
+  isAuthenticated: false,
+  isManagement: false,
 });
 
 export const AuthContextProvider: FC<AuthContextProps> = (props) => {
   const { children } = props;
-  const { data, isLoading } = useCurrentUserQuery();
+
+  const location = useLocation();
+
+  const { data, isLoading } = useAuthStatusQuery(
+    location.pathname.includes('login')
+  );
 
   const value: AuthContextInterface = useMemo(() => {
     return {
-      user: data,
-      isLoading,
+      isAuthenticated: data.isAuthenticated,
+      isManagement: data.isManagement,
     };
   }, [data, isLoading]);
 

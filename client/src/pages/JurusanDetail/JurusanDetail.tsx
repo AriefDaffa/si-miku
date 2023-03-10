@@ -5,20 +5,18 @@ import type { FC } from 'react';
 import Container from '@mui/material/Container';
 
 import Helmet from '@/components/UI/atoms/Helmet';
-import useYearQuery from '@/repository/query/YearQuery';
+import OverviewCard from '@/components/UI/organism/OverviewCard';
+import TableCardProgress from '@/components/UI/molecules/TableCardProgress';
 import useIndicatorByMajorQuery from '@/repository/query/IndicatorByMajorQuery';
 
-import TableSection from './TableSection';
 import HeadSection from './HeadSection';
 import ChartSection from './ChartSection';
-import ProgressSection from './ProgressSection';
 
 const JurusanDetail: FC = () => {
   const params = useParams();
 
   const id = params.id || '';
 
-  const { data: year, isLoading: isYearLoading } = useYearQuery();
   const { data: major, isLoading: isMajorLoading } =
     useIndicatorByMajorQuery(id);
 
@@ -27,18 +25,13 @@ const JurusanDetail: FC = () => {
       <Helmet title={`${major.majorName} | SI-MIKU`} />
       <Container maxWidth="xl">
         <HeadSection id={id} majorData={major} />
-        <ProgressSection
-          indicatorCount={major.indicatorMajors.length}
-          indicatorFailed={major.totalVal.failed}
-          indicatorFulfilled={major.totalVal.fulfilled}
-        />
-        <ChartSection majorData={major} />
-        {/* <TableSection
-          yearData={year}
-          isYearLoading={isYearLoading}
-          majorData={major}
+        <OverviewCard
+          fulfilled={major.totalFulfilled}
+          failed={major.totalFailed}
           isLoading={isMajorLoading}
-        /> */}
+        />
+        <ChartSection majorData={major} isLoading={isMajorLoading} />
+        <TableCardProgress data={major.indicatorList} isLoading={isMajorLoading} />
       </Container>
     </>
   );

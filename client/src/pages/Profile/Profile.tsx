@@ -14,7 +14,6 @@ import { TextInput } from '@/components/UI/atoms/Input';
 import { useAuthContext } from '@/context/AuthContext';
 
 const Profile: FC = () => {
-  const { user, isLoading } = useAuthContext();
   const { control, handleSubmit } = useForm({
     defaultValues: {
       userName: '',
@@ -34,7 +33,7 @@ const Profile: FC = () => {
             text="Ubah informasi di bawah untuk mengubah profile"
             sx={{ mb: 4 }}
           />
-          <Stack
+          {/* <Stack
             direction={{ sm: 'row' }}
             justifyContent="space-around"
             sx={{ px: 2 }}
@@ -61,7 +60,7 @@ const Profile: FC = () => {
                 type="text"
               />
             </Box>
-          </Stack>
+          </Stack> */}
         </Card>
       </Container>
     </>

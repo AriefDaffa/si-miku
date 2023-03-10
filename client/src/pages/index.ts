@@ -8,3 +8,4 @@ export { default as Jurusan } from './Jurusan';
 export { default as JurusanDetail } from './JurusanDetail';
 export { default as Fakultas } from './Fakultas';
 export { default as Profile } from './Profile';
+export { default as User } from './User';

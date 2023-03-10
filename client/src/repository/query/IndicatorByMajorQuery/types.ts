@@ -1,26 +1,23 @@
-export interface IndicatorByMajorTargetQuarters {
-  year_id: number;
-  year_value: number;
-  q1: number;
-  q2: number;
-  q3: number;
-  q4: number;
-  target: number;
-  is_target_fulfilled: boolean;
+export interface Count {
+  failed: number;
+  fulfilled: number;
 }
 
-export interface IndicatorByMajorArray {
+export interface IndicatorList {
   indicator_id: number;
   indicator_code: string;
   indicator_name: string;
-  year_data: IndicatorByMajorTargetQuarters[];
+  is_faculty_indicator: boolean;
+  count: Count;
 }
 
 export interface IndicatorByMajorData {
   major_id: number;
   major_name: string;
   major_image: string;
-  indicator_majors: IndicatorByMajorArray[];
+  total_fulfilled: number;
+  total_failed: number;
+  indicator_list: IndicatorList[];
 }
 
 export interface IndicatorByMajorResponse {
@@ -29,34 +26,19 @@ export interface IndicatorByMajorResponse {
 
 // -- NORMALIZED TYPES -- //
 
-interface TotalNormalized {
-  fulfilled: number;
-  failed: number;
-}
-
-export interface IndicatorByMajorTargetQuartersNormalized {
-  yearId: number;
-  yearValue: number;
-  q1: number;
-  q2: number;
-  q3: number;
-  q4: number;
-  target: number;
-  isTargetFulfilled: boolean;
-}
-
-export interface IndicatorByMajorNormalizedData {
-  indicatorId: number;
+export interface IndicatorListNormalized {
+  indicatorID: number;
   indicatorCode: string;
   indicatorName: string;
-  total: TotalNormalized;
-  yearData: IndicatorByMajorTargetQuartersNormalized[];
+  isFacultyIndicator: boolean;
+  count: Count;
 }
 
 export interface IndicatorByMajorNormalized {
-  majorId: number;
+  majorID: number;
   majorName: string;
   majorImage: string;
-  totalVal: TotalNormalized;
-  indicatorMajors: IndicatorByMajorNormalizedData[];
+  totalFulfilled: number;
+  totalFailed: number;
+  indicatorList: IndicatorListNormalized[];
 }

@@ -9,53 +9,61 @@ const getIndicatorByMajorId = async (req, res) => {
         major_id: id,
       },
       include: {
-        model: model.IndicatorMajor,
-        attributes: ['indicator_major_id'],
+        model: model.MajorIndicator,
+        attributes: ['major_indicator_id'],
         include: [
           {
             model: model.Indicator,
-            attributes: ['indicator_id', 'indicator_code', 'indicator_name'],
+            attributes: [
+              'indicator_id',
+              'indicator_code',
+              'indicator_name',
+              'is_faculty_indicator',
+            ],
           },
           {
-            model: model.IndicatorMajorYear,
-            attributes: ['indicator_major_year_id'],
-            include: [
-              {
-                model: model.Year,
-              },
-              model.TargetQuarters,
-            ],
+            model: model.MajorIndicatorYear,
+            attributes: ['major_indicator_year_id'],
+            include: model.TargetQuarters,
           },
         ],
       },
     });
 
-    const normalizeResult = {
+    const normalize = {
       major_id: indicator.major_id,
       major_name: indicator.major_name,
       major_image: indicator.major_image,
-      indicator_majors: indicator.indicator_majors.map((data) => {
-        return {
-          indicator_id: data.indicator.indicator_id,
-          indicator_code: data.indicator.indicator_code,
-          indicator_name: data.indicator.indicator_name,
-          year_data: data.indicator_major_years.map((year) => {
-            return {
-              year_id: year.year.year_id,
-              year_value: year.year.year_value,
-              q1: year.target_quarter.q1,
-              q2: year.target_quarter.q2,
-              q3: year.target_quarter.q3,
-              q4: year.target_quarter.q4,
-              target: year.target_quarter.target_value,
-              is_target_fulfilled: year.target_quarter.is_target_fulfilled,
-            };
-          }),
-        };
-      }),
+      ...indicator.major_indicators.reduce(
+        (acc, cur, idx) => {
+          acc.indicator_list.push({
+            indicator_id: cur.indicator.indicator_id,
+            indicator_code: cur.indicator.indicator_code,
+            indicator_name: cur.indicator.indicator_name,
+            is_faculty_indicator: cur.indicator.is_faculty_indicator,
+            count: {
+              failed: 0,
+              fulfilled: 0,
+            },
+          });
+
+          cur.major_indicator_years.map((item) => {
+            if (item.target_quarter.is_target_fulfilled === true) {
+              acc.total_fulfilled += 1;
+              acc.indicator_list[idx].count.fulfilled += 1;
+            } else if (item.target_quarter.is_target_fulfilled === false) {
+              acc.total_failed += 1;
+              acc.indicator_list[idx].count.failed += 1;
+            }
+          });
+
+          return acc;
+        },
+        { total_fulfilled: 0, total_failed: 0, indicator_list: [] }
+      ),
     };
 
-    res.json(normalizeResult);
+    res.json(normalize);
   } catch (error) {
     res.json(error);
   }

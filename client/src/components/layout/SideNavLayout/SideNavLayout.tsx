@@ -10,12 +10,13 @@ import NavBar from './NavBar';
 import SideBar from './SideBar';
 import SideMenuSwitcher from './SideMenuSwitcher';
 import { containerCx, pageContainerCx } from './styles';
+import { useCurrentUserQuery } from '@/repository/query/CurrentUserQuery';
 
 const SideNavLayout: FC = () => {
   const [open, setOpen] = useState(false);
 
   const { isDarkTheme } = useCustomTheme();
-  const { user, isLoading } = useAuthContext();
+  const { data, isLoading } = useCurrentUserQuery();
 
   const handleOnClose = () => {
     setOpen(false);
@@ -32,7 +33,7 @@ const SideNavLayout: FC = () => {
         <SideBar
           isOpen={open}
           onClose={handleOnClose}
-          data={user}
+          data={data}
           isLoading={isLoading}
         />
       </SideMenuSwitcher>

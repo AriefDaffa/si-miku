@@ -13,11 +13,11 @@ const App = () => {
   }, []);
 
   return (
-    <RootContext>
-      <BrowserRouter>
+    <BrowserRouter>
+      <RootContext>
         <Routes />
-      </BrowserRouter>
-    </RootContext>
+      </RootContext>
+    </BrowserRouter>
   );
 };
 

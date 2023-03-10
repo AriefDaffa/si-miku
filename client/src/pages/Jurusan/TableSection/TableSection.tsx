@@ -12,14 +12,14 @@ import Table from '@/components/UI/atoms/Table';
 import { Header, SubHeader } from '@/components/UI/atoms/Typography';
 import { getPercentage } from '@/utils/get-percentage';
 import { GREY } from '@/components/theme/Colors';
-import type { MajorOverviewNormalized } from '@/repository/query/MajorOverviewQuery/types';
 
 import { tableHeader } from './constant';
 import ProgressBar from './ProgressBar';
+import { OverviewMajorNormalized } from '@/repository/query/OverviewMajorQuery';
 
 interface TableSectionProps {
   isLoading: boolean;
-  majorData: MajorOverviewNormalized[];
+  majorData: OverviewMajorNormalized;
 }
 
 const TableSection: FC<TableSectionProps> = (props) => {
@@ -40,15 +40,15 @@ const TableSection: FC<TableSectionProps> = (props) => {
           <Table
             header={tableHeader}
             isLoading={isLoading}
-            arrayLength={majorData.length}
+            arrayLength={majorData.majorList.length}
           >
-            {majorData.map((item, idx) => (
+            {majorData.majorList.map((item, idx) => (
               <TableRow
                 key={idx}
                 sx={{
                   ':hover': { backgroundColor: GREY[300], cursor: 'pointer' },
                 }}
-                onClick={() => navigate(`${item.majorId}`)}
+                onClick={() => navigate(`${item.majorID}`)}
               >
                 <TableCell>
                   <Header
@@ -63,18 +63,18 @@ const TableSection: FC<TableSectionProps> = (props) => {
                 <TableCell>
                   <Header
                     variant="subtitle2"
-                    text={`${item.total.fulfilled}`}
+                    text={`${item.count.fulfilled}`}
                   />
                 </TableCell>
                 <TableCell>
-                  <Header variant="subtitle2" text={`${item.total.failed}`} />
+                  <Header variant="subtitle2" text={`${item.count.failed}`} />
                 </TableCell>
                 <TableCell>
                   <ProgressBar
                     value={
                       getPercentage(
-                        item.total.fulfilled,
-                        item.total.fulfilled + item.total.failed
+                        item.count.fulfilled,
+                        item.count.fulfilled + item.count.failed
                       ) || 0
                     }
                   />

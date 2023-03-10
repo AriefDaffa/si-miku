@@ -54,8 +54,6 @@ const BulkInputSection: FC = () => {
     setOpenDialog(false);
   };
 
-  console.log(parseResult);
-
   return (
     <Card>
       <Header text="Bulk Input" />

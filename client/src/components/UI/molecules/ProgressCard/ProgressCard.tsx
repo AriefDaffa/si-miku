@@ -11,14 +11,18 @@ import { getProgressColor } from '@/utils/get-progress-bar-color';
 interface ProgressCardProps {
   value: number;
   headertext: string;
+  isTitleCenter?: boolean;
 }
 
 const ProgressCard: FC<ProgressCardProps> = (props) => {
-  const { value, headertext } = props;
+  const { value, headertext, isTitleCenter } = props;
 
   return (
     <Card>
-      <SubHeader text={headertext} />
+      <SubHeader
+        text={headertext}
+        sx={{ textAlign: isTitleCenter ? 'center' : '' }}
+      />
       <Box
         sx={{
           mt: 2,

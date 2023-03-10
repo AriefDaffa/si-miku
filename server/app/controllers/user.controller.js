@@ -41,7 +41,7 @@ const getUsers = async (req, res) => {
   try {
     const users = await model.User.findAll({
       include: {
-        model: model.Role,
+        role_id: 2,
       },
     });
     res.json(users);

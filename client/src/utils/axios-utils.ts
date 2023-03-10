@@ -5,4 +5,13 @@ const baseAPI = axios.create({
   withCredentials: true,
 });
 
+baseAPI.interceptors.response.use(
+  (response) => response,
+  (error) => {
+    if (error.response.status === 401) {
+      window.location.href = '/login';
+    }
+  }
+);
+
 export default baseAPI;

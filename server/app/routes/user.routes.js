@@ -1,21 +1,32 @@
 const express = require('express');
 const {
-  getUsers,
   getUserByRole,
   getRoles,
   registerUser,
   getCurrentUser,
   getUserRole,
 } = require('../controllers/user.controller');
-const { verifyAccessToken } = require('../middleware/verifyToken.js');
+
+const getUser = require('../controllers/user/get-user');
+const createOperator = require('../controllers/user/post-user-operator');
+const deleteUser = require('../controllers/user/delete-user');
+
+const {
+  verifyAccessToken,
+  verifyManagement,
+} = require('../middleware/verifyToken.js');
 
 const router = express.Router();
 
-router.get('/users', verifyAccessToken, getUsers);
+router.get('/users/:id', verifyManagement, getUser);
 router.get('/roles', verifyAccessToken, getRoles);
 router.get('/users/roles/:id', verifyAccessToken, getUserByRole);
 router.get('/current-user', verifyAccessToken, getCurrentUser);
-router.get('/current-user-role', verifyAccessToken, getUserRole);
-router.post('/users', registerUser);
+router.get('/current-user-role', verifyManagement, getUserRole);
+
+router.post('/users', verifyManagement, registerUser);
+router.post('/users/operator', verifyManagement, createOperator);
+
+router.delete('/user', verifyManagement, deleteUser);
 
 module.exports = router;

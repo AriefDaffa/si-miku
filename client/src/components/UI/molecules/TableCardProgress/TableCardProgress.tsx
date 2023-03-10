@@ -14,8 +14,6 @@ import TextField from '@mui/material/TextField';
 import Pagination from '@mui/material/Pagination';
 import Button from '@mui/material/Button';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
-// import IconButton from '@mui/material/IconButton';
-// import FilterListIcon from '@mui/icons-material/FilterList';
 
 import Grid from '@/components/UI/atoms/Grid';
 import Card from '@/components/UI/atoms/Card';
@@ -24,12 +22,13 @@ import { Header, SubHeader } from '@/components/UI/atoms/Typography';
 import { GREY } from '@/components/theme/Colors';
 import { getProgressColor } from '@/utils/get-progress-bar-color';
 import { getPercentage } from '@/utils/get-percentage';
+import { useAuthContext } from '@/context/AuthContext';
 import type { IndicatorListNormalized } from '@/repository/query/IndicatorQuery';
 
 import DeleteButton from './DeleteButton';
 import DeleteBulkButton from './DeleteBulkButton';
-import { tableHeader } from './constant';
 import EditButton from './EditButton';
+import { tableHeader } from './constant';
 
 interface TableSectionProps {
   isLoading: boolean;
@@ -46,6 +45,7 @@ const TableSection: FC<TableSectionProps> = (props) => {
   const [sort, setSort] = useState('asc');
 
   const navigate = useNavigate();
+  const { isManagement } = useAuthContext();
 
   const handleSelectAllClick = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.checked) {
@@ -126,28 +126,29 @@ const TableSection: FC<TableSectionProps> = (props) => {
                 disabled={!data.length}
                 onChange={debounce(handleChange, 300)}
               />
-              {/* <IconButton>
-                <FilterListIcon />
-              </IconButton> */}
             </Stack>
             <Stack>
-              <Button
-                color="error"
-                variant="contained"
-                disabled={!selected.length}
-              >
-                Delete Bulk
-              </Button>
-              {selected.length !== 0 && (
-                <SubHeader
-                  text={`Selected ${selected.length} data`}
-                  sx={{ opacity: 0.3, textAlign: 'center' }}
-                />
+              {isManagement && (
+                <>
+                  <Button
+                    color="error"
+                    variant="contained"
+                    disabled={!selected.length}
+                  >
+                    Delete Bulk
+                  </Button>
+                  {selected.length !== 0 && (
+                    <SubHeader
+                      text={`Selected ${selected.length} data`}
+                      sx={{ opacity: 0.3, textAlign: 'center' }}
+                    />
+                  )}
+                </>
               )}
             </Stack>
           </Stack>
           <Table
-            withCheckbox
+            withCheckbox={isManagement}
             header={tableHeader}
             isLoading={isLoading}
             arrayLength={!keyword ? data.length : modifiedData.length}
@@ -166,12 +167,14 @@ const TableSection: FC<TableSectionProps> = (props) => {
                   })
                 }
               >
-                <TableCell padding="checkbox">
-                  <Checkbox
-                    checked={selected.indexOf(item.indicatorID) !== -1}
-                    onClick={(e) => handleCheckboxClick(e, item.indicatorID)}
-                  />
-                </TableCell>
+                {isManagement && (
+                  <TableCell padding="checkbox">
+                    <Checkbox
+                      checked={selected.indexOf(item.indicatorID) !== -1}
+                      onClick={(e) => handleCheckboxClick(e, item.indicatorID)}
+                    />
+                  </TableCell>
+                )}
                 <TableCell>
                   <Header
                     variant="subtitle2"
@@ -219,18 +222,20 @@ const TableSection: FC<TableSectionProps> = (props) => {
                   </Stack>
                 </TableCell>
                 <TableCell onClick={(e) => e.stopPropagation()}>
-                  <Stack flexDirection="row">
-                    <EditButton
-                      id={item.indicatorID}
-                      indicatorCode={item.indicatorCode}
-                      indicatorName={item.indicatorName}
-                      setSelected={setSelected}
-                    />
-                    <DeleteButton
-                      id={item.indicatorID}
-                      setSelected={setSelected}
-                    />
-                  </Stack>
+                  {isManagement && (
+                    <Stack flexDirection="row">
+                      <EditButton
+                        id={item.indicatorID}
+                        indicatorCode={item.indicatorCode}
+                        indicatorName={item.indicatorName}
+                        setSelected={setSelected}
+                      />
+                      <DeleteButton
+                        id={item.indicatorID}
+                        setSelected={setSelected}
+                      />
+                    </Stack>
+                  )}
                 </TableCell>
               </TableRow>
             ))}
@@ -274,12 +279,14 @@ const TableSection: FC<TableSectionProps> = (props) => {
               page={page + 1}
             />
           </Stack>
-          <Box sx={{ float: 'right', mb: 2 }}>
-            <DeleteBulkButton
-              selectedData={selected}
-              setSelected={setSelected}
-            />
-          </Box>
+          {isManagement && (
+            <Box sx={{ float: 'right', mb: 2 }}>
+              <DeleteBulkButton
+                selectedData={selected}
+                setSelected={setSelected}
+              />
+            </Box>
+          )}
         </Card>,
       ]}
     />

@@ -5,61 +5,35 @@ import { useQuery } from 'react-query';
 import baseAPI from '@/utils/axios-utils';
 
 import type {
-  IndicatorByMajorNormalized,
   IndicatorByMajorResponse,
+  IndicatorByMajorNormalized,
 } from './types';
 
 // normalize the data to prevent undefined value
 const normalizer = (Deps?: IndicatorByMajorResponse) => {
   const result: IndicatorByMajorNormalized = {
-    majorId: 0,
-    majorName: '',
+    majorID: 0,
     majorImage: '',
-    totalVal: {
-      failed: 0,
-      fulfilled: 0,
-    },
-    indicatorMajors: [],
+    majorName: '',
+    totalFailed: 0,
+    totalFulfilled: 0,
+    indicatorList: [],
   };
 
   if (Deps !== void 0 && !(Deps instanceof AxiosError)) {
-    result.majorId = Deps.data.major_id || 0;
-    result.majorName = Deps.data.major_name || '';
+    result.majorID = Deps.data.major_id;
     result.majorImage =
-      import.meta.env.VITE_BASE_API_URL + Deps.data.major_image || '';
-    Deps.data.indicator_majors.map((item) => {
-      result.indicatorMajors.push({
-        indicatorId: item.indicator_id || 0,
-        indicatorCode: item.indicator_code || '',
-        indicatorName: item.indicator_name || '',
-        total: item.year_data.reduce(
-          (acc, cur) => {
-            if (cur.is_target_fulfilled === true) {
-              acc.fulfilled += 1;
-              result.totalVal.fulfilled += 1;
-            }
-
-            if (cur.is_target_fulfilled === false) {
-              acc.failed += 1;
-              result.totalVal.failed += 1;
-            }
-
-            return acc;
-          },
-          { failed: 0, fulfilled: 0 }
-        ),
-        yearData: item.year_data.map((year) => {
-          return {
-            isTargetFulfilled: year.is_target_fulfilled,
-            q1: year.q1,
-            q2: year.q2,
-            q3: year.q3,
-            q4: year.q4,
-            target: year.target,
-            yearId: year.year_id,
-            yearValue: year.year_value,
-          };
-        }),
+      import.meta.env.VITE_BASE_API_URL + Deps.data.major_image;
+    result.majorName = Deps.data.major_name;
+    result.totalFulfilled = Deps.data.total_fulfilled;
+    result.totalFailed = Deps.data.total_failed;
+    Deps.data.indicator_list.map((item) => {
+      result.indicatorList.push({
+        indicatorID: item.indicator_id,
+        indicatorName: item.indicator_name,
+        indicatorCode: item.indicator_code,
+        isFacultyIndicator: item.is_faculty_indicator,
+        count: item.count,
       });
     });
   }

@@ -1,15 +1,4 @@
-const jwt = require('jsonwebtoken');
-const model = require('../models');
-
-const getMajor = async (req, res) => {
-  try {
-    const major = await model.Major.findAll();
-
-    res.json(major);
-  } catch (error) {
-    res.json(error);
-  }
-};
+const model = require('../../models');
 
 const createMajor = async (req, res) => {
   try {
@@ -35,4 +24,4 @@ const createMajor = async (req, res) => {
   }
 };
 
-module.exports = { getMajor, createMajor };
+module.exports = createMajor;
