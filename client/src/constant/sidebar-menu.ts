@@ -52,7 +52,7 @@ export const NAV_ITEM_SECONDARY = [
     isManagementOnly: false,
   },
   {
-    title: 'User Management',
+    title: 'User',
     path: 'user',
     Icon: PeopleIcon,
     isManagementOnly: true,

@@ -17,4 +17,8 @@ export const profileCardCx = (isDarkTheme: boolean) => css`
   padding: 16px 8px;
   justify-content: center;
   background-color: ${isDarkTheme ? '#212121' : INFO.darker};
+
+  &:hover {
+    cursor: pointer;
+  }
 `;

@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router-dom';
 import type { FC } from 'react';
 
 import { Box, Link, Typography, Avatar, Skeleton } from '@mui/material';
@@ -17,9 +18,14 @@ const UserProfileCard: FC<UserProfileCardProps> = (props) => {
   const { isMinimized } = useSideBar();
   const { isDarkTheme } = useCustomTheme();
 
+  const navigate = useNavigate();
+
   return (
     <Link underline="none" css={profileCardWrapperCx}>
-      <div css={profileCardCx(isDarkTheme)}>
+      <div
+        css={profileCardCx(isDarkTheme)}
+        onClick={() => navigate('/dashboard/profile')}
+      >
         <Avatar src={data.userImage} alt="photoURL" />
         {!isMinimized && (
           <Box sx={{ ml: 2 }}>

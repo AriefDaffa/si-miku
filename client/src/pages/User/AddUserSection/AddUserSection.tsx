@@ -76,7 +76,6 @@ const AddUserSection: FC = () => {
                   type="text"
                   error={fieldState.error ? true : false}
                   label={'User Name'}
-                  autoComplete="off"
                   helperText={fieldState.error?.message}
                   //   helperText={fieldState.error ? 'Form tidak boleh kosong' : ''}
                   {...field}
@@ -94,7 +93,6 @@ const AddUserSection: FC = () => {
                   type="email"
                   error={fieldState.error ? true : false}
                   label={'User Email'}
-                  autoComplete="off"
                   helperText={fieldState.error?.message}
                   //   helperText={fieldState.error ? 'Form tidak boleh kosong' : ''}
                   {...field}
@@ -112,7 +110,6 @@ const AddUserSection: FC = () => {
                   type="password"
                   error={fieldState.error ? true : false}
                   label={'Password'}
-                  autoComplete="off"
                   helperText={fieldState.error?.message}
                   //   helperText={fieldState.error ? 'Form tidak boleh kosong' : ''}
                   {...field}
