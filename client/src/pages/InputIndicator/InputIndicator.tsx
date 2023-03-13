@@ -22,17 +22,17 @@ const InputIndicator: FC = () => {
           title="Input Indikator"
           subTitle="Masukkan data indikator kedalam sistem"
         />
-        <Card sx={{ mb: 2 }}>
+        {/* <Card sx={{ mb: 2 }}>
           <Header text={`Tambah indikator baru`} />
           <Box
             sx={{ backgroundColor: GREY[200], p: 1, mt: 2, borderRadius: 2 }}
-          >
-            <Grid
-              spacing={1}
-              gridItem={[<BulkInputSection />, <FormInputSection />]}
-            />
-          </Box>
-        </Card>
+          > */}
+        <Grid
+          spacing={1}
+          gridItem={[<BulkInputSection />, <FormInputSection />]}
+        />
+        {/* </Box>
+        </Card> */}
       </Container>
     </>
   );

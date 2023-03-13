@@ -72,109 +72,114 @@ const ChartSection: FC<ChartSectionProps> = (props) => {
   };
 
   return (
+    // <Card>
+    //   <Stack flexDirection="row" justifyContent="space-between" sx={{ mb: 3 }}>
+    //     <Box>
+    //       <Header text="Grafik perkembangan indikator" />
+    //       <SubHeader text="Menampilkan perkembangan indikator dari tahun ke tahun" />
+    //     </Box>
+    //     <Box>
+    //       <FormControl>
+    //         <Select
+    //           defaultValue={'area'}
+    //           value={chartType}
+    //           onChange={handleChartTypeChange}
+    //         >
+    //           <MenuItem value="area">Area Chart</MenuItem>
+    //           <MenuItem value="bar">Bar Chart</MenuItem>
+    //         </Select>
+    //       </FormControl>
+    //     </Box>
+    //   </Stack>
+    //   <Box
+    //     sx={{
+    //       minHeight: 600,
+    //       backgroundColor: GREY[200],
+    //       p: 1,
+    //       mt: 2,
+    //       borderRadius: 2,
+    //     }}
+    //   >
     <Card>
-      <Stack flexDirection="row" justifyContent="space-between" sx={{ mb: 3 }}>
-        <Box>
-          <Header text="Grafik perkembangan indikator" />
-          <SubHeader text="Menampilkan perkembangan indikator dari tahun ke tahun" />
-        </Box>
-        <Box>
-          <FormControl>
-            <Select
-              defaultValue={'area'}
-              value={chartType}
-              onChange={handleChartTypeChange}
-            >
-              <MenuItem value="area">Area Chart</MenuItem>
-              <MenuItem value="bar">Bar Chart</MenuItem>
-            </Select>
-          </FormControl>
-        </Box>
-      </Stack>
-      <Box
-        sx={{
-          minHeight: 600,
-          backgroundColor: GREY[200],
-          p: 1,
-          mt: 2,
-          borderRadius: 2,
-        }}
-      >
-        <Card>
-          {/* <Divider sx={{ mt: 2, mb: 1 }} /> */}
-          <Grid
-            sm={[6, 6]}
-            gridItem={[
-              <Box>
-                <Stack
-                  flexDirection="row"
-                  alignItems="center"
-                  justifyContent="space-between"
-                  sx={{ minHeight: 80 }}
-                >
-                  <Box>
-                    <SubHeader text="Jumlah data yang memenuhi" />
-                    <Header
-                      text={`${IndicatorOverview.totalFulfilled}`}
-                      variant="h3"
-                    />
-                  </Box>
-                  <Avatar
-                    sx={{
-                      backgroundColor: SUCCESS.main,
-                      width: 44,
-                      height: 44,
-                    }}
-                  >
-                    <DoneAllIcon />
-                  </Avatar>
-                </Stack>
-              </Box>,
-              <Box>
-                <Stack
-                  flexDirection="row"
-                  alignItems="center"
-                  justifyContent="space-between"
-                  sx={{ minHeight: 80 }}
-                >
-                  <Box>
-                    <SubHeader text="Jumlah data yang belum memenuhi" />
-                    <Header
-                      text={`${IndicatorOverview.totalFailed}`}
-                      variant="h3"
-                    />
-                  </Box>
-                  <Avatar
-                    sx={{
-                      backgroundColor: ERROR.main,
-                      width: 44,
-                      height: 44,
-                    }}
-                  >
-                    <CancelIcon />
-                  </Avatar>
-                </Stack>
-              </Box>,
-            ]}
-          />
-          <Divider sx={{ mt: 2, mb: 1 }} />
-          <Box>
-            {isLoading ? (
-              <Skeleton height={400} />
-            ) : (
-              <div>
-                <CustomChart
-                  chartOptions={chartOptions}
-                  series={series}
-                  type={chartType}
-                  height={400}
-                />
-              </div>
-            )}
-          </Box>
-        </Card>
+      <Box>
+        <Header text="Grafik perkembangan indikator" />
+        <SubHeader text="Menampilkan perkembangan indikator dari tahun ke tahun" />
+      </Box>
+      {/* <Grid
+        sm={[6, 6]}
+        gridItem={
+          [
+            // <Box>
+            //   <Stack
+            //     flexDirection="row"
+            //     alignItems="center"
+            //     justifyContent="space-between"
+            //     sx={{ minHeight: 80 }}
+            //   >
+            //     <Box>
+            //       <SubHeader text="Jumlah data yang memenuhi" />
+            //       <Header
+            //         text={`${IndicatorOverview.totalFulfilled}`}
+            //         variant="h3"
+            //       />
+            //     </Box>
+            //     <Avatar
+            //       sx={{
+            //         backgroundColor: SUCCESS.main,
+            //         width: 44,
+            //         height: 44,
+            //       }}
+            //     >
+            //       <DoneAllIcon />
+            //     </Avatar>
+            //   </Stack>
+            // </Box>,
+            // <Box>
+            //   <Stack
+            //     flexDirection="row"
+            //     alignItems="center"
+            //     justifyContent="space-between"
+            //     sx={{ minHeight: 80 }}
+            //   >
+            //     <Box>
+            //       <SubHeader text="Jumlah data yang belum memenuhi" />
+            //       <Header
+            //         text={`${IndicatorOverview.totalFailed}`}
+            //         variant="h3"
+            //       />
+            //     </Box>
+            //     <Avatar
+            //       sx={{
+            //         backgroundColor: ERROR.main,
+            //         width: 44,
+            //         height: 44,
+            //       }}
+            //     >
+            //       <CancelIcon />
+            //     </Avatar>
+            //   </Stack>
+            // </Box>,
+          ]
+        }
+      /> */}
+      <Divider sx={{ mt: 2, mb: 1 }} />
+      <Box>
+        {isLoading ? (
+          <Skeleton height={400} />
+        ) : (
+          <div>
+            <CustomChart
+              chartOptions={chartOptions}
+              series={series}
+              type="bar"
+              height={400}
+            />
+          </div>
+        )}
       </Box>
     </Card>
+    //   </Box>
+    // </Card>
   );
 };
 

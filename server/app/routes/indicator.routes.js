@@ -11,6 +11,8 @@ const getFakultasIndicators = require('../controllers/indicator/get-fakultas-ind
 
 const createIndicator = require('../controllers/indicator/post-indicator');
 const postDataToIndicator = require('../controllers/indicator/post-data-to-indicator');
+const postDataFacultyIndicator = require('../controllers/indicator/post-data-faculty-indicator');
+const postDataMajorIndicator = require('../controllers/indicator/post-data-major-indicator');
 
 const updateIndicatorName = require('../controllers/indicator/put-indicator-name');
 
@@ -36,6 +38,16 @@ router.get('/fakultas', verifyAccessToken, getFakultasIndicators);
 
 router.post('/indicator', verifyAccessToken, createIndicator);
 router.post('/indicator/insert-data', verifyAccessToken, postDataToIndicator);
+router.post(
+  '/indicator/insert-data-faculty',
+  verifyAccessToken,
+  postDataFacultyIndicator
+);
+router.post(
+  '/indicator/insert-data-major',
+  verifyAccessToken,
+  postDataMajorIndicator
+);
 
 router.delete('/indicator', verifyAccessToken, deleteIndicatorById);
 router.delete('/indicator-data', verifyAccessToken, deleteDataIndicator);

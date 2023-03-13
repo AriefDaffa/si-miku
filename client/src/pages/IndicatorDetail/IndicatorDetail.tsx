@@ -44,21 +44,6 @@ const IndicatorDetail: FC = () => {
         ) : (
           <MajorSection data={indicator} isLoading={isIndicatorLoading} />
         )}
-        {/* <ChartSection
-          indicatorData={indicator.facultyIndicators.data}
-          isIndicatorLoading={isIndicatorLoading}
-        />
-        <TableSection
-          data={indicator.facultyIndicators.data}
-          isLoading={isIndicatorLoading}
-          indicatorID={indicator.indicatorID}
-          indicatorCode={indicator.indicatorCode}
-          indicatorName={indicator.indicatorName}
-        /> */}
-        {/* <JurusanSection
-          indicatorData={indicator}
-          isIndicatorLoading={isIndicatorLoading}
-        /> */}
       </Container>
     </>
   );

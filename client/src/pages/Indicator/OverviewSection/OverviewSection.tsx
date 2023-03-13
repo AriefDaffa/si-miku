@@ -78,14 +78,6 @@ const OverviewSection: FC<OverviewSectionProps> = (props) => {
             />,
           ]}
         />,
-        // <div>
-        //   <CustomChart
-        //     chartOptions={chartOptions}
-        //     series={series}
-        //     type={'pie'}
-        //     height={400}
-        //   />
-        // </div>,
       ]}
     />
   );

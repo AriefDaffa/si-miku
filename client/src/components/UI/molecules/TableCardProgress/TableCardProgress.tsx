@@ -130,13 +130,10 @@ const TableSection: FC<TableSectionProps> = (props) => {
             <Stack>
               {isManagement && (
                 <>
-                  <Button
-                    color="error"
-                    variant="contained"
-                    disabled={!selected.length}
-                  >
-                    Delete Bulk
-                  </Button>
+                  <DeleteBulkButton
+                    selectedData={selected}
+                    setSelected={setSelected}
+                  />
                   {selected.length !== 0 && (
                     <SubHeader
                       text={`Selected ${selected.length} data`}

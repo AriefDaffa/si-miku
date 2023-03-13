@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import type { FC, SyntheticEvent, ChangeEvent } from 'react';
+import type { FC, SyntheticEvent, ChangeEvent, ReactNode } from 'react';
 
 import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
@@ -33,10 +33,18 @@ interface TableSectionProps {
   indicatorCode: string;
   indicatorName: string;
   data: TargetQuartersNormalized[];
+  TambahDataComponent?: ReactNode;
 }
 
 const TableSection: FC<TableSectionProps> = (props) => {
-  const { data, indicatorCode, indicatorID, indicatorName, isLoading } = props;
+  const {
+    data,
+    indicatorCode,
+    indicatorID,
+    indicatorName,
+    isLoading,
+    TambahDataComponent,
+  } = props;
 
   const [selected, setSelected] = useState<number[]>([]);
   const [page, setPage] = useState(0);
@@ -221,11 +229,7 @@ const TableSection: FC<TableSectionProps> = (props) => {
           </Stack>
           {isManagement && (
             <Stack flexDirection="row" sx={{ float: 'right', mb: 2 }}>
-              <Box sx={{ mr: 1 }}>
-                <Button color="primary" variant="contained">
-                  Tambah Data Indikator
-                </Button>
-              </Box>
+              <Box sx={{ mr: 1 }}>{TambahDataComponent}</Box>
               <Box>
                 <DeleteBulkButton
                   selectedData={selected}

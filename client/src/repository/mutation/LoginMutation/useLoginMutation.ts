@@ -5,9 +5,15 @@ import baseAPI from '@/utils/axios-utils';
 import { LoginProps } from './types';
 
 const useLoginMutation = () => {
-  const mutation = useMutation(async (data: LoginProps) => {
-    const { user_email, password } = data;
-    return await baseAPI.post('/login', { user_email, password });
+  const mutation = useMutation({
+    mutationFn: (data: LoginProps) => {
+      const { user_email, password } = data;
+      return baseAPI.post(
+        '/login',
+        { user_email, password },
+        { validateStatus: () => true }
+      );
+    },
   });
 
   return mutation;
