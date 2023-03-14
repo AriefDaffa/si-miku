@@ -4,7 +4,6 @@ import type { FC } from 'react';
 import Container from '@mui/material/Container';
 
 import Helmet from '@/components/UI/atoms/Helmet';
-import useYearQuery from '@/repository/query/YearQuery';
 import useIndicatorByIdQuery from '@/repository/query/IndicatorByIdQuery';
 
 import HeadSection from './HeadSection';
@@ -18,7 +17,6 @@ const IndicatorDetail: FC = () => {
 
   const id = params.id || '';
 
-  // const { data: year, isLoading: isYearLoading } = useYearQuery();
   const { data: indicator, isLoading: isIndicatorLoading } =
     useIndicatorByIdQuery(id);
 

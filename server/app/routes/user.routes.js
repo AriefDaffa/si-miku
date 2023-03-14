@@ -10,6 +10,7 @@ const {
 const getUser = require('../controllers/user/get-user');
 const createOperator = require('../controllers/user/post-user-operator');
 const deleteUser = require('../controllers/user/delete-user');
+const updateUserProfile = require('../controllers/user/put-update-user-profile');
 
 const {
   verifyAccessToken,
@@ -26,6 +27,8 @@ router.get('/current-user-role', verifyManagement, getUserRole);
 
 router.post('/users', verifyManagement, registerUser);
 router.post('/users/operator', verifyManagement, createOperator);
+
+router.put('/user', verifyAccessToken, updateUserProfile);
 
 router.delete('/user', verifyManagement, deleteUser);
 

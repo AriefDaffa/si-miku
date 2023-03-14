@@ -2,7 +2,7 @@ const jwt = require('jsonwebtoken');
 const model = require('../../models');
 
 const createIndicator = async (req, res) => {
-  const { indicator } = req.body;
+  const { indicator_code, indicator_name, is_faculty_indicator } = req.body;
   const cookies = req.cookies.accessToken;
 
   try {
@@ -18,45 +18,37 @@ const createIndicator = async (req, res) => {
           attributes: ['major_id'],
         });
 
-        const findIndicators = await model.Indicator.findAll({
+        const findIndicators = await model.Indicator.findOne({
           where: {
-            indicator_code: indicator.map((item) => item.indicator_code),
+            indicator_code,
           },
         });
 
-        if (findIndicators.length !== 0) {
+        if (findIndicators) {
           return res.status(400).json({
             message: 'Error! Indikator sudah terdapat pada sistem',
           });
         }
 
-        const indicators = await model.Indicator.bulkCreate(
-          indicator.map((item) => {
-            return {
-              indicator_code: item.indicator_code,
-              indicator_name: item.indicator_name,
-              is_faculty_indicator: item.is_faculty_indicator,
-              created_by: decodedVal.user_id,
-            };
-          })
-        );
+        const indicators = await model.Indicator.create({
+          indicator_code,
+          indicator_name,
+          is_faculty_indicator,
+          created_by: decodedVal.user_id,
+        });
 
-        await Promise.all(
-          indicators.map(async (item) => {
-            if (!item.is_faculty_indicator) {
-              await model.MajorIndicator.bulkCreate(
-                majorId.map((data) => {
-                  return {
-                    indicator_id: item.indicator_id,
-                    major_id: data.major_id,
-                  };
-                })
-              );
-            }
-          })
-        );
+        if (is_faculty_indicator === false) {
+          await model.MajorIndicator.bulkCreate(
+            majorId.map((data) => {
+              return {
+                indicator_id: indicators.indicator_id,
+                major_id: data.major_id,
+              };
+            })
+          );
+        }
 
-        res.json({ message: 'Data berhasil dibuat' });
+        res.json({ message: 'Data berhasil ditambahkan!' });
       }
     );
   } catch (error) {

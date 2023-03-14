@@ -9,6 +9,7 @@ import Button from '@mui/material/Button';
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
+import Alert from '@mui/material/Alert';
 
 import logo from '@/assets/logo/logo.png';
 import Grid from '@/components/UI/atoms/Grid';
@@ -119,10 +120,7 @@ const Login: FC = () => {
                   )}
                 />,
                 isError && (
-                  <MessageCard
-                    color={ERROR.main}
-                    message={`Error: ${String(error || '')}`}
-                  />
+                  <Alert severity="error">Error: {String(error || '')}</Alert>
                 ),
               ]}
             />

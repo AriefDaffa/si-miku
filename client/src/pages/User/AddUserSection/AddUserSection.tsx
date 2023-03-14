@@ -10,12 +10,12 @@ import Button from '@mui/material/Button';
 import Card from '@/components/UI/atoms/Card';
 import Grid from '@/components/UI/atoms/Grid';
 import LoadingPopup from '@/components/UI/atoms/Loader/LoadingPopup';
+import useUserQuery from '@/repository/query/UserQuery/useUserQuery';
 import useCreateOperatorMutation from '@/repository/mutation/CreateOperatorMutation';
 import { Header } from '@/components/UI/atoms/Typography';
 import { useYupValidationResolver } from '@/hooks/use-yup-validation-resolver';
 
 import { UserData } from './types';
-import useUserQuery from '@/repository/query/UserQuery/useUserQuery';
 
 const AddUserSection: FC = () => {
   const [openLoading, setOpenLoading] = useState(false);

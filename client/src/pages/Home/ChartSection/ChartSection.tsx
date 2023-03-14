@@ -9,8 +9,6 @@ import Avatar from '@mui/material/Avatar';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 import Divider from '@mui/material/Divider';
-import DoneAllIcon from '@mui/icons-material/DoneAll';
-import CancelIcon from '@mui/icons-material/Cancel';
 
 import useChartStyle from '@/hooks/use-chart-style';
 import Card from '@/components/UI/atoms/Card';

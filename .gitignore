@@ -15,6 +15,7 @@ client/*.local
 server/node_modules
 server/uploads
 server/images
+server/static/images
 
 # Editor directories and files
 .vscode/*

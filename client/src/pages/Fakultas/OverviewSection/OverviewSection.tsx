@@ -51,19 +51,19 @@ const OverviewSection: FC<OverviewSectionProps> = (props) => {
             Icon={DoneAllIcon}
             backgroundColor={SUCCESS.main}
             color=""
-            title="Indikator memenuhi target"
+            title="Data memenuhi target"
             value={data.totalFulfilled}
           />,
           <CardCount
             Icon={CancelIcon}
             backgroundColor={ERROR.main}
             color=""
-            title="Indikator belum memenuhi target"
+            title="Data belum memenuhi target"
             value={data.totalFailed}
           />,
           <ProgressCard
             isTitleCenter
-            headertext="Progress indikator"
+            headertext="Progress indikator Fakultas"
             value={percentage}
           />,
         ]}

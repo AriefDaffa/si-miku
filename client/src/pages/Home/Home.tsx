@@ -31,14 +31,14 @@ const Home: FC = () => {
         sm={[6, 6]}
         gridItem={[
           <CardCount
-            title="Indikator memenuhi target"
+            title="Data memenuhi target"
             backgroundColor={SUCCESS.main}
             color={''}
             value={indicatorOverview.totalFulfilled}
             Icon={DoneAllIcon}
           />,
           <CardCount
-            title="Indikator belum memenuhi target"
+            title="Data belum memenuhi target"
             backgroundColor={ERROR.main}
             color={''}
             value={indicatorOverview.totalFailed}

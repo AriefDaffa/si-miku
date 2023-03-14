@@ -40,11 +40,18 @@ app.use(cors({ credentials: true, origin: 'http://localhost:5173' }));
 app.use(express.json());
 app.use(cookieParser());
 app.use(multer({ storage: fileStore, fileFilter: fileFilter }).single('image'));
+
 // connect database
 connectDB();
 
-//handle static image
+//handle static assets
 app.use('/images', express.static(path.join(__dirname + '/images')));
+app.get('/template', function (req, res) {
+  const file = path.join(
+    __dirname + '/static/template/bulk-input-template-si-miku.xlsx'
+  );
+  res.download(file);
+});
 
 //import router
 app.use(indicatorRoutes);

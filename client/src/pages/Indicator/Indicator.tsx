@@ -17,6 +17,7 @@ import { GREY, PRIMARY } from '@/components/theme/Colors';
 import { Header, PageTitle, SubHeader } from '@/components/UI/atoms/Typography';
 
 import OverviewSection from './OverviewSection';
+import InputSection from './InputSection';
 
 const Indicator: FC = () => {
   const [indicatorType, setIndicatorType] = useState('1');
@@ -53,6 +54,7 @@ const Indicator: FC = () => {
           spacing={2}
           gridItem={[
             <OverviewSection data={listIndicator} />,
+            // <InputSection />,
             <Card>
               <Stack
                 flexDirection="row"
@@ -83,10 +85,6 @@ const Indicator: FC = () => {
                   data={dataSwitcher()}
                   isLoading={isListIndicatorLoading}
                 />
-                {/* <TableSection
-                  data={dataSwitcher()}
-                  isLoading={isListIndicatorLoading}
-                /> */}
               </Box>
             </Card>,
           ]}

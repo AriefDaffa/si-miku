@@ -10,6 +10,7 @@ const getYear = require('../controllers/indicator/get-year');
 const getFakultasIndicators = require('../controllers/indicator/get-fakultas-indicator');
 
 const createIndicator = require('../controllers/indicator/post-indicator');
+const createIndicatorBulk = require('../controllers/indicator/post-indicator-bulk');
 const postDataToIndicator = require('../controllers/indicator/post-data-to-indicator');
 const postDataFacultyIndicator = require('../controllers/indicator/post-data-faculty-indicator');
 const postDataMajorIndicator = require('../controllers/indicator/post-data-major-indicator');
@@ -37,6 +38,7 @@ router.get('/year', verifyAccessToken, getYear);
 router.get('/fakultas', verifyAccessToken, getFakultasIndicators);
 
 router.post('/indicator', verifyAccessToken, createIndicator);
+router.post('/indicator-bulk', verifyAccessToken, createIndicatorBulk);
 router.post('/indicator/insert-data', verifyAccessToken, postDataToIndicator);
 router.post(
   '/indicator/insert-data-faculty',
