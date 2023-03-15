@@ -177,12 +177,7 @@ const TableSection: FC<TableSectionProps> = (props) => {
                 <TableCell onClick={(e) => e.stopPropagation()}>
                   {isManagement && (
                     <Stack flexDirection="row">
-                      <EditButton
-                        id={item.yearID}
-                        indicatorCode={'item.yearID'}
-                        indicatorName={'item.q1'}
-                        setSelected={setSelected}
-                      />
+                      <EditButton item={item} setSelected={setSelected} />
                       <DeleteButton
                         id={item.yearID}
                         setSelected={setSelected}

@@ -1,44 +1,60 @@
+import * as yup from 'yup';
 import { useState } from 'react';
-import { useForm } from 'react-hook-form';
+import { Controller, useForm } from 'react-hook-form';
 import type { FC, SyntheticEvent, Dispatch, SetStateAction } from 'react';
 
 import Box from '@mui/material/Box';
 import IconButton from '@mui/material/IconButton';
-import Stack from '@mui/material/Stack';
+import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
 import EditIcon from '@mui/icons-material/Edit';
+import { DatePicker } from '@mui/x-date-pickers';
 
 import Grid from '@/components/UI/atoms/Grid';
 import DialogPopup from '@/components/UI/atoms/DialogPopup';
 import useIndicatorQuery from '@/repository/query/IndicatorQuery';
 import LoadingPopup from '@/components/UI/atoms/Loader/LoadingPopup';
-import { Header } from '@/components/UI/atoms/Typography';
-import { TextInput } from '@/components/UI/atoms/Input';
 import { useUpdateIndicatorMutation } from '@/repository/mutation/UpdateIndicatorMutation';
+import { useYupValidationResolver } from '@/hooks/use-yup-validation-resolver';
+import type { TargetQuartersNormalized } from '@/repository/query/IndicatorByIdQuery';
 
 interface EditButtonProps {
-  id: number;
-  indicatorCode: string;
-  indicatorName: string;
+  item: TargetQuartersNormalized;
   setSelected: Dispatch<SetStateAction<number[]>>;
 }
 
 const EditButton: FC<EditButtonProps> = (props) => {
-  const { id, indicatorCode, indicatorName, setSelected } = props;
+  const { item, setSelected } = props;
 
   const [openDialog, setOpenDialog] = useState(false);
   const [successDialog, setSuccessDialog] = useState(false);
   const [loading, setLoading] = useState(false);
 
+  const schema = yup.object().shape({
+    year_value: yup.date().required('Tahun tidak boleh kosong'),
+    q1: yup.number().required('Field tidak boleh kosong!'),
+    q2: yup.number().required('Field tidak boleh kosong!'),
+    q3: yup.number().required('Field tidak boleh kosong!'),
+    q4: yup.number().required('Field tidak boleh kosong!'),
+    target_value: yup.number().required('Target tidak boleh kosong!'),
+  });
+
+  const resolver = useYupValidationResolver(schema);
+
   const { control, handleSubmit } = useForm({
     defaultValues: {
-      indicator_code: indicatorCode,
-      indicator_name: indicatorName,
+      year_value: item.yearValue,
+      q1: item.q1,
+      q2: item.q2,
+      q3: item.q3,
+      q4: item.q4,
+      target_value: item.targetValue,
     },
+    resolver,
   });
 
   const { mutate } = useUpdateIndicatorMutation();
@@ -49,19 +65,19 @@ const EditButton: FC<EditButtonProps> = (props) => {
     indicator_code: string;
   }) => {
     setOpenDialog(false);
-    setLoading(true);
-    mutate(
-      { id, data },
-      {
-        onSuccess: () =>
-          refetch().then(() => {
-            setLoading(false);
-            setSuccessDialog(true);
-            setSelected([]);
-          }),
-        onError: () => setLoading(false),
-      }
-    );
+    // setLoading(true);
+    // mutate(
+    //   { id, data },
+    //   {
+    //     onSuccess: () =>
+    //       refetch().then(() => {
+    //         setLoading(false);
+    //         setSuccessDialog(true);
+    //         setSelected([]);
+    //       }),
+    //     onError: () => setLoading(false),
+    //   }
+    // );
   };
 
   const handleOpen = (e: SyntheticEvent<HTMLButtonElement>) => {
@@ -99,19 +115,107 @@ const EditButton: FC<EditButtonProps> = (props) => {
               <Grid
                 spacing={2}
                 gridItem={[
-                  <TextInput
-                    control={control}
-                    label=""
-                    labelInside="Kode Indikator"
-                    name={`indicator_code`}
-                    type="text"
-                  />,
-                  <TextInput
-                    control={control}
-                    label=""
-                    labelInside="Nama Indikator"
-                    name={`indicator_name`}
-                    type="text"
+                  <Grid
+                    spacing={2}
+                    sm={[6, 6, 3, 3, 3, 3, 6]}
+                    gridItem={[
+                      <Controller
+                        name="year_value"
+                        control={control}
+                        rules={{ required: true }}
+                        render={({ field, fieldState }) => (
+                          <DatePicker
+                            label="Tahun"
+                            views={['year']}
+                            openTo={'year'}
+                            renderInput={(params) => (
+                              <TextField
+                                fullWidth
+                                error={fieldState.error ? true : false}
+                                helperText={fieldState.error?.message}
+                                {...params}
+                              />
+                            )}
+                            {...field}
+                          />
+                        )}
+                      />,
+                      <Controller
+                        name="target_value"
+                        control={control}
+                        rules={{ required: true }}
+                        render={({ field, fieldState }) => (
+                          <TextField
+                            fullWidth
+                            type="number"
+                            error={fieldState.error ? true : false}
+                            label={'Target'}
+                            helperText={fieldState.error?.message}
+                            {...field}
+                          />
+                        )}
+                      />,
+                      <Controller
+                        name="q1"
+                        control={control}
+                        rules={{ required: true }}
+                        render={({ field, fieldState }) => (
+                          <TextField
+                            fullWidth
+                            type="number"
+                            error={fieldState.error ? true : false}
+                            label={'Q1'}
+                            helperText={fieldState.error?.message}
+                            {...field}
+                          />
+                        )}
+                      />,
+                      <Controller
+                        name="q2"
+                        control={control}
+                        rules={{ required: true }}
+                        render={({ field, fieldState }) => (
+                          <TextField
+                            fullWidth
+                            type="number"
+                            error={fieldState.error ? true : false}
+                            label={'Q2'}
+                            helperText={fieldState.error?.message}
+                            {...field}
+                          />
+                        )}
+                      />,
+                      <Controller
+                        name="q3"
+                        control={control}
+                        rules={{ required: true }}
+                        render={({ field, fieldState }) => (
+                          <TextField
+                            fullWidth
+                            type="number"
+                            error={fieldState.error ? true : false}
+                            label={'Q3'}
+                            helperText={fieldState.error?.message}
+                            {...field}
+                          />
+                        )}
+                      />,
+                      <Controller
+                        name="q4"
+                        control={control}
+                        rules={{ required: true }}
+                        render={({ field, fieldState }) => (
+                          <TextField
+                            fullWidth
+                            type="number"
+                            error={fieldState.error ? true : false}
+                            label={'Q4'}
+                            helperText={fieldState.error?.message}
+                            {...field}
+                          />
+                        )}
+                      />,
+                    ]}
                   />,
                 ]}
               />

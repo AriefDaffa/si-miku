@@ -2,11 +2,9 @@ import { useMutation } from 'react-query';
 
 import baseAPI from '@/utils/axios-utils';
 
-import { UpdateUserTypes } from './types';
-
 const useUpdateUserProfileMutation = () => {
-  const mutation = useMutation(async (data: UpdateUserTypes) => {
-    return await baseAPI.put(`/user`, data);
+  const mutation = useMutation(async (data: FormData) => {
+    return await baseAPI.putForm(`/user`, data);
   });
 
   return mutation;

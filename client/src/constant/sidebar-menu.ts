@@ -26,22 +26,17 @@ export const NAV_ITEM = [
     isManagementOnly: false,
   },
   {
-    title: 'Departemen',
+    title: 'Jurusan',
     path: 'jurusan',
     Icon: SchoolIcon,
     isManagementOnly: false,
   },
   {
-    title: 'Input Indikator',
+    title: 'Tambah Indikator',
     path: 'indicator-input',
     Icon: EditIcon,
     isManagementOnly: true,
   },
-  // {
-  //   title: 'Profile',
-  //   path: 'profile',
-  //   Icon: AccountCircleIcon,
-  // },
 ];
 
 export const NAV_ITEM_SECONDARY = [

@@ -9,14 +9,14 @@ const connectDB = async () => {
 
     // uncomment this line if we want to generate the table
     // await model.db.sync({ force: true }).then(() => {
-    // model.Role.create({
-    //   role_id: 1,
-    //   role_name: 'Manajemen',
-    // });
-    // model.Role.create({
-    //   role_id: 2,
-    //   role_name: 'Operator',
-    // });
+    //   model.Role.create({
+    //     role_id: 1,
+    //     role_name: 'Manajemen',
+    //   });
+    //   model.Role.create({
+    //     role_id: 2,
+    //     role_name: 'Operator',
+    //   });
     // });
   } catch (error) {
     console.error(error);

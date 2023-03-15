@@ -20,7 +20,10 @@ const normalizer = (Deps?: CurrentUserResponse) => {
   if (Deps !== void 0 && !(Deps instanceof AxiosError)) {
     result.userName = Deps.data.username || '';
     result.email = Deps.data.email || '';
-    result.userImage = Deps.data.userImage || '';
+    result.userImage =
+      Deps.data.userImage === ''
+        ? ''
+        : import.meta.env.VITE_BASE_API_URL + Deps.data.userImage;
   }
 
   return result;

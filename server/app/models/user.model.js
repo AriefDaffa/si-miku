@@ -16,7 +16,7 @@ const User = db.define('users', {
     unique: true,
   },
   user_image: {
-    type: DataTypes.BLOB('long'),
+    type: DataTypes.STRING,
   },
   password: {
     type: DataTypes.STRING,
