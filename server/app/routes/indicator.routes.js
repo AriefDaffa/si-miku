@@ -4,6 +4,7 @@ const getAllIndicators = require('../controllers/indicator/get-all-indicator');
 const getIndicatorById = require('../controllers/indicator/get-indicator-by-id');
 const getOverviewIndicator = require('../controllers/indicator/get-overview-indicator');
 const getFakultasIndicators = require('../controllers/indicator/get-fakultas-indicator');
+const getIndicatorByMajorId = require('../controllers/indicator/get-indicator-by-major-id');
 
 const createIndicator = require('../controllers/indicator/post-indicator');
 const createIndicatorBulk = require('../controllers/indicator/post-indicator-bulk');
@@ -23,6 +24,7 @@ router.get('/indicator', verifyAccessToken, getAllIndicators);
 router.get('/indicator/overview', verifyAccessToken, getOverviewIndicator);
 router.get('/indicator/:id', verifyAccessToken, getIndicatorById);
 router.get('/fakultas', verifyAccessToken, getFakultasIndicators);
+router.get('/indicator/major/:id', verifyAccessToken, getIndicatorByMajorId);
 
 router.post('/indicator', verifyAccessToken, createIndicator);
 router.post('/indicator-bulk', verifyAccessToken, createIndicatorBulk);

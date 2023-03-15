@@ -24,7 +24,7 @@ const OverviewCard: FC<OverviewCardProps> = (props) => {
   const percentage = getPercentage(fulfilled, fulfilled + failed);
 
   return (
-    <Box sx={{ my: 2 }}>
+    <Box>
       <Stack>{/* <Header text="Perkembangan Indikator" /> */}</Stack>
       <Grid
         spacing={2}

@@ -4,6 +4,7 @@ import type { FC } from 'react';
 
 import Container from '@mui/material/Container';
 
+import Grid from '@/components/UI/atoms/Grid';
 import Helmet from '@/components/UI/atoms/Helmet';
 import OverviewCard from '@/components/UI/organism/OverviewCard';
 import TableCardProgress from '@/components/UI/molecules/TableCardProgress';
@@ -25,13 +26,20 @@ const JurusanDetail: FC = () => {
       <Helmet title={`${major.majorName} | SI-MIKU`} />
       <Container maxWidth="xl">
         <HeadSection id={id} majorData={major} />
-        <OverviewCard
-          fulfilled={major.totalFulfilled}
-          failed={major.totalFailed}
-          isLoading={isMajorLoading}
+        <Grid
+          gridItem={[
+            <OverviewCard
+              fulfilled={major.totalFulfilled}
+              failed={major.totalFailed}
+              isLoading={isMajorLoading}
+            />,
+            <ChartSection majorData={major} isLoading={isMajorLoading} />,
+            <TableCardProgress
+              data={major.indicatorList}
+              isLoading={isMajorLoading}
+            />,
+          ]}
         />
-        <ChartSection majorData={major} isLoading={isMajorLoading} />
-        <TableCardProgress data={major.indicatorList} isLoading={isMajorLoading} />
       </Container>
     </>
   );

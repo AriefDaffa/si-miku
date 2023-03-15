@@ -143,17 +143,16 @@ const BulkInput: FC<BulkInputProps> = (props) => {
                 <DeleteIcon />
               </IconButton>
             )}
-            <Button variant="outlined">
-              <label htmlFor="file-id">Browse File</label>
+            <Button variant="outlined" component="label">
+              Browse File
+              <input
+                hidden
+                type="file"
+                key={inputKey || ''}
+                accept={SheetJSFT}
+                onChange={handleChange}
+              />
             </Button>
-            <input
-              type="file"
-              id="file-id"
-              key={inputKey || ''}
-              accept={SheetJSFT}
-              onChange={handleChange}
-              style={{ display: 'none' }}
-            />
           </Stack>
         </Stack>
         {isError && (

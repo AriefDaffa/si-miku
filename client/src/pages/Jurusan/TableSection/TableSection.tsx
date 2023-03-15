@@ -29,7 +29,6 @@ const TableSection: FC<TableSectionProps> = (props) => {
 
   return (
     <Grid
-      sx={{ pt: 2 }}
       gridItem={[
         <Card sx={{ overflowX: 'auto' }}>
           <Box sx={{ pb: 3 }}>
