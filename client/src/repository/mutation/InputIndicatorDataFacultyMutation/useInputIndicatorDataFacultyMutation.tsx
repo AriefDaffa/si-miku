@@ -4,12 +4,14 @@ import baseAPI from '@/utils/axios-utils';
 
 import type { IndicatorMutationTypes } from './types';
 
-const useInputIndicatorDataMutation = () => {
+const useInputIndicatorDataFacultyMutation = () => {
   const mutation = useMutation(async (data: IndicatorMutationTypes) => {
-    return await baseAPI.post('/indicator/insert-data-faculty', data);
+    return await baseAPI.post('/indicator/insert-data-faculty', data, {
+      validateStatus: () => true,
+    });
   });
 
   return mutation;
 };
 
-export default useInputIndicatorDataMutation;
+export default useInputIndicatorDataFacultyMutation;

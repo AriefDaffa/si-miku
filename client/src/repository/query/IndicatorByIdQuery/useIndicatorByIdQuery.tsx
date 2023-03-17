@@ -40,26 +40,16 @@ const normalizer = (Deps?: IndicatorByIdResponse) => {
     result.facultyIndicators.count = Deps.data.faculty_indicators.count;
     result.majorIndicators.count = Deps.data.major_indicators.count;
     Deps.data.faculty_indicators.data.map((item) => {
-      const {
-        is_target_fulfilled,
-        q1,
-        q2,
-        q3,
-        q4,
-        target_value,
-        year_id,
-        year_value,
-      } = item;
-
       result.facultyIndicators.data.push({
-        isTargetFulfilled: is_target_fulfilled,
-        q1,
-        q2,
-        q3,
-        q4,
-        targetValue: target_value,
-        yearID: year_id,
-        yearValue: year_value,
+        isTargetFulfilled: item.is_target_fulfilled,
+        q1: item.q1,
+        q2: item.q2,
+        q3: item.q3,
+        q4: item.q4,
+        targetValue: item.target_value,
+        yearID: item.year_id,
+        yearValue: item.year_value,
+        targetQuarterID: item.target_quarter_id,
       });
     });
     Deps.data.major_indicators.data.map((item) => {
@@ -67,29 +57,22 @@ const normalizer = (Deps?: IndicatorByIdResponse) => {
 
       result.majorIndicators.data.push({
         majorID: major_id,
-        majorImage: import.meta.env.VITE_BASE_API_URL + major_image,
+        majorImage:
+          major_image === ''
+            ? ''
+            : import.meta.env.VITE_BASE_API_URL + major_image,
         majorName: major_name,
         majorData: major_data.map((data) => {
-          const {
-            is_target_fulfilled,
-            q1,
-            q2,
-            q3,
-            q4,
-            target_value,
-            year_id,
-            year_value,
-          } = data;
-
           return {
-            isTargetFulfilled: is_target_fulfilled,
-            q1,
-            q2,
-            q3,
-            q4,
-            targetValue: target_value,
-            yearID: year_id,
-            yearValue: year_value,
+            isTargetFulfilled: data.is_target_fulfilled,
+            q1: data.q1,
+            q2: data.q2,
+            q3: data.q3,
+            q4: data.q4,
+            targetValue: data.target_value,
+            yearID: data.year_id,
+            yearValue: data.year_value,
+            targetQuarterID: data.target_quarter_id,
           };
         }),
       });

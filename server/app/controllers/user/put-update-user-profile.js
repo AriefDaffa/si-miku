@@ -8,7 +8,8 @@ const updateUserProfile = async (req, res) => {
   try {
     const { user_name, user_email } = req.body;
 
-    const file = req.file !== undefined ? 'images/' + req.file.filename : '';
+    const file =
+      req.file !== undefined ? 'images/profile/' + req.file.filename : '';
 
     // check if there is duplicate email
     const user = await model.User.findOne({

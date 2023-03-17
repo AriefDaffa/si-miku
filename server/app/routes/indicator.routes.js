@@ -12,11 +12,16 @@ const postDataFacultyIndicator = require('../controllers/indicator/post-data-fac
 const postDataMajorIndicator = require('../controllers/indicator/post-data-major-indicator');
 
 const updateIndicatorName = require('../controllers/indicator/put-indicator-name');
+const updateIndicatorData = require('../controllers/indicator/put-indicator-data');
 
 const deleteIndicatorById = require('../controllers/indicator/delete-indicator-by-id');
 const deleteDataIndicator = require('../controllers/indicator/delete-data-indicator');
+const deleteBulkDataIndicator = require('../controllers/indicator/delete-bulk-data-indicator');
 
-const { verifyAccessToken } = require('../middleware/verifyToken');
+const {
+  verifyAccessToken,
+  verifyManagement,
+} = require('../middleware/verifyToken');
 
 const router = express.Router();
 
@@ -26,22 +31,28 @@ router.get('/indicator/:id', verifyAccessToken, getIndicatorById);
 router.get('/fakultas', verifyAccessToken, getFakultasIndicators);
 router.get('/indicator/major/:id', verifyAccessToken, getIndicatorByMajorId);
 
-router.post('/indicator', verifyAccessToken, createIndicator);
-router.post('/indicator-bulk', verifyAccessToken, createIndicatorBulk);
+router.post('/indicator', verifyManagement, createIndicator);
+router.post('/indicator-bulk', verifyManagement, createIndicatorBulk);
 router.post(
   '/indicator/insert-data-faculty',
-  verifyAccessToken,
+  verifyManagement,
   postDataFacultyIndicator
 );
 router.post(
   '/indicator/insert-data-major',
-  verifyAccessToken,
+  verifyManagement,
   postDataMajorIndicator
 );
 
-router.delete('/indicator', verifyAccessToken, deleteIndicatorById);
-router.delete('/indicator-data', verifyAccessToken, deleteDataIndicator);
+router.delete('/indicator', verifyManagement, deleteIndicatorById);
+router.delete('/indicator/data', verifyManagement, deleteDataIndicator);
+// router.delete(
+//   '/indicator-data/bulk',
+//   verifyManagement,
+//   deleteBulkDataIndicator
+// );
 
-router.put('/indicator/:id', verifyAccessToken, updateIndicatorName);
+router.put('/indicator/:id', verifyManagement, updateIndicatorName);
+router.put('/indicator/:id/data', verifyManagement, updateIndicatorData);
 
 module.exports = router;

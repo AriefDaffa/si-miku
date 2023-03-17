@@ -1,5 +1,7 @@
+import moment from 'moment';
 import * as yup from 'yup';
 import { useState } from 'react';
+import { useQueryClient } from 'react-query';
 import { Controller, useForm } from 'react-hook-form';
 import type { FC, SyntheticEvent, Dispatch, SetStateAction } from 'react';
 
@@ -16,30 +18,34 @@ import { DatePicker } from '@mui/x-date-pickers';
 
 import Grid from '@/components/UI/atoms/Grid';
 import DialogPopup from '@/components/UI/atoms/DialogPopup';
-import useIndicatorQuery from '@/repository/query/IndicatorQuery';
 import LoadingPopup from '@/components/UI/atoms/Loader/LoadingPopup';
-import { useUpdateIndicatorMutation } from '@/repository/mutation/UpdateIndicatorMutation';
+import useUpdateIndicatorDataMutation from '@/repository/mutation/UpdateIndicatorDataMutation';
 import { useYupValidationResolver } from '@/hooks/use-yup-validation-resolver';
-import type { TargetQuartersNormalized } from '@/repository/query/IndicatorByIdQuery';
+import type {
+  TargetQuarter,
+  TargetQuarterNormalized,
+} from '@/repository/query/IndicatorByIdQuery';
+import type { SelectedPropTypes } from '../types';
 
 interface EditButtonProps {
-  item: TargetQuartersNormalized;
-  setSelected: Dispatch<SetStateAction<number[]>>;
+  indicatorID: number;
+  item: TargetQuarterNormalized;
+  setSelected: Dispatch<SetStateAction<SelectedPropTypes[]>>;
 }
 
 const EditButton: FC<EditButtonProps> = (props) => {
-  const { item, setSelected } = props;
+  const { item, indicatorID, setSelected } = props;
 
   const [openDialog, setOpenDialog] = useState(false);
   const [successDialog, setSuccessDialog] = useState(false);
   const [loading, setLoading] = useState(false);
 
   const schema = yup.object().shape({
-    year_value: yup.date().required('Tahun tidak boleh kosong'),
     q1: yup.number().required('Field tidak boleh kosong!'),
     q2: yup.number().required('Field tidak boleh kosong!'),
     q3: yup.number().required('Field tidak boleh kosong!'),
     q4: yup.number().required('Field tidak boleh kosong!'),
+    year_value: yup.date().required('Tahun tidak boleh kosong'),
     target_value: yup.number().required('Target tidak boleh kosong!'),
   });
 
@@ -47,7 +53,7 @@ const EditButton: FC<EditButtonProps> = (props) => {
 
   const { control, handleSubmit } = useForm({
     defaultValues: {
-      year_value: item.yearValue,
+      year_value: moment(String(item.yearValue)).toDate(),
       q1: item.q1,
       q2: item.q2,
       q3: item.q3,
@@ -57,27 +63,35 @@ const EditButton: FC<EditButtonProps> = (props) => {
     resolver,
   });
 
-  const { mutate } = useUpdateIndicatorMutation();
-  const { refetch } = useIndicatorQuery(true);
+  const queryClient = useQueryClient();
+  const { mutate } = useUpdateIndicatorDataMutation(indicatorID);
 
-  const handleOnClick = (data: {
-    indicator_name: string;
-    indicator_code: string;
-  }) => {
+  const handleOnClick = (data: TargetQuarter) => {
+    const payload = {
+      target_quarter_id: item.targetQuarterID,
+      q1: data.q1,
+      q2: data.q2,
+      q3: data.q3,
+      q4: data.q4,
+      target_value: data.target_value,
+    };
+
     setOpenDialog(false);
-    // setLoading(true);
-    // mutate(
-    //   { id, data },
-    //   {
-    //     onSuccess: () =>
-    //       refetch().then(() => {
-    //         setLoading(false);
-    //         setSuccessDialog(true);
-    //         setSelected([]);
-    //       }),
-    //     onError: () => setLoading(false),
-    //   }
-    // );
+    setLoading(true);
+    mutate(payload, {
+      onSuccess: (res) => {
+        if (res.status >= 400) {
+          throw res.data.message;
+        } else {
+          setSelected([]);
+          setLoading(false);
+          setSuccessDialog(true);
+        }
+
+        queryClient.invalidateQueries(['indicator', String(indicatorID)]);
+      },
+      onError: () => setLoading(false),
+    });
   };
 
   const handleOpen = (e: SyntheticEvent<HTMLButtonElement>) => {
@@ -111,7 +125,7 @@ const EditButton: FC<EditButtonProps> = (props) => {
         <DialogTitle id="alert-dialog-title">Edit data indikator</DialogTitle>
         <DialogContent>
           <form onSubmit={handleSubmit(handleOnClick)}>
-            <Box>
+            <Box sx={{ my: 2 }}>
               <Grid
                 spacing={2}
                 gridItem={[
@@ -125,6 +139,7 @@ const EditButton: FC<EditButtonProps> = (props) => {
                         rules={{ required: true }}
                         render={({ field, fieldState }) => (
                           <DatePicker
+                            disabled
                             label="Tahun"
                             views={['year']}
                             openTo={'year'}

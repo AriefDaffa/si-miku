@@ -36,7 +36,7 @@ const OverviewSection: FC<OverviewSectionProps> = (props) => {
     : indicatorData.majorIndicators.count.failed;
 
   return (
-    <Box sx={{ my: 2 }}>
+    <Box sx={{ mt: 2 }}>
       <Stack>{/* <Header text="Perkembangan Indikator" /> */}</Stack>
       <Grid
         spacing={2}

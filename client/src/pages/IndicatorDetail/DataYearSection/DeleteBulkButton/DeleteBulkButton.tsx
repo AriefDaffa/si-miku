@@ -1,4 +1,4 @@
-import { useNavigate } from 'react-router-dom';
+import { useQueryClient } from 'react-query';
 import { useState } from 'react';
 import type { FC, SyntheticEvent, Dispatch, SetStateAction } from 'react';
 
@@ -6,35 +6,41 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import DialogPopup from '@/components/UI/atoms/DialogPopup';
 import LoadingPopup from '@/components/UI/atoms/Loader/LoadingPopup';
-import useDeleteIndicatorMutation from '@/repository/mutation/DeleteIndicatorMutation';
-import useIndicatorQuery from '@/repository/query/IndicatorQuery';
+import useDeleteIndicatorDataMutation from '@/repository/mutation/DeleteIndicatorDataMutation';
+import type { SelectedPropTypes } from '../types';
 
 interface DeleteBulkButtonProps {
-  selectedData: number[];
-  setSelected: Dispatch<SetStateAction<number[]>>;
+  indicatorID: number;
+  selectedData: SelectedPropTypes[];
+  setSelected: Dispatch<SetStateAction<SelectedPropTypes[]>>;
 }
 
 const DeleteBulkButton: FC<DeleteBulkButtonProps> = (props) => {
-  const { selectedData, setSelected } = props;
+  const { indicatorID, selectedData, setSelected } = props;
 
   const [openDialog, setOpenDialog] = useState(false);
   const [successDialog, setSuccessDialog] = useState(false);
   const [loading, setLoading] = useState(false);
 
-  const { mutate, isLoading } = useDeleteIndicatorMutation();
-  const { refetch } = useIndicatorQuery();
+  const { mutate, isLoading } = useDeleteIndicatorDataMutation();
+  const queryClient = useQueryClient();
 
   const handleOnclick = (e: SyntheticEvent<HTMLButtonElement>) => {
     e.stopPropagation();
     setOpenDialog(false);
     setLoading(true);
     mutate(selectedData, {
-      onSuccess: () =>
-        refetch().then(() => {
+      onSuccess: (res) => {
+        if (res.status >= 400) {
+          throw res.data.message;
+        } else {
           setLoading(false);
           setSuccessDialog(true);
           setSelected([]);
-        }),
+        }
+
+        queryClient.invalidateQueries(['indicator', String(indicatorID)]);
+      },
       onError: () => setLoading(false),
     });
   };

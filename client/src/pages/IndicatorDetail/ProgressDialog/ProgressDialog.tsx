@@ -1,5 +1,5 @@
 import { useMemo } from 'react';
-import type { FC, Dispatch, SetStateAction } from 'react';
+import type { FC } from 'react';
 
 import Dialog from '@mui/material/Dialog';
 import Button from '@mui/material/Button';
@@ -23,18 +23,18 @@ import { ERROR, LIGHT, PRIMARY, SUCCESS } from '@/components/theme/Colors';
 import { Header, SubHeader } from '@/components/UI/atoms/Typography';
 
 import CountCard from './CountCard';
-import type { TargetQuartersNormalized } from '@/repository/query/IndicatorByIdQuery';
+import type { TargetQuarterNormalized } from '@/repository/query/IndicatorByIdQuery';
 
 interface ProgressDialogProps {
   indicatorCode: string;
   indicatorName: string;
   open: boolean;
-  data: TargetQuartersNormalized;
-  setOpenFullDialog: Dispatch<SetStateAction<boolean>>;
+  data: TargetQuarterNormalized;
+  handleCloseDetail: () => void;
 }
 
 const ProgressDialog: FC<ProgressDialogProps> = (props) => {
-  const { indicatorCode, indicatorName, data, open, setOpenFullDialog } = props;
+  const { indicatorCode, indicatorName, data, open, handleCloseDetail } = props;
 
   const { q1, q2, q3, q4, yearValue, targetValue, isTargetFulfilled } = data;
 
@@ -43,7 +43,6 @@ const ProgressDialog: FC<ProgressDialogProps> = (props) => {
   const chartOptions = useChartStyle({
     legend: { floating: false, horizontalAlign: 'center', position: 'bottom' },
     dataLabels: { enabled: false, dropShadow: { enabled: false } },
-    // colors: [SUCCESS.dark, ERROR.dark],
     markers: {
       size: 5,
     },
@@ -75,13 +74,8 @@ const ProgressDialog: FC<ProgressDialogProps> = (props) => {
     ];
   }, [q1, q2, q3, q4, indicatorName]);
 
-  const handleClose = () => {
-    setOpenFullDialog(false);
-  };
-
   return (
-    <Dialog fullWidth maxWidth={'xl'} open={open} onClose={handleClose}>
-      {/* <DialogTitle>Perkembangan data indikator</DialogTitle> */}
+    <Dialog fullWidth maxWidth={'xl'} open={open} onClose={handleCloseDetail}>
       <DialogContent sx={{ backgroundColor: LIGHT.main }}>
         <Box sx={{ mb: 1 }}>
           <SubHeader text="Indikator" />

@@ -1,6 +1,6 @@
 const model = require('../../models');
 
-const deleteDataIndicator = async (req, res) => {
+const deleteBulkDataIndicator = async (req, res) => {
   try {
     const { indicator } = req.body;
     // const { indicator_id, year_id, target_quarter_id } = req.body;
@@ -67,4 +67,4 @@ const deleteDataIndicator = async (req, res) => {
   }
 };
 
-module.exports = deleteDataIndicator;
+module.exports = deleteBulkDataIndicator;

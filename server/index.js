@@ -22,7 +22,14 @@ app.use(cookieParser());
 connectDB();
 
 //handle static assets
-app.use('/images', express.static(path.join(__dirname + '/static/images')));
+app.use(
+  '/images/logo',
+  express.static(path.join(__dirname + '/static/images/logo'))
+);
+app.use(
+  '/images/profile',
+  express.static(path.join(__dirname + '/static/images/user-profile'))
+);
 app.get('/template', function (req, res) {
   const file = path.join(
     __dirname + '/static/template/bulk-input-template-si-miku.xlsx'

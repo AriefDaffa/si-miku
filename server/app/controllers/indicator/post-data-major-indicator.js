@@ -9,8 +9,6 @@ const postDataMajorIndicator = async (req, res) => {
     const is_target_fulfilled = total === 0 ? false : total >= target_value;
     let year_id = 0;
 
-    console.log(is_target_fulfilled);
-
     // --- check if the indicator is available -- //
     const checkIndicator = await model.Indicator.findOne({
       where: {
@@ -44,6 +42,25 @@ const postDataMajorIndicator = async (req, res) => {
         major_id,
       },
     });
+
+    const findDuplicate = await model.MajorIndicatorYear.findOne({
+      where: {
+        year_id,
+        major_indicator_id: majorIndicator.major_indicator_id,
+      },
+    });
+
+    if (findDuplicate) {
+      const major = await model.Major.findOne({
+        where: {
+          major_id,
+        },
+      });
+
+      return res.status(400).json({
+        message: `Error! Data indikator jurusan ${major.major_name} untuk tahun ${year_value} sudah terdapat pada server`,
+      });
+    }
 
     const targetQuarter = await model.TargetQuarters.create({
       target_value,

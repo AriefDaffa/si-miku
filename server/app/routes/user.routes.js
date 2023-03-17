@@ -17,7 +17,7 @@ const router = express.Router();
 
 const fileStore = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, 'static/images');
+    cb(null, 'static/images/user-profile');
   },
   filename: (req, file, cb) => {
     cb(null, new Date().getTime() + '-' + file.originalname);
@@ -46,7 +46,7 @@ router.post('/users/operator', verifyManagement, createOperator);
 
 router.put(
   '/user',
-  [verifyAccessToken, upload.single('image')],
+  [verifyAccessToken, upload.single('profile-image')],
   updateUserProfile
 );
 

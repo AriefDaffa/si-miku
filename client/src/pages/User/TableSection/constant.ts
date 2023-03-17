@@ -1,1 +1,1 @@
-export const tableHeader = ['No.', 'Nama User', 'Email User', ''];
+export const tableHeader = ['No.', 'User', 'Email User', ''];

@@ -16,6 +16,10 @@ const normalizer = (Deps?: UserResponse) => {
         userID: item.user_id,
         userEmail: item.user_email,
         userName: item.user_name,
+        userImage:
+          item.user_image === ''
+            ? ''
+            : import.meta.env.VITE_BASE_API_URL + item.user_image,
       });
     });
   }

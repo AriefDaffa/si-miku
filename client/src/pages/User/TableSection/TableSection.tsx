@@ -3,7 +3,7 @@ import { debounce } from 'lodash';
 import { useState } from 'react';
 import type { FC, SyntheticEvent, ChangeEvent } from 'react';
 
-import Box from '@mui/material/Box';
+import Avatar from '@mui/material/Avatar';
 import Stack from '@mui/material/Stack';
 import Checkbox from '@mui/material/Checkbox';
 import TableRow from '@mui/material/TableRow';
@@ -14,8 +14,6 @@ import TextField from '@mui/material/TextField';
 import Pagination from '@mui/material/Pagination';
 import Button from '@mui/material/Button';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
-// import IconButton from '@mui/material/IconButton';
-// import FilterListIcon from '@mui/icons-material/FilterList';
 
 import Grid from '@/components/UI/atoms/Grid';
 import Card from '@/components/UI/atoms/Card';
@@ -24,12 +22,12 @@ import { Header, SubHeader } from '@/components/UI/atoms/Typography';
 import { GREY } from '@/components/theme/Colors';
 import { getProgressColor } from '@/utils/get-progress-bar-color';
 import { getPercentage } from '@/utils/get-percentage';
+import type { UserDataNormalized } from '@/repository/query/UserQuery';
 
 import DeleteButton from './DeleteButton';
 import DeleteBulkButton from './DeleteBulkButton';
-import { tableHeader } from './constant';
 import EditButton from './EditButton';
-import type { UserDataNormalized } from '@/repository/query/UserQuery';
+import { tableHeader } from './constant';
 
 interface TableSectionProps {
   isLoading: boolean;
@@ -93,9 +91,7 @@ const TableSection: FC<TableSectionProps> = (props) => {
   };
 
   const modifiedData = data
-    .filter((a) =>
-      String(a.userID).concat(a.userName).toLowerCase().includes(keyword)
-    )
+    .filter((a) => String(a.userName).toLowerCase().includes(keyword))
     .slice(page * rows, page * rows + rows);
 
   return (
@@ -172,7 +168,14 @@ const TableSection: FC<TableSectionProps> = (props) => {
                   />
                 </TableCell>
                 <TableCell sx={{ minWidth: '120px' }}>
-                  <Header variant="subtitle2" text={`${item.userName}`} />
+                  <Stack
+                    flexDirection="row"
+                    alignItems="center"
+                    sx={{ gap: 1 }}
+                  >
+                    <Avatar src={item.userImage} />
+                    <Header variant="subtitle2" text={`${item.userName}`} />
+                  </Stack>
                 </TableCell>
                 <TableCell>
                   <Header variant="subtitle2" text={`${item.userEmail}`} />

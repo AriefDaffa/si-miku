@@ -74,7 +74,7 @@ const Profile: FC = () => {
 
     formData.append('user_name', data.user_name);
     formData.append('user_email', data.user_email);
-    formData.append('image', currentImage);
+    formData.append('profile-image', currentImage);
 
     mutate(formData, {
       onSuccess: (res) => {

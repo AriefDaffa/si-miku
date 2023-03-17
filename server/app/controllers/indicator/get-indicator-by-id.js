@@ -75,6 +75,7 @@ const getIndicatorById = async (req, res) => {
             major_image: item.major.major_image,
             major_data: item.major_indicator_years.map((data) => {
               return {
+                target_quarter_id: data.target_quarter.target_quarter_id,
                 year_id: data.year.year_id,
                 year_value: data.year.year_value,
                 target_value: data.target_quarter.target_value,
@@ -102,7 +103,6 @@ const getIndicatorById = async (req, res) => {
         ),
         data: indicator.faculty_indicators.map((item) => {
           return {
-            faculty_indicator_id: item.faculty_indicator_id,
             target_quarter_id: item.target_quarter.target_quarter_id,
             year_id: item.year.year_id,
             year_value: item.year.year_value,

@@ -1,42 +1,59 @@
 import { useState } from 'react';
+import { useQueryClient } from 'react-query';
 import type { FC, SyntheticEvent, Dispatch, SetStateAction } from 'react';
 
 import IconButton from '@mui/material/IconButton';
 import DeleteIcon from '@mui/icons-material/Delete';
 
 import DialogPopup from '@/components/UI/atoms/DialogPopup';
-import useDeleteIndicatorMutation from '@/repository/mutation/DeleteIndicatorMutation';
-import useIndicatorQuery from '@/repository/query/IndicatorQuery';
 import LoadingPopup from '@/components/UI/atoms/Loader/LoadingPopup';
+import useDeleteIndicatorDataMutation from '@/repository/mutation/DeleteIndicatorDataMutation';
+import type { TargetQuarterNormalized } from '@/repository/query/IndicatorByIdQuery';
+import type { SelectedPropTypes } from '../types';
 
 interface DeleteButtonProps {
-  id: number;
-  setSelected: Dispatch<SetStateAction<number[]>>;
+  indicatorID: number;
+  data: TargetQuarterNormalized;
+  setSelected: Dispatch<SetStateAction<SelectedPropTypes[]>>;
 }
 
 const DeleteButton: FC<DeleteButtonProps> = (props) => {
-  const { id, setSelected } = props;
+  const { data, indicatorID, setSelected } = props;
 
   const [openDialog, setOpenDialog] = useState(false);
   const [successDialog, setSuccessDialog] = useState(false);
   const [loading, setLoading] = useState(false);
 
-  const { mutate } = useDeleteIndicatorMutation();
-  const { refetch } = useIndicatorQuery(true);
+  const { mutate } = useDeleteIndicatorDataMutation();
+  const queryClient = useQueryClient();
 
   const handleOnclick = (e: SyntheticEvent<HTMLButtonElement>) => {
     e.stopPropagation();
     setOpenDialog(false);
     setLoading(true);
-    mutate([id], {
-      onSuccess: () =>
-        refetch().then(() => {
-          setLoading(false);
-          setSuccessDialog(true);
-          setSelected([]);
-        }),
-      onError: () => setLoading(false),
-    });
+
+    mutate(
+      [
+        {
+          indicator_id: indicatorID,
+          year_id: data.yearID,
+          target_quarter_id: data.targetQuarterID,
+        },
+      ],
+      {
+        onSuccess: (res) => {
+          if (res.status >= 400) {
+            throw res.data.message;
+          } else {
+            setSelected([]);
+            setLoading(false);
+          }
+
+          queryClient.invalidateQueries(['indicator', String(indicatorID)]);
+        },
+        onError: () => setLoading(false),
+      }
+    );
   };
 
   const handleOpen = (e: SyntheticEvent<HTMLButtonElement>) => {

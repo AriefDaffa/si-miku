@@ -9,5 +9,5 @@ export interface IndicatorMutationData {
 
 export interface IndicatorMutationTypes {
   indicator_id: number;
-  indicator_faculty_data: IndicatorMutationData[];
+  indicator_faculty_data: IndicatorMutationData;
 }

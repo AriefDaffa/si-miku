@@ -23,7 +23,9 @@ const normalizer = (Deps?: IndicatorByMajorResponse) => {
   if (Deps !== void 0 && !(Deps instanceof AxiosError)) {
     result.majorID = Deps.data.major_id;
     result.majorImage =
-      import.meta.env.VITE_BASE_API_URL + Deps.data.major_image;
+      Deps.data.major_image === ''
+        ? ''
+        : import.meta.env.VITE_BASE_API_URL + Deps.data.major_image;
     result.majorName = Deps.data.major_name;
     result.totalFulfilled = Deps.data.total_fulfilled;
     result.totalFailed = Deps.data.total_failed;
