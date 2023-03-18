@@ -7,7 +7,12 @@ export interface IndicatorMutationData {
   q4: number;
 }
 
+export interface IndicatorMajorData {
+  major_id: number;
+  major_data: IndicatorMutationData[];
+}
+
 export interface IndicatorMutationTypes {
   indicator_id: number;
-  indicator_faculty_data: IndicatorMutationData[];
+  indicator_major_data: IndicatorMajorData[];
 }

@@ -7,21 +7,22 @@ import type { FC } from 'react';
 
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
-import Select from '@mui/material/Select';
-import MenuItem from '@mui/material/MenuItem';
 import Button from '@mui/material/Button';
 import Divider from '@mui/material/Divider';
 import Alert from '@mui/material/Alert';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
+import MenuItem from '@mui/material/MenuItem';
+import type { SelectChangeEvent } from '@mui/material/Select';
+import { DatePicker } from '@mui/x-date-pickers';
 
 import Card from '@/components/UI/atoms/Card';
 import Grid from '@/components/UI/atoms/Grid';
 import LoadingPopup from '@/components/UI/atoms/Loader/LoadingPopup';
-import useInputIndicatorMutation from '@/repository/mutation/InputIndicatorMutation';
+import DialogPopup from '@/components/UI/atoms/DialogPopup';
+import InputIndicatorDataMajorMutation from '@/repository/mutation/InputIndicatorDataMajorMutation';
 import { Header, SubHeader } from '@/components/UI/atoms/Typography';
 import { useYupValidationResolver } from '@/hooks/use-yup-validation-resolver';
-import DialogPopup from '@/components/UI/atoms/DialogPopup';
-import { DatePicker } from '@mui/x-date-pickers';
-import useInputIndicatorDataFacultyMutation from '@/repository/mutation/InputIndicatorDataFacultyMutation';
 import type { IndicatorMutationData } from '@/repository/mutation/InputIndicatorDataFacultyMutation';
 
 interface FormInputProps {
@@ -33,6 +34,7 @@ const FormInput: FC<FormInputProps> = (props) => {
 
   const [loading, setLoading] = useState(false);
   const [successDialog, setSuccessDialog] = useState(false);
+  const [majorID, setMajorID] = useState('1');
 
   const schema = yup.object().shape({
     year_value: yup.date().required('Tahun tidak boleh kosong'),
@@ -58,21 +60,28 @@ const FormInput: FC<FormInputProps> = (props) => {
   });
 
   const queryClient = useQueryClient();
-  const { mutate, isError, error } = useInputIndicatorDataFacultyMutation();
+  const { mutate, isError, error } = InputIndicatorDataMajorMutation();
 
   const handleOnClick = (data: IndicatorMutationData) => {
     setLoading(true);
     mutate(
       {
         indicator_id: indicatorID,
-        indicator_faculty_data: {
-          q1: data.q1,
-          q2: data.q2,
-          q3: data.q3,
-          q4: data.q4,
-          target_value: data.target_value,
-          year_value: moment(data.year_value).year(),
-        },
+        indicator_major_data: [
+          {
+            major_id: Number(majorID),
+            major_data: [
+              {
+                q1: data.q1,
+                q2: data.q2,
+                q3: data.q3,
+                q4: data.q4,
+                target_value: data.target_value,
+                year_value: moment(data.year_value).year(),
+              },
+            ],
+          },
+        ],
       },
       {
         onSuccess: (res) => {
@@ -96,8 +105,12 @@ const FormInput: FC<FormInputProps> = (props) => {
     setSuccessDialog(false);
   };
 
+  const handleMajorChange = (e: SelectChangeEvent) => {
+    setMajorID(e.target.value);
+  };
+
   return (
-    <>
+    <Card>
       <Box sx={{ mb: 2 }}>
         <Header text="Input Form" />
       </Box>
@@ -106,8 +119,20 @@ const FormInput: FC<FormInputProps> = (props) => {
         <Box sx={{ py: 2 }}>
           <Grid
             spacing={2}
-            sm={[6, 6, 3, 3, 3, 3, 6]}
+            sm={[12, 6, 6, 3, 3, 3, 3, 6]}
             gridItem={[
+              <FormControl fullWidth>
+                <Select value={majorID} onChange={handleMajorChange}>
+                  <MenuItem value={'1'}>Teknik Informatika</MenuItem>
+                  <MenuItem value={'2'}>Teknik Komputer</MenuItem>
+                  <MenuItem value={'3'}>Sistem Informasi</MenuItem>
+                  <MenuItem value={'4'}>Teknologi Informasi</MenuItem>
+                  <MenuItem value={'5'}>
+                    Pendidikan Teknologi Informasi
+                  </MenuItem>
+                  <MenuItem value={'6'}>Magister Ilmu Komputer</MenuItem>
+                </Select>
+              </FormControl>,
               <Controller
                 name="year_value"
                 control={control}
@@ -228,7 +253,7 @@ const FormInput: FC<FormInputProps> = (props) => {
         open={successDialog}
       />
       <LoadingPopup open={loading} />
-    </>
+    </Card>
   );
 };
 

@@ -22,6 +22,8 @@ app.use(cookieParser());
 connectDB();
 
 //handle static assets
+
+// handle image
 app.use(
   '/images/logo',
   express.static(path.join(__dirname + '/static/images/logo'))
@@ -30,9 +32,23 @@ app.use(
   '/images/profile',
   express.static(path.join(__dirname + '/static/images/user-profile'))
 );
+
+//handle template bulk input
 app.get('/template', function (req, res) {
   const file = path.join(
     __dirname + '/static/template/bulk-input-template-si-miku.xlsx'
+  );
+  res.download(file);
+});
+app.get('/template/fakultas', function (req, res) {
+  const file = path.join(
+    __dirname + '/static/template/bulk-input-indicator-data-fakultas.xlsx'
+  );
+  res.download(file);
+});
+app.get('/template/jurusan', function (req, res) {
+  const file = path.join(
+    __dirname + '/static/template/bulk-input-indicator-data-jurusan.xlsx'
   );
   res.download(file);
 });
