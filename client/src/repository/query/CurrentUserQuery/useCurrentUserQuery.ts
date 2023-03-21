@@ -21,7 +21,7 @@ const normalizer = (Deps?: CurrentUserResponse) => {
     result.userName = Deps.data.username || '';
     result.email = Deps.data.email || '';
     result.userImage =
-      Deps.data.userImage === ''
+      Deps.data.userImage === '' || Deps.data.userImage === null
         ? ''
         : import.meta.env.VITE_BASE_API_URL + Deps.data.userImage;
   }

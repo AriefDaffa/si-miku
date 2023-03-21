@@ -17,7 +17,7 @@ const normalizer = (Deps?: UserResponse) => {
         userEmail: item.user_email,
         userName: item.user_name,
         userImage:
-          item.user_image === ''
+          item.user_image === '' || item.user_image === null
             ? ''
             : import.meta.env.VITE_BASE_API_URL + item.user_image,
       });

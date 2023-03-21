@@ -42,28 +42,30 @@ const ChartSection: FC<ChartSectionProps> = (props) => {
     },
   });
 
-  const series = useMemo(() => {
-    return [
-      {
-        name: 'Indikator memenuhi target',
-        data: IndicatorOverview.indicatorYear.map((item) => {
+  const series = [
+    {
+      name: 'Indikator memenuhi target',
+      data: IndicatorOverview.indicatorYear
+        .sort((a, b) => a.yearValue - b.yearValue)
+        .map((item) => {
           return {
             x: item.yearValue,
             y: item.fulfilled,
           };
         }),
-      },
-      {
-        name: 'Indikator belum memenuhi target',
-        data: IndicatorOverview.indicatorYear.map((item) => {
+    },
+    {
+      name: 'Indikator belum memenuhi target',
+      data: IndicatorOverview.indicatorYear
+        .sort((a, b) => a.yearValue - b.yearValue)
+        .map((item) => {
           return {
             x: item.yearValue,
             y: item.failed,
           };
         }),
-      },
-    ];
-  }, [IndicatorOverview]);
+    },
+  ];
 
   const handleChartTypeChange = (e: SelectChangeEvent) => {
     setchartType(e.target.value as ChartTypes);

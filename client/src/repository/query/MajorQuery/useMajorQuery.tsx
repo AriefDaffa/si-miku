@@ -15,7 +15,10 @@ const normalizer = (Deps?: MajorOverviewResponse) => {
       result.push({
         majorID: item.major_id || 0,
         majorName: item.major_name || '',
-        majorImage: import.meta.env.VITE_BASE_API_URL + item.major_image || '',
+        majorImage:
+          item.major_image !== '' || item.major_image !== null
+            ? import.meta.env.VITE_BASE_API_URL + item.major_image
+            : '',
       });
     });
 

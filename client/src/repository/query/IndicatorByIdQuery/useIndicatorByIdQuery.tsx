@@ -58,7 +58,7 @@ const normalizer = (Deps?: IndicatorByIdResponse) => {
       result.majorIndicators.data.push({
         majorID: major_id,
         majorImage:
-          major_image === ''
+          major_image === '' || major_image === null
             ? ''
             : import.meta.env.VITE_BASE_API_URL + major_image,
         majorName: major_name,

@@ -27,6 +27,7 @@ const FormInput: FC<FormInputProps> = (props) => {
 
   const [loading, setLoading] = useState(false);
   const [successDialog, setSuccessDialog] = useState(false);
+  const [localError, setLocalError] = useState('');
 
   const schema = yup.object().shape({
     indicator_code: yup.string().required('Field tidak boleh kosong!'),
@@ -49,34 +50,52 @@ const FormInput: FC<FormInputProps> = (props) => {
   const { mutate, isError, error } = useInputIndicatorMutation();
 
   const onSubmit = (data: any) => {
-    setLoading(true);
+    // setLoading(true);
 
     const { indicator_code, indicator_name, is_faculty_indicator } = data;
 
     const normalized = is_faculty_indicator === '1' ? true : false;
 
-    mutate(
-      {
-        indicator_code,
-        indicator_name,
-        is_faculty_indicator: normalized,
-      },
-      {
-        onSuccess: (res) => {
-          if (res.status >= 400) {
-            throw res.data.message;
-          } else {
-            setSuccessDialog(true);
-            setLoading(false);
-          }
+    const splittedCode = indicator_code
+      .split('.')
+      .filter((item: any) => /\S/.test(item));
+    let validated = true;
 
-          queryClient.invalidateQueries('indicator-list');
-        },
-        onError: () => {
-          setLoading(false);
-        },
+    // validate indicator_code
+    for (let i = 0; i < splittedCode.length; i++) {
+      const numberedValue = Number(splittedCode[i]);
+
+      if (isNaN(numberedValue)) {
+        validated = false;
+        setLocalError('Error! Format input tidak valid');
+        break;
       }
-    );
+    }
+
+    if (validated) {
+      mutate(
+        {
+          indicator_code,
+          indicator_name,
+          is_faculty_indicator: normalized,
+        },
+        {
+          onSuccess: (res) => {
+            if (res.status >= 400) {
+              throw res.data.message;
+            } else {
+              setSuccessDialog(true);
+              setLoading(false);
+            }
+
+            queryClient.invalidateQueries('indicator-list');
+          },
+          onError: () => {
+            setLoading(false);
+          },
+        }
+      );
+    }
   };
 
   const setCloseDialog = () => {
@@ -117,8 +136,8 @@ const FormInput: FC<FormInputProps> = (props) => {
                   <TextField
                     fullWidth
                     type="text"
-                    error={fieldState.error ? true : false}
-                    helperText={fieldState.error?.message}
+                    error={fieldState.error || localError !== '' ? true : false}
+                    helperText={fieldState.error?.message || localError}
                     {...field}
                   />
                 </Box>
@@ -148,6 +167,10 @@ const FormInput: FC<FormInputProps> = (props) => {
             {String(error || '')}
           </Alert>
         )}
+        <Box sx={{ opacity: 0.5, mt: 1, fontStyle: 'italic' }}>
+          <SubHeader text="Keterangan:" />
+          <SubHeader text="Contoh input valid untuk kode indikator adalah 1.2.3" />
+        </Box>
         <Box sx={{ float: 'right', my: 2 }}>
           <Button variant="contained" type="submit">
             Submit

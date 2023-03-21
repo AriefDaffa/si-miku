@@ -10,11 +10,11 @@ import Card from '@/components/UI/atoms/Card';
 import CustomChart from '@/components/UI/atoms/CustomChart';
 import { Header, SubHeader } from '@/components/UI/atoms/Typography';
 import { ERROR, SUCCESS } from '@/components/theme/Colors';
-import type { TargetQuartersNormalized } from '@/repository/query/IndicatorByIdQuery';
+import type { TargetQuarterNormalized } from '@/repository/query/IndicatorByIdQuery';
 
 interface ChartCardProps {
   isIndicatorLoading: boolean;
-  indicatorData: TargetQuartersNormalized[];
+  indicatorData: TargetQuarterNormalized[];
 }
 
 const ChartCard: FC<ChartCardProps> = (props) => {
