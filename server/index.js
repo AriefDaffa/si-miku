@@ -10,6 +10,8 @@ const indicatorRoutes = require('./app/routes/indicator.routes.js');
 const userRoutes = require('./app/routes/user.routes.js');
 const authRoutes = require('./app/routes/auth.routes.js');
 const majorRoutes = require('./app/routes/major.routes.js');
+const departmentRoutes = require('./app/routes/department.routes');
+const yearRoutes = require('./app/routes/year.routes');
 
 const app = express();
 
@@ -58,6 +60,8 @@ app.use(indicatorRoutes);
 app.use(userRoutes);
 app.use(authRoutes);
 app.use(majorRoutes);
+app.use(departmentRoutes);
+app.use(yearRoutes);
 
 const PORT = 5000;
 

@@ -11,11 +11,7 @@ import TableSection from './TableSection';
 import AddUserSection from './AddUserSection';
 
 const User: FC = () => {
-  const {
-    data: operatorData,
-    isLoading: isOperatorLoading,
-    refetch,
-  } = useUserQuery(2);
+  const { data: operatorData, isLoading: isOperatorLoading } = useUserQuery(2);
 
   return (
     <>

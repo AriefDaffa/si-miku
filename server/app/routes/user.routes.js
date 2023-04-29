@@ -41,7 +41,7 @@ const upload = multer({ storage: fileStore, fileFilter: fileFilter });
 router.get('/users/:id', verifyManagement, getUser);
 router.get('/current-user', verifyAccessToken, getCurrentUser);
 
-router.post('/users', verifyManagement, registerUser);
+router.post('/users', registerUser);
 router.post('/users/operator', verifyManagement, createOperator);
 
 router.put(

@@ -2,7 +2,7 @@ import { useMemo } from 'react';
 import { AxiosError } from 'axios';
 import { useQuery } from 'react-query';
 
-import baseAPI from '@/utils/axios-utils';
+import baseAPI from '@/controller/utils/axios-utils';
 
 import type {
   IndicatorByMajorResponse,

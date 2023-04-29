@@ -1,6 +1,6 @@
 import { useMutation } from 'react-query';
 
-import baseAPI from '@/utils/axios-utils';
+import baseAPI from '@/controller/utils/axios-utils';
 
 const useDeleteUserMutation = () => {
   const mutation = useMutation(async (id: number[]) => {

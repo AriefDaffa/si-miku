@@ -19,9 +19,9 @@ import Grid from '@/components/UI/atoms/Grid';
 import Card from '@/components/UI/atoms/Card';
 import Table from '@/components/UI/atoms/Table';
 import { Header, SubHeader } from '@/components/UI/atoms/Typography';
-import { GREY } from '@/components/theme/Colors';
-import { getProgressColor } from '@/utils/get-progress-bar-color';
-import { getPercentage } from '@/utils/get-percentage';
+import { GREY } from '@/presentation/global-component/theme/Colors';
+import { getProgressColor } from '@/controller/utils/get-progress-bar-color';
+import { getPercentage } from '@/controller/utils/get-percentage';
 import type { UserDataNormalized } from '@/repository/query/UserQuery';
 
 import DeleteButton from './DeleteButton';
@@ -93,6 +93,8 @@ const TableSection: FC<TableSectionProps> = (props) => {
   const modifiedData = data
     .filter((a) => String(a.userName).toLowerCase().includes(keyword))
     .slice(page * rows, page * rows + rows);
+
+  // console.log(modifiedData);
 
   return (
     <Grid
@@ -182,12 +184,12 @@ const TableSection: FC<TableSectionProps> = (props) => {
                 </TableCell>
                 <TableCell onClick={(e) => e.stopPropagation()}>
                   <Stack flexDirection="row">
-                    <EditButton
+                    {/* <EditButton
                       id={item.userID}
                       indicatorCode={''}
                       indicatorName={''}
                       setSelected={setSelected}
-                    />
+                    /> */}
                     <DeleteButton id={item.userID} setSelected={setSelected} />
                   </Stack>
                 </TableCell>

@@ -13,6 +13,7 @@
     "@emotion/styled": "^11.10.5",
     "@mui/icons-material": "^5.10.16",
     "@mui/material": "^5.10.17",
+    "@mui/x-data-grid": "^6.0.3",
     "@mui/x-date-pickers": "^5.0.13",
     "@types/node": "^18.11.13",
     "@types/react-helmet": "^6.1.6",

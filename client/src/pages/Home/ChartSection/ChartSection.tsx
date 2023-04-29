@@ -10,11 +10,15 @@ import Select, { SelectChangeEvent } from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 import Divider from '@mui/material/Divider';
 
-import useChartStyle from '@/hooks/use-chart-style';
+import useChartStyle from '@/controller/hooks/use-chart-style';
 import Card from '@/components/UI/atoms/Card';
 import CustomChart, { ChartTypes } from '@/components/UI/atoms/CustomChart';
 import { Header, SubHeader } from '@/components/UI/atoms/Typography';
-import { ERROR, GREY, SUCCESS } from '@/components/theme/Colors';
+import {
+  ERROR,
+  GREY,
+  SUCCESS,
+} from '@/presentation/global-component/theme/Colors';
 import type { IndicatorOverviewNormalized } from '@/repository/query/OverviewIndicator';
 import Grid from '@/components/UI/atoms/Grid';
 

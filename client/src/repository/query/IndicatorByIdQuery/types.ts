@@ -32,6 +32,7 @@ export interface MajorIndicator {
   major_id: number;
   major_name: string;
   major_image: string;
+  department_id: number;
   major_data: TargetQuarter[];
 }
 
@@ -41,9 +42,10 @@ export interface IndicatorByIdData {
   indicator_id: number;
   indicator_code: string;
   indicator_name: string;
-  is_faculty_indicator: boolean;
-  major_indicators: MajorIndicatorData;
-  faculty_indicators: FacultyIndicators;
+  indicator_type: number;
+  // is_faculty_indicator: boolean;
+  // major_indicators: MajorIndicatorData;
+  // faculty_indicators: FacultyIndicators;
 }
 
 export interface IndicatorByIdResponse {
@@ -79,6 +81,7 @@ export interface MajorIndicatorNormalized {
   majorID: number;
   majorName: string;
   majorImage: string;
+  departmentID: number;
   majorData: TargetQuarterNormalized[];
 }
 
@@ -87,7 +90,8 @@ export interface IndicatorByIdDataNormalized {
   indicatorID: number;
   indicatorCode: string;
   indicatorName: string;
-  isFacultyIndicator: boolean;
-  majorIndicators: MajorIndicatorDataNormalized;
-  facultyIndicators: FacultyIndicatorsNormalized;
+  indicatorType: number;
+  // isFacultyIndicator: boolean;
+  // majorIndicators: MajorIndicatorDataNormalized;
+  // facultyIndicators: FacultyIndicatorsNormalized;
 }

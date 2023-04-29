@@ -15,12 +15,11 @@ import logo from '@/assets/logo/logo.png';
 import Grid from '@/components/UI/atoms/Grid';
 import Helmet from '@/components/UI/atoms/Helmet';
 import LoadingPopup from '@/components/UI/atoms/Loader/LoadingPopup';
-import MessageCard from '@/components/UI/atoms/MessageCard';
-import { useLoginMutation } from '@/repository/mutation/LoginMutation';
-import { useYupValidationResolver } from '@/hooks/use-yup-validation-resolver';
+import { ERROR, PRIMARY } from '@/presentation/global-component/theme/Colors';
+import { useLoginMutation } from '@/repository/mutation/auth/LoginMutation';
+import { useYupValidationResolver } from '@/controller/hooks/use-yup-validation-resolver';
 
 import type { LoginData } from './types';
-import { ERROR } from '@/components/theme/Colors';
 
 const Login: FC = () => {
   const [loading, setLoading] = useState(false);
@@ -132,6 +131,10 @@ const Login: FC = () => {
                 size="large"
                 type="submit"
                 variant="contained"
+                sx={{
+                  backgroundColor: PRIMARY.main,
+                  ':hover': { backgroundColor: PRIMARY.light },
+                }}
               >
                 Sign In
               </Button>

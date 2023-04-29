@@ -11,17 +11,23 @@ import Divider from '@mui/material/Divider';
 import Avatar from '@mui/material/Avatar';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
+import FileUploadIcon from '@mui/icons-material/FileUpload';
+import DeleteIcon from '@mui/icons-material/Delete';
+import AccountBoxIcon from '@mui/icons-material/AccountBox';
 
 import Helmet from '@/components/UI/atoms/Helmet';
 import Grid from '@/components/UI/atoms/Grid';
 import Card from '@/components/UI/atoms/Card';
+import AvatarTitle from '@/components/UI/organism/AvatarTitle';
 import LoadingPopup from '@/components/UI/atoms/Loader/LoadingPopup';
 import DialogPopup from '@/components/UI/atoms/DialogPopup';
 import useUpdateUserProfileMutation from '@/repository/mutation/UpdateUserProfileMutation';
 import { useCurrentUserQuery } from '@/repository/query/CurrentUserQuery';
 import { Header, PageTitle, SubHeader } from '@/components/UI/atoms/Typography';
-import { useAuthContext } from '@/context/AuthContext';
-import { useYupValidationResolver } from '@/hooks/use-yup-validation-resolver';
+import { useAuthContext } from '@/controller/context/AuthContext';
+import { useYupValidationResolver } from '@/controller/hooks/use-yup-validation-resolver';
+import { ERROR, PRIMARY } from '@/presentation/global-component/theme/Colors';
+
 import type { UserData } from './types';
 
 const Profile: FC = () => {
@@ -113,14 +119,16 @@ const Profile: FC = () => {
   return (
     <>
       <Helmet title="Profile | SI-MIKU" />
-      <Container>
+      <Container maxWidth="xl">
         <PageTitle title="Profile" subTitle="Menampilkan profile pengguna" />
         <Card>
           <form onSubmit={handleSubmit(onSubmit)}>
-            <Header text="Edit profile" />
-            <SubHeader
-              text="Ubah informasi di bawah untuk mengubah profile"
-              sx={{ mb: 4 }}
+            <AvatarTitle
+              isImageIcon
+              Icon={AccountBoxIcon}
+              imageURL=""
+              header="Profile pengguna"
+              subHeader="Edit"
             />
             <Stack
               justifyContent="center"
@@ -146,7 +154,18 @@ const Profile: FC = () => {
                 direction={{ sm: 'row' }}
                 sx={{ py: 2, gap: 2 }}
               >
-                <Button variant="contained" color="primary" component="label">
+                <Button
+                  variant="outlined"
+                  color="primary"
+                  component="label"
+                  startIcon={<FileUploadIcon />}
+                  sx={{
+                    border: 2,
+                    borderColor: PRIMARY.main,
+                    color: PRIMARY.main,
+                    ':hover': { border: 2, borderColor: PRIMARY.light },
+                  }}
+                >
                   Upload Image
                   <input
                     hidden
@@ -157,10 +176,17 @@ const Profile: FC = () => {
                   />
                 </Button>
                 <Button
-                  variant="contained"
-                  color="error"
+                  variant="outlined"
+                  // color="error"
                   onClick={handleRemoveImage}
                   disabled={currentImage === ''}
+                  startIcon={<DeleteIcon />}
+                  sx={{
+                    border: 2,
+                    borderColor: ERROR.main,
+                    color: ERROR.main,
+                    ':hover': { borderColor: ERROR.light },
+                  }}
                 >
                   Delete Image
                 </Button>
@@ -211,7 +237,14 @@ const Profile: FC = () => {
                   ]}
                 />
                 <Box sx={{ float: 'right', py: 2 }}>
-                  <Button type="submit" variant="contained">
+                  <Button
+                    type="submit"
+                    variant="contained"
+                    sx={{
+                      backgroundColor: PRIMARY.main,
+                      ':hover': { backgroundColor: PRIMARY.light },
+                    }}
+                  >
                     Submit
                   </Button>
                 </Box>

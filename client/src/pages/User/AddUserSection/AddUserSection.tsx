@@ -13,7 +13,7 @@ import LoadingPopup from '@/components/UI/atoms/Loader/LoadingPopup';
 import useUserQuery from '@/repository/query/UserQuery/useUserQuery';
 import useCreateOperatorMutation from '@/repository/mutation/CreateOperatorMutation';
 import { Header } from '@/components/UI/atoms/Typography';
-import { useYupValidationResolver } from '@/hooks/use-yup-validation-resolver';
+import { useYupValidationResolver } from '@/controller/hooks/use-yup-validation-resolver';
 
 import { UserData } from './types';
 

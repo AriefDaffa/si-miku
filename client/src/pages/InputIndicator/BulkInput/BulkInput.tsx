@@ -13,11 +13,10 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import Card from '@/components/UI/atoms/Card';
 import DialogPopup from '@/components/UI/atoms/DialogPopup';
 import LoadingPopup from '@/components/UI/atoms/Loader/LoadingPopup';
-import useInputIndicatorBulkMutation from '@/repository/mutation/InputIndicatorBulkMutation';
+import useInputIndicatorBulkMutation from '@/repository/mutation/indicator/InputIndicatorBulkMutation';
 import { Header, SubHeader } from '@/components/UI/atoms/Typography';
 
 import { SheetJSFT } from './constant';
-import baseAPI from '@/utils/axios-utils';
 
 interface BulkInputProps {}
 
@@ -29,25 +28,81 @@ const BulkInput: FC<BulkInputProps> = (props) => {
   const [currentFile, setCurrentFile] = useState<any[]>([]);
   const [fileName, setFileName] = useState('Browse file');
   const [inputKey, setInputKey] = useState('');
+  const [excelError, setExcelError] = useState('');
 
   const { mutate, isError, error } = useInputIndicatorBulkMutation();
 
   const onSubmit = () => {
-    setLoading(true);
+    const payload = {
+      indicator_list: currentFile.map((item) => {
+        const {
+          indicator_code,
+          indicator_name,
+          supervised_by,
+          indicator_data_type,
+        } = item;
 
-    // @TODO add validation sesuai template atau tidak
-    const normalizeRequest = {
-      indicator: currentFile.map((item) => {
         return {
-          indicator_code: String(item.indicator_code),
-          indicator_name: item.indicator_name,
-          is_faculty_indicator:
-            item.is_faculty_indicator === 'Fakultas' ? true : false,
+          indicator_code: String(indicator_code),
+          indicator_name,
+          supervised_by: Number(supervised_by),
+          indicator_data_type: Number(indicator_data_type),
         };
       }),
     };
 
-    mutate(normalizeRequest, {
+    for (let i = 0; i < payload.indicator_list.length; i++) {
+      const { indicator_code, indicator_name, supervised_by } =
+        payload.indicator_list[i];
+
+      // cek format indicator code
+      const splittedCode = indicator_code
+        .split('.')
+        .filter((item: any) => /\S/.test(item));
+      let validated = false;
+
+      for (let j = 0; j < splittedCode.length; j++) {
+        const numberedValue = Number(splittedCode[j]);
+
+        if (isNaN(numberedValue)) {
+          validated = true;
+          break;
+        }
+      }
+
+      if (!indicator_code || !indicator_name) {
+        setExcelError(
+          'Error! Terdapat missing field, cek kembali file excel sebelum melakukan upload!'
+        );
+        break;
+      } else if (validated) {
+        setExcelError(
+          'Error! Terdapat kesalahan format kode indikator, silahkan cek kembali!'
+        );
+        break;
+      } else if (isNaN(supervised_by)) {
+        setExcelError(
+          'Error! Terdapat kesalahan format pada field supervisor, silahkan cek kembali!'
+        );
+        break;
+      } else if (
+        indicator_code === '' ||
+        indicator_name === '' ||
+        supervised_by === null
+      ) {
+        setExcelError(
+          'Error! Terdapat field kosong pada file, silahkan cek kembali!'
+        );
+        break;
+      } else {
+        setExcelError('');
+        setLoading(true);
+      }
+    }
+
+    // console.log(payload);
+
+    mutate(payload, {
       onSuccess: (res) => {
         if (res.status >= 400) {
           throw res.data.message;
@@ -77,7 +132,7 @@ const BulkInput: FC<BulkInputProps> = (props) => {
       const bstr = e.target.result;
       const wb = read(bstr, { type: rABS ? 'binary' : 'array' });
       /* Get first worksheet */
-      const wsname = wb.SheetNames[0];
+      const wsname = wb.SheetNames[1];
       const ws = wb.Sheets[wsname];
       // console.log(rABS, wb);
       /* Convert array of arrays */
@@ -86,7 +141,8 @@ const BulkInput: FC<BulkInputProps> = (props) => {
           'no',
           'indicator_code',
           'indicator_name',
-          'is_faculty_indicator',
+          'supervised_by',
+          'indicator_data_type',
         ],
         range: 1,
       });
@@ -114,6 +170,7 @@ const BulkInput: FC<BulkInputProps> = (props) => {
     setInputKey(Math.random().toString(36));
     setCurrentFile([]);
     setFileName('Browse file');
+    setExcelError('');
   };
 
   return (
@@ -155,6 +212,11 @@ const BulkInput: FC<BulkInputProps> = (props) => {
             </Button>
           </Stack>
         </Stack>
+        {excelError !== '' && (
+          <Alert severity="error" sx={{ mt: 2 }}>
+            {excelError}
+          </Alert>
+        )}
         {isError && (
           <Alert severity="error" sx={{ mt: 2 }}>
             {String(error || '')}

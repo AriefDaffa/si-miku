@@ -18,7 +18,7 @@ import useIndicatorQuery from '@/repository/query/IndicatorQuery';
 import LoadingPopup from '@/components/UI/atoms/Loader/LoadingPopup';
 import { Header } from '@/components/UI/atoms/Typography';
 import { TextInput } from '@/components/UI/atoms/Input';
-import { useUpdateIndicatorMutation } from '@/repository/mutation/UpdateIndicatorMutation';
+import { useUpdateIndicatorMutation } from '@/repository/mutation/indicator/UpdateIndicatorMutation';
 
 interface EditButtonProps {
   id: number;
@@ -42,26 +42,26 @@ const EditButton: FC<EditButtonProps> = (props) => {
   });
 
   const { mutate } = useUpdateIndicatorMutation();
-  const { refetch } = useIndicatorQuery(true);
+  // const { refetch } = useIndicatorQuery(true);
 
   const handleOnClick = (data: {
     indicator_name: string;
     indicator_code: string;
   }) => {
-    setOpenDialog(false);
-    setLoading(true);
-    mutate(
-      { id, data },
-      {
-        onSuccess: () =>
-          refetch().then(() => {
-            setLoading(false);
-            setSuccessDialog(true);
-            setSelected([]);
-          }),
-        onError: () => setLoading(false),
-      }
-    );
+    // setOpenDialog(false);
+    // setLoading(true);
+    // mutate(
+    //   { id, data },
+    //   {
+    //     onSuccess: () =>
+    //       refetch().then(() => {
+    //         setLoading(false);
+    //         setSuccessDialog(true);
+    //         setSelected([]);
+    //       }),
+    //     onError: () => setLoading(false),
+    //   }
+    // );
   };
 
   const handleOpen = (e: SyntheticEvent<HTMLButtonElement>) => {

@@ -1,6 +1,6 @@
 import { useMutation } from 'react-query';
 
-import baseAPI from '@/utils/axios-utils';
+import baseAPI from '@/controller/utils/axios-utils';
 
 import type { DeleteIndicatorDataTypes } from './types';
 

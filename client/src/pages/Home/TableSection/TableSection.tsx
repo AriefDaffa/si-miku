@@ -13,9 +13,9 @@ import MenuItem from '@mui/material/MenuItem';
 import Table from '@/components/UI/atoms/Table';
 import Card from '@/components/UI/atoms/Card';
 import { Header, SubHeader } from '@/components/UI/atoms/Typography';
-import { GREY } from '@/components/theme/Colors';
-import { getPercentage } from '@/utils/get-percentage';
-import { getProgressColor } from '@/utils/get-progress-bar-color';
+import { GREY } from '@/presentation/global-component/theme/Colors';
+import { getPercentage } from '@/controller/utils/get-percentage';
+import { getProgressColor } from '@/controller/utils/get-progress-bar-color';
 import type { IndicatorNormalized } from '@/repository/query/IndicatorQuery';
 
 interface TableSectionProps {

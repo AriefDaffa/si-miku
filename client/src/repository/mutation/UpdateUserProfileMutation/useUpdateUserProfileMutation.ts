@@ -1,6 +1,6 @@
 import { useMutation } from 'react-query';
 
-import baseAPI from '@/utils/axios-utils';
+import baseAPI from '@/controller/utils/axios-utils';
 
 const useUpdateUserProfileMutation = () => {
   const mutation = useMutation(async (data: FormData) => {

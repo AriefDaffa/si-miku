@@ -9,7 +9,11 @@ import CancelIcon from '@mui/icons-material/Cancel';
 import Helmet from '@/components/UI/atoms/Helmet';
 import Grid from '@/components/UI/atoms/Grid';
 import { PageTitle } from '@/components/UI/atoms/Typography';
-import { ERROR, PRIMARY, SUCCESS } from '@/components/theme/Colors';
+import {
+  ERROR,
+  PRIMARY,
+  SUCCESS,
+} from '@/presentation/global-component/theme/Colors';
 
 import useOverviewIndicatorQuery from '@/repository/query/OverviewIndicator';
 import ChartSection from './ChartSection';
@@ -26,30 +30,7 @@ const Home: FC = () => {
         title="Overview"
         subTitle="Menampilkan perkembangan seluruh indikator"
       />
-      <Grid
-        spacing={2}
-        sm={[6, 6]}
-        gridItem={[
-          <CardCount
-            title="Data memenuhi target"
-            backgroundColor={SUCCESS.main}
-            color={''}
-            value={indicatorOverview.totalFulfilled}
-            Icon={DoneAllIcon}
-          />,
-          <CardCount
-            title="Data belum memenuhi target"
-            backgroundColor={ERROR.main}
-            color={''}
-            value={indicatorOverview.totalFailed}
-            Icon={CancelIcon}
-          />,
-          <ChartSection
-            isLoading={isIndicatorOverviewLoading}
-            IndicatorOverview={indicatorOverview}
-          />,
-        ]}
-      />
+      <Grid spacing={2} gridItem={[]} />
     </Container>
   );
 };
