@@ -13,10 +13,10 @@ import { useCurrentUserQuery } from '@/repository/query/CurrentUserQuery';
 import { useAuthContext } from '@/controller/context/AuthContext';
 import { useYupValidationResolver } from '@/controller/hooks/use-yup-validation-resolver';
 
-import ProfileImage from '@/presentation/page-component/Profile/ProfileImage/ProfileImage';
-import ProfileButton from '@/presentation/page-component/Profile/ProfileButton/ProfileButton';
-import ProfileForm from '@/presentation/page-component/Profile/ProfileForm/ProfileForm';
-import ProfileContainer from '@/presentation/page-component/Profile/ProfileContainer/ProfileContainer';
+import ProfileImage from '@/presentation/page-component/Profile/ProfileImage';
+import ProfileButton from '@/presentation/page-component/Profile/ProfileButton';
+import ProfileForm from '@/presentation/page-component/Profile/ProfileForm';
+import ProfileContainer from '@/presentation/page-component/Profile/ProfileContainer';
 import { useHeadline } from '@/controller/context/HeadlineContext';
 
 import type { UserData } from './types';
