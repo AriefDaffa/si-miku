@@ -6,7 +6,10 @@ import { Breadcrumbs as MuiBreadcrumbs } from '@mui/material';
 import Link from '@mui/material/Link';
 
 import { GREY } from '@/presentation/global-component/theme/Colors';
-import { Header, SubHeader } from '@/components/UI/atoms/Typography';
+import {
+  Header,
+  SubHeader,
+} from '@/presentation/global-component/UI/Typography';
 
 const Breadcrumbs: FC = () => {
   const location = useLocation();

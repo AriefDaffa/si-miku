@@ -4,14 +4,11 @@ import { useQuery } from 'react-query';
 
 import baseAPI from '@/controller/utils/axios-utils';
 
-import type {
-  IndicatorListResponse,
-  IndicatorListDataNormalized,
-} from './types';
+import type { IndicatorListResponse, IndicatorListNormalized } from './types';
 
 // normalize the data to prevent undefined value
 const normalizer = (Deps?: IndicatorListResponse) => {
-  const result: IndicatorListDataNormalized[] = [];
+  const result: IndicatorListNormalized[] = [];
 
   if (Deps !== void 0 && !(Deps instanceof AxiosError)) {
     Deps.data.map((item) => {

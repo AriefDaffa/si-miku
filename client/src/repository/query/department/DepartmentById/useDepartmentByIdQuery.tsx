@@ -6,61 +6,42 @@ import baseAPI from '@/controller/utils/axios-utils';
 
 import type {
   IndicatorListResponse,
-  IndicatorListDataNormalized,
+  IndicatorByIDResponseNormalized,
 } from './types';
 
 // normalize the data to prevent undefined value
 const normalizer = (Deps?: IndicatorListResponse) => {
-  const result: IndicatorListDataNormalized = {
-    departmentID: 0,
-    departmentName: '',
-    departmentImage: '',
+  const result: IndicatorByIDResponseNormalized = {
     currentPage: 0,
     totalData: 0,
     totalPage: 0,
-    indicatorDepartment: [],
+    indicatorList: [],
   };
 
   if (Deps !== void 0 && !(Deps instanceof AxiosError)) {
-    result.departmentID = Deps.data.department_id;
-    result.departmentName = Deps.data.department_name;
     result.currentPage = Deps.data.current_page;
     result.totalData = Deps.data.total_data;
     result.totalPage = Deps.data.total_page;
-    (result.departmentImage =
-      Deps.data.department_image !== '' || Deps.data.department_image !== null
-        ? import.meta.env.VITE_BASE_API_URL + Deps.data.department_image
-        : ''),
-      Deps.data.indicator_departments.map((item) => {
-        result.indicatorDepartment.push({
-          indicatorDepartmentID: item.indicator_department_id,
-          indicator: {
-            indicatorID: item.indicator.indicator_id,
-            indicatorCode: item.indicator.indicator_code,
-            indicatorName: item.indicator.indicator_name,
-            indicatorType: item.indicator.indicator_type,
-            supervisedBy: item.indicator.supervised_by,
-            createdBy: item.indicator.created_by,
-          },
-          targetDeps: item.target_deps.map((data) => {
-            return {
-              targetQuarter: {
-                q1: data.target_quarter.q1,
-                q2: data.target_quarter.q2,
-                q3: data.target_quarter.q3,
-                q4: data.target_quarter.q4,
-                isTargetFulfilled: data.target_quarter.is_target_fulfilled,
-                targetQuarterID: data.target_quarter.target_quarter_id,
-                targetValue: data.target_quarter.target_value,
-                year: {
-                  yearID: data.target_quarter.year.year_id,
-                  yearValue: data.target_quarter.year.year_value,
-                },
-              },
-            };
-          }),
-        });
+    Deps.data.indicator_list.map((item) => {
+      result.indicatorList.push({
+        indicatorID: item.indicator_id,
+        indicatorCode: item.indicator_code,
+        indicatorName: item.indicator_name,
+        indicatorDataType: item.indicator_data_type,
+        indicatorType: item.indicator_type,
+        supervisedBy: item.supervised_by,
+        targetQuarter: {
+          q1: item.target_quarter.q1,
+          q2: item.target_quarter.q2,
+          q3: item.target_quarter.q3,
+          q4: item.target_quarter.q4,
+          isTargetFulfilled: item.target_quarter.is_target_fulfilled,
+          targetQuarterID: item.target_quarter.target_quarter_id,
+          targetValue: item.target_quarter.target_value,
+          yearID: item.target_quarter.year_id,
+        },
       });
+    });
   }
   return result;
 };
@@ -70,14 +51,16 @@ const useDepartmentByIdQuery = (
   keyword: string,
   size: number,
   page: number,
-  enabled?: boolean
+  year_value: number
 ) => {
   const { data, ...rest } = useQuery<IndicatorListResponse>(
-    ['department', id, size, page, keyword],
-    () => baseAPI.get(`department/${id}`, { params: { size, page, keyword } }),
+    ['department', id, size, page, keyword, year_value],
+    () =>
+      baseAPI.get(`department/${id}`, {
+        params: { size, page, keyword, year_value },
+      }),
     {
       refetchOnWindowFocus: false,
-      enabled,
     }
   );
 

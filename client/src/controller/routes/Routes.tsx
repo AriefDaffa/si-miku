@@ -4,9 +4,6 @@ import {
   SideNavLayout,
   BasicLayout,
 } from '@/presentation/global-component/layout';
-import { Home, Department, Major, Progress } from '@/pages';
-
-import PrivateRoute from './PrivateRoute';
 
 import {
   Indicator,
@@ -15,8 +12,12 @@ import {
   Login,
   Profile,
   User,
+  Department,
+  Major,
   NotFound,
 } from '@/controller/pages';
+
+import PrivateRoute from './PrivateRoute';
 
 const Router = () => {
   const routes = useRoutes([
@@ -37,14 +38,8 @@ const Router = () => {
               element: <Indicator />,
               children: [{ path: ':id', element: <IndicatorDetail /> }],
             },
-            {
-              path: 'progress',
-              element: <Progress />,
-              children: [
-                { path: 'department', element: <Department /> },
-                { path: 'prodi', element: <Major /> },
-              ],
-            },
+            { path: 'department', element: <Department /> },
+            { path: 'major', element: <Major /> },
             { path: 'indicator-input', element: <IndicatorInput /> },
             { path: 'profile', element: <Profile /> },
             { path: 'user', element: <User /> },

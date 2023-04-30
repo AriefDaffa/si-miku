@@ -5,7 +5,7 @@ import type { FC, ChangeEvent } from 'react';
 import type { SelectChangeEvent } from '@mui/material/Select';
 
 import OverviewSection from '@/presentation/page-component/Indicator/OverviewSection';
-import TargetQuarterTable from '@/presentation/page-component/Indicator/TargetQuarterTable';
+import TargetQuarterTable from '@/presentation/page-component/common/TargetQuarterTable';
 import useGetIndicatorFacultyDataQuery from '@/repository/query/faculty/GetIndicatorFacultyDataQuery';
 import { useCurrentYear } from '@/controller/context/CurrentYearContext';
 import { useHeadline } from '@/controller/context/HeadlineContext';
@@ -72,7 +72,7 @@ const Indicator: FC = () => {
     <Fragment>
       {location.pathname === '/dashboard/indicator' ? (
         <Fragment>
-          <OverviewSection />
+          {/* <OverviewSection /> */}
           <TargetQuarterTable
             {...normalizedProps}
             isLoading={isLoading}

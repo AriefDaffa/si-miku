@@ -4,58 +4,42 @@ import { useQuery } from 'react-query';
 
 import baseAPI from '@/controller/utils/axios-utils';
 
-import type { MajorOverviewNormalized, MajorOverviewResponse } from './types';
+import type {
+  IndicatorListResponse,
+  IndicatorByIDResponseNormalized,
+} from './types';
 
 // normalize the data to prevent undefined value
-const normalizer = (Deps?: MajorOverviewResponse) => {
-  const result: MajorOverviewNormalized = {
-    majorID: 0,
-    majorName: '',
-    majorImage: '',
+const normalizer = (Deps?: IndicatorListResponse) => {
+  const result: IndicatorByIDResponseNormalized = {
     currentPage: 0,
     totalData: 0,
     totalPage: 0,
-    indicatorMajors: [],
+    indicatorList: [],
   };
 
   if (Deps !== void 0 && !(Deps instanceof AxiosError)) {
-    result.majorID = Deps.data.major_id;
-    result.majorName = Deps.data.major_name;
-    result.majorImage =
-      Deps.data.major_image !== '' || Deps.data.major_image !== null
-        ? import.meta.env.VITE_BASE_API_URL + Deps.data.major_image
-        : '';
     result.currentPage = Deps.data.current_page;
     result.totalData = Deps.data.total_data;
     result.totalPage = Deps.data.total_page;
-    Deps.data.indicator_majors.map((item) => {
-      result.indicatorMajors.push({
-        indicatorMajorID: item.indicator_major_id,
-        indicator: {
-          indicatorCode: item.indicator.indicator_code,
-          indicatorID: item.indicator.indicator_id,
-          indicatorName: item.indicator.indicator_name,
-          indicatorType: item.indicator.indicator_type,
-          indicatorDataType: item.indicator.indicator_data_type,
+    Deps.data.indicator_list.map((item) => {
+      result.indicatorList.push({
+        indicatorID: item.indicator_id,
+        indicatorCode: item.indicator_code,
+        indicatorName: item.indicator_name,
+        indicatorDataType: item.indicator_data_type,
+        indicatorType: item.indicator_type,
+        supervisedBy: item.supervised_by,
+        targetQuarter: {
+          q1: item.target_quarter.q1,
+          q2: item.target_quarter.q2,
+          q3: item.target_quarter.q3,
+          q4: item.target_quarter.q4,
+          isTargetFulfilled: item.target_quarter.is_target_fulfilled,
+          targetQuarterID: item.target_quarter.target_quarter_id,
+          targetValue: item.target_quarter.target_value,
+          yearID: item.target_quarter.year_id,
         },
-        targetMajors: item.target_majors.map((data) => {
-          return {
-            targetMajorID: data.target_major_id,
-            targetQuarter: {
-              q1: data.target_quarter.q1,
-              q2: data.target_quarter.q2,
-              q3: data.target_quarter.q3,
-              q4: data.target_quarter.q4,
-              targetQuarterID: data.target_quarter.target_quarter_id,
-              targetValue: data.target_quarter.target_value,
-              isTargetFulfilled: data.target_quarter.is_target_fulfilled,
-              year: {
-                yearID: data.target_quarter.year.year_id,
-                yearValue: data.target_quarter.year.year_value,
-              },
-            },
-          };
-        }),
       });
     });
 
@@ -69,11 +53,15 @@ const useMajorByIdQuery = (
   id: number,
   keyword: string,
   size: number,
-  page: number
+  page: number,
+  year_value: number
 ) => {
-  const { data, ...rest } = useQuery<MajorOverviewResponse>(
-    ['major', id, size, page, keyword],
-    () => baseAPI.get(`major/${id}`, { params: { size, page, keyword } }),
+  const { data, ...rest } = useQuery<IndicatorListResponse>(
+    ['major', id, size, page, keyword, year_value],
+    () =>
+      baseAPI.get(`major/${id}`, {
+        params: { size, page, keyword, year_value },
+      }),
     {
       refetchOnWindowFocus: false,
     }

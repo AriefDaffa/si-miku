@@ -23,7 +23,13 @@ const PageTitle: FC<PageTitleProps> = (props) => {
         {/* <Typography variant="subtitle2" sx={{ opacity: 0.7 }}>
           Dashboard
         </Typography> */}
-        <Typography variant="h2">{title}</Typography>
+        <Typography
+          variant={
+            subTitle.includes('Menampilkan data indikator') ? 'h3' : 'h2'
+          }
+        >
+          {title}
+        </Typography>
         <Typography variant="subtitle2" sx={{ mb: 2, opacity: 0.7 }}>
           {subTitle}
         </Typography>
