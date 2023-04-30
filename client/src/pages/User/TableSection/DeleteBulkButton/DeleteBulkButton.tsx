@@ -7,7 +7,7 @@ import Button from '@mui/material/Button';
 import DialogPopup from '@/components/UI/atoms/DialogPopup';
 import LoadingPopup from '@/components/UI/atoms/Loader/LoadingPopup';
 import useDeleteUserMutation from '@/repository/mutation/DeleteUserMutation';
-import useUserQuery from '@/repository/query/UserQuery';
+import useUserQuery from '@/repository/query/user/UserQuery';
 
 interface DeleteBulkButtonProps {
   selectedData: number[];

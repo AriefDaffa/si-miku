@@ -4,6 +4,7 @@ import type { ReactNode, SetStateAction } from 'react';
 interface HeadlineTypes {
   title: string;
   subTitle: string;
+  isYearPickerEnabled: boolean;
 }
 
 export interface HeadlineInterface {

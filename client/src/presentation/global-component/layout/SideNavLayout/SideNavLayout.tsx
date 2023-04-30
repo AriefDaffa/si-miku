@@ -1,4 +1,3 @@
-import moment from 'moment';
 import { useState, useCallback } from 'react';
 import { Outlet, useOutletContext } from 'react-router-dom';
 import type { FC } from 'react';
@@ -6,7 +5,7 @@ import type { FC } from 'react';
 import { useHeadline } from '@/controller/context/HeadlineContext';
 import { useCustomTheme } from '@/controller/context/CustomThemeContext';
 import { useCurrentYear } from '@/controller/context/CurrentYearContext';
-import { useCurrentUserQuery } from '@/repository/query/CurrentUserQuery';
+import { useCurrentUserQuery } from '@/repository/query/user/CurrentUserQuery';
 import PageContainer from '@/presentation/page-component/common/PageContainer';
 
 import NavBar from './NavBar';
@@ -23,7 +22,7 @@ const SideNavLayout: FC = () => {
 
   const { isDarkTheme } = useCustomTheme();
   const { currentYear, handleSelectYear } = useCurrentYear();
-  const { headline, setHeadline } = useHeadline();
+  const { headline } = useHeadline();
   const { data, isLoading } = useCurrentUserQuery();
 
   const handleOnClose = () => {
@@ -49,7 +48,7 @@ const SideNavLayout: FC = () => {
         <PageContainer
           title={headline.title}
           subTitle={headline.subTitle}
-          enableYearPicker={headline.title !== 'Profile'}
+          enableYearPicker={headline.isYearPickerEnabled}
           yearValue={currentYear}
           handleSelectYear={handleSelectYear}
         >

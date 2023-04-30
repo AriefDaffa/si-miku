@@ -8,13 +8,13 @@ import Collapse from '@mui/material/Collapse';
 
 import EventNoteIcon from '@mui/icons-material/EventNote';
 
-import useAuthStatusQuery from '@/repository/query/AuthStatusQuery';
+import useAuthStatusQuery from '@/repository/query/auth/AuthStatusQuery';
 import {
   NAV_ITEM,
   NAV_ITEM_SECONDARY,
 } from '@/controller/constant/sidebar-menu';
 import { useAuthContext } from '@/controller/context/AuthContext';
-import type { CurrentUserResponseNormalized } from '@/repository/query/CurrentUserQuery/types';
+import type { CurrentUserResponseNormalized } from '@/repository/query/user/CurrentUserQuery/types';
 
 import UserProfileCard from './UserProfileCard';
 import SidebarItem from './SidebarItem';

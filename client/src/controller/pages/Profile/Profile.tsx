@@ -9,7 +9,7 @@ import Card from '@/components/UI/atoms/Card';
 import LoadingPopup from '@/components/UI/atoms/Loader/LoadingPopup';
 import DialogPopup from '@/components/UI/atoms/DialogPopup';
 import useUpdateUserProfileMutation from '@/repository/mutation/UpdateUserProfileMutation';
-import { useCurrentUserQuery } from '@/repository/query/CurrentUserQuery';
+import { useCurrentUserQuery } from '@/repository/query/user/CurrentUserQuery';
 import { useAuthContext } from '@/controller/context/AuthContext';
 import { useYupValidationResolver } from '@/controller/hooks/use-yup-validation-resolver';
 
@@ -108,6 +108,7 @@ const Profile: FC = () => {
       setHeadline({
         title: 'Profile',
         subTitle: 'Menampilkan profile pengguna',
+        isYearPickerEnabled: false,
       });
     }
 

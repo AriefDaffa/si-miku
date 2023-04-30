@@ -22,7 +22,7 @@ import AvatarTitle from '@/components/UI/organism/AvatarTitle';
 import LoadingPopup from '@/components/UI/atoms/Loader/LoadingPopup';
 import DialogPopup from '@/components/UI/atoms/DialogPopup';
 import useUpdateUserProfileMutation from '@/repository/mutation/UpdateUserProfileMutation';
-import { useCurrentUserQuery } from '@/repository/query/CurrentUserQuery';
+import { useCurrentUserQuery } from '@/repository/query/user/CurrentUserQuery';
 import { Header, PageTitle, SubHeader } from '@/components/UI/atoms/Typography';
 import { useAuthContext } from '@/controller/context/AuthContext';
 import { useYupValidationResolver } from '@/controller/hooks/use-yup-validation-resolver';

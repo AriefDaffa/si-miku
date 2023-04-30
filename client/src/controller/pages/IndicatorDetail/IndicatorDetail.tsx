@@ -48,6 +48,7 @@ const IndicatorDetail: FC = () => {
     setHeadline({
       title: indicatorName,
       subTitle: `Menampilkan data indikator pada tahun ${currentYear}`,
+      isYearPickerEnabled: true,
     });
   }, [indicatorName, currentYear]);
 

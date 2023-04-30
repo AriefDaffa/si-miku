@@ -10,7 +10,7 @@ import Button from '@mui/material/Button';
 import Card from '@/components/UI/atoms/Card';
 import Grid from '@/components/UI/atoms/Grid';
 import LoadingPopup from '@/components/UI/atoms/Loader/LoadingPopup';
-import useUserQuery from '@/repository/query/UserQuery/useUserQuery';
+import useUserQuery from '@/repository/query/user/UserQuery';
 import useCreateOperatorMutation from '@/repository/mutation/CreateOperatorMutation';
 import { Header } from '@/components/UI/atoms/Typography';
 import { useYupValidationResolver } from '@/controller/hooks/use-yup-validation-resolver';

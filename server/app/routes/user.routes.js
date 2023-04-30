@@ -1,7 +1,7 @@
 const express = require('express');
 const multer = require('multer');
 
-const getUser = require('../controllers/user/get-user');
+const getUser = require('../controllers/user/get/getUserByRole');
 const getCurrentUser = require('../controllers/user/get-current-user');
 const createOperator = require('../controllers/user/post-user-operator');
 const deleteUser = require('../controllers/user/delete-user');

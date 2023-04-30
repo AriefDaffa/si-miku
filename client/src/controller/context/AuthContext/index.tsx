@@ -2,7 +2,7 @@ import { useLocation } from 'react-router-dom';
 import { createContext, useContext, useMemo } from 'react';
 import type { FC } from 'react';
 
-import useAuthStatusQuery from '@/repository/query/AuthStatusQuery';
+import useAuthStatusQuery from '@/repository/query/auth/AuthStatusQuery';
 
 import type { AuthContextInterface, AuthContextProps } from './types';
 

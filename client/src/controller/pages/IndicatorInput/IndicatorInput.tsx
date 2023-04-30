@@ -17,6 +17,7 @@ const IndicatorInput: FC = () => {
       setHeadline({
         title: 'Input Indikator',
         subTitle: `Masukkan data indikator kedalam sistem`,
+        isYearPickerEnabled: false,
       });
     }
   }, [location]);

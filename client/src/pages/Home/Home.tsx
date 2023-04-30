@@ -15,13 +15,13 @@ import {
   SUCCESS,
 } from '@/presentation/global-component/theme/Colors';
 
-import useOverviewIndicatorQuery from '@/repository/query/OverviewIndicator';
+// import useOverviewIndicatorQuery from '@/repository/query/OverviewIndicator';
 import ChartSection from './ChartSection';
 import CardCount from './CardCount';
 
 const Home: FC = () => {
-  const { data: indicatorOverview, isLoading: isIndicatorOverviewLoading } =
-    useOverviewIndicatorQuery();
+  // const { data: indicatorOverview, isLoading: isIndicatorOverviewLoading } =
+  //   useOverviewIndicatorQuery();
 
   return (
     <Container maxWidth="xl">

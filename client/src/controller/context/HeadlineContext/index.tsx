@@ -7,6 +7,7 @@ const Headline = createContext<HeadlineInterface>({
   headline: {
     title: '',
     subTitle: '',
+    isYearPickerEnabled: false,
   },
   setHeadline: () => {},
 });
@@ -16,6 +17,7 @@ export const HeadlineProvider: FC<HeadlineProps> = (props) => {
   const [headline, setHeadline] = useState({
     title: '',
     subTitle: '',
+    isYearPickerEnabled: false,
   });
 
   const value: HeadlineInterface = useMemo(() => {

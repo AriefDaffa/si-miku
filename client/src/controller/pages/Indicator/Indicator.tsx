@@ -63,6 +63,7 @@ const Indicator: FC = () => {
         title: 'List Indikator',
         subTitle:
           'Menampilkan progress perkembangan seluruh data indikator yang terdapat pada sistem',
+        isYearPickerEnabled: true,
       });
     }
   }, [location]);

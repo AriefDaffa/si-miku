@@ -5,10 +5,10 @@ import IconButton from '@mui/material/IconButton';
 import DeleteIcon from '@mui/icons-material/Delete';
 
 import DialogPopup from '@/components/UI/atoms/DialogPopup';
-import useIndicatorQuery from '@/repository/query/IndicatorQuery';
+import useIndicatorQuery from '@/repository/query/indicator/IndicatorQuery';
 import LoadingPopup from '@/components/UI/atoms/Loader/LoadingPopup';
 import useDeleteUserMutation from '@/repository/mutation/DeleteUserMutation';
-import useUserQuery from '@/repository/query/UserQuery';
+import useUserQuery from '@/repository/query/user/UserQuery';
 
 interface DeleteButtonProps {
   id: number;

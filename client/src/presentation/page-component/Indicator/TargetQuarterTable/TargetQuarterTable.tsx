@@ -89,7 +89,6 @@ const TargetQuarterTable: FC<TargetQuarterTableProps> = (props) => {
             : 'Silahkan pilih data yang akan di export'}
         </Alert>
       )}
-      {/* <Grid sm={[1]} gridItem={[<Card sx={{ py: 0.5, px: 1 }}>1</Card>]} /> */}
       <Card sx={{ border: '1px solid #dadada' }}>
         <Table
           headComponent={

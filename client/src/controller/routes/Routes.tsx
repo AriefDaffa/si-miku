@@ -4,7 +4,7 @@ import {
   SideNavLayout,
   BasicLayout,
 } from '@/presentation/global-component/layout';
-import { Home, User, Department, Major, Progress } from '@/pages';
+import { Home, Department, Major, Progress } from '@/pages';
 
 import PrivateRoute from './PrivateRoute';
 
@@ -14,6 +14,7 @@ import {
   IndicatorInput,
   Login,
   Profile,
+  User,
   NotFound,
 } from '@/controller/pages';
 

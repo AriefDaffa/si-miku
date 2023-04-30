@@ -2,7 +2,7 @@ import { Navigate, Outlet, useLocation } from 'react-router-dom';
 import type { FC } from 'react';
 
 import SplashScreen from '@/components/UI/atoms/Loader/SplashScreen';
-import useAuthStatusQuery from '@/repository/query/AuthStatusQuery';
+import useAuthStatusQuery from '@/repository/query/auth/AuthStatusQuery';
 
 const PrivateRoute: FC = () => {
   const location = useLocation();
