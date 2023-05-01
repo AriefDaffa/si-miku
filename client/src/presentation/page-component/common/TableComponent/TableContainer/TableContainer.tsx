@@ -5,14 +5,14 @@ import Card from '@mui/material/Card';
 
 import Table from '@/presentation/global-component/UI/Table';
 
-interface UserTableContainerProps {
+interface TableContainerProps {
   enableCheckbox: boolean;
   headComponent: ReactNode;
   bodyComponent: ReactNode;
   paginationComponent: ReactNode;
 }
 
-const UserTableContainer: FC<UserTableContainerProps> = (props) => {
+const TableContainer: FC<TableContainerProps> = (props) => {
   const { enableCheckbox, bodyComponent, headComponent, paginationComponent } =
     props;
 
@@ -33,4 +33,4 @@ const UserTableContainer: FC<UserTableContainerProps> = (props) => {
   );
 };
 
-export default UserTableContainer;
+export default TableContainer;

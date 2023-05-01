@@ -11,12 +11,12 @@ import IosShareIcon from '@mui/icons-material/IosShare';
 import SearchBar from '@/components/UI/atoms/SearchBar';
 import Grid from '@/components/UI/atoms/Grid';
 
-interface UserTableToolbarProps {
+interface TableToolbarProps {
   handleCheckbox: () => void;
   handleKeywordChange: (e: ChangeEvent<HTMLInputElement>) => void;
 }
 
-const UserTableToolbar: FC<UserTableToolbarProps> = (props) => {
+const TableToolbar: FC<TableToolbarProps> = (props) => {
   const { handleKeywordChange, handleCheckbox } = props;
 
   return (
@@ -28,7 +28,7 @@ const UserTableToolbar: FC<UserTableToolbarProps> = (props) => {
           <Card sx={{ p: 0.7, border: '1px solid #dadada' }}>
             <SearchBar
               handleKeywordChange={handleKeywordChange}
-              placeholder="Cari Operator"
+              placeholder="Search"
             />
           </Card>,
           <Stack
@@ -56,4 +56,4 @@ const UserTableToolbar: FC<UserTableToolbarProps> = (props) => {
   );
 };
 
-export default UserTableToolbar;
+export default TableToolbar;

@@ -6,6 +6,7 @@ import {
 } from '@/presentation/global-component/layout';
 
 import {
+  Home,
   Indicator,
   IndicatorDetail,
   IndicatorInput,
@@ -14,6 +15,7 @@ import {
   User,
   Department,
   Major,
+  EditIndicator,
   NotFound,
 } from '@/controller/pages';
 
@@ -32,7 +34,8 @@ const Router = () => {
           path: '/dashboard',
           element: <SideNavLayout />,
           children: [
-            { element: <Navigate to="/dashboard/indicator" />, index: true },
+            { element: <Navigate to="/dashboard/overview" />, index: true },
+            { path: 'overview', element: <Home /> },
             {
               path: 'indicator',
               element: <Indicator />,
@@ -41,6 +44,7 @@ const Router = () => {
             { path: 'department', element: <Department /> },
             { path: 'major', element: <Major /> },
             { path: 'indicator-input', element: <IndicatorInput /> },
+            { path: 'indicator-edit', element: <EditIndicator /> },
             { path: 'profile', element: <Profile /> },
             { path: 'user', element: <User /> },
           ],

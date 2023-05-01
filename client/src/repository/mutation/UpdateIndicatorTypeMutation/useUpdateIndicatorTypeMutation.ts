@@ -4,9 +4,11 @@ import baseAPI from '@/controller/utils/axios-utils';
 
 import type { payloadData } from './types';
 
-const useUpdateIndicatorTypeMutation = (indicatorID: number) => {
+const useUpdateIndicatorTypeMutation = () => {
   const mutation = useMutation(async (data: payloadData) => {
-    return await baseAPI.put(`/indicator/${indicatorID}/type`, data);
+    return await baseAPI.put(`/indicator/${data.indicator_id}/type`, {
+      indicator_type: data.indicator_type,
+    });
   });
 
   return mutation;

@@ -10,7 +10,7 @@ import type { SelectChangeEvent } from '@mui/material/Select';
 
 import { SubHeader } from '@/components/UI/atoms/Typography';
 
-interface UserTablePaginationProps {
+interface TablePaginationProps {
   totalPage: number;
   totalData: number;
   currentPage: number;
@@ -19,7 +19,7 @@ interface UserTablePaginationProps {
   handleTableSize: (event: SelectChangeEvent) => void;
 }
 
-const UserTablePagination: FC<UserTablePaginationProps> = (props) => {
+const TablePagination: FC<TablePaginationProps> = (props) => {
   const {
     currentPage,
     totalPage,
@@ -60,4 +60,4 @@ const UserTablePagination: FC<UserTablePaginationProps> = (props) => {
   );
 };
 
-export default UserTablePagination;
+export default TablePagination;

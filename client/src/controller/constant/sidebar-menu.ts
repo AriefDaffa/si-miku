@@ -34,8 +34,8 @@ export const NAV_ITEM = [
     isManagementOnly: false,
   },
   {
-    title: 'Tipe Indikator',
-    path: 'indicator-type',
+    title: 'Edit Indikator',
+    path: 'indicator-edit',
     Icon: EditIcon,
     isManagementOnly: true,
   },

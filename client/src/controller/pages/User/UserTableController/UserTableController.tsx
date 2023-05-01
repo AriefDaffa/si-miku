@@ -6,12 +6,12 @@ import type { SelectChangeEvent } from '@mui/material/Select';
 
 import type { UserDataOverviewNormalized } from '@/repository/query/user/UserQuery';
 
-import UserTableContainer from '@/presentation/page-component/User/UserTable/UserTableContainer';
 import UserTableHead from '@/presentation/page-component/User/UserTable/UserTableHead';
 import UserTableBody from '@/presentation/page-component/User/UserTable/UserTableBody';
-import UserTablePagination from '@/presentation/page-component/User/UserTable/UserTablePagination';
-import UserTableToolbar from '@/presentation/page-component/User/UserTable/UserTableToolbar';
-import UserTableSkeleton from '@/presentation/page-component/User/UserTable/UserTableSkeleton';
+import TablePagination from '@/presentation/page-component/common/TableComponent/TablePagination';
+import TableSkeleton from '@/presentation/page-component/common/TableComponent/TableSkeleton';
+import TableContainer from '@/presentation/page-component/common/TableComponent/TableContainer';
+import TableToolbar from '@/presentation/page-component/common/TableComponent/TableToolbar';
 
 interface UserTableControllerProps {
   isLoading: boolean;
@@ -75,11 +75,11 @@ const UserTableController: FC<UserTableControllerProps> = (props) => {
   // @TODO ADD SEARCH EMPTY RESULT
   return (
     <Fragment>
-      <UserTableToolbar
+      <TableToolbar
         handleCheckbox={() => {}}
         handleKeywordChange={handleChange}
       />
-      <UserTableContainer
+      <TableContainer
         enableCheckbox={false}
         headComponent={
           <UserTableHead
@@ -90,7 +90,7 @@ const UserTableController: FC<UserTableControllerProps> = (props) => {
         }
         bodyComponent={
           isLoading ? (
-            <UserTableSkeleton />
+            <TableSkeleton />
           ) : (
             data.userList.map((item, index) => (
               <UserTableBody key={item.userID} item={item} index={index} />
@@ -98,7 +98,7 @@ const UserTableController: FC<UserTableControllerProps> = (props) => {
           )
         }
         paginationComponent={
-          <UserTablePagination
+          <TablePagination
             currentPage={currentPage}
             currentSize={currentSize}
             totalData={data.totalData}

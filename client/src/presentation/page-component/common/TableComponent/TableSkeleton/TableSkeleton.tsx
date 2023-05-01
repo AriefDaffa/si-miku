@@ -5,7 +5,7 @@ import TableRow from '@mui/material/TableRow';
 import TableCell from '@mui/material/TableCell';
 import Skeleton from '@mui/material/Skeleton';
 
-const UserTableSkeleton: FC = () => {
+const TableSkeleton: FC = () => {
   return (
     <Fragment>
       <TableRow>
@@ -32,4 +32,4 @@ const UserTableSkeleton: FC = () => {
   );
 };
 
-export default UserTableSkeleton;
+export default TableSkeleton;
