@@ -15,6 +15,7 @@ import {
   User,
   Department,
   Major,
+  Faculty,
   EditIndicator,
   NotFound,
 } from '@/controller/pages';
@@ -34,14 +35,14 @@ const Router = () => {
           path: '/dashboard',
           element: <SideNavLayout />,
           children: [
-            { element: <Navigate to="/dashboard/overview" />, index: true },
-            { path: 'overview', element: <Home /> },
+            { element: <Navigate to="/dashboard/indicator" />, index: true },
             {
               path: 'indicator',
               element: <Indicator />,
               children: [{ path: ':id', element: <IndicatorDetail /> }],
             },
             { path: 'department', element: <Department /> },
+            { path: 'faculty', element: <Faculty /> },
             { path: 'major', element: <Major /> },
             { path: 'indicator-input', element: <IndicatorInput /> },
             { path: 'indicator-edit', element: <EditIndicator /> },

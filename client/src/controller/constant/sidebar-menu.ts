@@ -7,14 +7,9 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import PeopleIcon from '@mui/icons-material/People';
 import FormatListBulletedIcon from '@mui/icons-material/FormatListBulleted';
 import AddIcon from '@mui/icons-material/Add';
+import BusinessIcon from '@mui/icons-material/Business';
 
 export const NAV_ITEM = [
-  {
-    title: 'Overview',
-    path: 'overview',
-    Icon: HomeIcon,
-    isManagementOnly: false,
-  },
   {
     title: 'List Indikator',
     path: 'indicator',
@@ -22,23 +17,29 @@ export const NAV_ITEM = [
     isManagementOnly: false,
   },
   {
-    title: 'Departemen',
+    title: 'Data Fakultas',
+    path: 'faculty',
+    Icon: BusinessIcon,
+    isManagementOnly: false,
+  },
+  {
+    title: 'Data Departemen',
     path: 'department',
     Icon: AccountBalanceIcon,
     isManagementOnly: false,
   },
   {
-    title: 'Program Studi',
+    title: 'Data Program Studi',
     path: 'major',
     Icon: SchoolIcon,
     isManagementOnly: false,
   },
-  {
-    title: 'Edit Indikator',
-    path: 'indicator-edit',
-    Icon: EditIcon,
-    isManagementOnly: true,
-  },
+  // {
+  //   title: 'Edit Indikator',
+  //   path: 'indicator-edit',
+  //   Icon: EditIcon,
+  //   isManagementOnly: true,
+  // },
   {
     title: 'Tambah Indikator',
     path: 'indicator-input',

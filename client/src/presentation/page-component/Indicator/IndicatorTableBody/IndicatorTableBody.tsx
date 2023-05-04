@@ -10,14 +10,14 @@ import { Header } from '@/components/UI/atoms/Typography';
 import { GREY } from '@/presentation/global-component/theme/Colors';
 import type { IndicatorListNormalized } from '@/repository/query/indicator/IndicatorQuery';
 
-interface EditIndicatorTableBodyProps {
+interface IndicatorTableBodyProps {
   index: number;
   item: IndicatorListNormalized;
   handleDepartmentCheckbox: (item: IndicatorListNormalized) => void;
   handleMajorCheckbox: (item: IndicatorListNormalized) => void;
 }
 
-const EditIndicatorTableBody: FC<EditIndicatorTableBodyProps> = (props) => {
+const IndicatorTableBody: FC<IndicatorTableBodyProps> = (props) => {
   const { item, index, handleDepartmentCheckbox, handleMajorCheckbox } = props;
 
   const handleDepartmentClick = () => {
@@ -101,4 +101,4 @@ const EditIndicatorTableBody: FC<EditIndicatorTableBodyProps> = (props) => {
   );
 };
 
-export default EditIndicatorTableBody;
+export default IndicatorTableBody;

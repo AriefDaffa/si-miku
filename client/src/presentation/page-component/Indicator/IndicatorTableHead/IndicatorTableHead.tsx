@@ -7,13 +7,13 @@ import Checkbox from '@mui/material/Checkbox';
 import { Header } from '@/components/UI/atoms/Typography';
 import { PRIMARY } from '@/presentation/global-component/theme/Colors';
 
-interface EditIndicatorTableHeadProps {
+interface IndicatorTableHeadProps {
   enableCheckbox: boolean;
   isAllChecked: boolean;
   handleSelectAll: (e: any) => void;
 }
 
-const EditIndicatorTableHead: FC<EditIndicatorTableHeadProps> = (props) => {
+const IndicatorTableHead: FC<IndicatorTableHeadProps> = (props) => {
   const { isAllChecked, handleSelectAll, enableCheckbox } = props;
 
   return (
@@ -75,4 +75,4 @@ const EditIndicatorTableHead: FC<EditIndicatorTableHeadProps> = (props) => {
   );
 };
 
-export default EditIndicatorTableHead;
+export default IndicatorTableHead;

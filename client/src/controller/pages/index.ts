@@ -7,5 +7,6 @@ export { default as Profile } from './Profile';
 export { default as User } from './User';
 export { default as Department } from './Department';
 export { default as Major } from './Major';
+export { default as Faculty } from './Faculty';
 export { default as EditIndicator } from './EditIndicator';
 export { default as NotFound } from './NotFound';

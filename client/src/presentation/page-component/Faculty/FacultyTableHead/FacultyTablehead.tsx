@@ -7,13 +7,13 @@ import Checkbox from '@mui/material/Checkbox';
 import { Header } from '@/components/UI/atoms/Typography';
 import { PRIMARY } from '@/presentation/global-component/theme/Colors';
 
-interface EditIndicatorTableHeadProps {
+interface FacultyTableHeadProps {
   enableCheckbox: boolean;
   isAllChecked: boolean;
   handleSelectAll: (e: any) => void;
 }
 
-const EditIndicatorTableHead: FC<EditIndicatorTableHeadProps> = (props) => {
+const FacultyTableHead: FC<FacultyTableHeadProps> = (props) => {
   const { isAllChecked, handleSelectAll, enableCheckbox } = props;
 
   return (
@@ -36,11 +36,7 @@ const EditIndicatorTableHead: FC<EditIndicatorTableHeadProps> = (props) => {
         <Header variant="subtitle2" text="No." sx={{ color: 'white' }} />
       </TableCell>
       <TableCell>
-        <Header
-          variant="subtitle2"
-          text="Kode Indikator"
-          sx={{ color: 'white' }}
-        />
+        <Header variant="subtitle2" text="Kode" sx={{ color: 'white' }} />
       </TableCell>
       <TableCell>
         <Header
@@ -50,29 +46,25 @@ const EditIndicatorTableHead: FC<EditIndicatorTableHeadProps> = (props) => {
         />
       </TableCell>
       <TableCell>
-        <Header
-          variant="subtitle2"
-          text="Fakultas"
-          sx={{ color: 'white', textAlign: 'center' }}
-        />
+        <Header variant="subtitle2" text="Kuartil 1" sx={{ color: 'white' }} />
       </TableCell>
       <TableCell>
-        <Header
-          variant="subtitle2"
-          text="Departemen"
-          sx={{ color: 'white', textAlign: 'center' }}
-        />
+        <Header variant="subtitle2" text="Kuartil 2" sx={{ color: 'white' }} />
       </TableCell>
       <TableCell>
-        <Header
-          variant="subtitle2"
-          text="Program Studi"
-          sx={{ color: 'white', textAlign: 'center' }}
-        />
+        <Header variant="subtitle2" text="Kuartil 3" sx={{ color: 'white' }} />
       </TableCell>
-      <TableCell></TableCell>
+      <TableCell>
+        <Header variant="subtitle2" text="Kuartil 4" sx={{ color: 'white' }} />
+      </TableCell>
+      <TableCell>
+        <Header variant="subtitle2" text="Target" sx={{ color: 'white' }} />
+      </TableCell>
+      <TableCell>
+        <Header variant="subtitle2" text="Status" sx={{ color: 'white' }} />
+      </TableCell>
     </TableRow>
   );
 };
 
-export default EditIndicatorTableHead;
+export default FacultyTableHead;
