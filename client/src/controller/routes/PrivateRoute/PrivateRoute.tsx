@@ -1,7 +1,7 @@
 import { Navigate, Outlet, useLocation } from 'react-router-dom';
 import type { FC } from 'react';
 
-import SplashScreen from '@/components/UI/atoms/Loader/SplashScreen';
+import SplashScreen from '@/presentation/global-component/UI/Loader/SplashScreen';
 import useAuthStatusQuery from '@/repository/query/auth/AuthStatusQuery';
 
 const PrivateRoute: FC = () => {
@@ -11,9 +11,11 @@ const PrivateRoute: FC = () => {
     location.pathname.includes('login')
   );
 
-  if (isLoading) {
-    return <SplashScreen />;
-  } else if (!data.isAuthenticated && location.pathname.includes('login')) {
+  // if (isLoading) {
+  //   return <SplashScreen />;
+  // }
+  // else
+  if (!data.isAuthenticated && location.pathname.includes('login')) {
     return <Navigate to="/login" />;
   } else {
     return <Outlet />;

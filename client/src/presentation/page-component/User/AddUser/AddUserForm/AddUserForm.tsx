@@ -5,7 +5,7 @@ import type { FC } from 'react';
 
 import TextField from '@mui/material/TextField';
 
-import Grid from '@/components/UI/atoms/Grid';
+import Grid from '@/presentation/global-component/UI/Grid';
 
 interface AddUserFormProps {
   control: Control<any, any>;

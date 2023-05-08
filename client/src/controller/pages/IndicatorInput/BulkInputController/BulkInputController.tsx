@@ -10,11 +10,14 @@ import IconButton from '@mui/material/IconButton';
 import Alert from '@mui/material/Alert';
 import DeleteIcon from '@mui/icons-material/Delete';
 
-import Card from '@/components/UI/atoms/Card';
-import DialogPopup from '@/components/UI/atoms/DialogPopup';
-import LoadingPopup from '@/components/UI/atoms/Loader/LoadingPopup';
+import Card from '@/presentation/global-component/UI/Card';
+import DialogPopup from '@/presentation/global-component/UI/DialogPopup';
+import LoadingPopup from '@/presentation/global-component/UI/Loader/LoadingPopup';
 import useInputIndicatorBulkMutation from '@/repository/mutation/indicator/InputIndicatorBulkMutation';
-import { Header, SubHeader } from '@/components/UI/atoms/Typography';
+import {
+  Header,
+  SubHeader,
+} from '@/presentation/global-component/UI/Typography';
 
 import { SheetJSFT } from './constant';
 

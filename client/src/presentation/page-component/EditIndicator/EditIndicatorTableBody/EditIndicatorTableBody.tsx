@@ -6,7 +6,7 @@ import TableCell from '@mui/material/TableCell';
 import IconButton from '@mui/material/IconButton';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 
-import { Header } from '@/components/UI/atoms/Typography';
+import { Header } from '@/presentation/global-component/UI/Typography';
 import { GREY } from '@/presentation/global-component/theme/Colors';
 import type { IndicatorListNormalized } from '@/repository/query/indicator/IndicatorQuery';
 

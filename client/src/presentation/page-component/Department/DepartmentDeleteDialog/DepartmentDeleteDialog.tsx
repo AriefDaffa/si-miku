@@ -9,11 +9,11 @@ import Dialog from '@mui/material/Dialog';
 import DialogContent from '@mui/material/DialogContent';
 import CreateIcon from '@mui/icons-material/Create';
 
-import DialogPopup from '@/components/UI/atoms/DialogPopup';
-import LoadingPopup from '@/components/UI/atoms/Loader/LoadingPopup';
-import TextWithSubHeader from '@/components/UI/molecules/TextWithSubHeader';
+import DialogPopup from '@/presentation/global-component/UI/DialogPopup';
+import LoadingPopup from '@/presentation/global-component/UI/Loader/LoadingPopup';
+import TextWithSubHeader from '@/presentation/global-component/UI/TextWithSubHeader';
 import useDeleteDepartmentDataMutation from '@/repository/mutation/department/DeleteDepartmentDataMutation';
-import { Header } from '@/components/UI/atoms/Typography';
+import { Header } from '@/presentation/global-component/UI/Typography';
 import type { IndicatorDepartmentsNormalized } from '@/repository/query/indicator/IndicatorByIdQuery';
 import type { DeleteDepartmentDataPayload } from '@/repository/mutation/department/DeleteDepartmentDataMutation';
 

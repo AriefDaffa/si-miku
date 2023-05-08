@@ -2,8 +2,8 @@ import type { FC, ReactNode } from 'react';
 
 import Container from '@mui/material/Container';
 
-import Helmet from '@/components/UI/atoms/Helmet';
-import Breadcrumbs from '@/components/UI/atoms/Breadcrumbs';
+import Helmet from '@/presentation/global-component/UI/Helmet';
+import Breadcrumbs from '@/presentation/global-component/UI/Breadcrumbs';
 
 interface PageContainerProps {
   title: string;

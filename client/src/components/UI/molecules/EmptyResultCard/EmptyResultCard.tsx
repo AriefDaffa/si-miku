@@ -7,9 +7,12 @@ import Button from '@mui/material/Button';
 import Divider from '@mui/material/Divider';
 import Avatar from '@mui/material/Avatar';
 
-import Card from '@/components/UI/atoms/Card';
+import Card from '@/presentation/global-component/UI/Card';
 import emptyIcon from '@/assets/logo/empty.png';
-import { Header, SubHeader } from '@/components/UI/atoms/Typography';
+import {
+  Header,
+  SubHeader,
+} from '@/presentation/global-component/UI/Typography';
 import { PRIMARY } from '@/presentation/global-component/theme/Colors';
 
 interface EmptyResultCardProps {

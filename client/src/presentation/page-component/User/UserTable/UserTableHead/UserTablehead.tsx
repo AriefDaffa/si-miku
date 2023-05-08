@@ -4,7 +4,7 @@ import TableRow from '@mui/material/TableRow';
 import TableCell from '@mui/material/TableCell';
 import Checkbox from '@mui/material/Checkbox';
 
-import { Header } from '@/components/UI/atoms/Typography';
+import { Header } from '@/presentation/global-component/UI/Typography';
 import { PRIMARY } from '@/presentation/global-component/theme/Colors';
 
 interface UserTableHeadProps {

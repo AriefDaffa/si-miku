@@ -15,10 +15,13 @@ import Pagination from '@mui/material/Pagination';
 import Button from '@mui/material/Button';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 
-import Grid from '@/components/UI/atoms/Grid';
-import Card from '@/components/UI/atoms/Card';
-import Table from '@/components/UI/atoms/Table';
-import { Header, SubHeader } from '@/components/UI/atoms/Typography';
+import Grid from '@/presentation/global-component/UI/Grid';
+import Card from '@/presentation/global-component/UI/Card';
+import Table from '@/presentation/global-component/UI/Table';
+import {
+  Header,
+  SubHeader,
+} from '@/presentation/global-component/UI/Typography';
 import { GREY } from '@/presentation/global-component/theme/Colors';
 import { getProgressColor } from '@/controller/utils/get-progress-bar-color';
 import { getPercentage } from '@/controller/utils/get-percentage';

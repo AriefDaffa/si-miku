@@ -2,7 +2,10 @@ import type { FC } from 'react';
 
 import Stack from '@mui/material/Stack';
 
-import { Header, SubHeader } from '@/components/UI/atoms/Typography';
+import {
+  Header,
+  SubHeader,
+} from '@/presentation/global-component/UI/Typography';
 
 interface TextWithSubHeaderProps {
   subHeader: string;

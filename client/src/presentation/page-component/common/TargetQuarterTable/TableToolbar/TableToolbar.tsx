@@ -8,8 +8,8 @@ import Tooltip from '@mui/material/Tooltip';
 import FilterAltIcon from '@mui/icons-material/FilterAlt';
 import IosShareIcon from '@mui/icons-material/IosShare';
 
-import SearchBar from '@/components/UI/atoms/SearchBar';
-import Grid from '@/components/UI/atoms/Grid';
+import SearchBar from '@/presentation/global-component/UI/SearchBar';
+import Grid from '@/presentation/global-component/UI/Grid';
 
 interface TableToolbarProps {
   handleCheckbox: () => void;

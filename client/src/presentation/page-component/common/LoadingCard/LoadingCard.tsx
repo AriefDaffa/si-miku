@@ -3,7 +3,7 @@ import type { FC, ReactNode } from 'react';
 import Box from '@mui/material/Box';
 import Skeleton from '@mui/material/Skeleton';
 
-import Card from '@/components/UI/atoms/Card';
+import Card from '@/presentation/global-component/UI/Card';
 
 interface LoadingCardProps {}
 

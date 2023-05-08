@@ -5,9 +5,9 @@ import { useQueryClient } from 'react-query';
 import { useForm } from 'react-hook-form';
 import type { FC, ChangeEvent } from 'react';
 
-import Card from '@/components/UI/atoms/Card';
-import LoadingPopup from '@/components/UI/atoms/Loader/LoadingPopup';
-import DialogPopup from '@/components/UI/atoms/DialogPopup';
+import Card from '@/presentation/global-component/UI/Card';
+import LoadingPopup from '@/presentation/global-component/UI/Loader/LoadingPopup';
+import DialogPopup from '@/presentation/global-component/UI/DialogPopup';
 import useUpdateUserProfileMutation from '@/repository/mutation/UpdateUserProfileMutation';
 import { useCurrentUserQuery } from '@/repository/query/user/CurrentUserQuery';
 import { useAuthContext } from '@/controller/context/AuthContext';

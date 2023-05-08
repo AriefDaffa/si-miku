@@ -5,10 +5,11 @@ import Box from '@mui/material/Box';
 import Tab from '@mui/material/Tab';
 import Tabs from '@mui/material/Tabs';
 
-import DepartmentInputDialog from '@/components/UI/molecules/DepartmentInputDialog';
-import DepartmentQuarterSection from '@/components/UI/organism/DepartmentQuarterSection';
-import { SubHeader } from '@/components/UI/atoms/Typography';
-import type { GetDepartmentNormalizedResult } from '@/pages/Indicator/IndicatorDetail/types';
+import DepartmentQuarterSection from '@/presentation/page-component/IndicatorDetail/IndicatorDetailQuarterSection/DepartmentQuarterSection';
+import DepartmentInputDialog from '@/presentation/page-component/IndicatorDetail/IndicatorDetailInputDialog/DepartmentInputDialog';
+import IndicatorDetailInputButton from '@/presentation/page-component/IndicatorDetail/IndicatorDetailInputButton';
+import { SubHeader } from '@/presentation/global-component/UI/Typography';
+import type { GetDepartmentNormalizedResult } from '@/controller/pages/IndicatorDetail/types';
 
 interface DepartmentViewProps {
   indicatorID: number;
@@ -26,6 +27,10 @@ const DepartmentView: FC<DepartmentViewProps> = (props) => {
     setValue(newValue);
   };
 
+  const handleOpen = () => {
+    setopenDepartmentDialog(true);
+  };
+
   return (
     <Box>
       <SubHeader
@@ -38,12 +43,15 @@ const DepartmentView: FC<DepartmentViewProps> = (props) => {
         </Tabs>
         {value === 0 && (
           <Box sx={{ my: 2 }}>
-            <DepartmentQuarterSection
-              {...departmentData}
-              isEnableEdit
-              indicatorID={indicatorID}
-              indicatorName={indicatorName}
-            />
+            <Box sx={{ mb: 2 }}>
+              <DepartmentQuarterSection
+                {...departmentData}
+                isEnableEdit
+                indicatorID={indicatorID}
+                indicatorName={indicatorName}
+              />
+            </Box>
+            <IndicatorDetailInputButton onInputClick={handleOpen} />
           </Box>
         )}
       </Box>

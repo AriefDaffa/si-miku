@@ -9,7 +9,7 @@ import type { SxProps } from '@mui/material';
 import type { SvgIconTypeMap } from '@mui/material';
 import type { OverridableComponent } from '@mui/material/OverridableComponent';
 
-import TextWithSubHeader from '@/components/UI/molecules/TextWithSubHeader';
+import TextWithSubHeader from '@/presentation/global-component/UI/TextWithSubHeader';
 
 interface AvatarTitleProps {
   imageURL: string;

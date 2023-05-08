@@ -4,7 +4,7 @@ import type { FC } from 'react';
 
 import Box from '@mui/material/Box';
 
-import TargetQuarterCard from '@/components/UI/organism/TargetQuarterCard';
+import TargetQuarterCard from '@/presentation/page-component/common/TargetQuarterCard';
 import useIndicatorByIdQuery from '@/repository/query/indicator/IndicatorByIdQuery';
 import { useHeadline } from '@/controller/context/HeadlineContext';
 import { useCurrentYear } from '@/controller/context/CurrentYearContext';

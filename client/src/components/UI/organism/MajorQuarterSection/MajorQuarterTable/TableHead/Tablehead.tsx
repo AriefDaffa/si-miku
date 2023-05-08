@@ -3,7 +3,7 @@ import type { FC } from 'react';
 import TableRow from '@mui/material/TableRow';
 import TableCell from '@mui/material/TableCell';
 
-import { Header } from '@/components/UI/atoms/Typography';
+import { Header } from '@/presentation/global-component/UI/Typography';
 import { PRIMARY } from '@/presentation/global-component/theme/Colors';
 
 interface TableHeadProps {

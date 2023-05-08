@@ -8,7 +8,7 @@ import MenuItem from '@mui/material/MenuItem';
 import Pagination from '@mui/material/Pagination';
 import type { SelectChangeEvent } from '@mui/material/Select';
 
-import { SubHeader } from '@/components/UI/atoms/Typography';
+import { SubHeader } from '@/presentation/global-component/UI/Typography';
 
 interface TablePaginationProps {
   totalPage: number;

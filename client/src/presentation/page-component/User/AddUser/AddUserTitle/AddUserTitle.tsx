@@ -1,7 +1,7 @@
 import type { FC } from 'react';
 
 import Box from '@mui/material/Box';
-import { Header } from '@/components/UI/atoms/Typography';
+import { Header } from '@/presentation/global-component/UI/Typography';
 
 const AddUserTitle: FC = () => {
   return (

@@ -9,8 +9,8 @@ import MenuItem from '@mui/material/MenuItem';
 import Button from '@mui/material/Button';
 import Alert from '@mui/material/Alert';
 
-import Grid from '@/components/UI/atoms/Grid';
-import { SubHeader } from '@/components/UI/atoms/Typography';
+import Grid from '@/presentation/global-component/UI/Grid';
+import { SubHeader } from '@/presentation/global-component/UI/Typography';
 
 interface FormSectionProps {
   localError: string;

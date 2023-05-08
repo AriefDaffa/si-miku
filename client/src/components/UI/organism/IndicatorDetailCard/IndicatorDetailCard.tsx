@@ -6,14 +6,17 @@ import Stack from '@mui/material/Stack';
 import DoneAllIcon from '@mui/icons-material/DoneAll';
 import CancelIcon from '@mui/icons-material/Cancel';
 
-import Card from '@/components/UI/atoms/Card';
-import Grid from '@/components/UI/atoms/Grid';
-import Pill from '@/components/UI/atoms/Pill';
+import Card from '@/presentation/global-component/UI/Card';
+import Grid from '@/presentation/global-component/UI/Grid';
+import Pill from '@/presentation/global-component/UI/Pill';
 // import ProgressCard from '@/components/UI/molecules/ProgressCard';
 // import TargetQuarterChart from '@/components/UI/molecules/TargetQuarterChart';
 import { getPercentage } from '@/controller/utils/get-percentage';
 import { getProgressColor } from '@/controller/utils/get-progress-bar-color';
-import { Header, SubHeader } from '@/components/UI/atoms/Typography';
+import {
+  Header,
+  SubHeader,
+} from '@/presentation/global-component/UI/Typography';
 import {
   ERROR,
   GREY,

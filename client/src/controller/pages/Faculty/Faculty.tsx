@@ -1,21 +1,21 @@
 import { useState, useMemo, useCallback, useEffect, Fragment } from 'react';
-import { Outlet, useLocation } from 'react-router-dom';
-import type { FC, ChangeEvent } from 'react';
+import { useLocation } from 'react-router-dom';
+import type { FC, ChangeEvent, SyntheticEvent } from 'react';
 
 import type { SelectChangeEvent } from '@mui/material/Select';
 
-import OverviewSection from '@/presentation/page-component/Indicator/OverviewSection';
-import TargetQuarterTable from '@/presentation/page-component/common/TargetQuarterTable';
 import useGetIndicatorFacultyDataQuery from '@/repository/query/faculty/GetIndicatorFacultyDataQuery';
+import OverviewCard from '@/presentation/page-component/Home/OverviewCard';
+import TableToolbar from '@/presentation/page-component/common/TableComponent/TableToolbar';
+import TableContainer from '@/presentation/page-component/common/TableComponent/TableContainer';
+import FacultyTableHead from '@/presentation/page-component/Faculty/FacultyTableHead';
+import TableSkeleton from '@/presentation/page-component/common/TableComponent/TableSkeleton';
+import FacultyTableBody from '@/presentation/page-component/Faculty/FacultyTableBody';
+import TablePagination from '@/presentation/page-component/common/TableComponent/TablePagination';
 import { useCurrentYear } from '@/controller/context/CurrentYearContext';
 import { useHeadline } from '@/controller/context/HeadlineContext';
-import OverviewCard from '@/presentation/page-component/Home/OverviewCard/OverviewCard';
-import TableToolbar from '@/presentation/page-component/common/TableComponent/TableToolbar/TableToolbar';
-import TableContainer from '@/presentation/page-component/common/TableComponent/TableContainer/TableContainer';
-import FacultyTableHead from '@/presentation/page-component/Faculty/FacultyTableHead/FacultyTablehead';
-import TableSkeleton from '@/presentation/page-component/common/TableComponent/TableSkeleton/TableSkeleton';
-import FacultyTableBody from '@/presentation/page-component/Faculty/FacultyTableBody/FacultyTableBody';
-import TablePagination from '@/presentation/page-component/common/TableComponent/TablePagination/TablePagination';
+import type { FakultasIndikatorNormalized } from '@/repository/query/faculty/GetIndicatorFacultyDataQuery';
+import { GRID_CHECKBOX_SELECTION_COL_DEF } from '@mui/x-data-grid';
 
 const Faculty: FC = () => {
   const location = useLocation();
@@ -23,6 +23,9 @@ const Faculty: FC = () => {
   const [keyword, setKeyword] = useState('');
   const [page, setPage] = useState(0);
   const [rows, setRows] = useState(10);
+
+  const [enableExport, setEnableExport] = useState(false);
+  const [selected, setSelected] = useState<FakultasIndikatorNormalized[]>([]);
 
   const { currentYear } = useCurrentYear();
   const { setHeadline } = useHeadline();
@@ -50,6 +53,63 @@ const Faculty: FC = () => {
     []
   );
 
+  const handleEnableCheckbox = () => {
+    setEnableExport(!enableExport);
+  };
+
+  const handleSelect = useCallback(
+    (
+      e: SyntheticEvent<HTMLButtonElement>,
+      item: FakultasIndikatorNormalized
+    ) => {
+      e.stopPropagation();
+
+      const selectedIndex = selected
+        .map((data) => data.indicatorID)
+        .indexOf(item.indicatorID);
+
+      let selectedArray: FakultasIndikatorNormalized[] = [];
+
+      if (selectedIndex === -1) {
+        selectedArray = selectedArray.concat(selected, item);
+      } else if (selectedIndex === 0) {
+        selectedArray = selectedArray.concat(selected.slice(1));
+      } else if (selectedIndex === selected.length - 1) {
+        selectedArray = selectedArray.concat(selected.slice(0, -1));
+      } else if (selectedIndex > 0) {
+        selectedArray = selectedArray.concat(
+          selected.slice(0, selectedIndex),
+          selected.slice(selectedIndex + 1)
+        );
+      }
+
+      setSelected(selectedArray);
+    },
+    [selected]
+  );
+
+  const handleSelectAll = useCallback(
+    (e: any) => {
+      if (e.target.checked) {
+        setSelected(data.indicatorList);
+        return;
+      }
+      setSelected([]);
+    },
+    [data]
+  );
+
+  const isAllChecked = useMemo(() => {
+    return (
+      data.indicatorList.length > 0 &&
+      selected.length === data.indicatorList.length
+    );
+  }, [data, selected]);
+
+  const handleExport = useCallback(() => {}, []);
+
+  console.log(selected);
+
   useEffect(() => {
     if (location.pathname === '/dashboard/faculty') {
       setHeadline({
@@ -64,16 +124,18 @@ const Faculty: FC = () => {
   return (
     <Fragment>
       <TableToolbar
-        handleCheckbox={() => {}}
+        withExportButton
+        handleCheckbox={handleEnableCheckbox}
         handleKeywordChange={handleKeywordChange}
       />
       <TableContainer
-        enableCheckbox={false}
+        enableCheckbox={enableExport}
+        selectedData={selected.length}
         headComponent={
           <FacultyTableHead
-            enableCheckbox={false}
-            handleSelectAll={() => {}}
-            isAllChecked={false}
+            enableCheckbox={enableExport}
+            handleSelectAll={handleSelectAll}
+            isAllChecked={isAllChecked}
           />
         }
         bodyComponent={
@@ -84,7 +146,9 @@ const Faculty: FC = () => {
               <FacultyTableBody
                 key={item.indicatorID}
                 index={index}
-                enableCheckbox={false}
+                enableCheckbox={enableExport}
+                onCheckboxClick={handleSelect}
+                selected={selected}
                 {...item}
               />
             ))

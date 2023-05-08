@@ -1,4 +1,5 @@
-import type { FC } from 'react';
+import { useNavigate } from 'react-router-dom';
+import type { FC, SyntheticEvent } from 'react';
 
 import Checkbox from '@mui/material/Checkbox';
 import TableRow from '@mui/material/TableRow';
@@ -6,7 +7,7 @@ import TableCell from '@mui/material/TableCell';
 import IconButton from '@mui/material/IconButton';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 
-import { Header } from '@/components/UI/atoms/Typography';
+import { Header } from '@/presentation/global-component/UI/Typography';
 import { GREY } from '@/presentation/global-component/theme/Colors';
 import type { IndicatorListNormalized } from '@/repository/query/indicator/IndicatorQuery';
 
@@ -20,12 +21,20 @@ interface IndicatorTableBodyProps {
 const IndicatorTableBody: FC<IndicatorTableBodyProps> = (props) => {
   const { item, index, handleDepartmentCheckbox, handleMajorCheckbox } = props;
 
-  const handleDepartmentClick = () => {
+  const navigate = useNavigate();
+
+  const handleDepartmentClick = (e: SyntheticEvent<HTMLButtonElement>) => {
+    e.stopPropagation();
     handleDepartmentCheckbox(item);
   };
 
-  const handleMajorClick = () => {
+  const handleMajorClick = (e: SyntheticEvent<HTMLButtonElement>) => {
+    e.stopPropagation();
     handleMajorCheckbox(item);
+  };
+
+  const handleNavigate = () => {
+    navigate(`/dashboard/indicator/${item.indicatorID}`);
   };
 
   return (
@@ -33,7 +42,7 @@ const IndicatorTableBody: FC<IndicatorTableBodyProps> = (props) => {
       sx={{
         ':hover': { backgroundColor: GREY[300], cursor: 'pointer' },
       }}
-      // onClick={() => handleCheckboxClick(item.userID)}
+      onClick={handleNavigate}
     >
       {/* <TableCell padding="checkbox">
         <Checkbox

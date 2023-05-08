@@ -4,7 +4,7 @@ import type { FC, ReactNode } from 'react';
 import Stack from '@mui/material/Stack';
 import AccountBoxIcon from '@mui/icons-material/AccountBox';
 
-import AvatarTitle from '@/components/UI/organism/AvatarTitle';
+import AvatarTitle from '@/presentation/global-component/UI/AvatarTitle';
 
 interface ProfileContainerProps {
   children: ReactNode;

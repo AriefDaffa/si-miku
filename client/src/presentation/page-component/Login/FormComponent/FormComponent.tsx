@@ -12,9 +12,9 @@ import TextField from '@mui/material/TextField';
 import Alert from '@mui/material/Alert';
 
 import logo from '@/assets/logo/logo.png';
-import Grid from '@/components/UI/atoms/Grid';
-import Helmet from '@/components/UI/atoms/Helmet';
-import LoadingPopup from '@/components/UI/atoms/Loader/LoadingPopup';
+import Grid from '@/presentation/global-component/UI/Grid';
+import Helmet from '@/presentation/global-component/UI/Helmet';
+import LoadingPopup from '@/presentation/global-component/UI/Loader/LoadingPopup';
 import { ERROR, PRIMARY } from '@/presentation/global-component/theme/Colors';
 
 interface FormComponentProps {

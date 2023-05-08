@@ -4,7 +4,7 @@ import TableRow from '@mui/material/TableRow';
 import TableCell from '@mui/material/TableCell';
 import Checkbox from '@mui/material/Checkbox';
 
-import { Header } from '@/components/UI/atoms/Typography';
+import { Header } from '@/presentation/global-component/UI/Typography';
 import { PRIMARY } from '@/presentation/global-component/theme/Colors';
 
 interface FacultyTableHeadProps {
@@ -25,6 +25,7 @@ const FacultyTableHead: FC<FacultyTableHeadProps> = (props) => {
             checked={isAllChecked}
             sx={{
               color: 'white',
+              p: 0,
               '&.Mui-checked': {
                 color: 'white',
               },
@@ -46,16 +47,16 @@ const FacultyTableHead: FC<FacultyTableHeadProps> = (props) => {
         />
       </TableCell>
       <TableCell>
-        <Header variant="subtitle2" text="Kuartil 1" sx={{ color: 'white' }} />
+        <Header variant="subtitle2" text="Q1" sx={{ color: 'white' }} />
       </TableCell>
       <TableCell>
-        <Header variant="subtitle2" text="Kuartil 2" sx={{ color: 'white' }} />
+        <Header variant="subtitle2" text="Q2" sx={{ color: 'white' }} />
       </TableCell>
       <TableCell>
-        <Header variant="subtitle2" text="Kuartil 3" sx={{ color: 'white' }} />
+        <Header variant="subtitle2" text="Q3" sx={{ color: 'white' }} />
       </TableCell>
       <TableCell>
-        <Header variant="subtitle2" text="Kuartil 4" sx={{ color: 'white' }} />
+        <Header variant="subtitle2" text="Q4" sx={{ color: 'white' }} />
       </TableCell>
       <TableCell>
         <Header variant="subtitle2" text="Target" sx={{ color: 'white' }} />

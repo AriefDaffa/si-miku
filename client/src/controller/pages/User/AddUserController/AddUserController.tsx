@@ -4,8 +4,8 @@ import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import type { FC } from 'react';
 
-import Card from '@/components/UI/atoms/Card';
-import LoadingPopup from '@/components/UI/atoms/Loader/LoadingPopup';
+import Card from '@/presentation/global-component/UI/Card';
+import LoadingPopup from '@/presentation/global-component/UI/Loader/LoadingPopup';
 import useCreateOperatorMutation from '@/repository/mutation/CreateOperatorMutation';
 import { useYupValidationResolver } from '@/controller/hooks/use-yup-validation-resolver';
 

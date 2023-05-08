@@ -14,9 +14,9 @@ import TableSkeleton from '@/presentation/page-component/common/TableComponent/T
 import EditIndicatorTableBody from '@/presentation/page-component/EditIndicator/EditIndicatorTableBody';
 import TablePagination from '@/presentation/page-component/common/TableComponent/TablePagination';
 import useUpdateIndicatorTypeMutation from '@/repository/mutation/UpdateIndicatorTypeMutation';
+import LoadingPopup from '@/presentation/global-component/UI/Loader/LoadingPopup/LoadingPopup';
 import { useHeadline } from '@/controller/context/HeadlineContext';
 import type { IndicatorListNormalized } from '@/repository/query/indicator/IndicatorQuery';
-import LoadingPopup from '@/presentation/global-component/UI/Loader/LoadingPopup/LoadingPopup';
 
 const EditIndicator: FC = () => {
   const location = useLocation();

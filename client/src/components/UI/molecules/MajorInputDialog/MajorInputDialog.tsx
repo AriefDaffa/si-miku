@@ -15,15 +15,15 @@ import Alert from '@mui/material/Alert';
 import TextField from '@mui/material/TextField';
 import CreateIcon from '@mui/icons-material/Create';
 
-import Grid from '@/components/UI/atoms/Grid';
-import DialogPopup from '@/components/UI/atoms/DialogPopup';
-import LoadingPopup from '@/components/UI/atoms/Loader/LoadingPopup';
-import TextWithSubHeader from '@/components/UI/molecules/TextWithSubHeader';
-import YearPicker from '@/components/UI/atoms/YearPicker/YearPicker';
+import Grid from '@/presentation/global-component/UI/Grid';
+import DialogPopup from '@/presentation/global-component/UI/DialogPopup';
+import LoadingPopup from '@/presentation/global-component/UI/Loader/LoadingPopup';
+import TextWithSubHeader from '@/presentation/global-component/UI/TextWithSubHeader';
+import YearPicker from '@/presentation/global-component/UI/YearPicker/YearPicker';
 import useInputDataMajorMutation from '@/repository/mutation/major/InputDataMajorMutation';
 import MajorPicker from '@/components/UI/organism/MajorPicker';
 import { useYupValidationResolver } from '@/controller/hooks/use-yup-validation-resolver';
-import { SubHeader } from '@/components/UI/atoms/Typography';
+import { SubHeader } from '@/presentation/global-component/UI/Typography';
 import { PRIMARY } from '@/presentation/global-component/theme/Colors';
 import type { IndicatorMajorsNormalized } from '@/repository/query/indicator/IndicatorByIdQuery';
 

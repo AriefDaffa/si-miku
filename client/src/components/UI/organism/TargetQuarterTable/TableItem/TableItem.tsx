@@ -5,8 +5,8 @@ import TableCell from '@mui/material/TableCell';
 import TableRow from '@mui/material/TableRow';
 import Checkbox from '@mui/material/Checkbox';
 
-import Pill from '@/components/UI/atoms/Pill';
-import { Header } from '@/components/UI/atoms/Typography';
+import Pill from '@/presentation/global-component/UI/Pill';
+import { Header } from '@/presentation/global-component/UI/Typography';
 import { GREY } from '@/presentation/global-component/theme/Colors';
 import type { TargetQuarterTableDataArray } from '../types';
 

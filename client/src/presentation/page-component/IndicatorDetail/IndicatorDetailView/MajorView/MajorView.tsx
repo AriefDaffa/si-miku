@@ -5,10 +5,11 @@ import Box from '@mui/material/Box';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 
-import MajorInputDialog from '@/components/UI/molecules/MajorInputDialog';
-import MajorQuarterSection from '@/components/UI/organism/MajorQuarterSection';
-import { SubHeader } from '@/components/UI/atoms/Typography';
-import type { GetMajorNormalizedResult } from '@/pages/Indicator/IndicatorDetail/types';
+import MajorQuarterSection from '@/presentation/page-component/IndicatorDetail/IndicatorDetailQuarterSection/MajorQuarterSection';
+import IndicatorDetailInputButton from '@/presentation/page-component/IndicatorDetail/IndicatorDetailInputButton';
+import MajorInputDialog from '@/presentation/page-component/IndicatorDetail/IndicatorDetailInputDialog/MajorInputDialog';
+import { SubHeader } from '@/presentation/global-component/UI/Typography';
+import type { GetMajorNormalizedResult } from '@/controller/pages/IndicatorDetail/types';
 
 interface MajorViewProps {
   indicatorID: number;
@@ -26,6 +27,10 @@ const MajorView: FC<MajorViewProps> = (props) => {
     setValue(newValue);
   };
 
+  const handleOpen = () => {
+    setOpenMajorDialog(true);
+  };
+
   return (
     <Box>
       <SubHeader
@@ -38,12 +43,15 @@ const MajorView: FC<MajorViewProps> = (props) => {
         </Tabs>
         {value === 0 && (
           <Box sx={{ my: 2 }}>
-            <MajorQuarterSection
-              {...majorData}
-              isEnableEdit
-              indicatorID={indicatorID}
-              indicatorName={indicatorName}
-            />
+            <Box sx={{ mb: 2 }}>
+              <MajorQuarterSection
+                {...majorData}
+                isEnableEdit
+                indicatorID={indicatorID}
+                indicatorName={indicatorName}
+              />
+            </Box>
+            <IndicatorDetailInputButton onInputClick={handleOpen} />
           </Box>
         )}
       </Box>

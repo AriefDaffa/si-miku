@@ -5,31 +5,36 @@ import TableCell from '@mui/material/TableCell';
 import TableRow from '@mui/material/TableRow';
 import Checkbox from '@mui/material/Checkbox';
 
-import Pill from '@/components/UI/atoms/Pill';
-import { Header } from '@/components/UI/atoms/Typography';
+import Pill from '@/presentation/global-component/UI/Pill';
+import { Header } from '@/presentation/global-component/UI/Typography';
 import { GREY } from '@/presentation/global-component/theme/Colors';
 import type { FakultasIndikatorNormalized } from '@/repository/query/faculty/GetIndicatorFacultyDataQuery';
 
 interface FacultyTableBodyProps extends FakultasIndikatorNormalized {
   index: number;
   enableCheckbox: boolean;
+  selected: FakultasIndikatorNormalized[];
+  onCheckboxClick: (
+    e: SyntheticEvent<HTMLButtonElement>,
+    item: FakultasIndikatorNormalized
+  ) => void;
 }
 
 const FacultyTableBody: FC<FacultyTableBodyProps> = (props) => {
-  const { index, enableCheckbox, ...item } = props;
+  const { index, enableCheckbox, onCheckboxClick, selected, ...item } = props;
 
   const navigate = useNavigate();
 
   const onClickCheckbox = (e: any) => {
-    // handleCheckboxClick(e, item);
+    onCheckboxClick(e, item);
   };
 
   const handleNavigate = () => {
     navigate(`/dashboard/indicator/${item.indicatorID}`);
   };
 
-  const isChecked = false;
-  // selected.map((data) => data.indicatorID).indexOf(item.indicatorID) !== -1;
+  const isChecked =
+    selected.map((data) => data.indicatorID).indexOf(item.indicatorID) !== -1;
 
   return (
     <TableRow
@@ -41,7 +46,11 @@ const FacultyTableBody: FC<FacultyTableBodyProps> = (props) => {
     >
       {enableCheckbox && (
         <TableCell>
-          <Checkbox onClick={onClickCheckbox} checked={isChecked} />
+          <Checkbox
+            onClick={onClickCheckbox}
+            checked={isChecked}
+            sx={{ p: 0 }}
+          />
         </TableCell>
       )}
       <TableCell>

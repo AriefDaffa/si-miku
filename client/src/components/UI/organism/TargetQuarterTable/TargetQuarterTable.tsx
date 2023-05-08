@@ -8,7 +8,7 @@ import TableRow from '@mui/material/TableRow';
 import TableCell from '@mui/material/TableCell';
 import Skeleton from '@mui/material/Skeleton';
 
-import Table from '@/components/UI/atoms/Table';
+import Table from '@/presentation/global-component/UI/Table';
 import type {
   TargetQuarterTableProps,
   TargetQuarterTableDataArray,

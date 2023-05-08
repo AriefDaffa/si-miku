@@ -7,8 +7,8 @@ import Divider from '@mui/material/Divider';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 
-import Grid from '@/components/UI/atoms/Grid';
-import { Header } from '@/components/UI/atoms/Typography';
+import Grid from '@/presentation/global-component/UI/Grid';
+import { Header } from '@/presentation/global-component/UI/Typography';
 import { PRIMARY } from '@/presentation/global-component/theme/Colors';
 
 interface ProfileFormProps {

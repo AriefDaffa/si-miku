@@ -3,7 +3,7 @@ import type { FC } from 'react';
 
 import { Button, Typography, Container, Box } from '@mui/material';
 
-import Helmet from '@/components/UI/atoms/Helmet';
+import Helmet from '@/presentation/global-component/UI/Helmet';
 import logo404 from '@/assets/logo/404.svg';
 
 import { notFoundCx } from './styles';

@@ -10,11 +10,11 @@ import MenuItem from '@mui/material/MenuItem';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 
-import Popover from '@/components/UI/atoms/Popover';
-import Pill from '@/components/UI/atoms/Pill';
+import Popover from '@/presentation/global-component/UI/Popover';
+import Pill from '@/presentation/global-component/UI/Pill';
 import MajorEditDialog from '@/components/UI/molecules/MajorEditDialog';
 import MajorDeleteDialog from '@/components/UI/molecules/MajorDeleteDialog';
-import { Header } from '@/components/UI/atoms/Typography';
+import { Header } from '@/presentation/global-component/UI/Typography';
 import { GREY } from '@/presentation/global-component/theme/Colors';
 import type { IndicatorMajorsNormalized } from '@/repository/query/indicator/IndicatorByIdQuery';
 

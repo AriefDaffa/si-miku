@@ -12,13 +12,16 @@ import Button from '@mui/material/Button';
 import Divider from '@mui/material/Divider';
 import Alert from '@mui/material/Alert';
 
-import Card from '@/components/UI/atoms/Card';
-import Grid from '@/components/UI/atoms/Grid';
-import LoadingPopup from '@/components/UI/atoms/Loader/LoadingPopup';
+import Card from '@/presentation/global-component/UI/Card';
+import Grid from '@/presentation/global-component/UI/Grid';
+import LoadingPopup from '@/presentation/global-component/UI/Loader/LoadingPopup';
 import useInputIndicatorMutation from '@/repository/mutation/InputIndicatorMutation';
-import { Header, SubHeader } from '@/components/UI/atoms/Typography';
+import {
+  Header,
+  SubHeader,
+} from '@/presentation/global-component/UI/Typography';
 import { useYupValidationResolver } from '@/controller/hooks/use-yup-validation-resolver';
-import DialogPopup from '@/components/UI/atoms/DialogPopup';
+import DialogPopup from '@/presentation/global-component/UI/DialogPopup';
 
 interface FormInputProps {}
 

@@ -7,12 +7,15 @@ import type { FC } from 'react';
 import Box from '@mui/material/Box';
 import Divider from '@mui/material/Divider';
 
-import Card from '@/components/UI/atoms/Card';
-import LoadingPopup from '@/components/UI/atoms/Loader/LoadingPopup';
+import Card from '@/presentation/global-component/UI/Card';
+import LoadingPopup from '@/presentation/global-component/UI/Loader/LoadingPopup';
 import useInputIndicatorMutation from '@/repository/mutation/InputIndicatorMutation';
-import { Header, SubHeader } from '@/components/UI/atoms/Typography';
+import {
+  Header,
+  SubHeader,
+} from '@/presentation/global-component/UI/Typography';
 import { useYupValidationResolver } from '@/controller/hooks/use-yup-validation-resolver';
-import DialogPopup from '@/components/UI/atoms/DialogPopup';
+import DialogPopup from '@/presentation/global-component/UI/DialogPopup';
 import FormSection from '@/presentation/page-component/IndicatorInput/FormInput/FormSection';
 
 interface FormInputControllerProps {}

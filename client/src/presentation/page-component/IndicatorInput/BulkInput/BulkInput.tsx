@@ -3,10 +3,10 @@ import type { FC, SyntheticEvent } from 'react';
 import Box from '@mui/material/Box';
 import Divider from '@mui/material/Divider';
 
-import Card from '@/components/UI/atoms/Card';
-import DialogPopup from '@/components/UI/atoms/DialogPopup';
-import LoadingPopup from '@/components/UI/atoms/Loader/LoadingPopup';
-import { Header } from '@/components/UI/atoms/Typography';
+import Card from '@/presentation/global-component/UI/Card';
+import DialogPopup from '@/presentation/global-component/UI/DialogPopup';
+import LoadingPopup from '@/presentation/global-component/UI/Loader/LoadingPopup';
+import { Header } from '@/presentation/global-component/UI/Typography';
 
 import BulkInputButton from './BulkInputButton/BulkInputButton';
 import BrowseFileSection from './BrowseFileSection/BrowseFileSection';

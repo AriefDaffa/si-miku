@@ -5,13 +5,15 @@ import Box from '@mui/material/Box';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 
-import MajorQuarterSection from '@/components/UI/organism/MajorQuarterSection';
-import DepartmentQuarterSection from '@/components/UI/organism/DepartmentQuarterSection';
-import { SubHeader } from '@/components/UI/atoms/Typography';
+import MajorQuarterSection from '@/presentation/page-component/IndicatorDetail/IndicatorDetailQuarterSection/MajorQuarterSection';
+import DepartmentQuarterSection from '@/presentation/page-component/IndicatorDetail/IndicatorDetailQuarterSection/DepartmentQuarterSection';
+import IndicatorDetailInputButton from '@/presentation/page-component/IndicatorDetail/IndicatorDetailInputButton';
+import MajorInputDialog from '@/presentation/page-component/IndicatorDetail/IndicatorDetailInputDialog/MajorInputDialog';
+import { SubHeader } from '@/presentation/global-component/UI/Typography';
 import type {
   GetDepartmentNormalizedResult,
   GetMajorNormalizedResult,
-} from '@/pages/Indicator/IndicatorDetail/types';
+} from '@/controller/pages/IndicatorDetail/types';
 
 interface DepProdViewProps {
   indicatorID: number;
@@ -24,10 +26,15 @@ const DepProdView: FC<DepProdViewProps> = (props) => {
   const { indicatorID, indicatorName, majorData, departmentData } = props;
 
   // dialog state
+  const [openMajorDialog, setOpenMajorDialog] = useState(false);
   const [value, setValue] = useState(0);
 
   const handleChange = (e: SyntheticEvent, newValue: number) => {
     setValue(newValue);
+  };
+
+  const handleOpen = () => {
+    setOpenMajorDialog(true);
   };
 
   return (
@@ -43,12 +50,15 @@ const DepProdView: FC<DepProdViewProps> = (props) => {
         </Tabs>
         {value === 0 && (
           <Box sx={{ my: 2 }}>
-            <MajorQuarterSection
-              {...majorData}
-              isEnableEdit
-              indicatorID={indicatorID}
-              indicatorName={indicatorName}
-            />
+            <Box sx={{ mb: 2 }}>
+              <MajorQuarterSection
+                {...majorData}
+                isEnableEdit
+                indicatorID={indicatorID}
+                indicatorName={indicatorName}
+              />
+            </Box>
+            <IndicatorDetailInputButton onInputClick={handleOpen} />
           </Box>
         )}
         {value === 1 && (
@@ -61,6 +71,13 @@ const DepProdView: FC<DepProdViewProps> = (props) => {
           </Box>
         )}
       </Box>
+      <MajorInputDialog
+        open={openMajorDialog}
+        setOpen={setOpenMajorDialog}
+        indicatorName={indicatorName}
+        indicatorID={indicatorID}
+        major={majorData.data}
+      />
     </Box>
   );
 };

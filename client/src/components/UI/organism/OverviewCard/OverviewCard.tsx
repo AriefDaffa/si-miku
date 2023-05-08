@@ -6,10 +6,10 @@ import Card from '@mui/material/Card';
 import Divider from '@mui/material/Divider';
 import BarChartIcon from '@mui/icons-material/BarChart';
 
-import Grid from '@/components/UI/atoms/Grid';
+import Grid from '@/presentation/global-component/UI/Grid';
 import CardCount from '@/pages/Home/CardCount';
 import ProgressCard from '@/components/UI/molecules/ProgressCard';
-import TextWithSubHeader from '@/components/UI/molecules/TextWithSubHeader';
+import TextWithSubHeader from '@/presentation/global-component/UI/TextWithSubHeader';
 import { getPercentage } from '@/controller/utils/get-percentage';
 import {
   ERROR,
@@ -17,7 +17,10 @@ import {
   PRIMARY,
   SUCCESS,
 } from '@/presentation/global-component/theme/Colors';
-import { Header, SubHeader } from '@/components/UI/atoms/Typography';
+import {
+  Header,
+  SubHeader,
+} from '@/presentation/global-component/UI/Typography';
 import type { IndicatorByMajorNormalized } from '@/repository/query/IndicatorByMajorQuery';
 
 interface OverviewCardProps {

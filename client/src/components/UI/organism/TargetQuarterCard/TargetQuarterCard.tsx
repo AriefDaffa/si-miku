@@ -8,12 +8,15 @@ import Card from '@mui/material/Card';
 import BarChartIcon from '@mui/icons-material/BarChart';
 import TrendingUpIcon from '@mui/icons-material/TrendingUp';
 
-import Grid from '@/components/UI/atoms/Grid';
-import Pill from '@/components/UI/atoms/Pill';
-import CustomChart from '@/components/UI/atoms/CustomChart';
+import Grid from '@/presentation/global-component/UI/Grid';
+import Pill from '@/presentation/global-component/UI/Pill';
+import CustomChart from '@/presentation/global-component/UI/CustomChart';
 import useChartStyle from '@/controller/hooks/use-chart-style';
 import { getPercentage } from '@/controller/utils/get-percentage';
-import { Header, SubHeader } from '@/components/UI/atoms/Typography';
+import {
+  Header,
+  SubHeader,
+} from '@/presentation/global-component/UI/Typography';
 import { GREY, PRIMARY } from '@/presentation/global-component/theme/Colors';
 import type { IndicatorFacultiesNormalized } from '@/repository/query/indicator/IndicatorByIdQuery';
 

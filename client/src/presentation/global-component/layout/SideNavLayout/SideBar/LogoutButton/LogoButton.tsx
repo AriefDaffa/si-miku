@@ -13,7 +13,7 @@ import { useLogoutMutation } from '@/repository/mutation/auth/LogoutMutation';
 import { useSideBar } from '@/controller/context/SideBarContext';
 
 import { ButtonWrapperCx, navIconCx } from './styles';
-import DialogPopup from '@/components/UI/atoms/DialogPopup';
+import DialogPopup from '@/presentation/global-component/UI/DialogPopup';
 import { ERROR, PRIMARY } from '@/presentation/global-component/theme/Colors';
 
 const LogoutButton: FC = () => {

@@ -4,8 +4,8 @@ import type { FC, ReactNode } from 'react';
 import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
 
-import Helmet from '@/components/UI/atoms/Helmet';
-import LoadingPopup from '@/components/UI/atoms/Loader/LoadingPopup';
+import Helmet from '@/presentation/global-component/UI/Helmet';
+import LoadingPopup from '@/presentation/global-component/UI/Loader/LoadingPopup';
 
 interface LoginContainerProps {
   loading: boolean;

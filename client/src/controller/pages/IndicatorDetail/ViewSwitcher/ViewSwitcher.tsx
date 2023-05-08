@@ -5,14 +5,12 @@ import type {
   GetDepartmentNormalizedResult,
   GetFacultyNormalizedResult,
   GetMajorNormalizedResult,
-} from '@/pages/Indicator/IndicatorDetail/types';
+} from '@/controller/pages/IndicatorDetail/types';
 
-import MajorView from '@/presentation/page-component/IndicatorDetail/MajorView';
-import DepProdView from '@/presentation/page-component/IndicatorDetail/DepProdView';
-import DepartmentView from '@/presentation/page-component/IndicatorDetail/DepartmentView';
-// import MajorInputButton from '@/presentation/page-component/Department/InputButton/MajorInputButton';
-// import DepartmentInputButton from '@/presentation/page-component/Department/InputButton/DepartmentInputButton';
-// import FacultyInputButton from '@/presentation/page-component/Department/InputButton/FacultyInputButton/FacultyInputButton';
+import MajorView from '@/presentation/page-component/IndicatorDetail/IndicatorDetailView/MajorView';
+import DepProdView from '@/presentation/page-component/IndicatorDetail/IndicatorDetailView/DepProdView';
+import DepartmentView from '@/presentation/page-component/IndicatorDetail/IndicatorDetailView/DepartmentView';
+import FacultyView from '@/presentation/page-component/IndicatorDetail/IndicatorDetailView/FacultyView/FacultyView';
 
 interface ViewSwitcherProps {
   indicatorName: string;
@@ -42,11 +40,6 @@ const ViewSwitcher: FC<ViewSwitcherProps> = (props) => {
             indicatorName={indicatorName}
             departmentData={departmentData}
           />
-          {/* <DepartmentInputButton
-            indicatorID={indicatorID}
-            indicatorName={indicatorName}
-            data={departmentData.data}
-          /> */}
         </Fragment>
       );
     case 3:
@@ -57,11 +50,6 @@ const ViewSwitcher: FC<ViewSwitcherProps> = (props) => {
             indicatorName={indicatorName}
             majorData={majorData}
           />
-          {/* <MajorInputButton
-            indicatorID={indicatorID}
-            indicatorName={indicatorName}
-            data={majorData.data}
-          /> */}
         </Fragment>
       );
     case 4:
@@ -73,23 +61,17 @@ const ViewSwitcher: FC<ViewSwitcherProps> = (props) => {
             majorData={majorData}
             departmentData={departmentData}
           />
-          {/* <MajorInputButton
-            indicatorID={indicatorID}
-            indicatorName={indicatorName}
-            data={majorData.data}
-          /> */}
         </Fragment>
       );
     default:
       return (
         <Fragment>
-          {/* <FacultyInputButton
+          <FacultyView
             indicatorID={indicatorID}
             indicatorName={indicatorName}
-            data={facultyData.data}
-          /> */}
+          />
         </Fragment>
-      ); // add fallback
+      );
   }
 };
 

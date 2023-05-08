@@ -3,7 +3,7 @@ import type { FC } from 'react';
 import Box from '@mui/material/Box';
 
 import QuarterCard from '@/components/UI/molecules/QuarterCard';
-import type { GetMajorNormalizedResult } from '@/pages/Indicator/IndicatorDetail/types';
+import type { GetMajorNormalizedResult } from '@/controller/pages/IndicatorDetail/types';
 
 import MajorQuarterTable from './MajorQuarterTable';
 
