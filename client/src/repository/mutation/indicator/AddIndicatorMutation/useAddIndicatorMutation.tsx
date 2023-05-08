@@ -4,9 +4,9 @@ import baseAPI from '@/controller/utils/axios-utils';
 
 import type { IndicatorMutationData } from './types';
 
-const useInputIndicatorBulkMutation = () => {
+const useAddIndicatorMutation = () => {
   const mutation = useMutation(async (data: IndicatorMutationData) => {
-    return await baseAPI.post('/indicator-bulk', data, {
+    return await baseAPI.post('/indicator', data, {
       validateStatus: () => true,
     });
   });
@@ -14,4 +14,4 @@ const useInputIndicatorBulkMutation = () => {
   return mutation;
 };
 
-export default useInputIndicatorBulkMutation;
+export default useAddIndicatorMutation;

@@ -49,7 +49,7 @@ const QuarterCard: FC<QuarterCardProps> = (props) => {
               />
             </Stack>
             <Box>
-              <SubHeader text="Jumlah jurusan memenuhi target" />
+              <SubHeader text="Jumlah data memenuhi target" />
               <Header text={`${fulfilled}`} variant="h4" />
             </Box>
           </Stack>
@@ -70,7 +70,7 @@ const QuarterCard: FC<QuarterCardProps> = (props) => {
               />
             </Stack>
             <Box>
-              <SubHeader text="Jumlah jurusan belum memenuhi target" />
+              <SubHeader text="Jumlah data belum memenuhi target" />
               <Header text={`${failed}`} variant="h4" />
             </Box>
           </Stack>

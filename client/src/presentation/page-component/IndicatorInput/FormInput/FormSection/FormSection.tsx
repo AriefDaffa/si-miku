@@ -25,22 +25,8 @@ const FormSection: FC<FormSectionProps> = (props) => {
   return (
     <Fragment>
       <Grid
-        sm={[12, 4, 8]}
+        sm={[2, 2, 8]}
         gridItem={[
-          <Controller
-            name="is_faculty_indicator"
-            control={control}
-            rules={{ required: true }}
-            render={({ field, fieldState }) => (
-              <Box>
-                <SubHeader text="Tipe indikator" sx={{ pb: 1 }} />
-                <Select autoWidth label="" fullWidth {...field}>
-                  <MenuItem value={'1'}>Indikator Fakultas</MenuItem>
-                  <MenuItem value={'2'}>Indikator Jurusan</MenuItem>
-                </Select>
-              </Box>
-            )}
-          />,
           <Controller
             name="indicator_code"
             control={control}
@@ -55,6 +41,21 @@ const FormSection: FC<FormSectionProps> = (props) => {
                   helperText={fieldState.error?.message || localError}
                   {...field}
                 />
+              </Box>
+            )}
+          />,
+          <Controller
+            name="supervised_by"
+            control={control}
+            rules={{ required: true }}
+            render={({ field, fieldState }) => (
+              <Box>
+                <SubHeader text="Supervisor Indikator" sx={{ pb: 1 }} />
+                <Select autoWidth label="" fullWidth {...field}>
+                  <MenuItem value={'1'}>Wakil Dekan I</MenuItem>
+                  <MenuItem value={'2'}>Wakil Dekan II</MenuItem>
+                  <MenuItem value={'2'}>Wakil Dekan III</MenuItem>
+                </Select>
               </Box>
             )}
           />,

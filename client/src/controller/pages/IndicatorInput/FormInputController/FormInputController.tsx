@@ -17,6 +17,7 @@ import {
 import { useYupValidationResolver } from '@/controller/hooks/use-yup-validation-resolver';
 import DialogPopup from '@/presentation/global-component/UI/DialogPopup';
 import FormSection from '@/presentation/page-component/IndicatorInput/FormInput/FormSection';
+import useAddIndicatorMutation from '@/repository/mutation/indicator/AddIndicatorMutation/useAddIndicatorMutation';
 
 interface FormInputControllerProps {}
 
@@ -39,20 +40,16 @@ const FormInputController: FC<FormInputControllerProps> = (props) => {
     defaultValues: {
       indicator_code: '',
       indicator_name: '',
-      is_faculty_indicator: '1',
+      supervised_by: '1',
     },
     resolver,
   });
 
   const queryClient = useQueryClient();
-  const { mutate, isError, error } = useInputIndicatorMutation();
+  const { mutate, isError, error } = useAddIndicatorMutation();
 
   const onSubmit = (data: any) => {
-    // setLoading(true);
-
-    const { indicator_code, indicator_name, is_faculty_indicator } = data;
-
-    const normalized = is_faculty_indicator === '1' ? true : false;
+    const { indicator_code, indicator_name, supervised_by } = data;
 
     const splittedCode = indicator_code
       .split('.')
@@ -70,12 +67,19 @@ const FormInputController: FC<FormInputControllerProps> = (props) => {
       }
     }
 
+    console.log(data);
+
     if (validated) {
+      setLoading(true);
       mutate(
         {
-          indicator_code,
-          indicator_name,
-          is_faculty_indicator: normalized,
+          indicator_list: [
+            {
+              indicator_code,
+              indicator_name,
+              supervised_by,
+            },
+          ],
         },
         {
           onSuccess: (res) => {
@@ -103,7 +107,7 @@ const FormInputController: FC<FormInputControllerProps> = (props) => {
   return (
     <Card>
       <Box sx={{ mb: 2 }}>
-        <Header text="Input Form" />
+        <Header text="Tambah Indikator Baru" />
       </Box>
       <Divider sx={{ my: 2 }} />
       <form onSubmit={handleSubmit(onSubmit)}>

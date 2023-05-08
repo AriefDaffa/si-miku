@@ -74,7 +74,7 @@ const IndicatorTableBody: FC<IndicatorTableBodyProps> = (props) => {
           onClick={handleMajorClick}
         />
       </TableCell>
-      <TableCell align="center">
+      <TableCell align="center" onClick={(e) => e.stopPropagation()}>
         <IconButton>
           <MoreVertIcon />
         </IconButton>

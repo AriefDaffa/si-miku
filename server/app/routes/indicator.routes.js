@@ -6,8 +6,8 @@ const getIndicatorOverview = require('../controllers/indicator/get/getIndicatorO
 const getFakultasIndicators = require('../controllers/indicator/get-fakultas-indicator');
 const getIndicatorByMajorId = require('../controllers/indicator/get-indicator-by-major-id');
 
-const createIndicator = require('../controllers/indicator/post-indicator');
-const createIndicatorBulk = require('../controllers/indicator/post-indicator-bulk');
+const createIndicator = require('../controllers/indicator/post/createIndicator');
+// const createIndicatorBulk = require('../controllers/indicator/post-indicator-bulk');
 const postDataFacultyIndicator = require('../controllers/indicator/post-data-faculty-indicator');
 const createMajorData = require('../controllers/indicator/post/createMajorData');
 const createDepartmentData = require('../controllers/indicator/post/createDepartmentData');
@@ -42,7 +42,6 @@ router.get('/fakultas', verifyAccessToken, getFakultasIndicators);
 router.get('/indicator/major/:id', verifyAccessToken, getIndicatorByMajorId);
 
 router.post('/indicator', verifyManagement, createIndicator);
-router.post('/indicator-bulk', verifyManagement, createIndicatorBulk);
 router.post(
   '/indicator/insert-data-faculty',
   verifyManagement,

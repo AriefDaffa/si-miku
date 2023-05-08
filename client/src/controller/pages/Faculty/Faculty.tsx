@@ -108,8 +108,6 @@ const Faculty: FC = () => {
 
   const handleExport = useCallback(() => {}, []);
 
-  console.log(selected);
-
   useEffect(() => {
     if (location.pathname === '/dashboard/faculty') {
       setHeadline({

@@ -13,7 +13,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import Card from '@/presentation/global-component/UI/Card';
 import DialogPopup from '@/presentation/global-component/UI/DialogPopup';
 import LoadingPopup from '@/presentation/global-component/UI/Loader/LoadingPopup';
-import useInputIndicatorBulkMutation from '@/repository/mutation/indicator/InputIndicatorBulkMutation';
+import useAddIndicatorMutation from '@/repository/mutation/indicator/AddIndicatorMutation';
 import {
   Header,
   SubHeader,
@@ -33,7 +33,7 @@ const BulkInputController: FC<BulkInputControllerProps> = (props) => {
   const [inputKey, setInputKey] = useState('');
   const [excelError, setExcelError] = useState('');
 
-  const { mutate, isError, error } = useInputIndicatorBulkMutation();
+  const { mutate, isError, error } = useAddIndicatorMutation();
 
   const onSubmit = () => {
     const payload = {
@@ -179,7 +179,7 @@ const BulkInputController: FC<BulkInputControllerProps> = (props) => {
   return (
     <Card sx={{ mb: 2 }}>
       <Box sx={{ mb: 2 }}>
-        <Header text="Bulk Input" />
+        <Header text="Tambah Indikator Baru (Bulk)" />
       </Box>
       <Divider sx={{ my: 2 }} />
       <Box sx={{ my: 2 }}>
