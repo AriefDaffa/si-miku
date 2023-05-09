@@ -6,7 +6,7 @@ import type { FC } from 'react';
 
 import Card from '@/presentation/global-component/UI/Card';
 import LoadingPopup from '@/presentation/global-component/UI/Loader/LoadingPopup';
-import useCreateOperatorMutation from '@/repository/mutation/CreateOperatorMutation';
+import useCreateOperatorMutation from '@/repository/mutation/user/CreateOperatorMutation';
 import { useYupValidationResolver } from '@/controller/hooks/use-yup-validation-resolver';
 
 import { UserData } from './types';

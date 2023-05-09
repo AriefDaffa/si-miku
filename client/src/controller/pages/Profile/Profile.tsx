@@ -8,7 +8,7 @@ import type { FC, ChangeEvent } from 'react';
 import Card from '@/presentation/global-component/UI/Card';
 import LoadingPopup from '@/presentation/global-component/UI/Loader/LoadingPopup';
 import DialogPopup from '@/presentation/global-component/UI/DialogPopup';
-import useUpdateUserProfileMutation from '@/repository/mutation/UpdateUserProfileMutation';
+import useUpdateUserProfileMutation from '@/repository/mutation/user/UpdateUserProfileMutation';
 import { useCurrentUserQuery } from '@/repository/query/user/CurrentUserQuery';
 import { useAuthContext } from '@/controller/context/AuthContext';
 import { useYupValidationResolver } from '@/controller/hooks/use-yup-validation-resolver';

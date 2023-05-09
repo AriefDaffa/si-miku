@@ -13,7 +13,7 @@ import EditIndicatorTableHead from '@/presentation/page-component/EditIndicator/
 import TableSkeleton from '@/presentation/page-component/common/TableComponent/TableSkeleton';
 import EditIndicatorTableBody from '@/presentation/page-component/EditIndicator/EditIndicatorTableBody';
 import TablePagination from '@/presentation/page-component/common/TableComponent/TablePagination';
-import useUpdateIndicatorTypeMutation from '@/repository/mutation/UpdateIndicatorTypeMutation';
+import useUpdateIndicatorTypeMutation from '@/repository/mutation/indicator/UpdateIndicatorTypeMutation';
 import LoadingPopup from '@/presentation/global-component/UI/Loader/LoadingPopup/LoadingPopup';
 import { useHeadline } from '@/controller/context/HeadlineContext';
 import type { IndicatorListNormalized } from '@/repository/query/indicator/IndicatorQuery';

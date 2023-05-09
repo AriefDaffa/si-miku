@@ -10,7 +10,7 @@ import TableToolbar from '@/presentation/page-component/common/TableComponent/Ta
 import TableContainer from '@/presentation/page-component/common/TableComponent/TableContainer';
 import TableSkeleton from '@/presentation/page-component/common/TableComponent/TableSkeleton';
 import TablePagination from '@/presentation/page-component/common/TableComponent/TablePagination';
-import useUpdateIndicatorTypeMutation from '@/repository/mutation/UpdateIndicatorTypeMutation';
+import useUpdateIndicatorTypeMutation from '@/repository/mutation/indicator/UpdateIndicatorTypeMutation';
 import LoadingPopup from '@/presentation/global-component/UI/Loader/LoadingPopup/LoadingPopup';
 import IndicatorTableHead from '@/presentation/page-component/Indicator/IndicatorTableHead';
 import IndicatorTableBody from '@/presentation/page-component/Indicator/IndicatorTableBody';
