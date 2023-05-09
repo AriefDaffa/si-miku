@@ -10,7 +10,9 @@ const createIndicator = require('../controllers/indicator/post/createIndicator')
 // const createIndicatorBulk = require('../controllers/indicator/post-indicator-bulk');
 const postDataFacultyIndicator = require('../controllers/indicator/post-data-faculty-indicator');
 const createMajorData = require('../controllers/indicator/post/createMajorData');
+const createMajorBulkData = require('../controllers/indicator/post/createMajorBulkData');
 const createDepartmentData = require('../controllers/indicator/post/createDepartmentData');
+const createDepartmentBulkData = require('../controllers/indicator/post/createDepartmentBulkData');
 const createFacultyData = require('../controllers/indicator/post/createFacultyData');
 
 const updateIndicatorName = require('../controllers/indicator/put-indicator-name');
@@ -49,9 +51,19 @@ router.post(
 );
 router.post('/indicator/data/major', verifyManagement, createMajorData);
 router.post(
+  '/indicator/data/major/bulk',
+  verifyManagement,
+  createMajorBulkData
+);
+router.post(
   '/indicator/data/department',
   verifyManagement,
   createDepartmentData
+);
+router.post(
+  '/indicator/data/department/bulk',
+  verifyManagement,
+  createDepartmentBulkData
 );
 router.post('/indicator/data/faculty', verifyManagement, createFacultyData);
 

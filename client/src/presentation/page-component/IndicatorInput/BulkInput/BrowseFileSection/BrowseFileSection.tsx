@@ -1,19 +1,12 @@
-import { useState } from 'react';
-import { read, utils } from 'xlsx';
 import type { FC } from 'react';
 
 import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
-import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
 import Alert from '@mui/material/Alert';
 import DeleteIcon from '@mui/icons-material/Delete';
 
-import Card from '@/presentation/global-component/UI/Card';
-import DialogPopup from '@/presentation/global-component/UI/DialogPopup';
-import LoadingPopup from '@/presentation/global-component/UI/Loader/LoadingPopup';
-import useInputIndicatorBulkMutation from '@/repository/mutation/indicator/InputIndicatorBulkMutation';
 import {
   Header,
   SubHeader,

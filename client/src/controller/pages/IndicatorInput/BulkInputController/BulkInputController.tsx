@@ -59,7 +59,7 @@ const BulkInputController: FC<BulkInputControllerProps> = (props) => {
         payload.indicator_list[i];
 
       // cek format indicator code
-      const splittedCode = indicator_code
+      const splittedCode: any = indicator_code
         .split('.')
         .filter((item: any) => /\S/.test(item));
       let validated = false;

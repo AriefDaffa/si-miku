@@ -1,3 +1,4 @@
+import { noop } from 'lodash';
 import type { FC } from 'react';
 
 import Stack from '@mui/material/Stack';
@@ -12,35 +13,38 @@ import {
 
 interface IndicatorDetailInputButtonProps {
   onInputClick: () => void;
+  handleOpenBulk: () => void;
+  isFaculty?: boolean;
 }
 
 const IndicatorDetailInputButton: FC<IndicatorDetailInputButtonProps> = (
   props
 ) => {
-  const { onInputClick } = props;
+  const { onInputClick, handleOpenBulk, isFaculty = false } = props;
 
   return (
     <Stack>
       <Stack flexDirection="row-reverse" gap={1}>
-        <Button
-          variant="outlined"
-          startIcon={<ArticleIcon />}
-          // onClick={handleOpenInputDialog}
-          sx={{
-            float: 'right',
-            borderColor: SECONDARY.main,
-            color: 'black',
-            backgroundColor: SECONDARY.main,
-            // borderRadius: 2,
-            ':hover': {
+        {!isFaculty && (
+          <Button
+            variant="outlined"
+            startIcon={<ArticleIcon />}
+            onClick={handleOpenBulk}
+            sx={{
+              float: 'right',
+              borderColor: SECONDARY.main,
               color: 'black',
               backgroundColor: SECONDARY.main,
-              borderColor: SECONDARY.main,
-            },
-          }}
-        >
-          Input Data (Bulk)
-        </Button>
+              ':hover': {
+                color: 'black',
+                backgroundColor: SECONDARY.main,
+                borderColor: SECONDARY.main,
+              },
+            }}
+          >
+            Input Data (Bulk)
+          </Button>
+        )}
         <Button
           variant="outlined"
           startIcon={<CreateIcon />}
@@ -50,7 +54,6 @@ const IndicatorDetailInputButton: FC<IndicatorDetailInputButtonProps> = (
             borderColor: PRIMARY.main,
             color: 'white',
             backgroundColor: PRIMARY.main,
-            // borderRadius: 2,
             ':hover': {
               color: 'white',
               backgroundColor: PRIMARY.main,
@@ -61,13 +64,6 @@ const IndicatorDetailInputButton: FC<IndicatorDetailInputButtonProps> = (
           Input Data
         </Button>
       </Stack>
-      {/* <MajorInputDialog
-        open={openInput}
-        setOpen={setOpenInput}
-        indicatorName={indicatorName}
-        indicatorID={indicatorID}
-        major={data}
-      /> */}
     </Stack>
   );
 };

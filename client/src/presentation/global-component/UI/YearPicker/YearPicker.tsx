@@ -10,10 +10,16 @@ interface YearPickerProps {
   yearValue: string;
   handleSelectYear: (year: string | null) => void;
   label?: string;
+  isFullWidth?: boolean;
 }
 
 const YearPicker: FC<YearPickerProps> = (props) => {
-  const { label = '', yearValue, handleSelectYear } = props;
+  const {
+    label = '',
+    yearValue,
+    handleSelectYear,
+    isFullWidth = false,
+  } = props;
 
   return (
     <DatePicker
@@ -24,7 +30,7 @@ const YearPicker: FC<YearPickerProps> = (props) => {
       onChange={handleSelectYear}
       renderInput={(params) => (
         <TextField
-          // fullWidth
+          fullWidth={isFullWidth}
           {...params}
           sx={{ backgroundColor: 'white', borderColor: PRIMARY.main }}
         />

@@ -1,4 +1,3 @@
-import { Fragment } from 'react';
 import type { FC } from 'react';
 
 import type {
@@ -7,10 +6,10 @@ import type {
   GetMajorNormalizedResult,
 } from '@/controller/pages/IndicatorDetail/types';
 
-import MajorView from '@/presentation/page-component/IndicatorDetail/IndicatorDetailView/MajorView';
-import DepProdView from '@/presentation/page-component/IndicatorDetail/IndicatorDetailView/DepProdView';
-import DepartmentView from '@/presentation/page-component/IndicatorDetail/IndicatorDetailView/DepartmentView';
-import FacultyView from '@/presentation/page-component/IndicatorDetail/IndicatorDetailView/FacultyView/FacultyView';
+import MajorView from './MajorView';
+import FacultyView from './FacultyView';
+import DepProdView from './DepProdView';
+import DepartmentView from './DepartmentView';
 
 interface ViewSwitcherProps {
   indicatorName: string;
@@ -34,43 +33,32 @@ const ViewSwitcher: FC<ViewSwitcherProps> = (props) => {
   switch (indicatorType) {
     case 2:
       return (
-        <Fragment>
-          <DepartmentView
-            indicatorID={indicatorID}
-            indicatorName={indicatorName}
-            departmentData={departmentData}
-          />
-        </Fragment>
+        <DepartmentView
+          indicatorID={indicatorID}
+          indicatorName={indicatorName}
+          departmentData={departmentData}
+        />
       );
     case 3:
       return (
-        <Fragment>
-          <MajorView
-            indicatorID={indicatorID}
-            indicatorName={indicatorName}
-            majorData={majorData}
-          />
-        </Fragment>
+        <MajorView
+          indicatorID={indicatorID}
+          indicatorName={indicatorName}
+          majorData={majorData}
+        />
       );
     case 4:
       return (
-        <Fragment>
-          <DepProdView
-            indicatorID={indicatorID}
-            indicatorName={indicatorName}
-            majorData={majorData}
-            departmentData={departmentData}
-          />
-        </Fragment>
+        <DepProdView
+          indicatorID={indicatorID}
+          indicatorName={indicatorName}
+          majorData={majorData}
+          departmentData={departmentData}
+        />
       );
     default:
       return (
-        <Fragment>
-          <FacultyView
-            indicatorID={indicatorID}
-            indicatorName={indicatorName}
-          />
-        </Fragment>
+        <FacultyView indicatorID={indicatorID} indicatorName={indicatorName} />
       );
   }
 };
