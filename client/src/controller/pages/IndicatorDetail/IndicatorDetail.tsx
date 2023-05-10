@@ -1,4 +1,4 @@
-import { Navigate, useParams } from 'react-router-dom';
+import { Navigate, useNavigate, useParams } from 'react-router-dom';
 import { Fragment, useEffect, useMemo } from 'react';
 import type { FC } from 'react';
 
@@ -8,6 +8,7 @@ import TargetQuarterCard from '@/presentation/page-component/common/TargetQuarte
 import useIndicatorByIdQuery from '@/repository/query/indicator/IndicatorByIdQuery';
 import { useHeadline } from '@/controller/context/HeadlineContext';
 import { useCurrentYear } from '@/controller/context/CurrentYearContext';
+import { defaultTargetQuarter } from '@/controller/constant/default-target-quarter';
 
 import ViewSwitcher from './ViewSwitcher';
 import { getNormalizedFaculty } from './usecase/get-normalized-faculty';
@@ -16,6 +17,7 @@ import { getNormalizedDepartment } from './usecase/get-normalized-department';
 
 const IndicatorDetail: FC = () => {
   const params = useParams();
+  const navigate = useNavigate();
 
   const { currentYear } = useCurrentYear();
   const { setHeadline } = useHeadline();
@@ -24,10 +26,6 @@ const IndicatorDetail: FC = () => {
 
   const { data: indicator, isLoading: isIndicatorLoading } =
     useIndicatorByIdQuery(id);
-
-  if (!isIndicatorLoading && indicator.indicatorCode === '') {
-    return <Navigate to="/not-found" />;
-  }
 
   const facultyData = getNormalizedFaculty(
     indicator.indicatorFaculties,
@@ -44,7 +42,21 @@ const IndicatorDetail: FC = () => {
     [indicator]
   );
 
+  const facultyTargetQuarter = useMemo(() => {
+    const data = facultyData.data[0]?.targetFaculties[0]?.targetQuarter;
+
+    if (!data) {
+      return defaultTargetQuarter;
+    } else {
+      return data;
+    }
+  }, [facultyData]);
+
   useEffect(() => {
+    if (!isIndicatorLoading && indicator.indicatorCode === '') {
+      navigate('/not-found');
+    }
+
     setHeadline({
       title: indicatorName,
       subTitle: `Menampilkan data indikator pada tahun ${currentYear}`,
@@ -58,7 +70,7 @@ const IndicatorDetail: FC = () => {
         <div>Loading...</div>
       ) : (
         <>
-          <TargetQuarterCard {...facultyData} />
+          <TargetQuarterCard targetQuarter={facultyTargetQuarter} />
           <Box>
             <ViewSwitcher
               majorData={majorData}

@@ -1,18 +1,15 @@
-import { useState, useMemo, useCallback, useEffect, Fragment } from 'react';
+import moment from 'moment';
+import { useState, useCallback, useEffect, Fragment } from 'react';
 import { useLocation } from 'react-router-dom';
-import type { FC, ChangeEvent } from 'react';
+import type { FC } from 'react';
 
 import Alert from '@mui/material/Alert';
-import TrendingUpIcon from '@mui/icons-material/TrendingUp';
 import type { SelectChangeEvent } from '@mui/material/Select';
 
-import AvatarTitle from '@/presentation/global-component/UI/AvatarTitle/AvatarTitle';
 import OverviewCard from '@/presentation/page-component/Home/OverviewCard/OverviewCard';
 import useIndicatorOverview from '@/repository/query/indicator/IndicatorOverview';
 import { useHeadline } from '@/controller/context/HeadlineContext';
 import { PRIMARY } from '@/presentation/global-component/theme/Colors';
-import IndicatorChart from '@/presentation/page-component/Home/IndicatorChart/IndicatorChart';
-import moment from 'moment';
 
 const Home: FC = () => {
   const location = useLocation();
@@ -70,11 +67,6 @@ const Home: FC = () => {
         Studi. Untuk mengubah pembagian indikator pada sistem, silahkan gunakan
         checkbox yang ada pada tabel dibawah.
       </Alert>
-      {/* <IndicatorChart
-        data={data.yearProgress}
-        yearRange={yearRangePicker}
-        onYearRangeChange={handleChangeYearRange}
-      /> */}
     </Fragment>
   );
 };

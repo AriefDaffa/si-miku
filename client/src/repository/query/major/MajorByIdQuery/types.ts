@@ -35,10 +35,10 @@ export interface IndicatorByIDResponseNormalized {
   totalData: number;
   totalPage: number;
   currentPage: number;
-  indicatorList: IndicatorListNormalized[];
+  indicatorList: MajorListNormalized[];
 }
 
-interface IndicatorListNormalized {
+export interface MajorListNormalized {
   indicatorID: number;
   indicatorCode: string;
   indicatorName: string;

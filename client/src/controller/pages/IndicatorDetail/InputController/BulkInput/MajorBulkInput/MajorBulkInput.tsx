@@ -5,40 +5,18 @@ import type { FC, Dispatch, SetStateAction, SyntheticEvent } from 'react';
 
 import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
-import Divider from '@mui/material/Divider';
-import Button from '@mui/material/Button';
-import Dialog from '@mui/material/Dialog';
-import DialogContent from '@mui/material/DialogContent';
-import Alert from '@mui/material/Alert';
-import Switch from '@mui/material/Switch';
-import IconButton from '@mui/material/IconButton';
-import ToggleButton from '@mui/material/ToggleButton';
-import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
-import CreateIcon from '@mui/icons-material/Create';
-import DeleteIcon from '@mui/icons-material/Delete';
 
-import DialogPopup from '@/presentation/global-component/UI/DialogPopup';
-import LoadingPopup from '@/presentation/global-component/UI/Loader/LoadingPopup';
-import TextWithSubHeader from '@/presentation/global-component/UI/TextWithSubHeader';
 import YearPicker from '@/presentation/global-component/UI/YearPicker/YearPicker';
 import useInputBulkMajorDataMutation from '@/repository/mutation/major/InputBulkMajorDataMutation';
-import {
-  PRIMARY,
-  SECONDARY,
-} from '@/presentation/global-component/theme/Colors';
-import {
-  Header,
-  SubHeader,
-} from '@/presentation/global-component/UI/Typography';
+import { SubHeader } from '@/presentation/global-component/UI/Typography';
 
+import BulkInputContainer from '@/presentation/page-component/IndicatorDetail/IndicatorDetailInput/BulkInput/BulkInputContainer';
+import BulkInputTitle from '@/presentation/page-component/IndicatorDetail/IndicatorDetailInput/BulkInput/BulkInputTitle';
+import BulkInputUpload from '@/presentation/page-component/IndicatorDetail/IndicatorDetailInput/BulkInput/BulkInputUpload';
+import BulkInputTemplateDownloader from '@/presentation/page-component/IndicatorDetail/IndicatorDetailInput/BulkInput/BulkInputTemplateDownloader';
+import BulkInputToggle from '@/presentation/page-component/IndicatorDetail/IndicatorDetailInput/BulkInput/BulkInputToggle';
+import BulkInputSubmit from '@/presentation/page-component/IndicatorDetail/IndicatorDetailInput/BulkInput/BulkInputSubmit';
 import { useCurrentYear } from '@/controller/context/CurrentYearContext';
-import { SheetJSFT } from '@/controller/constant/sheet';
-import BulkInputContainer from '@/presentation/page-component/IndicatorDetail/IndicatorDetailInput/BulkInput/BulkInputContainer/BulkInputContainer';
-import BulkInputTitle from '@/presentation/page-component/IndicatorDetail/IndicatorDetailInput/BulkInput/BulkInputTitle/BulkInputTitle';
-import BulkInputUpload from '@/presentation/page-component/IndicatorDetail/IndicatorDetailInput/BulkInput/BulkInputUpload/BulkInputUpload';
-import BulkInputTemplateDownloader from '@/presentation/page-component/IndicatorDetail/IndicatorDetailInput/BulkInput/BulkInputTemplateDownloader/BulkInputTemplateDownloader';
-import BulkInputToggle from '@/presentation/page-component/IndicatorDetail/IndicatorDetailInput/BulkInput/BulkInputToggle/BulkInputToggle';
-import BulkInputSubmit from '@/presentation/page-component/IndicatorDetail/IndicatorDetailInput/BulkInput/BulkInputSubmit/BulkInputSubmit';
 
 interface MajorBulkInputProps {
   open: boolean;

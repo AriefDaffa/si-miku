@@ -41,7 +41,7 @@ const MajorSelector: FC<MajorSelectorProps> = (props) => {
         />
         <Divider orientation="vertical" flexItem sx={{ mx: 2 }} />
         <Stack flexDirection="column">
-          <SubHeader text="Departemen" />
+          <SubHeader text="Program Studi" />
           {isLoading ? (
             <Skeleton />
           ) : (

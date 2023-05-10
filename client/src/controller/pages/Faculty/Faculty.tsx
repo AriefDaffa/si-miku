@@ -4,18 +4,16 @@ import type { FC, ChangeEvent, SyntheticEvent } from 'react';
 
 import type { SelectChangeEvent } from '@mui/material/Select';
 
-import useGetIndicatorFacultyDataQuery from '@/repository/query/faculty/GetIndicatorFacultyDataQuery';
-import OverviewCard from '@/presentation/page-component/Home/OverviewCard';
 import TableToolbar from '@/presentation/page-component/common/TableComponent/TableToolbar';
 import TableContainer from '@/presentation/page-component/common/TableComponent/TableContainer';
 import FacultyTableHead from '@/presentation/page-component/Faculty/FacultyTableHead';
 import TableSkeleton from '@/presentation/page-component/common/TableComponent/TableSkeleton';
 import FacultyTableBody from '@/presentation/page-component/Faculty/FacultyTableBody';
 import TablePagination from '@/presentation/page-component/common/TableComponent/TablePagination';
+import useGetIndicatorFacultyDataQuery from '@/repository/query/faculty/GetIndicatorFacultyDataQuery';
 import { useCurrentYear } from '@/controller/context/CurrentYearContext';
 import { useHeadline } from '@/controller/context/HeadlineContext';
 import type { FakultasIndikatorNormalized } from '@/repository/query/faculty/GetIndicatorFacultyDataQuery';
-import { GRID_CHECKBOX_SELECTION_COL_DEF } from '@mui/x-data-grid';
 
 const Faculty: FC = () => {
   const location = useLocation();
@@ -55,6 +53,10 @@ const Faculty: FC = () => {
 
   const handleEnableCheckbox = () => {
     setEnableExport(!enableExport);
+
+    if (enableExport === true) {
+      setSelected([]);
+    }
   };
 
   const handleSelect = useCallback(

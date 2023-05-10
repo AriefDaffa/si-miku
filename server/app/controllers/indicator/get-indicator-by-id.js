@@ -56,6 +56,12 @@ const getIndicatorById = async (req, res) => {
       ],
     });
 
+    if (!indicator) {
+      return res
+        .status(404)
+        .json({ message: 'Error! Indikator tidak ditemukan' });
+    }
+
     res.json(indicator);
 
     // const indicator_departments = [];

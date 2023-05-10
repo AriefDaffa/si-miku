@@ -6,12 +6,12 @@ import baseAPI from '@/controller/utils/axios-utils';
 
 import type {
   IndicatorListResponse,
-  IndicatorByIDResponseNormalized,
+  DepartmentResponseNormalized,
 } from './types';
 
 // normalize the data to prevent undefined value
 const normalizer = (Deps?: IndicatorListResponse) => {
-  const result: IndicatorByIDResponseNormalized = {
+  const result: DepartmentResponseNormalized = {
     currentPage: 0,
     totalData: 0,
     totalPage: 0,

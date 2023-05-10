@@ -1,17 +1,23 @@
 import { useState, useMemo, useCallback, useEffect, Fragment } from 'react';
-import { Outlet, useLocation } from 'react-router-dom';
-import type { FC, ChangeEvent } from 'react';
+import { useLocation } from 'react-router-dom';
+import type { FC, ChangeEvent, SyntheticEvent } from 'react';
 
 import Alert from '@mui/material/Alert';
 import type { SelectChangeEvent } from '@mui/material/Select';
 
-import TargetQuarterTable from '@/presentation/page-component/common/TargetQuarterTable/TargetQuarterTable';
-import { useHeadline } from '@/controller/context/HeadlineContext';
-import { useCurrentYear } from '@/controller/context/CurrentYearContext';
-import { PRIMARY } from '@/presentation/global-component/theme/Colors';
 import useMajorQuery from '@/repository/query/major/MajorQuery/useMajorQuery';
 import useMajorByIdQuery from '@/repository/query/major/MajorByIdQuery/useMajorByIdQuery';
 import MajorSelector from '@/presentation/page-component/Major/MajorSelector/MajorSelector';
+import TablePagination from '@/presentation/page-component/common/TableComponent/TablePagination';
+import TableToolbar from '@/presentation/page-component/common/TableComponent/TableToolbar';
+import TableContainer from '@/presentation/page-component/common/TableComponent/TableContainer';
+import MajorTableHead from '@/presentation/page-component/Major/MajorTableHead';
+import TableSkeleton from '@/presentation/page-component/common/TableComponent/TableSkeleton';
+import MajorTableBody from '@/presentation/page-component/Major/MajorTableBody';
+import { PRIMARY } from '@/presentation/global-component/theme/Colors';
+import { useHeadline } from '@/controller/context/HeadlineContext';
+import { useCurrentYear } from '@/controller/context/CurrentYearContext';
+import { MajorListNormalized } from '@/repository/query/major/MajorByIdQuery';
 
 const Major: FC = () => {
   const location = useLocation();
@@ -22,6 +28,9 @@ const Major: FC = () => {
   const [keyword, setKeyword] = useState('');
   const [page, setPage] = useState(0);
   const [rows, setRows] = useState(10);
+
+  const [enableExport, setEnableExport] = useState(false);
+  const [selected, setSelected] = useState<MajorListNormalized[]>([]);
 
   const { setHeadline } = useHeadline();
   const { data, isLoading } = useMajorQuery();
@@ -34,24 +43,10 @@ const Major: FC = () => {
       Number(currentYear || 0)
     );
 
-  const currentDepartment = useMemo(
+  const currentMajor = useMemo(
     () => data.filter((item) => item.majorID === selectedMajor),
     [data]
   );
-
-  const normalizedValue = useMemo(() => {
-    const { indicatorList, ...rest } = listIndicator;
-    return {
-      ...rest,
-      dataArray: indicatorList.map((item) => {
-        const { targetQuarter, indicatorDataType, ...rest } = item;
-        return {
-          ...rest,
-          dataQuarter: targetQuarter,
-        };
-      }),
-    };
-  }, [listIndicator]);
 
   const handleDepartmentChange = useCallback((e: SelectChangeEvent) => {
     setselectedMajor(Number(e.target.value));
@@ -72,6 +67,60 @@ const Major: FC = () => {
     },
     []
   );
+
+  const handleEnableCheckbox = () => {
+    setEnableExport(!enableExport);
+
+    if (enableExport === true) {
+      setSelected([]);
+    }
+  };
+
+  const handleSelectAll = useCallback(
+    (e: any) => {
+      if (e.target.checked) {
+        setSelected(listIndicator.indicatorList);
+        return;
+      }
+      setSelected([]);
+    },
+    [data]
+  );
+
+  const handleSelect = useCallback(
+    (e: SyntheticEvent<HTMLButtonElement>, item: MajorListNormalized) => {
+      e.stopPropagation();
+
+      const selectedIndex = selected
+        .map((data) => data.indicatorID)
+        .indexOf(item.indicatorID);
+
+      let selectedArray: MajorListNormalized[] = [];
+
+      if (selectedIndex === -1) {
+        selectedArray = selectedArray.concat(selected, item);
+      } else if (selectedIndex === 0) {
+        selectedArray = selectedArray.concat(selected.slice(1));
+      } else if (selectedIndex === selected.length - 1) {
+        selectedArray = selectedArray.concat(selected.slice(0, -1));
+      } else if (selectedIndex > 0) {
+        selectedArray = selectedArray.concat(
+          selected.slice(0, selectedIndex),
+          selected.slice(selectedIndex + 1)
+        );
+      }
+
+      setSelected(selectedArray);
+    },
+    [selected]
+  );
+
+  const isAllChecked = useMemo(() => {
+    return (
+      listIndicator.indicatorList.length > 0 &&
+      selected.length === listIndicator.indicatorList.length
+    );
+  }, [listIndicator, selected]);
 
   useEffect(() => {
     if (location.pathname === '/dashboard/major') {
@@ -96,20 +145,60 @@ const Major: FC = () => {
         halaman ini
       </Alert>
       <MajorSelector
-        imageURL={`${currentDepartment[0]?.majorImage || ''}`}
+        imageURL={`${currentMajor[0]?.majorImage || ''}`}
         major={data}
         isLoading={isLoading}
         currentDepartment={selectedMajor}
         onChange={handleDepartmentChange}
       />
-      <TargetQuarterTable
-        {...normalizedValue}
-        isLoading={listIndicatorLoading}
-        currentSize={rows}
-        handleTablePagination={handleTablePagination}
-        handleTableSize={handleTableSize}
-        handleKeywordChange={handleKeywordChange}
-      />
+      <Fragment>
+        <TableToolbar
+          withExportButton
+          handleCheckbox={handleEnableCheckbox}
+          handleKeywordChange={handleKeywordChange}
+        />
+        <TableContainer
+          enableCheckbox={enableExport}
+          selectedData={selected.length}
+          headComponent={
+            <MajorTableHead
+              enableCheckbox={enableExport}
+              handleSelectAll={handleSelectAll}
+              isAllChecked={isAllChecked}
+            />
+          }
+          bodyComponent={
+            isLoading ? (
+              <TableSkeleton />
+            ) : (
+              <Fragment>
+                {listIndicator.indicatorList.map((item, index) => (
+                  <MajorTableBody
+                    key={item.indicatorID}
+                    index={index}
+                    enableCheckbox={enableExport}
+                    onCheckboxClick={handleSelect}
+                    selected={selected}
+                    imageURL={`${currentMajor[0]?.majorImage || ''}`}
+                    currentYear={Number(currentYear || 0)}
+                    {...item}
+                  />
+                ))}
+              </Fragment>
+            )
+          }
+          paginationComponent={
+            <TablePagination
+              currentPage={page}
+              currentSize={rows}
+              totalData={listIndicator.totalData}
+              totalPage={listIndicator.totalPage}
+              handleTableSize={handleTableSize}
+              handleTablePagination={handleTablePagination}
+            />
+          }
+        />
+      </Fragment>
     </Fragment>
   );
 };

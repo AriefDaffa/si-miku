@@ -2,9 +2,9 @@ import { useMemo } from 'react';
 import type { FC } from 'react';
 
 import Box from '@mui/material/Box';
-import LinearProgress from '@mui/material/LinearProgress';
 import Stack from '@mui/material/Stack';
 import Card from '@mui/material/Card';
+import LinearProgress from '@mui/material/LinearProgress';
 import BarChartIcon from '@mui/icons-material/BarChart';
 import TrendingUpIcon from '@mui/icons-material/TrendingUp';
 
@@ -19,19 +19,14 @@ import {
   SubHeader,
 } from '@/presentation/global-component/UI/Typography';
 import { GREY, PRIMARY } from '@/presentation/global-component/theme/Colors';
-import type { IndicatorFacultiesNormalized } from '@/repository/query/indicator/IndicatorByIdQuery';
+import type { TargetQuarterNormalized } from '@/repository/query/indicator/IndicatorByIdQuery';
 
 interface TargetQuarterCardProps {
-  data: IndicatorFacultiesNormalized[];
-  fulfilled: number;
-  failed: number;
-  notSet: number;
+  targetQuarter: TargetQuarterNormalized;
 }
 
 const TargetQuarterCard: FC<TargetQuarterCardProps> = (props) => {
-  const { data } = props;
-
-  const [item]: IndicatorFacultiesNormalized[] = data;
+  const { targetQuarter } = props;
 
   const chartOptions = useChartStyle({
     legend: { floating: false, horizontalAlign: 'center', position: 'bottom' },
@@ -49,44 +44,38 @@ const TargetQuarterCard: FC<TargetQuarterCardProps> = (props) => {
         data: [
           {
             x: 'Q1',
-            y: item.targetFaculties[0].targetQuarter.q1,
+            y: targetQuarter.q1,
           },
           {
             x: 'Q2',
-            y: item.targetFaculties[0].targetQuarter.q2,
+            y: targetQuarter.q2,
           },
           {
             x: 'Q3',
-            y: item.targetFaculties[0].targetQuarter.q3,
+            y: targetQuarter.q3,
           },
           {
             x: 'Q4',
-            y: item.targetFaculties[0].targetQuarter.q4,
+            y: targetQuarter.q4,
           },
         ],
       },
     ];
-  }, [item]);
+  }, [targetQuarter]);
 
   const totalData = useMemo(() => {
     return (
-      item.targetFaculties[0].targetQuarter.q1 +
-      item.targetFaculties[0].targetQuarter.q2 +
-      item.targetFaculties[0].targetQuarter.q3 +
-      item.targetFaculties[0].targetQuarter.q4
+      targetQuarter.q1 + targetQuarter.q2 + targetQuarter.q3 + targetQuarter.q4
     );
-  }, [item]);
+  }, [targetQuarter]);
 
-  const target = useMemo(
-    () => item.targetFaculties[0].targetQuarter.targetValue,
-    [item]
-  );
+  const target = useMemo(() => targetQuarter.targetValue, [targetQuarter]);
 
   const percentage = useMemo(() => {
     const data = getPercentage(totalData, target);
 
     return data > 100 ? 100 : data;
-  }, [item]);
+  }, [targetQuarter]);
 
   return (
     <Box>
@@ -130,21 +119,15 @@ const TargetQuarterCard: FC<TargetQuarterCardProps> = (props) => {
                   sx={{ height: '100%' }}
                 >
                   <Pill
-                    isNotAdded={
-                      item.targetFaculties[0].targetQuarter.year.yearID === 0
-                    }
-                    isError={
-                      item.targetFaculties[0].targetQuarter
-                        .isTargetFulfilled === false
-                    }
+                    isNotAdded={targetQuarter.year.yearID === 0}
+                    isError={targetQuarter.isTargetFulfilled === false}
                   >
                     <Header
                       variant="subtitle2"
                       text={`${
-                        item.targetFaculties[0].targetQuarter.year.yearID === 0
+                        targetQuarter.year.yearID === 0
                           ? 'Belum ditambahkan'
-                          : item.targetFaculties[0].targetQuarter
-                              .isTargetFulfilled === true
+                          : targetQuarter.isTargetFulfilled === true
                           ? 'Memenuhi'
                           : 'Belum Memenuhi'
                       }`}
@@ -179,40 +162,28 @@ const TargetQuarterCard: FC<TargetQuarterCardProps> = (props) => {
             gridItem={[
               <Card sx={{ p: 2 }}>
                 <SubHeader text={'Data Kuartil 1'} />
-                <Header
-                  text={`${item.targetFaculties[0].targetQuarter.q1}`}
-                  variant="h3"
-                />
+                <Header text={`${targetQuarter.q1}`} variant="h3" />
                 <Box sx={{ opacity: 0.5, fontStyle: 'italic' }}>
                   <SubHeader text="Januari - Maret" />
                 </Box>
               </Card>,
               <Card sx={{ p: 2 }}>
                 <SubHeader text={'Data Kuartil 2'} />
-                <Header
-                  text={`${item.targetFaculties[0].targetQuarter.q2}`}
-                  variant="h3"
-                />
+                <Header text={`${targetQuarter.q2}`} variant="h3" />
                 <Box sx={{ opacity: 0.5, fontStyle: 'italic' }}>
                   <SubHeader text="April - Juni" />
                 </Box>
               </Card>,
               <Card sx={{ p: 2 }}>
                 <SubHeader text={'Data Kuartil 3'} />
-                <Header
-                  text={`${item.targetFaculties[0].targetQuarter.q3}`}
-                  variant="h3"
-                />
+                <Header text={`${targetQuarter.q3}`} variant="h3" />
                 <Box sx={{ opacity: 0.5, fontStyle: 'italic' }}>
                   <SubHeader text="Juli - September" />
                 </Box>
               </Card>,
               <Card sx={{ p: 2 }}>
                 <SubHeader text={'Data Kuartil 4'} />
-                <Header
-                  text={`${item.targetFaculties[0].targetQuarter.q4}`}
-                  variant="h3"
-                />
+                <Header text={`${targetQuarter.q4}`} variant="h3" />
                 <Box sx={{ opacity: 0.5, fontStyle: 'italic' }}>
                   <SubHeader text="Oktober - Desember" />
                 </Box>

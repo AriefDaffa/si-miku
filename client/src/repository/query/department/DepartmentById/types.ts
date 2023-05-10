@@ -19,7 +19,7 @@ interface IndicatorList {
   target_quarter: TargerQuarter;
 }
 
-export interface IndicatorByIDResponse {
+export interface DepartmentByIDResponse {
   total_data: number;
   total_page: number;
   current_page: number;
@@ -27,18 +27,18 @@ export interface IndicatorByIDResponse {
 }
 
 export interface IndicatorListResponse {
-  data: IndicatorByIDResponse;
+  data: DepartmentByIDResponse;
 }
 
 // -- NORMALIZED TYPES -- //
-export interface IndicatorByIDResponseNormalized {
+export interface DepartmentResponseNormalized {
   totalData: number;
   totalPage: number;
   currentPage: number;
-  indicatorList: IndicatorListNormalized[];
+  indicatorList: IndicatorDepartmentListNormalized[];
 }
 
-interface IndicatorListNormalized {
+export interface IndicatorDepartmentListNormalized {
   indicatorID: number;
   indicatorCode: string;
   indicatorName: string;
