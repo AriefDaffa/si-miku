@@ -1,4 +1,5 @@
-import { Fragment, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { Fragment, useState, useMemo } from 'react';
 import type { FC, MouseEvent } from 'react';
 
 import TableCell from '@mui/material/TableCell';
@@ -12,12 +13,15 @@ import DeleteIcon from '@mui/icons-material/Delete';
 
 import Popover from '@/presentation/global-component/UI/Popover';
 import Pill from '@/presentation/global-component/UI/Pill';
-import { Header } from '@/presentation/global-component/UI/Typography';
 import { GREY } from '@/presentation/global-component/theme/Colors';
+import { Header } from '@/presentation/global-component/UI/Typography';
+import { useCurrentYear } from '@/controller/context/CurrentYearContext';
+import { defaultTargetQuarter } from '@/controller/constant/default-target-quarter';
 import type { IndicatorMajorsNormalized } from '@/repository/query/indicator/IndicatorByIdQuery';
 
 import MajorEditDialog from './MajorEditDialog';
 import MajorDeleteDialog from './MajorDeleteDialog';
+import MajorQuarterDialog from './MajorQuarterDialog';
 
 interface TableItemProps extends IndicatorMajorsNormalized {
   index: number;
@@ -35,9 +39,22 @@ const TableItem: FC<TableItemProps> = (props) => {
     ...rest
   } = props;
 
+  const navigate = useNavigate();
+
+  const { currentYear } = useCurrentYear();
+
   const [openEditDialog, setopenEditDialog] = useState(false);
   const [openDeleteDialog, setOpenDeleteDialog] = useState(false);
   const [openPopover, setOpenPopover] = useState<any>(null);
+  const [openDialog, setOpenDialog] = useState(false);
+
+  const handleOpenDetailDialog = () => {
+    setOpenDialog(true);
+  };
+
+  const handleCloseDetailDialog = () => {
+    setOpenDialog(false);
+  };
 
   const handleOpenDialog = () => {
     setOpenPopover(null);
@@ -53,109 +70,131 @@ const TableItem: FC<TableItemProps> = (props) => {
     setOpenPopover(e.currentTarget);
   };
 
+  const targetQuarterData = useMemo(() => {
+    const data = rest.targetMajors[0];
+
+    if (data) {
+      return data.targetQuarter;
+    } else {
+      return defaultTargetQuarter;
+    }
+  }, []);
+
   return (
-    <TableRow
-      sx={{
-        backgroundColor: 'white',
-        ':hover': { backgroundColor: GREY[300], cursor: 'pointer' },
-      }}
-    >
-      <TableCell>
-        <Header variant="body2" text={`${index + 1}`} />
-      </TableCell>
-      <TableCell>
-        <Stack flexDirection="row" alignItems="center">
-          <img
-            src={rest.major.majorImage}
-            alt=""
-            style={{
-              width: '40px',
-              height: '40px',
-              objectFit: 'contain',
-            }}
-          />
-          <Header variant="body2" text={rest.major.majorName} sx={{ ml: 1 }} />
-        </Stack>
-      </TableCell>
-      {rest.targetMajors.map((el) => (
-        <Fragment key={el.indicatorMajorID}>
-          <TableCell>
-            <Header variant="body2" text={`${el.targetQuarter.q1}`} />
-          </TableCell>
-          <TableCell>
-            <Header variant="body2" text={`${el.targetQuarter.q2}`} />
-          </TableCell>
-          <TableCell>
-            <Header variant="body2" text={`${el.targetQuarter.q3}`} />
-          </TableCell>
-          <TableCell>
-            <Header variant="body2" text={`${el.targetQuarter.q4}`} />
-          </TableCell>
-          <TableCell>
-            <Header variant="body2" text={`${el.targetQuarter.targetValue}`} />
-          </TableCell>
-          <TableCell>
-            <Pill
-              isNotAdded={el.targetQuarter.year.yearID === 0}
-              isError={el.targetQuarter.isTargetFulfilled === false}
+    <Fragment>
+      <TableRow
+        sx={{
+          backgroundColor: 'white',
+          ':hover': { backgroundColor: GREY[300], cursor: 'pointer' },
+        }}
+        onClick={handleOpenDetailDialog}
+      >
+        <TableCell>
+          <Header variant="body2" text={`${index + 1}`} />
+        </TableCell>
+        <TableCell>
+          <Stack flexDirection="row" alignItems="center">
+            <img
+              src={rest.major.majorImage}
+              alt=""
+              style={{
+                width: '40px',
+                height: '40px',
+                objectFit: 'contain',
+              }}
+            />
+            <Header
+              variant="body2"
+              text={rest.major.majorName}
+              sx={{ ml: 1 }}
+            />
+          </Stack>
+        </TableCell>
+        <TableCell>
+          <Header variant="body2" text={`${targetQuarterData.q1}`} />
+        </TableCell>
+        <TableCell>
+          <Header variant="body2" text={`${targetQuarterData.q2}`} />
+        </TableCell>
+        <TableCell>
+          <Header variant="body2" text={`${targetQuarterData.q3}`} />
+        </TableCell>
+        <TableCell>
+          <Header variant="body2" text={`${targetQuarterData.q4}`} />
+        </TableCell>
+        <TableCell>
+          <Header variant="body2" text={`${targetQuarterData.targetValue}`} />
+        </TableCell>
+        <TableCell>
+          <Pill
+            isNotAdded={targetQuarterData.year.yearID === 0}
+            isError={targetQuarterData.isTargetFulfilled === false}
+          >
+            <Header
+              variant="subtitle2"
+              text={`${
+                targetQuarterData.year.yearID === 0
+                  ? 'Belum ditambahkan'
+                  : targetQuarterData.isTargetFulfilled === true
+                  ? 'Memenuhi'
+                  : 'Belum Memenuhi'
+              }`}
+            />
+          </Pill>
+        </TableCell>
+        {isEnableEdit && (
+          <TableCell align="center" onClick={(e) => e.stopPropagation()}>
+            <IconButton
+              size="large"
+              color="inherit"
+              disabled={targetQuarterData.year.yearID === 0}
+              onClick={handleOpenPopover}
             >
-              <Header
-                variant="subtitle2"
-                text={`${
-                  el.targetQuarter.year.yearID === 0
-                    ? 'Belum ditambahkan'
-                    : el.targetQuarter.isTargetFulfilled === true
-                    ? 'Memenuhi'
-                    : 'Belum Memenuhi'
-                }`}
-              />
-            </Pill>
+              <MoreVertIcon />
+            </IconButton>
+            <MajorEditDialog
+              indicatorID={indicatorID}
+              indicatorName={indicatorName}
+              open={openEditDialog}
+              setOpen={setopenEditDialog}
+              {...rest}
+            />
+            <MajorDeleteDialog
+              indicatorID={indicatorID}
+              indicatorName={indicatorName}
+              open={openDeleteDialog}
+              setOpen={setOpenDeleteDialog}
+              {...rest}
+            />
+            <Popover
+              openThreedots={openPopover}
+              setOpenThreedots={setOpenPopover}
+            >
+              <MenuItem onClick={handleOpenDialog}>
+                <EditIcon sx={{ mr: 1 }} />
+                <Header text="Edit" variant="body2" />
+              </MenuItem>
+              <MenuItem
+                onClick={handleOpenDeleteDialog}
+                sx={{ color: 'error.main' }}
+              >
+                <DeleteIcon sx={{ mr: 1 }} />
+                <Header text="Delete" variant="body2" />
+              </MenuItem>
+            </Popover>
           </TableCell>
-          {isEnableEdit && (
-            <TableCell align="center" onClick={(e) => e.stopPropagation()}>
-              <IconButton
-                size="large"
-                color="inherit"
-                disabled={el.targetQuarter.year.yearID === 0}
-                onClick={handleOpenPopover}
-              >
-                <MoreVertIcon />
-              </IconButton>
-              <MajorEditDialog
-                indicatorID={indicatorID}
-                indicatorName={indicatorName}
-                open={openEditDialog}
-                setOpen={setopenEditDialog}
-                {...rest}
-              />
-              <MajorDeleteDialog
-                indicatorID={indicatorID}
-                indicatorName={indicatorName}
-                open={openDeleteDialog}
-                setOpen={setOpenDeleteDialog}
-                {...rest}
-              />
-              <Popover
-                openThreedots={openPopover}
-                setOpenThreedots={setOpenPopover}
-              >
-                <MenuItem onClick={handleOpenDialog}>
-                  <EditIcon sx={{ mr: 1 }} />
-                  <Header text="Edit" variant="body2" />
-                </MenuItem>
-                <MenuItem
-                  onClick={handleOpenDeleteDialog}
-                  sx={{ color: 'error.main' }}
-                >
-                  <DeleteIcon sx={{ mr: 1 }} />
-                  <Header text="Delete" variant="body2" />
-                </MenuItem>
-              </Popover>
-            </TableCell>
-          )}
-        </Fragment>
-      ))}
-    </TableRow>
+        )}
+      </TableRow>
+      <MajorQuarterDialog
+        currentYear={Number(currentYear || 0)}
+        imageURL={rest.major.majorImage}
+        majorName={rest.major.majorName}
+        indicatorName={indicatorName}
+        openDialog={openDialog}
+        onClose={handleCloseDetailDialog}
+        targetQuarter={targetQuarterData}
+      />
+    </Fragment>
   );
 };
 
