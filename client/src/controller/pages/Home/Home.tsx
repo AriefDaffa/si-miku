@@ -1,51 +1,48 @@
-import moment from 'moment';
-import { useState, useCallback, useEffect, Fragment } from 'react';
+import { useState, useCallback, useEffect, Fragment, useMemo } from 'react';
 import { useLocation } from 'react-router-dom';
 import type { FC } from 'react';
 
-import Alert from '@mui/material/Alert';
 import type { SelectChangeEvent } from '@mui/material/Select';
 
-import OverviewCard from '@/presentation/page-component/Home/OverviewCard/OverviewCard';
+import IndicatorChart from '@/presentation/page-component/Home/IndicatorChart';
 import useIndicatorOverview from '@/repository/query/indicator/IndicatorOverview';
 import { useHeadline } from '@/controller/context/HeadlineContext';
-import { PRIMARY } from '@/presentation/global-component/theme/Colors';
+import { useGetLastFewYear } from './usecase/use-get-last-few-year';
+import IndicatorGraph from '@/presentation/page-component/Home/IndicatorGraph/IndicatorGraph';
+import { useCurrentYear } from '@/controller/context/CurrentYearContext';
+import useIndicatorOverviewByYear from '@/repository/query/indicator/IndicatorOverviewByYear';
 
 const Home: FC = () => {
   const location = useLocation();
 
   const { setHeadline } = useHeadline();
+  const { currentYear, handleSelectYear } = useCurrentYear();
 
-  const [yearRange, setYearRange] = useState('2023,2022,2021,2020,2019');
+  const [sort, setSort] = useState(true);
   const [yearRangePicker, setYearRangePicker] = useState(5);
 
+  const yearRange = useMemo(
+    () => useGetLastFewYear(yearRangePicker, sort),
+    [yearRangePicker, sort]
+  );
+
   const { data } = useIndicatorOverview(yearRange);
+  const { data: year } = useIndicatorOverviewByYear(currentYear);
 
   const handleChangeYearRange = useCallback((e: SelectChangeEvent) => {
-    let currentYear = moment().year();
-    const finalArr = [];
+    setYearRangePicker(Number(e.target.value || 5));
+  }, []);
 
-    const yearRange = Number(e.target.value || 0);
-
-    if (yearRange !== 0) {
-      for (let i = 0; i < yearRange; i++) {
-        if (i === 0) {
-          finalArr.push(currentYear);
-        } else {
-          finalArr.push((currentYear -= 1));
-        }
-      }
-    }
-
-    setYearRange(finalArr.join(','));
-    setYearRangePicker(yearRange);
+  const handleSort = useCallback((e: SelectChangeEvent) => {
+    setSort(e.target.value === 'true');
   }, []);
 
   useEffect(() => {
-    if (location.pathname === '/dashboard/indicator') {
+    if (location.pathname === '/dashboard/home') {
       setHeadline({
-        title: 'List Indikator',
-        subTitle: 'Menampilkan progress perkembangan Indikator',
+        title: 'Home',
+        subTitle:
+          'Menampilkan progress seluruh indikator yang terdapat pada sistem',
         isYearPickerEnabled: false,
       });
     }
@@ -53,20 +50,26 @@ const Home: FC = () => {
 
   return (
     <Fragment>
-      <OverviewCard
+      {/* <OverviewCard
         totalDepartment={data.indicatorDepartment}
         totalIndicator={data.indicatorTotal}
         totalMajor={data.indicatorMajor}
+      /> */}
+      <IndicatorChart
+        sort={sort}
+        yearRange={yearRangePicker}
+        indicatorTotal={data.indicatorTotal}
+        data={data.yearProgress}
+        onYearRangeChange={handleChangeYearRange}
+        onSortChange={handleSort}
       />
-      <Alert
-        severity="info"
-        variant="filled"
-        sx={{ backgroundColor: PRIMARY.main, my: 2 }}
-      >
-        Beberapa data indikator dapat dibagi pada level Departemen, dan Program
-        Studi. Untuk mengubah pembagian indikator pada sistem, silahkan gunakan
-        checkbox yang ada pada tabel dibawah.
-      </Alert>
+      <IndicatorGraph
+        indicatorTotal={data.indicatorTotal}
+        indicatorFulfilled={year.count.fulfilled}
+        indicatorFailed={year.count.failed}
+        currentYear={currentYear}
+        handleSelectYear={handleSelectYear}
+      />
     </Fragment>
   );
 };

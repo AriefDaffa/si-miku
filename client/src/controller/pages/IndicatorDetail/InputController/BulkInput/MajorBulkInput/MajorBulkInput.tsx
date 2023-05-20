@@ -151,7 +151,7 @@ const MajorBulkInput: FC<MajorBulkInputProps> = (props) => {
               setLoading(false);
               removeCurrentFile();
 
-              queryClient.invalidateQueries(['indicator', String(indicatorID)]);
+              queryClient.invalidateQueries(['indicator']);
             }
           },
           onError: () => {

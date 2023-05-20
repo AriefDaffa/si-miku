@@ -7,12 +7,14 @@ import type { SelectChangeEvent } from '@mui/material/Select';
 import TableToolbar from '@/presentation/page-component/common/TableComponent/TableToolbar';
 import TableContainer from '@/presentation/page-component/common/TableComponent/TableContainer';
 import FacultyTableHead from '@/presentation/page-component/Faculty/FacultyTableHead';
-import TableSkeleton from '@/presentation/page-component/common/TableComponent/TableSkeleton';
 import FacultyTableBody from '@/presentation/page-component/Faculty/FacultyTableBody';
+import TableSkeleton from '@/presentation/page-component/common/TableComponent/TableSkeleton';
 import TablePagination from '@/presentation/page-component/common/TableComponent/TablePagination';
 import useGetIndicatorFacultyDataQuery from '@/repository/query/faculty/GetIndicatorFacultyDataQuery';
 import { useCurrentYear } from '@/controller/context/CurrentYearContext';
 import { useHeadline } from '@/controller/context/HeadlineContext';
+import { exportToExcel } from '@/controller/utils/export-to-excel';
+import { convertToString } from '@/controller/utils/convert-to-string';
 import type { FakultasIndikatorNormalized } from '@/repository/query/faculty/GetIndicatorFacultyDataQuery';
 
 const Faculty: FC = () => {
@@ -108,7 +110,39 @@ const Faculty: FC = () => {
     );
   }, [data, selected]);
 
-  const handleExport = useCallback(() => {}, []);
+  const handleExport = useCallback(() => {
+    const normalizedData: object[] = [];
+
+    selected.map((item, idx) => {
+      let status = '';
+
+      if (item.indicatorFaculties.yearID === 0) {
+        status = 'Belum Ditambahkan';
+      } else {
+        if (item.indicatorFaculties.isTargetFulfilled === true) {
+          status = 'Memenuhi';
+        } else {
+          status = 'Belum memenuhi';
+        }
+      }
+
+      normalizedData.push({
+        'No.': convertToString(idx + 1),
+        'Kode Indikator': convertToString(item.indicatorCode),
+        'Nama Indikator': convertToString(item.indicatorName),
+        'Data Kuartil 1': convertToString(item.indicatorFaculties.q1),
+        'Data Kuartil 2': convertToString(item.indicatorFaculties.q2),
+        'Data Kuartil 3': convertToString(item.indicatorFaculties.q3),
+        'Data Kuartil 4': convertToString(item.indicatorFaculties.q4),
+        'Target Indikator': convertToString(
+          item.indicatorFaculties.targetValue
+        ),
+        'Status Indikator': status,
+      });
+    });
+
+    exportToExcel(normalizedData, `Data Fakultas ${currentYear}`);
+  }, [selected, currentYear]);
 
   useEffect(() => {
     if (location.pathname === '/dashboard/faculty') {
@@ -131,6 +165,7 @@ const Faculty: FC = () => {
       <TableContainer
         enableCheckbox={enableExport}
         selectedData={selected.length}
+        onExport={handleExport}
         headComponent={
           <FacultyTableHead
             enableCheckbox={enableExport}

@@ -17,6 +17,8 @@ import DepartmentTableBody from '@/presentation/page-component/Department/Depart
 import { useHeadline } from '@/controller/context/HeadlineContext';
 import { useCurrentYear } from '@/controller/context/CurrentYearContext';
 import { PRIMARY } from '@/presentation/global-component/theme/Colors';
+import { convertToString } from '@/controller/utils/convert-to-string';
+import { exportToExcel } from '@/controller/utils/export-to-excel';
 import type { IndicatorDepartmentListNormalized } from '@/repository/query/department/DepartmentById';
 
 const Department: FC = () => {
@@ -127,6 +129,41 @@ const Department: FC = () => {
     );
   }, [listIndicator, selected]);
 
+  const handleExport = useCallback(() => {
+    const normalizedData: object[] = [];
+
+    selected.map((item, idx) => {
+      let status = '';
+
+      if (item.targetQuarter.yearID === 0) {
+        status = 'Belum Ditambahkan';
+      } else {
+        if (item.targetQuarter.isTargetFulfilled === true) {
+          status = 'Memenuhi';
+        } else {
+          status = 'Belum memenuhi';
+        }
+      }
+
+      normalizedData.push({
+        'No.': convertToString(idx + 1),
+        'Kode Indikator': convertToString(item.indicatorCode),
+        'Nama Indikator': convertToString(item.indicatorName),
+        'Data Kuartil 1': convertToString(item.targetQuarter.q1),
+        'Data Kuartil 2': convertToString(item.targetQuarter.q2),
+        'Data Kuartil 3': convertToString(item.targetQuarter.q3),
+        'Data Kuartil 4': convertToString(item.targetQuarter.q4),
+        'Target Indikator': convertToString(item.targetQuarter.targetValue),
+        'Status Indikator': status,
+      });
+    });
+
+    exportToExcel(
+      normalizedData,
+      `Data Departemen ${currentDepartment[0]?.departmentName} Tahun ${currentYear}`
+    );
+  }, [selected, currentYear]);
+
   useEffect(() => {
     if (location.pathname === '/dashboard/department') {
       setHeadline({
@@ -165,6 +202,7 @@ const Department: FC = () => {
         <TableContainer
           enableCheckbox={enableExport}
           selectedData={selected.length}
+          onExport={handleExport}
           headComponent={
             <DepartmentTableHead
               enableCheckbox={enableExport}

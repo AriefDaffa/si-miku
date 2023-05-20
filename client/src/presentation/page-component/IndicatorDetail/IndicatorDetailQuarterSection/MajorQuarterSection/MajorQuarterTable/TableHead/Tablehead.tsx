@@ -22,16 +22,16 @@ const TableHead: FC<TableHeadProps> = (props) => {
         <Header variant="subtitle2" text="Jurusan" sx={{ color: 'white' }} />
       </TableCell>
       <TableCell>
-        <Header variant="subtitle2" text="Kuartil 1" sx={{ color: 'white' }} />
+        <Header variant="subtitle2" text="Q1" sx={{ color: 'white' }} />
       </TableCell>
       <TableCell>
-        <Header variant="subtitle2" text="Kuartil 2" sx={{ color: 'white' }} />
+        <Header variant="subtitle2" text="Q2" sx={{ color: 'white' }} />
       </TableCell>
       <TableCell>
-        <Header variant="subtitle2" text="Kuartil 3" sx={{ color: 'white' }} />
+        <Header variant="subtitle2" text="Q3" sx={{ color: 'white' }} />
       </TableCell>
       <TableCell>
-        <Header variant="subtitle2" text="Kuartil 4" sx={{ color: 'white' }} />
+        <Header variant="subtitle2" text="Q4" sx={{ color: 'white' }} />
       </TableCell>
       <TableCell>
         <Header variant="subtitle2" text="Target" sx={{ color: 'white' }} />

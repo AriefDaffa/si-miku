@@ -5,7 +5,6 @@ const connectDB = async () => {
   try {
     await db.authenticate();
     console.log('Database connected');
-    // await model.db.sync({ alter: true });
 
     // // uncomment this line if we want to generate the table
     // await model.db.sync({ force: true }).then(() => {});
@@ -85,17 +84,6 @@ const connectDB = async () => {
     //   { supervisor_id: 1, supervisor_name: 'Wakil Dekan I' },
     //   { supervisor_id: 2, supervisor_name: 'Wakil Dekan II' },
     //   { supervisor_id: 3, supervisor_name: 'Wakil Dekan III' },
-    // ]);
-
-    // //create year
-    // await model.Year.bulkCreate([
-    //   { year_id: 1, year_value: 2017 },
-    //   { year_id: 2, year_value: 2018 },
-    //   { year_id: 3, year_value: 2019 },
-    //   { year_id: 4, year_value: 2020 },
-    //   { year_id: 5, year_value: 2021 },
-    //   { year_id: 6, year_value: 2022 },
-    //   { year_id: 7, year_value: 2023 },
     // ]);
   } catch (error) {
     console.error(error);

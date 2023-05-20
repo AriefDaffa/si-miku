@@ -5,7 +5,7 @@ const getIndicatorOverview = async (req, res) => {
   try {
     const { year_interval } = req.query;
 
-    const yearValArray = year_interval.split(',');
+    const yearValArray = year_interval.split(',').filter((item) => item);
 
     const findYearFunction = async () => {
       const result = [];

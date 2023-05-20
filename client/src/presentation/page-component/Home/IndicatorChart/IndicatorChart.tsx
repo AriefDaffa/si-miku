@@ -19,13 +19,23 @@ import { YearProgressNormalized } from '@/repository/query/indicator/IndicatorOv
 import IndicatorChartToolbar from './IndicatorChartToolbar';
 
 interface IndicatorChartProps {
+  indicatorTotal: number;
   yearRange: number;
+  sort: boolean;
   data: YearProgressNormalized[];
   onYearRangeChange: (e: SelectChangeEvent) => void;
+  onSortChange: (e: SelectChangeEvent) => void;
 }
 
 const IndicatorChart: FC<IndicatorChartProps> = (props) => {
-  const { data, yearRange, onYearRangeChange } = props;
+  const {
+    indicatorTotal,
+    onSortChange,
+    sort,
+    data,
+    yearRange,
+    onYearRangeChange,
+  } = props;
 
   const chartOptions = useChartStyle({
     legend: { floating: false, horizontalAlign: 'center', position: 'bottom' },
@@ -35,17 +45,17 @@ const IndicatorChart: FC<IndicatorChartProps> = (props) => {
     },
     colors: [SUCCESS.dark, ERROR.main, GREY[600]],
     chart: {
-      stacked: true,
-      stackType: '100%',
+      // stacked: true,
+      // stackType: '100%',
       animations: {
         enabled: false,
       },
     },
-    plotOptions: {
-      bar: {
-        horizontal: true,
-      },
-    },
+    // plotOptions: {
+    //   bar: {
+    //     horizontal: true,
+    //   },
+    // },
   });
 
   const series = useMemo(() => {
@@ -68,15 +78,15 @@ const IndicatorChart: FC<IndicatorChartProps> = (props) => {
           };
         }),
       },
-      {
-        name: 'Data indikator belum ditambahkan',
-        data: data.map((item) => {
-          return {
-            x: item.yearValue,
-            y: 68 - (item.count.failed + item.count.fulfilled),
-          };
-        }),
-      },
+      // {
+      //   name: 'Data indikator belum ditambahkan',
+      //   data: data.map((item) => {
+      //     return {
+      //       x: item.yearValue,
+      //       y: indicatorTotal - (item.count.failed + item.count.fulfilled),
+      //     };
+      //   }),
+      // },
     ];
   }, [data]);
 
@@ -84,21 +94,23 @@ const IndicatorChart: FC<IndicatorChartProps> = (props) => {
     <Fragment>
       <AvatarTitle
         isImageIcon
-        header="Perkembangan Indikator"
+        header="Perkembangan Indikator per-tahun"
         imageURL=""
         subHeader="Grafik"
         Icon={TrendingUpIcon}
       />
       <IndicatorChartToolbar
+        sort={sort}
         yearRange={yearRange}
         onYearRangeChange={onYearRangeChange}
+        onSortChange={onSortChange}
       />
       <Card sx={{ p: 1, mt: 1 }}>
         <Box>
           <CustomChart
             chartOptions={chartOptions}
             series={series}
-            type="bar"
+            type="area"
             height={400}
           />
         </Box>

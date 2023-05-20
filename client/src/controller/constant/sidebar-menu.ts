@@ -11,6 +11,12 @@ import BusinessIcon from '@mui/icons-material/Business';
 
 export const NAV_ITEM = [
   {
+    title: 'Home',
+    path: 'home',
+    Icon: HomeIcon,
+    isManagementOnly: false,
+  },
+  {
     title: 'List Indikator',
     path: 'indicator',
     Icon: FormatListBulletedIcon,

@@ -3,6 +3,7 @@ const express = require('express');
 const getAllIndicators = require('../controllers/indicator/get-all-indicator');
 const getIndicatorById = require('../controllers/indicator/get-indicator-by-id');
 const getIndicatorOverview = require('../controllers/indicator/get/getIndicatorOverview');
+const getIndicatorOverviewByYear = require('../controllers/indicator/get/getIndicatorOverviewByYear');
 const getFakultasIndicators = require('../controllers/indicator/get-fakultas-indicator');
 const getIndicatorByMajorId = require('../controllers/indicator/get-indicator-by-major-id');
 
@@ -39,6 +40,11 @@ const router = express.Router();
 router.get('/indicator', verifyAccessToken, getAllIndicators);
 router.get('/indicator/faculty', verifyAccessToken, getIndicatorFacultyData);
 router.get('/indicator/overview', verifyAccessToken, getIndicatorOverview);
+router.get(
+  '/indicator/overview/year',
+  verifyAccessToken,
+  getIndicatorOverviewByYear
+);
 router.get('/indicator/:id', verifyAccessToken, getIndicatorById);
 router.get('/fakultas', verifyAccessToken, getFakultasIndicators);
 router.get('/indicator/major/:id', verifyAccessToken, getIndicatorByMajorId);

@@ -35,7 +35,8 @@ const Router = () => {
           path: '/dashboard',
           element: <SideNavLayout />,
           children: [
-            { element: <Navigate to="/dashboard/indicator" />, index: true },
+            { element: <Navigate to="/dashboard/home" />, index: true },
+            { path: 'home', element: <Home /> },
             {
               path: 'indicator',
               element: <Indicator />,

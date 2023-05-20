@@ -144,9 +144,10 @@ const FacultyInput: FC<FacultyInputProps> = (props) => {
           error={error}
           isError={isError}
           isSuccess={isSuccess}
-          PickerComponent={<div></div>}
+          PickerComponent={<></>}
           YearPickerComponent={
             <YearPicker
+              isFullWidth
               yearValue={selectedYear}
               handleSelectYear={handleSelectYear}
             />
