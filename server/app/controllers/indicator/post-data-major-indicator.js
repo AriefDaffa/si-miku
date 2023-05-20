@@ -2,175 +2,280 @@ const model = require('../../models');
 
 const postDataMajorIndicator = async (req, res) => {
   try {
-    const { indicator_id, indicator_major_data } = req.body;
+    const { indicator_id, major_id, department_id, indicator_data } = req.body;
+    const { q1, q2, q3, q4, target_value, year_value } = indicator_data;
 
-    let data_array = [];
+    const total = q1 + q2 + q3 + q4;
+    const is_target_fulfilled = total === 0 ? false : total >= target_value;
 
-    //flatten array
-    indicator_major_data.map((data) => {
-      data.major_data.map((item) => {
-        data_array.push({
-          major_id: data.major_id,
-          year_id: 0,
-          is_target_fulfilled: false,
-          major_indicator_id: 0,
-          ...item,
-        });
-      });
-    });
-
-    // --- check if the indicator is available --- //
-    const checkIndicator = await model.Indicator.findOne({
+    const findIndicator = await model.Indicator.findOne({
       where: {
         indicator_id,
       },
     });
 
-    if (!checkIndicator) {
-      return res.status(404).json({ message: 'Indicator Not Found!' });
+    if (!findIndicator) {
+      return res.json({ message: 'Error! Indikator tidak ditemukan' });
     }
 
-    await Promise.all(
-      data_array.map(async (item, idx) => {
-        const { q1, q2, q3, q4, target_value, year_value } = item;
+    // find year id based on year_value
+    let year_id = 0;
 
-        const total = q1 + q2 + q3 + q4;
-        const is_target_fulfilled = total === 0 ? false : total >= target_value;
+    const findYear = await model.Year.findOne({
+      where: {
+        year_value,
+      },
+    });
 
-        const findYear = await model.Year.findOne({
+    if (!findYear) {
+      const newYear = await model.Year.create({
+        year_value,
+      });
+
+      year_id = newYear.year_id;
+    } else {
+      year_id = findYear.year_id;
+    }
+
+    // insert data to major
+    const findIndicatorMajor = await model.IndicatorsMajor.findOne({
+      where: {
+        major_id,
+        indicator_id,
+      },
+    });
+
+    // -- find target_dep_id
+    const findTargetMajor = await model.TargetMajor.findOne({
+      where: {
+        indicator_major_id: findIndicatorMajor.indicator_major_id,
+      },
+      include: {
+        model: model.TargetQuarters,
+        where: {
+          year_id,
+        },
+      },
+    });
+
+    if (findTargetMajor) {
+      return res.json({
+        message: `Error! data indikator untuk tahun ${year_value} sudah ada`,
+      });
+    }
+
+    const createTargetQuarter = await model.TargetQuarters.create({
+      q1,
+      q2,
+      q3,
+      q4,
+      target_value,
+      is_target_fulfilled,
+      year_id,
+    });
+
+    await model.TargetMajor.create({
+      indicator_major_id: findIndicatorMajor.indicator_major_id,
+      target_quarter_id: createTargetQuarter.target_quarter_id,
+    });
+
+    // ----------------------------- //
+    //                               //
+    // ----------------------------- //
+
+    // step-by-step inserting data to department
+    // 1 - search available data in the database
+    // 2 - aggregate old data with the current data
+    // ## - if there is no avalaible data in the database, create a new one
+
+    const fid = await model.TargetMajor.findAll({
+      include: [
+        {
+          model: model.IndicatorsMajor,
           where: {
-            year_value,
+            indicator_id,
           },
-        });
+          include: {
+            model: model.Major,
+            where: {
+              department_id,
+            },
+          },
+        },
+        { model: model.TargetQuarters, where: { year_id } },
+      ],
+    });
 
-        if (!findYear) {
-          const createdYear = await model.Year.create({
-            year_value,
-          });
+    const finalSum = fid.reduce(
+      (acc, cur) => {
+        const { target_quarter } = cur;
+        const { q1, q2, q3, q4, target_value, year_id } = target_quarter;
 
-          data_array[idx].year_id = createdYear.year_id;
-        } else {
-          data_array[idx].year_id = findYear.year_id;
-        }
+        acc.q1 += q1;
+        acc.q2 += q2;
+        acc.q3 += q3;
+        acc.q4 += q4;
+        acc.target_value += target_value;
 
-        data_array[idx].is_target_fulfilled = is_target_fulfilled;
-      })
+        acc.year_id = year_id;
+
+        const total = acc.q1 + acc.q2 + acc.q3 + acc.q4;
+        const isFulfilled = total === 0 ? false : total >= acc.target_value;
+
+        acc.is_target_fulfilled = isFulfilled;
+
+        return acc;
+      },
+      {
+        q1: 0,
+        q2: 0,
+        q3: 0,
+        q4: 0,
+        target_value: 0,
+        year_id: 0,
+        is_target_fulfilled: false,
+      }
     );
 
-    const majorIndicator = await model.MajorIndicator.findAll({
+    const indicatorDeps = await model.IndicatorsDepartment.findOne({
       where: {
         indicator_id,
-        major_id: data_array.map((item) => item.major_id),
+        department_id,
       },
     });
 
-    const findDuplicate = await model.MajorIndicatorYear.findAll({
+    const findTargetDeps = await model.TargetDeps.findOne({
       where: {
-        year_id: data_array.map((item) => item.year_id),
-        major_indicator_id: majorIndicator.map(
-          (item) => item.major_indicator_id
-        ),
+        indicator_department_id: indicatorDeps.indicator_department_id,
+      },
+      include: {
+        model: model.TargetQuarters,
+        where: {
+          year_id,
+        },
       },
     });
 
-    if (findDuplicate.length > 0) {
-      const temp_arr = [];
-      const message = [];
-
-      const findMajorIndicator = await model.MajorIndicator.findAll({
+    if (findTargetDeps) {
+      const findTargetQuarter = await model.TargetQuarters.findOne({
         where: {
-          major_indicator_id: findDuplicate.map(
-            (item) => item.major_indicator_id
-          ),
+          target_quarter_id: findTargetDeps.target_quarter.target_quarter_id,
         },
       });
 
-      findMajorIndicator.map((item, idx) => {
-        temp_arr.push({
-          major_id: findMajorIndicator[idx].major_id,
-          major_name: '',
-          data: [],
-        });
+      findTargetQuarter.q1 = finalSum.q1;
+      findTargetQuarter.q2 = finalSum.q2;
+      findTargetQuarter.q3 = finalSum.q3;
+      findTargetQuarter.q4 = finalSum.q4;
+      findTargetQuarter.target_value = finalSum.target_value;
+      findTargetQuarter.is_target_fulfilled = finalSum.is_target_fulfilled;
 
-        const a = findDuplicate.filter(
-          (data) => data.major_indicator_id === item.major_indicator_id
-        );
+      await findTargetQuarter.save();
+    } else {
+      const depsTargetQuarter = await model.TargetQuarters.create(finalSum);
 
-        temp_arr[idx].data = a.map((item) => {
-          return {
-            year_id: item.year_id,
-            year_value: data_array.find((data) => data.year_id === item.year_id)
-              .year_value,
-          };
-        });
-      });
-
-      const major = await model.Major.findAll({
-        where: {
-          major_id: temp_arr.map((item) => item.major_id),
-        },
-      });
-
-      major.map((item, idx) => {
-        temp_arr[idx].major_name = item.major_name;
-      });
-
-      //create message
-
-      temp_arr.map((item) => {
-        message.push(
-          `Jurusan '${item.major_name}' pada tahun [${item.data
-            .map((item) => item.year_value)
-            .join(', ')}]`
-        );
-      });
-
-      // return res.json({ temp_arr });
-
-      return res.status(400).json({
-        message: `Error! Terdapat duplikasi data pada ${message.join(', ')}`,
+      await model.TargetDeps.create({
+        indicator_department_id: indicatorDeps.indicator_department_id,
+        target_quarter_id: depsTargetQuarter.target_quarter_id,
       });
     }
 
-    data_array.map((item, idx) => {
-      const a = majorIndicator
-        .filter((data) => data.major_id === item.major_id)
-        .map((item) => item.major_indicator_id);
+    // ----------------------------- //
+    //                               //
+    // ----------------------------- //
 
-      data_array[idx].major_indicator_id = a[0];
+    const findIndicatorFaculty = await model.IndicatorsFaculty.findOne({
+      where: {
+        indicator_id,
+        faculty_id: 1,
+      },
     });
 
-    await Promise.all(
-      data_array.map(async (item) => {
-        const {
-          q1,
-          q2,
-          q3,
-          q4,
-          target_value,
-          is_target_fulfilled,
-          major_indicator_id,
+    const findTargetFacs = await model.TargetFaculty.findOne({
+      indicator_faculty_id: findIndicatorFaculty.indicator_faculty_id,
+      include: {
+        model: model.TargetQuarters,
+        where: {
           year_id,
-        } = item;
+        },
+      },
+    });
 
-        const targetQuarter = await model.TargetQuarters.create({
-          target_value,
-          q1,
-          q2,
-          q3,
-          q4,
-          is_target_fulfilled,
-        });
+    const findAllTargetDeps = await model.TargetDeps.findAll({
+      include: [
+        {
+          model: model.IndicatorsDepartment,
+          where: {
+            indicator_id,
+          },
+        },
+        {
+          model: model.TargetQuarters,
+          where: {
+            year_id,
+          },
+        },
+      ],
+    });
 
-        await model.MajorIndicatorYear.create({
-          year_id,
-          major_indicator_id,
-          target_quarter_id: targetQuarter.target_quarter_id,
-        });
-      })
+    const depsSum = findAllTargetDeps.reduce(
+      (acc, cur) => {
+        const { target_quarter } = cur;
+        const { q1, q2, q3, q4, target_value, year_id } = target_quarter;
+
+        acc.q1 += q1;
+        acc.q2 += q2;
+        acc.q3 += q3;
+        acc.q4 += q4;
+        acc.target_value += target_value;
+
+        acc.year_id = year_id;
+
+        const total = acc.q1 + acc.q2 + acc.q3 + acc.q4;
+        const isFulfilled = total === 0 ? false : total >= acc.target_value;
+
+        acc.is_target_fulfilled = isFulfilled;
+
+        return acc;
+      },
+      {
+        q1: 0,
+        q2: 0,
+        q3: 0,
+        q4: 0,
+        target_value: 0,
+        year_id: 0,
+        is_target_fulfilled: false,
+      }
     );
 
-    return res.json({ message: 'Data successfully created' });
+    if (findTargetFacs) {
+      const findTargetQuarter = await model.TargetQuarters.findOne({
+        where: {
+          target_quarter_id: findTargetFacs.target_quarter.target_quarter_id,
+        },
+      });
+
+      findTargetQuarter.q1 = depsSum.q1;
+      findTargetQuarter.q2 = depsSum.q2;
+      findTargetQuarter.q3 = depsSum.q3;
+      findTargetQuarter.q4 = depsSum.q4;
+      findTargetQuarter.target_value = depsSum.target_value;
+      findTargetQuarter.is_target_fulfilled = depsSum.is_target_fulfilled;
+
+      await findTargetQuarter.save();
+    } else {
+      const facsTargetQuarter = await model.TargetQuarters.create(depsSum);
+
+      await model.TargetFaculty.create({
+        indicator_faculty_id: findIndicatorFaculty.indicator_faculty_id,
+        target_quarter_id: facsTargetQuarter.target_quarter_id,
+      });
+    }
+
+    // res.json(depsSum);
+
+    res.json({ message: 'Data berhasil ditambahkan!' });
   } catch (error) {
     res.json(error);
   }

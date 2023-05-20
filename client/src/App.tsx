@@ -1,8 +1,8 @@
 import { useEffect } from 'react';
 import { BrowserRouter } from 'react-router-dom';
 
-import RootContext from './context';
-import Routes from './routes';
+import RootContext from './controller/context';
+import Routes from './controller/routes';
 
 const App = () => {
   const loader = document.querySelector('.loader-container');

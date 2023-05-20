@@ -1,9 +1,8 @@
 const model = require('../../models');
 
 const getUser = async (req, res) => {
-  const { id } = req.params;
-
   try {
+    const { id } = req.params;
     const user = await model.User.findAll({
       where: {
         role_id: id,

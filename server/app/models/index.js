@@ -7,17 +7,24 @@ const { Indicator } = require('./indicator.model.js');
 const { Major } = require('./major.model.js');
 const { TargetQuarters } = require('./TargetQuarters.model.js');
 const { Year } = require('./year.model.js');
+const { Department } = require('./department.model');
+const { Faculty } = require('./faculty.model');
+const { Supervisor } = require('./supervisor.model');
 
 // import join models
 const {
-  MajorIndicator,
-} = require('./join-table-models/majorIndicator.model.js');
+  IndicatorsMajor,
+} = require('./join-table-models/indicatorsMajor.model');
 const {
-  MajorIndicatorYear,
-} = require('./join-table-models/majorIndicatorYear.model.js');
+  IndicatorFaculty,
+} = require('./join-table-models/indicatorsFaculty.model');
 const {
-  FacultyIndicator,
-} = require('./join-table-models/facultyIndicator.model.js');
+  IndicatorDepartment,
+} = require('./join-table-models/indicatorsDepartment.model');
+//
+const { TargetFaculty } = require('./join-table-models/TargetFaculty.model');
+const { TargetDeps } = require('./join-table-models/TargetDeps.model');
+const { TargetMajor } = require('./join-table-models/TargetMajor.model');
 
 const model = {};
 
@@ -28,12 +35,18 @@ model.db = db;
 model.Role = Role;
 model.User = User;
 model.Indicator = Indicator;
-model.Major = Major;
-model.TargetQuarters = TargetQuarters;
 model.Year = Year;
-model.MajorIndicator = MajorIndicator;
-model.MajorIndicatorYear = MajorIndicatorYear;
-model.FacultyIndicator = FacultyIndicator;
+model.Major = Major;
+model.Department = Department;
+model.Faculty = Faculty;
+model.Supervisor = Supervisor;
+model.TargetQuarters = TargetQuarters;
+model.IndicatorsMajor = IndicatorsMajor;
+model.IndicatorsFaculty = IndicatorFaculty;
+model.IndicatorsDepartment = IndicatorDepartment;
+model.TargetFaculty = TargetFaculty;
+model.TargetDeps = TargetDeps;
+model.TargetMajor = TargetMajor;
 
 // One-to-Many (User & Role)
 model.Role.hasMany(model.User, { foreignKey: 'role_id' });
@@ -43,73 +56,153 @@ model.User.belongsTo(model.Role, { foreignKey: 'role_id' });
 model.User.hasMany(model.Indicator, { foreignKey: 'created_by' });
 model.Indicator.belongsTo(model.User, { foreignKey: 'created_by' });
 
-// Many-to-Many
+// year-target_quarter
+model.Year.hasMany(model.TargetQuarters, { foreignKey: 'year_id' });
+model.TargetQuarters.belongsTo(model.Year, { foreignKey: 'year_id' });
+
+// year-target_quarter
+model.Department.hasMany(model.Major, { foreignKey: 'department_id' });
+model.Major.belongsTo(model.Department, { foreignKey: 'department_id' });
+
+// indicator - supervisor
+model.Supervisor.hasMany(model.Indicator, { foreignKey: 'supervised_by' });
+model.Indicator.belongsTo(model.Supervisor, { foreignKey: 'supervised_by' });
+
+// indicator Majors //
 model.Indicator.belongsToMany(model.Major, {
-  through: model.MajorIndicator,
+  through: model.IndicatorsMajor,
   foreignKey: 'indicator_id',
   timestamps: false,
 });
 model.Major.belongsToMany(model.Indicator, {
-  through: model.MajorIndicator,
+  through: model.IndicatorsMajor,
   foreignKey: 'major_id',
   timestamps: false,
 });
-model.MajorIndicator.belongsTo(model.Indicator, { foreignKey: 'indicator_id' });
-model.MajorIndicator.belongsTo(model.Major, { foreignKey: 'major_id' });
-model.Indicator.hasMany(model.MajorIndicator, { foreignKey: 'indicator_id' });
-model.Major.hasMany(model.MajorIndicator, { foreignKey: 'major_id' });
+model.IndicatorsMajor.belongsTo(model.Indicator, {
+  foreignKey: 'indicator_id',
+});
+model.IndicatorsMajor.belongsTo(model.Major, { foreignKey: 'major_id' });
+model.Indicator.hasMany(model.IndicatorsMajor, { foreignKey: 'indicator_id' });
+model.Major.hasMany(model.IndicatorsMajor, { foreignKey: 'major_id' });
 
-// Many-to-Many
-model.Year.belongsToMany(model.MajorIndicator, {
-  through: model.MajorIndicatorYear,
-  foreignKey: 'year_id',
-  timestamps: false,
-});
-model.MajorIndicator.belongsToMany(model.Year, {
-  through: model.MajorIndicatorYear,
-  foreignKey: 'major_indicator_id',
-  timestamps: false,
-});
-model.MajorIndicatorYear.belongsTo(model.Year, { foreignKey: 'year_id' });
-model.MajorIndicatorYear.belongsTo(model.MajorIndicator, {
-  foreignKey: 'major_indicator_id',
-});
-model.Year.hasMany(model.MajorIndicatorYear, { foreignKey: 'year_id' });
-model.MajorIndicator.hasMany(model.MajorIndicatorYear, {
-  foreignKey: 'major_indicator_id',
-});
-
-// One-to-Many (Target & quarter)
-model.TargetQuarters.hasMany(model.MajorIndicatorYear, {
-  foreignKey: 'target_quarter_id',
-});
-model.MajorIndicatorYear.belongsTo(model.TargetQuarters, {
-  foreignKey: 'target_quarter_id',
-});
-
-// Many-to-Many
-model.Indicator.belongsToMany(model.Year, {
-  through: model.FacultyIndicator,
+// indicator Department //
+model.Indicator.belongsToMany(model.Department, {
+  through: model.IndicatorsDepartment,
   foreignKey: 'indicator_id',
   timestamps: false,
 });
-model.Year.belongsToMany(model.Indicator, {
-  through: model.FacultyIndicator,
-  foreignKey: 'year_id',
+model.Department.belongsToMany(model.Indicator, {
+  through: model.IndicatorsDepartment,
+  foreignKey: 'department_id',
   timestamps: false,
 });
-model.FacultyIndicator.belongsTo(model.Indicator, {
+model.IndicatorsDepartment.belongsTo(model.Indicator, {
   foreignKey: 'indicator_id',
 });
-model.FacultyIndicator.belongsTo(model.Year, { foreignKey: 'year_id' });
-model.Indicator.hasMany(model.FacultyIndicator, { foreignKey: 'indicator_id' });
-model.Year.hasMany(model.FacultyIndicator, { foreignKey: 'year_id' });
+model.IndicatorsDepartment.belongsTo(model.Department, {
+  foreignKey: 'department_id',
+});
+model.Indicator.hasMany(model.IndicatorsDepartment, {
+  foreignKey: 'indicator_id',
+});
+model.Department.hasMany(model.IndicatorsDepartment, {
+  foreignKey: 'department_id',
+});
 
-// One-to-Many
-model.TargetQuarters.hasMany(model.FacultyIndicator, {
+// indicator Faculty //
+model.Indicator.belongsToMany(model.Faculty, {
+  through: model.IndicatorsFaculty,
+  foreignKey: 'indicator_id',
+  timestamps: false,
+});
+model.Faculty.belongsToMany(model.Indicator, {
+  through: model.IndicatorsFaculty,
+  foreignKey: 'faculty_id',
+  timestamps: false,
+});
+model.IndicatorsFaculty.belongsTo(model.Indicator, {
+  foreignKey: 'indicator_id',
+});
+model.IndicatorsFaculty.belongsTo(model.Faculty, {
+  foreignKey: 'faculty_id',
+});
+model.Indicator.hasMany(model.IndicatorsFaculty, {
+  foreignKey: 'indicator_id',
+});
+model.Faculty.hasMany(model.IndicatorsFaculty, {
+  foreignKey: 'faculty_id',
+});
+
+// indicator year faculty
+model.IndicatorsFaculty.belongsToMany(model.TargetQuarters, {
+  through: model.TargetFaculty,
+  foreignKey: 'indicator_faculty_id',
+  timestamps: false,
+});
+model.TargetQuarters.belongsToMany(model.IndicatorsFaculty, {
+  through: model.TargetFaculty,
+  foreignKey: 'target_quarter_id',
+  timestamps: false,
+});
+model.TargetFaculty.belongsTo(model.IndicatorsFaculty, {
+  foreignKey: 'indicator_faculty_id',
+});
+model.TargetFaculty.belongsTo(model.TargetQuarters, {
   foreignKey: 'target_quarter_id',
 });
-model.FacultyIndicator.belongsTo(model.TargetQuarters, {
+model.IndicatorsFaculty.hasMany(model.TargetFaculty, {
+  foreignKey: 'indicator_faculty_id',
+});
+model.TargetQuarters.hasMany(model.TargetFaculty, {
+  foreignKey: 'target_quarter_id',
+});
+
+// indicator year department
+model.IndicatorsDepartment.belongsToMany(model.TargetQuarters, {
+  through: model.TargetDeps,
+  foreignKey: 'indicator_department_id',
+  timestamps: false,
+});
+model.TargetQuarters.belongsToMany(model.IndicatorsDepartment, {
+  through: model.TargetDeps,
+  foreignKey: 'target_quarter_id',
+  timestamps: false,
+});
+model.TargetDeps.belongsTo(model.IndicatorsDepartment, {
+  foreignKey: 'indicator_department_id',
+});
+model.TargetDeps.belongsTo(model.TargetQuarters, {
+  foreignKey: 'target_quarter_id',
+});
+model.IndicatorsDepartment.hasMany(model.TargetDeps, {
+  foreignKey: 'indicator_department_id',
+});
+model.TargetQuarters.hasMany(model.TargetFaculty, {
+  foreignKey: 'target_quarter_id',
+});
+
+// indicator year major
+model.IndicatorsMajor.belongsToMany(model.TargetQuarters, {
+  through: model.TargetMajor,
+  foreignKey: 'indicator_major_id',
+  timestamps: false,
+});
+model.TargetQuarters.belongsToMany(model.IndicatorsMajor, {
+  through: model.TargetMajor,
+  foreignKey: 'target_quarter_id',
+  timestamps: false,
+});
+model.TargetMajor.belongsTo(model.IndicatorsMajor, {
+  foreignKey: 'indicator_major_id',
+});
+model.TargetMajor.belongsTo(model.TargetQuarters, {
+  foreignKey: 'target_quarter_id',
+});
+model.IndicatorsMajor.hasMany(model.TargetMajor, {
+  foreignKey: 'indicator_major_id',
+});
+model.TargetQuarters.hasMany(model.TargetFaculty, {
   foreignKey: 'target_quarter_id',
 });
 

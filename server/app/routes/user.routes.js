@@ -1,10 +1,10 @@
 const express = require('express');
 const multer = require('multer');
 
-const getUser = require('../controllers/user/get-user');
-const getCurrentUser = require('../controllers/user/get-current-user');
+const getUser = require('../controllers/user/get/getUserByRole');
+const getCurrentUser = require('../controllers/user/get/getCurrentUser');
 const createOperator = require('../controllers/user/post-user-operator');
-const deleteUser = require('../controllers/user/delete-user');
+const deleteUser = require('../controllers/user/delete/deleteUser');
 const updateUserProfile = require('../controllers/user/put-update-user-profile');
 const registerUser = require('../controllers/user/post-register-user');
 
@@ -41,7 +41,7 @@ const upload = multer({ storage: fileStore, fileFilter: fileFilter });
 router.get('/users/:id', verifyManagement, getUser);
 router.get('/current-user', verifyAccessToken, getCurrentUser);
 
-router.post('/users', verifyManagement, registerUser);
+router.post('/users', registerUser);
 router.post('/users/operator', verifyManagement, createOperator);
 
 router.put(
