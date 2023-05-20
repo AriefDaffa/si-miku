@@ -25,6 +25,7 @@ const FormSection: FC<FormSectionProps> = (props) => {
   return (
     <Fragment>
       <Grid
+        spacing={1}
         sm={[2, 2, 8]}
         gridItem={[
           <Controller

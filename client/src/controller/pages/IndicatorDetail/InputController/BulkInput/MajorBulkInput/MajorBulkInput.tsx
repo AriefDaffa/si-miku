@@ -190,7 +190,9 @@ const MajorBulkInput: FC<MajorBulkInputProps> = (props) => {
           handleChange={handleChange}
           removeCurrentFile={removeCurrentFile}
         />
-        <BulkInputTemplateDownloader />
+        <BulkInputTemplateDownloader
+          link={`${import.meta.env.VITE_BASE_API_URL}template/major`}
+        />
         <BulkInputToggle
           toggleVal={toggle}
           handleToggleChange={handleToggleChange}

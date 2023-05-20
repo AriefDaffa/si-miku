@@ -190,7 +190,9 @@ const DepartmentBulkInput: FC<DepartmentBulkInputProps> = (props) => {
           handleChange={handleChange}
           removeCurrentFile={removeCurrentFile}
         />
-        <BulkInputTemplateDownloader />
+        <BulkInputTemplateDownloader
+          link={`${import.meta.env.VITE_BASE_API_URL}template/department`}
+        />
         <BulkInputToggle
           toggleVal={toggle}
           handleToggleChange={handleToggleChange}
