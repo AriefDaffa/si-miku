@@ -94,17 +94,17 @@ const IndicatorChart: FC<IndicatorChartProps> = (props) => {
     <Fragment>
       <AvatarTitle
         isImageIcon
-        header="Perkembangan Indikator per-tahun"
+        header="Perkembangan Indikator 5 tahun terakhir"
         imageURL=""
         subHeader="Grafik"
         Icon={TrendingUpIcon}
       />
-      <IndicatorChartToolbar
+      {/* <IndicatorChartToolbar
         sort={sort}
         yearRange={yearRange}
         onYearRangeChange={onYearRangeChange}
         onSortChange={onSortChange}
-      />
+      /> */}
       <Card sx={{ p: 1, mt: 1 }}>
         <Box>
           <CustomChart

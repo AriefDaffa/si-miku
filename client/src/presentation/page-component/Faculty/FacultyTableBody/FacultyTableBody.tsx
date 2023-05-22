@@ -1,4 +1,5 @@
 import { useNavigate } from 'react-router-dom';
+import { useMemo } from 'react';
 import type { FC, SyntheticEvent } from 'react';
 
 import TableCell from '@mui/material/TableCell';
@@ -9,6 +10,7 @@ import Pill from '@/presentation/global-component/UI/Pill';
 import { Header } from '@/presentation/global-component/UI/Typography';
 import { GREY } from '@/presentation/global-component/theme/Colors';
 import type { FakultasIndikatorNormalized } from '@/repository/query/faculty/GetIndicatorFacultyDataQuery';
+import { getPercentage } from '@/controller/utils/get-percentage';
 
 interface FacultyTableBodyProps extends FakultasIndikatorNormalized {
   index: number;
@@ -35,6 +37,18 @@ const FacultyTableBody: FC<FacultyTableBodyProps> = (props) => {
 
   const isChecked =
     selected.map((data) => data.indicatorID).indexOf(item.indicatorID) !== -1;
+
+  const percentage = useMemo(() => {
+    const data = getPercentage(
+      item.indicatorFaculties.q1 +
+        item.indicatorFaculties.q2 +
+        item.indicatorFaculties.q3 +
+        item.indicatorFaculties.q4,
+      item.indicatorFaculties.targetValue
+    );
+
+    return data > 100 ? 100 : data;
+  }, [item]);
 
   return (
     <TableRow
@@ -83,6 +97,9 @@ const FacultyTableBody: FC<FacultyTableBodyProps> = (props) => {
           variant="body2"
           text={`${item.indicatorFaculties.targetValue}`}
         />
+      </TableCell>
+      <TableCell>
+        <Header variant="body2" text={`${percentage}%`} />
       </TableCell>
       <TableCell>
         <Pill

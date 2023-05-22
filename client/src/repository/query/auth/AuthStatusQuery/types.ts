@@ -1,6 +1,6 @@
 export interface AuthStatusData {
   isAuthenticated: boolean;
-  isManagement: boolean;
+  roleId: number;
 }
 
 export interface AuthStatusResponse {
@@ -11,5 +11,5 @@ export interface AuthStatusResponse {
 
 export interface AuthStatusNormalized {
   isAuthenticated: boolean;
-  isManagement: boolean;
+  roleID: number;
 }

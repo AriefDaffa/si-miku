@@ -18,6 +18,9 @@ const User = db.define('users', {
   user_image: {
     type: DataTypes.STRING,
   },
+  access_level: {
+    type: DataTypes.INTEGER,
+  },
   password: {
     type: DataTypes.STRING,
   },

@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router-dom';
 import { Fragment, useEffect, useState, useCallback } from 'react';
 import type { FC, ChangeEvent } from 'react';
 
@@ -5,6 +6,7 @@ import type { SelectChangeEvent } from '@mui/material/Select';
 
 import useUserQuery from '@/repository/query/user/UserQuery';
 import { useHeadline } from '@/controller/context/HeadlineContext';
+import { useAuthContext } from '@/controller/context/AuthContext';
 
 import AddUserController from './AddUserController';
 import UserTableController from './UserTableController/UserTableController';
@@ -15,6 +17,9 @@ const User: FC = () => {
   const [rows, setRows] = useState(10);
 
   const { setHeadline } = useHeadline();
+  const { roleID, isLoading } = useAuthContext();
+
+  const navigate = useNavigate();
 
   const { data: operatorData, isLoading: isOperatorLoading } = useUserQuery(
     2,
@@ -37,6 +42,10 @@ const User: FC = () => {
   }, []);
 
   useEffect(() => {
+    if (roleID !== 3 && !isLoading) {
+      navigate('/not-found');
+    }
+
     if (location.pathname === '/dashboard/user') {
       setHeadline({
         title: 'Management User',
@@ -44,7 +53,7 @@ const User: FC = () => {
         isYearPickerEnabled: false,
       });
     }
-  }, [location]);
+  }, [location, roleID, isLoading]);
 
   return (
     <Fragment>

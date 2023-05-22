@@ -7,7 +7,6 @@ import useMediaQuery from '@mui/material/useMediaQuery';
 import { useTheme } from '@mui/material';
 
 import { useSideBar } from '@/controller/context/SideBarContext';
-import type { CurrentUserResponseNormalized } from '@/repository/query/CurrentUserQuery/types';
 
 interface SideMenuSwitcherProps {
   openNav: boolean;

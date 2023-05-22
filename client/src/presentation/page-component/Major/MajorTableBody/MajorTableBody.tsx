@@ -8,6 +8,7 @@ import Checkbox from '@mui/material/Checkbox';
 import Pill from '@/presentation/global-component/UI/Pill';
 import { Header } from '@/presentation/global-component/UI/Typography';
 import { GREY } from '@/presentation/global-component/theme/Colors';
+import { getPercentage } from '@/controller/utils/get-percentage';
 import type { MajorListNormalized } from '@/repository/query/major/MajorByIdQuery';
 
 import MajorTableDialog from './MajorTableDialog';
@@ -68,6 +69,18 @@ const MajorTableBody: FC<MajorTableBodyProps> = (props) => {
     };
   }, [item, currentYear]);
 
+  const percentage = useMemo(() => {
+    const data = getPercentage(
+      item.targetQuarter.q1 +
+        item.targetQuarter.q2 +
+        item.targetQuarter.q3 +
+        item.targetQuarter.q4,
+      item.targetQuarter.targetValue
+    );
+
+    return data > 100 ? 100 : data;
+  }, [item]);
+
   return (
     <Fragment>
       <TableRow
@@ -113,6 +126,9 @@ const MajorTableBody: FC<MajorTableBodyProps> = (props) => {
         </TableCell>
         <TableCell>
           <Header variant="body2" text={`${item.targetQuarter.targetValue}`} />
+        </TableCell>
+        <TableCell>
+          <Header variant="body2" text={`${percentage}%`} />
         </TableCell>
         <TableCell>
           <Pill

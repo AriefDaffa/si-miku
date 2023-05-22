@@ -8,7 +8,8 @@ import type { AuthContextInterface, AuthContextProps } from './types';
 
 const AuthContext = createContext<AuthContextInterface>({
   isAuthenticated: false,
-  isManagement: false,
+  roleID: 0,
+  isLoading: true,
 });
 
 export const AuthContextProvider: FC<AuthContextProps> = (props) => {
@@ -23,7 +24,8 @@ export const AuthContextProvider: FC<AuthContextProps> = (props) => {
   const value: AuthContextInterface = useMemo(() => {
     return {
       isAuthenticated: data.isAuthenticated,
-      isManagement: data.isManagement,
+      roleID: data.roleID,
+      isLoading,
     };
   }, [data, isLoading]);
 

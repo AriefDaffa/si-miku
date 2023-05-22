@@ -17,6 +17,10 @@ const connectDB = async () => {
     //   role_id: 2,
     //   role_name: 'Operator',
     // });
+    // await model.Role.create({
+    //   role_id: 3,
+    //   role_name: 'Admin',
+    // });
 
     // //create department
     // await model.Department.bulkCreate([
