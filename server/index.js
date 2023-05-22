@@ -15,7 +15,12 @@ const departmentRoutes = require('./app/routes/department.routes');
 const app = express();
 
 // setup express
-app.use(cors({ credentials: true, origin: 'https://simiku.xyz' }));
+app.use(
+  cors({
+    credentials: true,
+    // origin: 'https://shimmering-lokum-851637.netlify.app/',
+  })
+);
 app.use(express.json());
 app.use(cookieParser());
 
