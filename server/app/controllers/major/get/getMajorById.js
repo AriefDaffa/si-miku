@@ -27,6 +27,7 @@ const getMajorById = async (req, res) => {
       where: {
         major_id: id,
       },
+      distinct: true,
       include: [
         {
           model: model.Indicator,

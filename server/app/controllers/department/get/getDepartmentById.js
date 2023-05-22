@@ -28,6 +28,7 @@ const getDepartmentByID = async (req, res) => {
       where: {
         department_id: id,
       },
+      distinct: true,
       include: [
         {
           model: model.Indicator,

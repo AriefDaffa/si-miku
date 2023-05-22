@@ -2,7 +2,8 @@ import type { ReactNode } from 'react';
 
 export interface AuthContextInterface {
   isAuthenticated: boolean;
-  isManagement: boolean;
+  roleID: number;
+  isLoading: boolean;
 }
 
 export interface AuthContextProps {

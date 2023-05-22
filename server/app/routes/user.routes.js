@@ -10,7 +10,7 @@ const registerUser = require('../controllers/user/post-register-user');
 
 const {
   verifyAccessToken,
-  verifyManagement,
+  verifyAdmin,
 } = require('../middleware/verifyToken.js');
 
 const router = express.Router();
@@ -38,11 +38,11 @@ const fileFilter = (req, file, cb) => {
 
 const upload = multer({ storage: fileStore, fileFilter: fileFilter });
 
-router.get('/users/:id', verifyManagement, getUser);
+router.get('/users/:id', verifyAdmin, getUser);
 router.get('/current-user', verifyAccessToken, getCurrentUser);
 
 router.post('/users', registerUser);
-router.post('/users/operator', verifyManagement, createOperator);
+router.post('/users/operator', verifyAdmin, createOperator);
 
 router.put(
   '/user',
@@ -50,6 +50,6 @@ router.put(
   updateUserProfile
 );
 
-router.delete('/user', verifyManagement, deleteUser);
+router.delete('/user', verifyAdmin, deleteUser);
 
 module.exports = router;

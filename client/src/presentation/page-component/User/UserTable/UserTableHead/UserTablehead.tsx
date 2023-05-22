@@ -36,9 +36,15 @@ const UserTableHead: FC<UserTableHeadProps> = (props) => {
         <Header variant="subtitle2" text="No." sx={{ color: 'white' }} />
       </TableCell>
       <TableCell>
+        <Header variant="subtitle2" text="Jabatan" sx={{ color: 'white' }} />
+      </TableCell>
+      <TableCell>
+        <Header variant="subtitle2" text="Role" sx={{ color: 'white' }} />
+      </TableCell>
+      <TableCell>
         <Header
           variant="subtitle2"
-          text="Operator Name"
+          text="Level Akses"
           sx={{ color: 'white' }}
         />
       </TableCell>

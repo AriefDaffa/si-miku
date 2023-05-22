@@ -4,7 +4,7 @@ import type { FC } from 'react';
 import { Box, Link, Typography, Avatar, Skeleton } from '@mui/material';
 import { useCustomTheme } from '@/controller/context/CustomThemeContext';
 import { useSideBar } from '@/controller/context/SideBarContext';
-import type { CurrentUserResponseNormalized } from '@/repository/query/CurrentUserQuery/types';
+import type { CurrentUserResponseNormalized } from '@/repository/query/user/CurrentUserQuery/types';
 
 import { profileCardCx, profileCardWrapperCx } from './styles';
 

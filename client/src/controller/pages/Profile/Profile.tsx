@@ -23,7 +23,7 @@ import type { UserData } from './types';
 
 const Profile: FC = () => {
   const location = useLocation();
-  const { isManagement } = useAuthContext();
+  const { roleID } = useAuthContext();
   const { data, isLoading } = useCurrentUserQuery();
   const { setHeadline } = useHeadline();
 
@@ -128,7 +128,7 @@ const Profile: FC = () => {
             handleImageChange={handleImageChange}
             handleRemoveImage={handleRemoveImage}
           />
-          <ProfileForm control={control} isManagement={isManagement} />
+          <ProfileForm control={control} isManagement={true} />
 
           <DialogPopup
             title="Success!"

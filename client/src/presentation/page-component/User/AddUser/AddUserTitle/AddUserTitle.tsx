@@ -6,7 +6,7 @@ import { Header } from '@/presentation/global-component/UI/Typography';
 const AddUserTitle: FC = () => {
   return (
     <Box sx={{ mb: 2 }}>
-      <Header text="Tambah Operator" />
+      <Header text="Tambah User" />
     </Box>
   );
 };

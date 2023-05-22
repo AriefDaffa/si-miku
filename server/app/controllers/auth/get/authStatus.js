@@ -4,7 +4,7 @@ const authStatus = async (req, res) => {
   try {
     const cookies = req.cookies.accessToken;
 
-    let isManagement = false;
+    let roleId = 0;
     let isAuthenticated = true;
 
     if (!cookies) {
@@ -18,12 +18,14 @@ const authStatus = async (req, res) => {
         return res.sendStatus(403);
       }
 
-      if (decodedVal.role_id === 1) {
-        isManagement = true;
-      }
+      roleId = decodedVal.role_id;
+
+      // if (decodedVal.role_id === 1) {
+      //   isManagement = true;
+      // }
     });
 
-    res.json({ isAuthenticated, isManagement });
+    res.json({ isAuthenticated, roleId });
   } catch (error) {
     res.json(error);
   }

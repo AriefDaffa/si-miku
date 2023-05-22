@@ -1,8 +1,15 @@
+interface Role {
+  role_id: number;
+  role_name: string;
+}
+
 export interface UserList {
   user_id: number;
   user_name: string;
   user_email: string;
   user_image: string;
+  access_level: number;
+  role: Role;
 }
 
 export interface UserDataOverview {
@@ -17,12 +24,18 @@ export interface UserResponse {
 }
 
 // -- NORMALIZED TYPES -- //
+interface RoleNormalized {
+  roleID: number;
+  roleName: string;
+}
 
 export interface UserListNormalized {
   userID: number;
   userName: string;
   userEmail: string;
   userImage: string;
+  accessLevel: number;
+  role: RoleNormalized;
 }
 
 export interface UserDataOverviewNormalized {

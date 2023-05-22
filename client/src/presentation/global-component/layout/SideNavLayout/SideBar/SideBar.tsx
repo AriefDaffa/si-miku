@@ -37,7 +37,7 @@ const Sidebar: FC<SidebarProps> = (props) => {
     setOpen(!open);
   };
 
-  const { isManagement } = useAuthContext();
+  const { roleID } = useAuthContext();
 
   return (
     <>
@@ -47,7 +47,7 @@ const Sidebar: FC<SidebarProps> = (props) => {
         <Divider />
         <List disablePadding sx={{ p: 1 }}>
           {NAV_ITEM.filter((item) =>
-            isManagement === true ? item : item.isManagementOnly === false
+            item.accessRole.includes(String(roleID))
           ).map((item, idx) => (
             <SidebarItem
               key={idx}
@@ -61,7 +61,7 @@ const Sidebar: FC<SidebarProps> = (props) => {
         <Divider />
         <List disablePadding sx={{ p: 1 }}>
           {NAV_ITEM_SECONDARY.filter((item) =>
-            isManagement === true ? item : item.isManagementOnly === false
+            item.accessRole.includes(String(roleID))
           ).map((item, idx) => (
             <SidebarItem
               key={idx}

@@ -57,6 +57,12 @@ const UserTableBody: FC<UserTableBodyProps> = (props) => {
         </Stack>
       </TableCell>
       <TableCell>
+        <Header variant="subtitle2" text={`${item.role.roleName}`} />
+      </TableCell>
+      <TableCell>
+        <Header variant="subtitle2" text={`Level ${item.accessLevel}`} />
+      </TableCell>
+      <TableCell>
         <Header variant="subtitle2" text={`${item.userEmail}`} />
       </TableCell>
       <TableCell onClick={(e) => e.stopPropagation()}>

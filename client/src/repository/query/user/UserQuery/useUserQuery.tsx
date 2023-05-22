@@ -28,6 +28,11 @@ const normalizer = (Deps?: UserResponse) => {
           item.user_image === '' || item.user_image === null
             ? ''
             : import.meta.env.VITE_BASE_API_URL + item.user_image,
+        accessLevel: item.access_level,
+        role: {
+          roleID: item.role.role_id,
+          roleName: item.role.role_name,
+        },
       });
     });
   }

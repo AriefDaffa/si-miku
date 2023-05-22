@@ -10,12 +10,12 @@ import type { AuthStatusNormalized, AuthStatusResponse } from './types';
 const normalizer = (Deps?: AuthStatusResponse) => {
   const result: AuthStatusNormalized = {
     isAuthenticated: false,
-    isManagement: false,
+    roleID: 0,
   };
 
   if (Deps !== void 0 && !(Deps instanceof AxiosError)) {
     result.isAuthenticated = Deps.data.isAuthenticated;
-    result.isManagement = Deps.data.isManagement;
+    result.roleID = Deps.data.roleId;
   }
 
   return result;

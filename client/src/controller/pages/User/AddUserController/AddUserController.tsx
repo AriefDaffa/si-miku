@@ -37,6 +37,7 @@ const AddUserController: FC = () => {
       user_name: '',
       user_email: '',
       password: '',
+      access_level: 1,
     },
     resolver,
   });
