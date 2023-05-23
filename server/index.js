@@ -15,7 +15,7 @@ const departmentRoutes = require('./app/routes/department.routes');
 const app = express();
 
 // setup express
-app.use(cors({ credentials: true, origin: 'http://localhost:5173' }));
+app.use(cors({ credentials: true, origin: 'https://simiku.xyz' }));
 app.use(express.json());
 app.use(cookieParser());
 

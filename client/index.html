@@ -29,9 +29,10 @@
   <body>
     <div id="root"></div>
     <div class="loader-container">
-      <div class="loader">
-        <img src="/logo-gif.gif" alt="Loading..." />
-      </div>
+      <picture class="loader">
+        <source srcset="/simiku-animation.webp" type="image/webp" />
+        <img src="" alt="Loading..." />
+      </picture>
     </div>
     <script type="module" src="/src/main.tsx"></script>
   </body>
