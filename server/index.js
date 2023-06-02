@@ -1,4 +1,4 @@
-require('dotenv').config();
+require('dotenv').config({ path: `.env.${process.env.NODE_ENV}` });
 const express = require('express');
 const cors = require('cors');
 const cookieParser = require('cookie-parser');
@@ -15,12 +15,7 @@ const departmentRoutes = require('./app/routes/department.routes');
 const app = express();
 
 // setup express
-app.use(
-  cors({
-    credentials: true,
-    // origin: 'https://shimmering-lokum-851637.netlify.app/',
-  })
-);
+app.use(cors({ credentials: true, origin: process.env.ORIGIN_URL }));
 app.use(express.json());
 app.use(cookieParser());
 
@@ -66,8 +61,6 @@ app.use(authRoutes);
 app.use(majorRoutes);
 app.use(departmentRoutes);
 
-const PORT = 5000;
-
-app.listen(PORT, () => {
-  console.log(`Server is running at port ${PORT}`);
+app.listen(process.env.PORT, () => {
+  console.log(`Server is running at port ${process.env.PORT}`);
 });

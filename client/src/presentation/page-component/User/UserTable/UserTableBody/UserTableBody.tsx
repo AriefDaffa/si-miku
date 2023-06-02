@@ -1,30 +1,14 @@
-import { useNavigate } from 'react-router-dom';
-import { debounce } from 'lodash';
-import { useState } from 'react';
-import type { FC, SyntheticEvent, ChangeEvent } from 'react';
+import type { FC } from 'react';
 
 import Avatar from '@mui/material/Avatar';
 import Stack from '@mui/material/Stack';
-import Checkbox from '@mui/material/Checkbox';
 import TableRow from '@mui/material/TableRow';
 import TableCell from '@mui/material/TableCell';
-import FormControl from '@mui/material/FormControl';
-import MenuItem from '@mui/material/MenuItem';
-import TextField from '@mui/material/TextField';
-import Pagination from '@mui/material/Pagination';
-import Button from '@mui/material/Button';
-import Select, { SelectChangeEvent } from '@mui/material/Select';
-
-import Grid from '@/presentation/global-component/UI/Grid';
-import Card from '@/presentation/global-component/UI/Card';
-import Table from '@/presentation/global-component/UI/Table';
 import {
   Header,
   SubHeader,
 } from '@/presentation/global-component/UI/Typography';
 import { GREY } from '@/presentation/global-component/theme/Colors';
-import { getProgressColor } from '@/controller/utils/get-progress-bar-color';
-import { getPercentage } from '@/controller/utils/get-percentage';
 import type { UserListNormalized } from '@/repository/query/user/UserQuery';
 
 interface UserTableBodyProps {
@@ -53,14 +37,14 @@ const UserTableBody: FC<UserTableBodyProps> = (props) => {
       <TableCell sx={{ minWidth: '120px' }}>
         <Stack flexDirection="row" alignItems="center" sx={{ gap: 1 }}>
           <Avatar src={item.userImage} />
-          <Header variant="subtitle2" text={`${item.userName}`} />
+          <Header variant="subtitle2" text={`${item.profession}`} />
         </Stack>
       </TableCell>
       <TableCell>
         <Header variant="subtitle2" text={`${item.role.roleName}`} />
       </TableCell>
       <TableCell>
-        <Header variant="subtitle2" text={`Level ${item.accessLevel}`} />
+        <Header variant="subtitle2" text={`Level ${item.role.roleID}`} />
       </TableCell>
       <TableCell>
         <Header variant="subtitle2" text={`${item.userEmail}`} />

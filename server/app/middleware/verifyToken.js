@@ -1,4 +1,4 @@
-require('dotenv').config();
+require('dotenv').config({ path: `.env.${process.env.NODE_ENV}` });
 const jwt = require('jsonwebtoken');
 
 const verifyAccessToken = (req, res, next) => {
@@ -46,7 +46,7 @@ const verifyAdmin = (req, res, next) => {
 
   // verify the jwt token inside cookies
   jwt.verify(cookies, process.env.ACCESS_TOKEN_SECRET, (err, decodedVal) => {
-    if (err || decodedVal.role_id !== 3) {
+    if (err || decodedVal.role_id !== 9) {
       return res.sendStatus(403);
     }
 

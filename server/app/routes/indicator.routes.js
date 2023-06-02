@@ -16,23 +16,28 @@ const createDepartmentData = require('../controllers/indicator/post/createDepart
 const createDepartmentBulkData = require('../controllers/indicator/post/createDepartmentBulkData');
 const createFacultyData = require('../controllers/indicator/post/createFacultyData');
 
+const updateIndicator = require('../controllers/indicator/put/editIndicator');
 const updateIndicatorName = require('../controllers/indicator/put-indicator-name');
 const updateIndicatorData = require('../controllers/indicator/put-indicator-data');
 const updateIndicatorType = require('../controllers/indicator/put-indicator-type');
 
 const editMajorData = require('../controllers/indicator/put/editMajorData');
 const editDepartmentData = require('../controllers/indicator/put/editDepartmentData');
+const editFacultyData = require('../controllers/indicator/put/editFacultyData');
 
 const deleteIndicatorById = require('../controllers/indicator/delete-indicator-by-id');
 const deleteDataIndicator = require('../controllers/indicator/delete-data-indicator');
 const deleteBulkDataIndicator = require('../controllers/indicator/delete-bulk-data-indicator');
 const deleteMajorData = require('../controllers/indicator/delete/deleteMajorData');
 const deleteDepartmentData = require('../controllers/indicator/delete/deleteDepartmentData');
+const deleteFacultyData = require('../controllers/indicator/delete/deleteFacultyData');
+const deleteIndicator = require('../controllers/indicator/delete/deleteIndicator');
 
 const getIndicatorFacultyData = require('../controllers/indicator/get/getIndicatorFacultyData');
 const {
   verifyAccessToken,
   verifyManagement,
+  verifyAdmin,
 } = require('../middleware/verifyToken');
 
 const router = express.Router();
@@ -49,7 +54,7 @@ router.get('/indicator/:id', verifyAccessToken, getIndicatorById);
 router.get('/fakultas', verifyAccessToken, getFakultasIndicators);
 router.get('/indicator/major/:id', verifyAccessToken, getIndicatorByMajorId);
 
-router.post('/indicator', verifyManagement, createIndicator);
+router.post('/indicator', verifyAdmin, createIndicator);
 router.post(
   '/indicator/insert-data-faculty',
   verifyManagement,
@@ -73,8 +78,9 @@ router.post(
 );
 router.post('/indicator/data/faculty', verifyManagement, createFacultyData);
 
-router.delete('/indicator', verifyManagement, deleteIndicatorById);
+router.delete('/indicator/:id', verifyAdmin, deleteIndicator);
 router.delete('/indicator/data', verifyManagement, deleteDataIndicator);
+router.delete('/indicator/data/faculty', verifyManagement, deleteFacultyData);
 router.delete('/indicator/data/major', verifyManagement, deleteMajorData);
 router.delete(
   '/indicator/data/department',
@@ -82,8 +88,9 @@ router.delete(
   deleteDepartmentData
 );
 
-router.put('/indicator/:id', verifyManagement, updateIndicatorName);
-router.put('/indicator/:id/type', verifyManagement, updateIndicatorType);
+router.put('/indicator/:id', verifyAdmin, updateIndicator);
+router.put('/indicator/:id/type', verifyAdmin, updateIndicatorType);
+router.put('/indicator/:id/data/faculty', verifyManagement, editFacultyData);
 router.put('/indicator/:id/data/major', verifyManagement, editMajorData);
 router.put(
   '/indicator/:id/data/department',

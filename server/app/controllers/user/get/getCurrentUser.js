@@ -14,10 +14,21 @@ const getCurrentUser = async (req, res) => {
         return res.sendStatus(403);
       }
 
+      let role = '';
+
+      if (decodedVal.role_id === 1) {
+        role = 'Manajemen';
+      } else if (decodedVal.role_id === 2) {
+        role = 'Operator';
+      } else if (decodedVal.role_id === 9) {
+        role = 'Admin';
+      }
+
       return res.json({
-        username: decodedVal.username,
+        profession: decodedVal.profession,
         email: decodedVal.email,
         userImage: decodedVal.user_image,
+        role,
       });
     });
   } catch (error) {

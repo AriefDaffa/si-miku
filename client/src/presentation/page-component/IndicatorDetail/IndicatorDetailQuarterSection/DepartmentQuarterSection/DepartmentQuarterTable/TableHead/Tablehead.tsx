@@ -19,7 +19,7 @@ const TableHead: FC<TableHeadProps> = (props) => {
         <Header variant="subtitle2" text="No." sx={{ color: 'white' }} />
       </TableCell>
       <TableCell>
-        <Header variant="subtitle2" text="Jurusan" sx={{ color: 'white' }} />
+        <Header variant="subtitle2" text="Departemen" sx={{ color: 'white' }} />
       </TableCell>
       <TableCell>
         <Header variant="subtitle2" text="Q1" sx={{ color: 'white' }} />

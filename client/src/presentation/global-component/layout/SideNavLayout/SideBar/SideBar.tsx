@@ -44,8 +44,9 @@ const Sidebar: FC<SidebarProps> = (props) => {
       <LogoSection />
       <UserProfileCard data={data} isLoading={isLoading} />
       <Box sx={{ flex: 1, overflowY: 'auto' }}>
-        <Divider />
-        <List disablePadding sx={{ p: 1 }}>
+        {NAV_ITEM.filter((item) => item.accessRole.includes(String(roleID)))
+          .length !== 0 && <Divider />}
+        <List disablePadding sx={{ px: 1 }}>
           {NAV_ITEM.filter((item) =>
             item.accessRole.includes(String(roleID))
           ).map((item, idx) => (

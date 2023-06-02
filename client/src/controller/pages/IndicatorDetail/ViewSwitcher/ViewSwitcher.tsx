@@ -58,7 +58,11 @@ const ViewSwitcher: FC<ViewSwitcherProps> = (props) => {
       );
     default:
       return (
-        <FacultyView indicatorID={indicatorID} indicatorName={indicatorName} />
+        <FacultyView
+          indicatorID={indicatorID}
+          indicatorName={indicatorName}
+          facultyData={facultyData}
+        />
       );
   }
 };

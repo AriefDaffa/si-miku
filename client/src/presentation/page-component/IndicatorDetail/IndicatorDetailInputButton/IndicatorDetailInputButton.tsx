@@ -5,8 +5,10 @@ import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 import CreateIcon from '@mui/icons-material/Create';
 import ArticleIcon from '@mui/icons-material/Article';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 import {
+  ERROR,
   PRIMARY,
   SECONDARY,
 } from '@/presentation/global-component/theme/Colors';
@@ -15,36 +17,64 @@ interface IndicatorDetailInputButtonProps {
   onInputClick: () => void;
   handleOpenBulk: () => void;
   isFaculty?: boolean;
+  facultyEnable?: boolean;
+  onDeleteClick?: () => void;
 }
 
 const IndicatorDetailInputButton: FC<IndicatorDetailInputButtonProps> = (
   props
 ) => {
-  const { onInputClick, handleOpenBulk, isFaculty = false } = props;
+  const {
+    onInputClick,
+    handleOpenBulk,
+    isFaculty = false,
+    facultyEnable = false,
+    onDeleteClick = noop,
+  } = props;
 
   return (
     <Stack>
       <Stack flexDirection="row-reverse" gap={1}>
-        {!isFaculty && (
+        {isFaculty && (
           <Button
             variant="outlined"
-            startIcon={<ArticleIcon />}
-            onClick={handleOpenBulk}
+            startIcon={<DeleteIcon />}
+            onClick={onDeleteClick}
+            disabled={facultyEnable}
             sx={{
               float: 'right',
-              borderColor: SECONDARY.main,
-              color: 'black',
-              backgroundColor: SECONDARY.main,
+              borderColor: ERROR.main,
+              color: 'white',
+              backgroundColor: ERROR.main,
               ':hover': {
-                color: 'black',
-                backgroundColor: SECONDARY.main,
-                borderColor: SECONDARY.main,
+                color: 'white',
+                backgroundColor: ERROR.main,
+                borderColor: ERROR.main,
               },
             }}
           >
-            Input Data (Bulk)
+            Hapus Data
           </Button>
         )}
+        <Button
+          variant="outlined"
+          startIcon={<ArticleIcon />}
+          onClick={handleOpenBulk}
+          disabled={facultyEnable}
+          sx={{
+            float: 'right',
+            borderColor: SECONDARY.main,
+            color: 'black',
+            backgroundColor: SECONDARY.main,
+            ':hover': {
+              color: 'black',
+              backgroundColor: SECONDARY.main,
+              borderColor: SECONDARY.main,
+            },
+          }}
+        >
+          {isFaculty ? 'Edit Indikator' : 'Input Data (Bulk)'}
+        </Button>
         <Button
           variant="outlined"
           startIcon={<CreateIcon />}

@@ -1,7 +1,7 @@
 import type { FC } from 'react';
 
 import Avatar from '@mui/material/Avatar';
-import Box from '@mui/material/Box';
+import Stack from '@mui/material/Stack';
 
 interface ProfileImageProps {
   currentImage: any;
@@ -11,7 +11,7 @@ const ProfileImage: FC<ProfileImageProps> = (props) => {
   const { currentImage } = props;
 
   return (
-    <Box>
+    <Stack flexDirection="row">
       <Avatar
         src={
           typeof currentImage === 'string'
@@ -24,7 +24,7 @@ const ProfileImage: FC<ProfileImageProps> = (props) => {
           height: 200,
         }}
       />
-    </Box>
+    </Stack>
   );
 };
 

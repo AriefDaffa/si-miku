@@ -12,11 +12,13 @@ import TablePagination from '@/presentation/page-component/common/TableComponent
 import TableSkeleton from '@/presentation/page-component/common/TableComponent/TableSkeleton';
 import TableContainer from '@/presentation/page-component/common/TableComponent/TableContainer';
 import TableToolbar from '@/presentation/page-component/common/TableComponent/TableToolbar';
+import IndicatorTableEmpty from '@/presentation/page-component/common/TableComponent/IndicatorTableEmpty';
 
 interface UserTableControllerProps {
   isLoading: boolean;
   currentPage: number;
   currentSize: number;
+  keyword: string;
   data: UserDataOverviewNormalized;
   handleTablePagination: (e: any, value: number) => void;
   handleTableSize: (event: SelectChangeEvent) => void;
@@ -32,6 +34,7 @@ const UserTableController: FC<UserTableControllerProps> = (props) => {
     handleTablePagination,
     handleTableSize,
     isLoading,
+    keyword,
   } = props;
 
   const [selected, setSelected] = useState<number[]>([]);
@@ -91,10 +94,16 @@ const UserTableController: FC<UserTableControllerProps> = (props) => {
         bodyComponent={
           isLoading ? (
             <TableSkeleton />
-          ) : (
+          ) : data.userList.length > 0 ? (
             data.userList.map((item, index) => (
               <UserTableBody key={item.userID} item={item} index={index} />
             ))
+          ) : (
+            <IndicatorTableEmpty
+              message={
+                keyword.length > 0 ? 'User tidak ditemukan' : 'User Kosong'
+              }
+            />
           )
         }
         paginationComponent={

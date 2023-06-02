@@ -14,37 +14,37 @@ export const NAV_ITEM = [
     title: 'Home',
     path: 'home',
     Icon: HomeIcon,
-    accessRole: '1,2,3',
+    accessRole: '1,2,9',
   },
   {
     title: 'List Indikator',
     path: 'indicator',
     Icon: FormatListBulletedIcon,
-    accessRole: '1,2,3',
+    accessRole: '1,2,9',
   },
   {
     title: 'Data Fakultas',
     path: 'faculty',
     Icon: BusinessIcon,
-    accessRole: '1,2,3',
+    accessRole: '1,2,9',
   },
   {
     title: 'Data Departemen',
     path: 'department',
     Icon: AccountBalanceIcon,
-    accessRole: '1,2,3',
+    accessRole: '1,2,9',
   },
   {
     title: 'Data Program Studi',
     path: 'major',
     Icon: SchoolIcon,
-    accessRole: '1,2,3',
+    accessRole: '1,2,9',
   },
   {
     title: 'Tambah Indikator',
     path: 'indicator-input',
     Icon: AddIcon,
-    accessRole: '2,3',
+    accessRole: '9',
   },
 ];
 
@@ -53,12 +53,12 @@ export const NAV_ITEM_SECONDARY = [
     title: 'Profile',
     path: 'profile',
     Icon: AccountCircleIcon,
-    accessRole: '1,2,3',
+    accessRole: '1,2,9',
   },
   {
     title: 'User',
     path: 'user',
     Icon: PeopleIcon,
-    accessRole: '3',
+    accessRole: '9',
   },
 ];

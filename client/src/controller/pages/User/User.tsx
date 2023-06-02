@@ -1,4 +1,4 @@
-import { useNavigate } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
 import { Fragment, useEffect, useState, useCallback } from 'react';
 import type { FC, ChangeEvent } from 'react';
 
@@ -10,6 +10,7 @@ import { useAuthContext } from '@/controller/context/AuthContext';
 
 import AddUserController from './AddUserController';
 import UserTableController from './UserTableController/UserTableController';
+import IndicatorInputSkeleton from '@/presentation/page-component/IndicatorInput/IndicatorInputSkeleton/IndicatorInputSkeleton';
 
 const User: FC = () => {
   const [keyword, setKeyword] = useState('');
@@ -18,8 +19,6 @@ const User: FC = () => {
 
   const { setHeadline } = useHeadline();
   const { roleID, isLoading } = useAuthContext();
-
-  const navigate = useNavigate();
 
   const { data: operatorData, isLoading: isOperatorLoading } = useUserQuery(
     2,
@@ -42,10 +41,6 @@ const User: FC = () => {
   }, []);
 
   useEffect(() => {
-    if (roleID !== 3 && !isLoading) {
-      navigate('/not-found');
-    }
-
     if (location.pathname === '/dashboard/user') {
       setHeadline({
         title: 'Management User',
@@ -55,10 +50,13 @@ const User: FC = () => {
     }
   }, [location, roleID, isLoading]);
 
-  return (
+  return isLoading ? (
+    <IndicatorInputSkeleton />
+  ) : roleID === 9 ? (
     <Fragment>
       <AddUserController />
       <UserTableController
+        keyword={keyword}
         currentPage={page}
         currentSize={rows}
         data={operatorData}
@@ -68,6 +66,8 @@ const User: FC = () => {
         isLoading={isOperatorLoading}
       />
     </Fragment>
+  ) : (
+    <Navigate to={'/not-found'} />
   );
 };
 

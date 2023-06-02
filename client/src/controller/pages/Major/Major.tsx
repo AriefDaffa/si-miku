@@ -14,6 +14,7 @@ import TableContainer from '@/presentation/page-component/common/TableComponent/
 import MajorTableHead from '@/presentation/page-component/Major/MajorTableHead';
 import TableSkeleton from '@/presentation/page-component/common/TableComponent/TableSkeleton';
 import MajorTableBody from '@/presentation/page-component/Major/MajorTableBody';
+import IndicatorTableEmpty from '@/presentation/page-component/common/TableComponent/IndicatorTableEmpty';
 import { PRIMARY } from '@/presentation/global-component/theme/Colors';
 import { useHeadline } from '@/controller/context/HeadlineContext';
 import { useCurrentYear } from '@/controller/context/CurrentYearContext';
@@ -208,21 +209,27 @@ const Major: FC = () => {
           bodyComponent={
             isLoading ? (
               <TableSkeleton />
+            ) : listIndicator.indicatorList.length ? (
+              listIndicator.indicatorList.map((item, index) => (
+                <MajorTableBody
+                  key={item.indicatorID}
+                  index={index}
+                  enableCheckbox={enableExport}
+                  onCheckboxClick={handleSelect}
+                  selected={selected}
+                  imageURL={`${currentMajor[0]?.majorImage || ''}`}
+                  currentYear={Number(currentYear || 0)}
+                  {...item}
+                />
+              ))
             ) : (
-              <Fragment>
-                {listIndicator.indicatorList.map((item, index) => (
-                  <MajorTableBody
-                    key={item.indicatorID}
-                    index={index}
-                    enableCheckbox={enableExport}
-                    onCheckboxClick={handleSelect}
-                    selected={selected}
-                    imageURL={`${currentMajor[0]?.majorImage || ''}`}
-                    currentYear={Number(currentYear || 0)}
-                    {...item}
-                  />
-                ))}
-              </Fragment>
+              <IndicatorTableEmpty
+                message={
+                  keyword.length > 0
+                    ? 'Indikator tidak ditemukan'
+                    : 'Indikator Kosong'
+                }
+              />
             )
           }
           paginationComponent={

@@ -8,7 +8,7 @@ const User = db.define('users', {
     primaryKey: true,
     autoIncrement: true,
   },
-  user_name: {
+  profession: {
     type: DataTypes.STRING,
   },
   user_email: {
@@ -17,9 +17,6 @@ const User = db.define('users', {
   },
   user_image: {
     type: DataTypes.STRING,
-  },
-  access_level: {
-    type: DataTypes.INTEGER,
   },
   password: {
     type: DataTypes.STRING,

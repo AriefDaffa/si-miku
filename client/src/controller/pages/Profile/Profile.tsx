@@ -10,7 +10,7 @@ import LoadingPopup from '@/presentation/global-component/UI/Loader/LoadingPopup
 import DialogPopup from '@/presentation/global-component/UI/DialogPopup';
 import useUpdateUserProfileMutation from '@/repository/mutation/user/UpdateUserProfileMutation';
 import { useCurrentUserQuery } from '@/repository/query/user/CurrentUserQuery';
-import { useAuthContext } from '@/controller/context/AuthContext';
+// import { useAuthContext } from '@/controller/context/AuthContext';
 import { useYupValidationResolver } from '@/controller/hooks/use-yup-validation-resolver';
 
 import ProfileImage from '@/presentation/page-component/Profile/ProfileImage';
@@ -20,10 +20,10 @@ import ProfileContainer from '@/presentation/page-component/Profile/ProfileConta
 import { useHeadline } from '@/controller/context/HeadlineContext';
 
 import type { UserData } from './types';
+import useChangePassword from '@/repository/mutation/user/ChangePasswordMutation';
 
 const Profile: FC = () => {
   const location = useLocation();
-  const { roleID } = useAuthContext();
   const { data, isLoading } = useCurrentUserQuery();
   const { setHeadline } = useHeadline();
 
@@ -31,27 +31,25 @@ const Profile: FC = () => {
   const [successDialog, setSuccessDialog] = useState(false);
   const [currentImage, setcurrentImage] = useState<any>('');
   const [inputKey, setInputKey] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
 
   const schema = yup.object().shape({
-    user_name: yup.string().required('User Name tidak boleh kosong!'),
-    user_email: yup
-      .string()
-      .email('Masukkan format email yang valid!')
-      .required('Email tidak boleh kosong!'),
+    password: yup.string(),
+    confirm_password: yup.string(),
   });
 
   const resolver = useYupValidationResolver(schema);
 
-  const { control, handleSubmit, setValue, getValues } = useForm({
+  const { control, handleSubmit } = useForm({
     defaultValues: {
-      user_name: data.userName,
-      user_email: data.email,
+      password: '',
+      confirm_password: '',
     },
     resolver,
   });
 
   const queryClient = useQueryClient();
-  const { mutate } = useUpdateUserProfileMutation();
+  const { mutate } = useChangePassword();
 
   const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
     const image = e.target.files;
@@ -66,14 +64,23 @@ const Profile: FC = () => {
     setInputKey(Math.random().toString(36));
   };
 
-  const onSubmit = (data: UserData) => {
-    setLoading(true);
-
+  const onSubmit = (item: UserData) => {
     const formData = new FormData();
+    setErrorMessage('');
 
-    formData.append('user_name', data.user_name);
-    formData.append('user_email', data.user_email);
+    if (item.password.length !== 0 || item.confirm_password.length !== 0) {
+      if (item.password !== item.confirm_password) {
+        setErrorMessage('Error! Password tidak sama');
+        return;
+      } else {
+        formData.append('password', item.password);
+      }
+    }
+
+    // setLoading(true);
+
     formData.append('profile-image', currentImage);
+    formData.append('user_email', data.email);
 
     mutate(formData, {
       onSuccess: (res) => {
@@ -97,13 +104,7 @@ const Profile: FC = () => {
     setSuccessDialog(false);
   };
 
-  // fix missing value on refresh
   useEffect(() => {
-    if (!isLoading && getValues().user_name === '') {
-      setValue('user_name', data.userName);
-      setValue('user_email', data.email);
-    }
-
     if (location.pathname === '/dashboard/profile') {
       setHeadline({
         title: 'Profile',
@@ -128,7 +129,11 @@ const Profile: FC = () => {
             handleImageChange={handleImageChange}
             handleRemoveImage={handleRemoveImage}
           />
-          <ProfileForm control={control} isManagement={true} />
+          <ProfileForm
+            control={control}
+            data={data}
+            errorMessage={errorMessage}
+          />
 
           <DialogPopup
             title="Success!"

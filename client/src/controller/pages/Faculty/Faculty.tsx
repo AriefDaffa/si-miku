@@ -8,6 +8,7 @@ import TableToolbar from '@/presentation/page-component/common/TableComponent/Ta
 import TableContainer from '@/presentation/page-component/common/TableComponent/TableContainer';
 import FacultyTableHead from '@/presentation/page-component/Faculty/FacultyTableHead';
 import FacultyTableBody from '@/presentation/page-component/Faculty/FacultyTableBody';
+import IndicatorTableEmpty from '@/presentation/page-component/common/TableComponent/IndicatorTableEmpty';
 import TableSkeleton from '@/presentation/page-component/common/TableComponent/TableSkeleton';
 import TablePagination from '@/presentation/page-component/common/TableComponent/TablePagination';
 import useGetIndicatorFacultyDataQuery from '@/repository/query/faculty/GetIndicatorFacultyDataQuery';
@@ -176,7 +177,7 @@ const Faculty: FC = () => {
         bodyComponent={
           isLoading ? (
             <TableSkeleton />
-          ) : (
+          ) : data.indicatorList.length > 0 ? (
             data.indicatorList.map((item, index) => (
               <FacultyTableBody
                 key={item.indicatorID}
@@ -187,6 +188,14 @@ const Faculty: FC = () => {
                 {...item}
               />
             ))
+          ) : (
+            <IndicatorTableEmpty
+              message={
+                keyword.length > 0
+                  ? 'Indikator tidak ditemukan'
+                  : 'Indikator Kosong'
+              }
+            />
           )
         }
         paginationComponent={

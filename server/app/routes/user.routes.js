@@ -3,10 +3,10 @@ const multer = require('multer');
 
 const getUser = require('../controllers/user/get/getUserByRole');
 const getCurrentUser = require('../controllers/user/get/getCurrentUser');
-const createOperator = require('../controllers/user/post-user-operator');
 const deleteUser = require('../controllers/user/delete/deleteUser');
-const updateUserProfile = require('../controllers/user/put-update-user-profile');
-const registerUser = require('../controllers/user/post-register-user');
+const updateUserProfile = require('../controllers/user/put/updateUserProfile');
+const registerUser = require('../controllers/user/post/registerUser');
+const updateUserPassword = require('../controllers/user/put/updateUserPassword');
 
 const {
   verifyAccessToken,
@@ -41,13 +41,18 @@ const upload = multer({ storage: fileStore, fileFilter: fileFilter });
 router.get('/users/:id', verifyAdmin, getUser);
 router.get('/current-user', verifyAccessToken, getCurrentUser);
 
-router.post('/users', registerUser);
-router.post('/users/operator', verifyAdmin, createOperator);
+// router.post('/users', registerUser);
+router.post('/users', verifyAdmin, registerUser);
 
 router.put(
   '/user',
   [verifyAccessToken, upload.single('profile-image')],
   updateUserProfile
+);
+router.put(
+  '/user/password',
+  [verifyAccessToken, upload.single('profile-image')],
+  updateUserPassword
 );
 
 router.delete('/user', verifyAdmin, deleteUser);

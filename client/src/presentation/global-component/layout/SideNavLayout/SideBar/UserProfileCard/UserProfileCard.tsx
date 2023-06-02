@@ -34,7 +34,7 @@ const UserProfileCard: FC<UserProfileCardProps> = (props) => {
         {!isMinimized && (
           <Box sx={{ ml: 2 }}>
             <Typography variant="subtitle2" sx={{ color: 'white' }}>
-              {data.userName || <Skeleton variant="text" width={100} />}
+              {data.profession || <Skeleton variant="text" width={100} />}
             </Typography>
             <Typography variant="body2" sx={{ color: 'white' }}>
               {data.email || <Skeleton variant="text" width={100} />}

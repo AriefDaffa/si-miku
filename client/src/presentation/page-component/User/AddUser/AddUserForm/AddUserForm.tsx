@@ -24,7 +24,7 @@ const AddUserForm: FC<AddUserFormProps> = (props) => {
       sm={[4, 4, 4]}
       gridItem={[
         <Controller
-          name="user_name" // ganti jadi jabatan
+          name="profession"
           control={control}
           rules={{ required: true }}
           defaultValue={''}
@@ -64,18 +64,15 @@ const AddUserForm: FC<AddUserFormProps> = (props) => {
           )}
         />,
         <Controller
-          name="access_level" // jadiin level akses
+          name="role_id" // jadiin level akses
           control={control}
           rules={{ required: true }}
           render={({ field, fieldState }) => (
             <Box>
               <SubHeader text="Level Akses" sx={{ pb: 1 }} />
               <Select autoWidth label="" fullWidth {...field}>
-                <MenuItem value={'1'}>Level 1</MenuItem>
-                <MenuItem value={'2'}>Level 2</MenuItem>
-                <MenuItem value={'3'}>Level 3</MenuItem>
-                <MenuItem value={'4'}>Level 4</MenuItem>
-                <MenuItem value={'5'}>Level 5</MenuItem>
+                <MenuItem value={'1'}>Level 1 - Manajemen</MenuItem>
+                <MenuItem value={'2'}>Level 2 - Operator</MenuItem>
               </Select>
             </Box>
           )}

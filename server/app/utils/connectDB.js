@@ -18,7 +18,7 @@ const connectDB = async () => {
     //   role_name: 'Operator',
     // });
     // await model.Role.create({
-    //   role_id: 3,
+    //   role_id: 9,
     //   role_name: 'Admin',
     // });
 

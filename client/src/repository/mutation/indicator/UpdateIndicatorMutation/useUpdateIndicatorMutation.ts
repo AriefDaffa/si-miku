@@ -2,16 +2,18 @@ import { useMutation } from 'react-query';
 
 import baseAPI from '@/controller/utils/axios-utils';
 
+import type { updateIndicatorPayload } from './types';
+
 const useUpdateIndicatorMutation = () => {
   const mutation = useMutation(
-    async ({
-      id,
-      data,
-    }: {
-      id: number;
-      data: { indicator_code: string; indicator_name: string };
-    }) => {
-      return await baseAPI.put(`/indicator/${id}`, data);
+    async ({ id, ...rest }: updateIndicatorPayload) => {
+      return await baseAPI.put(
+        `/indicator/${id}`,
+        { ...rest },
+        {
+          validateStatus: () => true,
+        }
+      );
     }
   );
 
