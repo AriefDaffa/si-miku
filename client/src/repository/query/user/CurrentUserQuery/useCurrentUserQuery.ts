@@ -12,14 +12,16 @@ import type {
 // normalize the data to prevent undefined value
 const normalizer = (Deps?: CurrentUserResponse) => {
   const result: CurrentUserResponseNormalized = {
-    userName: '',
+    profession: '',
     email: '',
     userImage: '',
+    role: '',
   };
 
   if (Deps !== void 0 && !(Deps instanceof AxiosError)) {
-    result.userName = Deps.data.username || '';
+    result.profession = Deps.data.profession || '';
     result.email = Deps.data.email || '';
+    result.role = Deps.data.role || '';
     result.userImage =
       Deps.data.userImage === '' || Deps.data.userImage === null
         ? ''

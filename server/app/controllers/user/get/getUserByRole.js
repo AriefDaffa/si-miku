@@ -14,9 +14,9 @@ const getUser = async (req, res) => {
       offset,
       where: {
         [Op.and]: {
-          role_id: { [Op.not]: 3 },
+          role_id: { [Op.not]: 9 },
           [Op.or]: {
-            user_name: { [Op.like]: `%${keyword}%` },
+            profession: { [Op.like]: `%${keyword}%` },
             user_email: { [Op.like]: `%${keyword}%` },
           },
         },
@@ -24,13 +24,7 @@ const getUser = async (req, res) => {
       include: {
         model: model.Role,
       },
-      attributes: [
-        'user_id',
-        'user_name',
-        'user_email',
-        'user_image',
-        'access_level',
-      ],
+      attributes: ['user_id', 'profession', 'user_email', 'user_image'],
     });
 
     const normalizeResponse = {

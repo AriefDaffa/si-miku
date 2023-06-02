@@ -14,6 +14,7 @@ import TableContainer from '@/presentation/page-component/common/TableComponent/
 import TableToolbar from '@/presentation/page-component/common/TableComponent/TableToolbar';
 import DepartmentTableHead from '@/presentation/page-component/Department/DepartmentTableHead';
 import DepartmentTableBody from '@/presentation/page-component/Department/DepartmentTableBody';
+import IndicatorTableEmpty from '@/presentation/page-component/common/TableComponent/IndicatorTableEmpty';
 import { useHeadline } from '@/controller/context/HeadlineContext';
 import { useCurrentYear } from '@/controller/context/CurrentYearContext';
 import { PRIMARY } from '@/presentation/global-component/theme/Colors';
@@ -213,21 +214,27 @@ const Department: FC = () => {
           bodyComponent={
             isLoading ? (
               <TableSkeleton />
+            ) : listIndicator.indicatorList.length ? (
+              listIndicator.indicatorList.map((item, index) => (
+                <DepartmentTableBody
+                  key={item.indicatorID}
+                  index={index}
+                  enableCheckbox={enableExport}
+                  onCheckboxClick={handleSelect}
+                  selected={selected}
+                  imageURL={`${currentDepartment[0]?.departmentImage || ''}`}
+                  currentYear={Number(currentYear || 0)}
+                  {...item}
+                />
+              ))
             ) : (
-              <Fragment>
-                {listIndicator.indicatorList.map((item, index) => (
-                  <DepartmentTableBody
-                    key={item.indicatorID}
-                    index={index}
-                    enableCheckbox={enableExport}
-                    onCheckboxClick={handleSelect}
-                    selected={selected}
-                    imageURL={`${currentDepartment[0]?.departmentImage || ''}`}
-                    currentYear={Number(currentYear || 0)}
-                    {...item}
-                  />
-                ))}
-              </Fragment>
+              <IndicatorTableEmpty
+                message={
+                  keyword.length > 0
+                    ? 'Indikator tidak ditemukan'
+                    : 'Indikator Kosong'
+                }
+              />
             )
           }
           paginationComponent={

@@ -5,7 +5,7 @@ interface Role {
 
 export interface UserList {
   user_id: number;
-  user_name: string;
+  profession: string;
   user_email: string;
   user_image: string;
   access_level: number;
@@ -31,7 +31,7 @@ interface RoleNormalized {
 
 export interface UserListNormalized {
   userID: number;
-  userName: string;
+  profession: string;
   userEmail: string;
   userImage: string;
   accessLevel: number;

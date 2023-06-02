@@ -18,6 +18,7 @@ interface FormInputComponentProps {
   control: Control<any, any>;
   PickerComponent: ReactNode;
   YearPickerComponent: ReactNode;
+  isFaculty?: boolean;
 }
 
 const FormInputComponent: FC<FormInputComponentProps> = (props) => {
@@ -28,17 +29,22 @@ const FormInputComponent: FC<FormInputComponentProps> = (props) => {
     control,
     PickerComponent,
     YearPickerComponent,
+    isFaculty = false,
   } = props;
 
   return (
     <Stack gap={2} sx={{ my: 2 }}>
       <Grid
-        sm={[6, 6]}
+        sm={isFaculty ? [12] : [6, 6]}
         gridItem={[
-          <Box>
-            <SubHeader text="Pilih Program Studi" sx={{ pb: 1 }} />
-            {PickerComponent}
-          </Box>,
+          !isFaculty ? (
+            <Box>
+              <SubHeader text="Pilih Program Studi" sx={{ pb: 1 }} />
+              {PickerComponent}
+            </Box>
+          ) : (
+            <></>
+          ),
           <Box>
             <SubHeader text="Pilih tahun" sx={{ pb: 1 }} />
             {YearPickerComponent}

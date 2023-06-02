@@ -7,7 +7,7 @@ import Divider from '@mui/material/Divider';
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
 import DialogContent from '@mui/material/DialogContent';
-import CreateIcon from '@mui/icons-material/Create';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 import DialogPopup from '@/presentation/global-component/UI/DialogPopup';
 import LoadingPopup from '@/presentation/global-component/UI/Loader/LoadingPopup';
@@ -16,6 +16,8 @@ import useDeleteDepartmentDataMutation from '@/repository/mutation/department/De
 import { Header } from '@/presentation/global-component/UI/Typography';
 import type { IndicatorDepartmentsNormalized } from '@/repository/query/indicator/IndicatorByIdQuery';
 import type { DeleteDepartmentDataPayload } from '@/repository/mutation/department/DeleteDepartmentDataMutation';
+import Grid from '@/presentation/global-component/UI/Grid/Grid';
+import AvatarTitle from '@/presentation/global-component/UI/AvatarTitle/AvatarTitle';
 
 interface DepartmentDeleteDialogProps extends IndicatorDepartmentsNormalized {
   open: boolean;
@@ -61,6 +63,7 @@ const DepartmentDeleteDialog: FC<DepartmentDeleteDialogProps> = (props) => {
         } else {
           setLoading(false);
           setSuccessDialog(true);
+          setOpen(false);
 
           queryClient.invalidateQueries({
             queryKey: ['indicator', String(indicatorID)],
@@ -89,13 +92,76 @@ const DepartmentDeleteDialog: FC<DepartmentDeleteDialogProps> = (props) => {
             direction={{ xs: 'column', sm: 'row' }}
             sx={{ my: 1 }}
           >
-            <CreateIcon />
+            <DeleteIcon />
             <Divider orientation="vertical" flexItem sx={{ mx: 2 }} />
             <TextWithSubHeader
               header={indicatorName}
               subHeader="Hapus data indikator"
             />
           </Stack>
+          <Divider sx={{ my: 2 }} />
+          <Grid
+            sm={[6, 6]}
+            gridItem={[
+              <Stack justifyContent="center">
+                <AvatarTitle
+                  subHeader="Departemen"
+                  header={`${rest.department.departmentName}`}
+                  imageURL={rest.department.departmentImage}
+                />
+              </Stack>,
+              <Stack justifyContent="end" sx={{ height: '100%' }}>
+                <TextWithSubHeader
+                  subHeader="Tahun"
+                  header={`${rest.targetDeps[0].targetQuarter.year.yearValue}`}
+                />
+              </Stack>,
+            ]}
+          />
+          <Grid
+            spacing={2}
+            sm={[3, 3, 3, 3]}
+            sx={{ mt: 1 }}
+            gridItem={[
+              <Stack justifyContent="center">
+                <TextWithSubHeader
+                  subHeader="Data Kuarter 1"
+                  header={`${rest.targetDeps[0].targetQuarter.q1}`}
+                />
+              </Stack>,
+              <Stack justifyContent="center">
+                <TextWithSubHeader
+                  subHeader="Data Kuarter 1"
+                  header={`${rest.targetDeps[0].targetQuarter.q2}`}
+                />
+              </Stack>,
+              <Stack justifyContent="center">
+                <TextWithSubHeader
+                  subHeader="Data Kuarter 1"
+                  header={`${rest.targetDeps[0].targetQuarter.q3}`}
+                />
+              </Stack>,
+              <Stack justifyContent="center">
+                <TextWithSubHeader
+                  subHeader="Data Kuarter 1"
+                  header={`${rest.targetDeps[0].targetQuarter.q4}`}
+                />
+              </Stack>,
+            ]}
+          />
+          <Grid
+            spacing={2}
+            sm={[12]}
+            sx={{ mt: 1 }}
+            gridItem={[
+              <Stack justifyContent="center">
+                <TextWithSubHeader
+                  subHeader="Data Target"
+                  header={`${rest.targetDeps[0].targetQuarter.targetValue}`}
+                />
+              </Stack>,
+            ]}
+          />
           <Divider sx={{ my: 2 }} />
           <Header text="Apakah anda yakin ingin menghapus data tersebut?" />
           <Button

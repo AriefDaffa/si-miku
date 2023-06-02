@@ -140,6 +140,7 @@ const FacultyInput: FC<FacultyInputProps> = (props) => {
       <FormInputTitle indicatorName={indicatorName} />
       <form onSubmit={handleSubmit(handleOnSubmit)}>
         <FormInputComponent
+          isFaculty
           control={control}
           error={error}
           isError={isError}

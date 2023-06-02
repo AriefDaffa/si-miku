@@ -1,7 +1,8 @@
 export interface CurrentUserData {
-  username: string;
+  profession: string;
   email: string;
   userImage: string;
+  role: string;
 }
 
 export interface CurrentUserResponse {
@@ -11,7 +12,8 @@ export interface CurrentUserResponse {
 // -- NORMALIZED TYPES -- //
 
 export interface CurrentUserResponseNormalized {
-  userName: string;
+  profession: string;
   email: string;
   userImage: string;
+  role: string;
 }

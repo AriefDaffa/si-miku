@@ -55,7 +55,7 @@ const FormSection: FC<FormSectionProps> = (props) => {
                 <Select autoWidth label="" fullWidth {...field}>
                   <MenuItem value={'1'}>Wakil Dekan I</MenuItem>
                   <MenuItem value={'2'}>Wakil Dekan II</MenuItem>
-                  <MenuItem value={'2'}>Wakil Dekan III</MenuItem>
+                  <MenuItem value={'3'}>Wakil Dekan III</MenuItem>
                 </Select>
               </Box>
             )}

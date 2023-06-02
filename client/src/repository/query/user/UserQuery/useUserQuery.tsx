@@ -23,7 +23,7 @@ const normalizer = (Deps?: UserResponse) => {
       result.userList.push({
         userID: item.user_id,
         userEmail: item.user_email,
-        userName: item.user_name,
+        profession: item.profession,
         userImage:
           item.user_image === '' || item.user_image === null
             ? ''

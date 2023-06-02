@@ -2,7 +2,6 @@ import { useQueryClient } from 'react-query';
 import { useState, useCallback, Fragment } from 'react';
 import type { FC, ChangeEvent } from 'react';
 
-import Alert from '@mui/material/Alert';
 import type { SelectChangeEvent } from '@mui/material/Select';
 
 import useIndicatorQuery from '@/repository/query/indicator/IndicatorQuery';
@@ -14,6 +13,7 @@ import useUpdateIndicatorTypeMutation from '@/repository/mutation/indicator/Upda
 import LoadingPopup from '@/presentation/global-component/UI/Loader/LoadingPopup/LoadingPopup';
 import IndicatorTableHead from '@/presentation/page-component/Indicator/IndicatorTableHead';
 import IndicatorTableBody from '@/presentation/page-component/Indicator/IndicatorTableBody';
+import IndicatorTableEmpty from '@/presentation/page-component/common/TableComponent/IndicatorTableEmpty';
 import type { IndicatorListNormalized } from '@/repository/query/indicator/IndicatorQuery';
 
 const EditIndicator: FC = () => {
@@ -141,7 +141,7 @@ const EditIndicator: FC = () => {
         bodyComponent={
           isLoading ? (
             <TableSkeleton />
-          ) : (
+          ) : data.indicatorList.length > 0 ? (
             data.indicatorList.map((item, index) => (
               <IndicatorTableBody
                 key={item.indicatorID}
@@ -151,6 +151,14 @@ const EditIndicator: FC = () => {
                 handleMajorCheckbox={handleMajorCheckbox}
               />
             ))
+          ) : (
+            <IndicatorTableEmpty
+              message={
+                keyword.length > 0
+                  ? 'Indikator tidak ditemukan'
+                  : 'Indikator Kosong'
+              }
+            />
           )
         }
         paginationComponent={

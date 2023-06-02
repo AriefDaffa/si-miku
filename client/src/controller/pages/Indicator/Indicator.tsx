@@ -11,8 +11,6 @@ import OverviewCard from '@/presentation/page-component/Home/OverviewCard/Overvi
 import useIndicatorOverview from '@/repository/query/indicator/IndicatorOverview';
 import { useHeadline } from '@/controller/context/HeadlineContext';
 import { PRIMARY } from '@/presentation/global-component/theme/Colors';
-import IndicatorChart from '@/presentation/page-component/Home/IndicatorChart/IndicatorChart';
-import moment from 'moment';
 
 import IndicatorTable from './IndicatorTable';
 
@@ -22,29 +20,8 @@ const Indicator: FC = () => {
   const { setHeadline } = useHeadline();
 
   const [yearRange, setYearRange] = useState('2023,2022,2021,2020,2019');
-  const [yearRangePicker, setYearRangePicker] = useState(5);
 
   const { data } = useIndicatorOverview(yearRange);
-
-  // const handleChangeYearRange = useCallback((e: SelectChangeEvent) => {
-  //   let currentYear = moment().year();
-  //   const finalArr = [];
-
-  //   const yearRange = Number(e.target.value || 0);
-
-  //   if (yearRange !== 0) {
-  //     for (let i = 0; i < yearRange; i++) {
-  //       if (i === 0) {
-  //         finalArr.push(currentYear);
-  //       } else {
-  //         finalArr.push((currentYear -= 1));
-  //       }
-  //     }
-  //   }
-
-  //   setYearRange(finalArr.join(','));
-  //   setYearRangePicker(yearRange);
-  // }, []);
 
   useEffect(() => {
     if (location.pathname === '/dashboard/indicator') {

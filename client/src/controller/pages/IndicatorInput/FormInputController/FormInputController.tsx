@@ -63,8 +63,6 @@ const FormInputController: FC<FormInputControllerProps> = (props) => {
       }
     }
 
-    console.log(data);
-
     if (validated) {
       setLoading(true);
       mutate(
