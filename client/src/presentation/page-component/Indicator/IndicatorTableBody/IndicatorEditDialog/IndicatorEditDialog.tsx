@@ -23,7 +23,7 @@ import { useYupValidationResolver } from '@/controller/hooks/use-yup-validation-
 import { SubHeader } from '@/presentation/global-component/UI/Typography';
 import { PRIMARY } from '@/presentation/global-component/theme/Colors';
 import { useUpdateIndicatorMutation } from '@/repository/mutation/indicator/UpdateIndicatorMutation';
-import { updateIndicatorPayload } from '@/repository/mutation/indicator/UpdateIndicatorMutation/types';
+import type { updateIndicatorPayload } from '@/repository/mutation/indicator/UpdateIndicatorMutation/types';
 import type { IndicatorListNormalized } from '@/repository/query/indicator/IndicatorQuery';
 
 import type { IndicatorEditSubmitPayload } from './types';
