@@ -21,7 +21,7 @@ const updateIndicator = async (req, res) => {
 
     await indicator.save();
 
-    res.json(indicator);
+    res.json({ message: 'Indicator updated' });
   } catch (error) {
     res.json(error);
   }

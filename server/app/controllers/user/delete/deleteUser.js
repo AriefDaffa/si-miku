@@ -1,7 +1,7 @@
 const model = require('../../../models');
 
 const deleteUser = async (req, res) => {
-  const { id } = req.body;
+  const { id } = req.params;
 
   try {
     const user = await model.User.destroy({

@@ -16,6 +16,7 @@ import { GREY } from '@/presentation/global-component/theme/Colors';
 import { Header } from '@/presentation/global-component/UI/Typography';
 import { useCurrentYear } from '@/controller/context/CurrentYearContext';
 import { defaultTargetQuarter } from '@/controller/constant/default-target-quarter';
+import { useAuthContext } from '@/controller/context/AuthContext';
 import type { IndicatorDepartmentsNormalized } from '@/repository/query/indicator/IndicatorByIdQuery';
 
 import DepartmentEditDialog from './DepartmentEditDialog';
@@ -39,6 +40,7 @@ const TableItem: FC<TableItemProps> = (props) => {
   } = props;
 
   const { currentYear } = useCurrentYear();
+  const { roleID } = useAuthContext();
 
   const [openEditDialog, setopenEditDialog] = useState(false);
   const [openDeleteDialog, setOpenDeleteDialog] = useState(false);
@@ -75,7 +77,7 @@ const TableItem: FC<TableItemProps> = (props) => {
     } else {
       return defaultTargetQuarter;
     }
-  }, []);
+  }, [currentYear, rest.targetDeps[0]]);
 
   return (
     <Fragment>
@@ -144,7 +146,7 @@ const TableItem: FC<TableItemProps> = (props) => {
             <IconButton
               size="large"
               color="inherit"
-              disabled={targetQuarterData.year.yearID === 0}
+              disabled={targetQuarterData.year.yearID === 0 || roleID !== 2}
               onClick={handleOpenPopover}
             >
               <MoreVertIcon />

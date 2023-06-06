@@ -18,8 +18,8 @@ server/node_modules
 server/uploads
 server/images
 server/static
-server/.env.development
-server/.env.production
+server/.env
+server/.env.dev
 
 # Editor directories and files
 .vscode/*

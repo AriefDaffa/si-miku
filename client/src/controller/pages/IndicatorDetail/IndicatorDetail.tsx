@@ -11,9 +11,9 @@ import { useCurrentYear } from '@/controller/context/CurrentYearContext';
 import { defaultTargetQuarter } from '@/controller/constant/default-target-quarter';
 
 import ViewSwitcher from './ViewSwitcher';
-import { getNormalizedFaculty } from './usecase/get-normalized-faculty';
-import { getNormalizedMajor } from './usecase/get-normalized-major';
-import { getNormalizedDepartment } from './usecase/get-normalized-department';
+import { useNormalizedFaculty } from './usecase/use-normalized-faculty';
+import { useNormalizedMajor } from './usecase/use-normalized-major';
+import { useNormalizedDepartment } from './usecase/use-normalized-department';
 
 const IndicatorDetail: FC = () => {
   const params = useParams();
@@ -27,15 +27,15 @@ const IndicatorDetail: FC = () => {
   const { data: indicator, isLoading: isIndicatorLoading } =
     useIndicatorByIdQuery(id);
 
-  const facultyData = getNormalizedFaculty(
+  const facultyData = useNormalizedFaculty(
     indicator.indicatorFaculties,
     currentYear
   );
-  const departmentData = getNormalizedDepartment(
+  const departmentData = useNormalizedDepartment(
     indicator.indicatorDepartments,
     currentYear
   );
-  const majorData = getNormalizedMajor(indicator.indicatorMajors, currentYear);
+  const majorData = useNormalizedMajor(indicator.indicatorMajors, currentYear);
 
   const indicatorName = useMemo(
     () => `${indicator.indicatorCode} - ${indicator.indicatorName}`,

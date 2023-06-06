@@ -12,6 +12,7 @@ import {
   PRIMARY,
   SECONDARY,
 } from '@/presentation/global-component/theme/Colors';
+import { useAuthContext } from '@/controller/context/AuthContext';
 
 interface IndicatorDetailInputButtonProps {
   onInputClick: () => void;
@@ -32,68 +33,72 @@ const IndicatorDetailInputButton: FC<IndicatorDetailInputButtonProps> = (
     onDeleteClick = noop,
   } = props;
 
+  const { roleID } = useAuthContext();
+
   return (
     <Stack>
-      <Stack flexDirection="row-reverse" gap={1}>
-        {isFaculty && (
+      {roleID === 2 && (
+        <Stack flexDirection="row-reverse" gap={1}>
+          {isFaculty && (
+            <Button
+              variant="outlined"
+              startIcon={<DeleteIcon />}
+              onClick={onDeleteClick}
+              disabled={facultyEnable}
+              sx={{
+                float: 'right',
+                borderColor: ERROR.main,
+                color: 'white',
+                backgroundColor: ERROR.main,
+                ':hover': {
+                  color: 'white',
+                  backgroundColor: ERROR.main,
+                  borderColor: ERROR.main,
+                },
+              }}
+            >
+              Hapus Data
+            </Button>
+          )}
           <Button
             variant="outlined"
-            startIcon={<DeleteIcon />}
-            onClick={onDeleteClick}
+            startIcon={<ArticleIcon />}
+            onClick={handleOpenBulk}
             disabled={facultyEnable}
             sx={{
               float: 'right',
-              borderColor: ERROR.main,
-              color: 'white',
-              backgroundColor: ERROR.main,
+              borderColor: SECONDARY.main,
+              color: 'black',
+              backgroundColor: SECONDARY.main,
               ':hover': {
-                color: 'white',
-                backgroundColor: ERROR.main,
-                borderColor: ERROR.main,
+                color: 'black',
+                backgroundColor: SECONDARY.main,
+                borderColor: SECONDARY.main,
               },
             }}
           >
-            Hapus Data
+            {isFaculty ? 'Edit Indikator' : 'Input Data (Bulk)'}
           </Button>
-        )}
-        <Button
-          variant="outlined"
-          startIcon={<ArticleIcon />}
-          onClick={handleOpenBulk}
-          disabled={facultyEnable}
-          sx={{
-            float: 'right',
-            borderColor: SECONDARY.main,
-            color: 'black',
-            backgroundColor: SECONDARY.main,
-            ':hover': {
-              color: 'black',
-              backgroundColor: SECONDARY.main,
-              borderColor: SECONDARY.main,
-            },
-          }}
-        >
-          {isFaculty ? 'Edit Indikator' : 'Input Data (Bulk)'}
-        </Button>
-        <Button
-          variant="outlined"
-          startIcon={<CreateIcon />}
-          onClick={onInputClick}
-          sx={{
-            float: 'right',
-            borderColor: PRIMARY.main,
-            color: 'white',
-            backgroundColor: PRIMARY.main,
-            ':hover': {
+          <Button
+            variant="outlined"
+            startIcon={<CreateIcon />}
+            onClick={onInputClick}
+            sx={{
+              float: 'right',
+              borderColor: PRIMARY.main,
               color: 'white',
               backgroundColor: PRIMARY.main,
-              borderColor: PRIMARY.main,
-            },
-          }}
-        >
-          Input Data
-        </Button>
-      </Stack>
+              ':hover': {
+                color: 'white',
+                backgroundColor: PRIMARY.main,
+                borderColor: PRIMARY.main,
+              },
+            }}
+          >
+            Input Data
+          </Button>
+        </Stack>
+      )}
     </Stack>
   );
 };

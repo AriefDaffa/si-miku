@@ -9,6 +9,7 @@ import Pill from '@/presentation/global-component/UI/Pill';
 import { Header } from '@/presentation/global-component/UI/Typography';
 import { GREY } from '@/presentation/global-component/theme/Colors';
 import { getPercentage } from '@/controller/utils/get-percentage';
+import { getProgressColor } from '@/controller/utils/get-progress-bar-color';
 import type { IndicatorDepartmentListNormalized } from '@/repository/query/department/DepartmentById';
 
 import DepartmentTableDialog from './DepartmentTableDialog';
@@ -113,22 +114,46 @@ const DepartmentTableBody: FC<DepartmentTableBodyProps> = (props) => {
           />
         </TableCell>
         <TableCell>
-          <Header variant="body2" text={`${item.targetQuarter.q1}`} />
+          <Header
+            variant="body2"
+            text={`${item.targetQuarter.q1}`}
+            sx={{ textAlign: 'center' }}
+          />
         </TableCell>
         <TableCell>
-          <Header variant="body2" text={`${item.targetQuarter.q2}`} />
+          <Header
+            variant="body2"
+            text={`${item.targetQuarter.q2}`}
+            sx={{ textAlign: 'center' }}
+          />
         </TableCell>
         <TableCell>
-          <Header variant="body2" text={`${item.targetQuarter.q3}`} />
+          <Header
+            variant="body2"
+            text={`${item.targetQuarter.q3}`}
+            sx={{ textAlign: 'center' }}
+          />
         </TableCell>
         <TableCell>
-          <Header variant="body2" text={`${item.targetQuarter.q4}`} />
+          <Header
+            variant="body2"
+            text={`${item.targetQuarter.q4}`}
+            sx={{ textAlign: 'center' }}
+          />
         </TableCell>
         <TableCell>
-          <Header variant="body2" text={`${item.targetQuarter.targetValue}`} />
+          <Header
+            variant="body2"
+            text={`${item.targetQuarter.targetValue}`}
+            sx={{ textAlign: 'center' }}
+          />
         </TableCell>
-        <TableCell>
-          <Header variant="body2" text={`${percentage}%`} />
+        <TableCell sx={{ backgroundColor: getProgressColor(percentage) }}>
+          <Header
+            variant="body2"
+            text={`${percentage}%`}
+            sx={{ textAlign: 'center' }}
+          />
         </TableCell>
         <TableCell>
           <Pill

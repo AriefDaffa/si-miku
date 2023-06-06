@@ -20,7 +20,7 @@ const User: FC = () => {
   const { setHeadline } = useHeadline();
   const { roleID, isLoading } = useAuthContext();
 
-  const { data: operatorData, isLoading: isOperatorLoading } = useUserQuery(
+  const { data: operatorData, isFetching: isOperatorLoading } = useUserQuery(
     2,
     rows,
     keyword,

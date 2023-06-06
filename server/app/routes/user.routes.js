@@ -12,6 +12,7 @@ const {
   verifyAccessToken,
   verifyAdmin,
 } = require('../middleware/verifyToken.js');
+const editUser = require('../controllers/user/put/editUser');
 
 const router = express.Router();
 
@@ -45,16 +46,21 @@ router.get('/current-user', verifyAccessToken, getCurrentUser);
 router.post('/users', verifyAdmin, registerUser);
 
 router.put(
-  '/user',
+  '/profile',
   [verifyAccessToken, upload.single('profile-image')],
   updateUserProfile
 );
 router.put(
-  '/user/password',
+  '/profile/password',
   [verifyAccessToken, upload.single('profile-image')],
   updateUserPassword
 );
+router.put(
+  '/user/:id',
+  [verifyAdmin, upload.single('profile-image')],
+  editUser
+);
 
-router.delete('/user', verifyAdmin, deleteUser);
+router.delete('/user/:id', verifyAdmin, deleteUser);
 
 module.exports = router;

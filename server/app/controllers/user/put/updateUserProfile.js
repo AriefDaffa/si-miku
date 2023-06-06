@@ -3,7 +3,7 @@ const model = require('../../../models');
 
 const updateUserProfile = async (req, res) => {
   try {
-    const { user_name, user_email } = req.body;
+    const { user_email } = req.body;
 
     const file =
       req.file !== undefined ? 'images/profile/' + req.file.filename : '';
@@ -20,7 +20,6 @@ const updateUserProfile = async (req, res) => {
       return res.status(404).send({ message: 'User not found!' });
     }
 
-    user.user_name = user_name;
     user.user_image = file;
 
     await user.save();
