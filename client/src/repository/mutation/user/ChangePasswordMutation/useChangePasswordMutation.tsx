@@ -4,7 +4,7 @@ import baseAPI from '@/controller/utils/axios-utils';
 
 const useChangePasswordMutation = () => {
   const mutation = useMutation(async (data: FormData) => {
-    return await baseAPI.putForm(`/user/password`, data, {
+    return await baseAPI.putForm(`/profile/password`, data, {
       validateStatus: () => true,
     });
   });

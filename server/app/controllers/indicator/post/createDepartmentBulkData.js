@@ -78,7 +78,7 @@ const createDepartmentBulkData = async (req, res) => {
             year_id,
           });
 
-          await model.TargetMajor.create({
+          const x = await model.TargetDeps.create({
             indicator_department_id: findIndicatorDeps.indicator_department_id,
             target_quarter_id: targetQuarter.target_quarter_id,
           });

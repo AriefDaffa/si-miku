@@ -1,4 +1,4 @@
-const model = require('../../models');
+const model = require('../../../models');
 
 const updateIndicatorType = async (req, res) => {
   try {

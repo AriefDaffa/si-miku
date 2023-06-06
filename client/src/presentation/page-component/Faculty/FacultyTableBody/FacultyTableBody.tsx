@@ -9,8 +9,9 @@ import Checkbox from '@mui/material/Checkbox';
 import Pill from '@/presentation/global-component/UI/Pill';
 import { Header } from '@/presentation/global-component/UI/Typography';
 import { GREY } from '@/presentation/global-component/theme/Colors';
-import type { FakultasIndikatorNormalized } from '@/repository/query/faculty/GetIndicatorFacultyDataQuery';
 import { getPercentage } from '@/controller/utils/get-percentage';
+import { getProgressColor } from '@/controller/utils/get-progress-bar-color';
+import type { FakultasIndikatorNormalized } from '@/repository/query/faculty/GetIndicatorFacultyDataQuery';
 
 interface FacultyTableBodyProps extends FakultasIndikatorNormalized {
   index: number;
@@ -81,25 +82,46 @@ const FacultyTableBody: FC<FacultyTableBodyProps> = (props) => {
         />
       </TableCell>
       <TableCell>
-        <Header variant="body2" text={`${item.indicatorFaculties.q1}`} />
+        <Header
+          variant="body2"
+          text={`${item.indicatorFaculties.q1}`}
+          sx={{ textAlign: 'center' }}
+        />
       </TableCell>
       <TableCell>
-        <Header variant="body2" text={`${item.indicatorFaculties.q2}`} />
+        <Header
+          variant="body2"
+          text={`${item.indicatorFaculties.q2}`}
+          sx={{ textAlign: 'center' }}
+        />
       </TableCell>
       <TableCell>
-        <Header variant="body2" text={`${item.indicatorFaculties.q3}`} />
+        <Header
+          variant="body2"
+          text={`${item.indicatorFaculties.q3}`}
+          sx={{ textAlign: 'center' }}
+        />
       </TableCell>
       <TableCell>
-        <Header variant="body2" text={`${item.indicatorFaculties.q4}`} />
+        <Header
+          variant="body2"
+          text={`${item.indicatorFaculties.q4}`}
+          sx={{ textAlign: 'center' }}
+        />
       </TableCell>
       <TableCell>
         <Header
           variant="body2"
           text={`${item.indicatorFaculties.targetValue}`}
+          sx={{ textAlign: 'center' }}
         />
       </TableCell>
-      <TableCell>
-        <Header variant="body2" text={`${percentage}%`} />
+      <TableCell sx={{ backgroundColor: getProgressColor(percentage) }}>
+        <Header
+          variant="body2"
+          text={`${percentage}%`}
+          sx={{ textAlign: 'center' }}
+        />
       </TableCell>
       <TableCell>
         <Pill

@@ -73,6 +73,9 @@ const EditIndicator: FC = () => {
             queryClient.invalidateQueries({
               queryKey: ['indicator-list'],
             });
+            queryClient.invalidateQueries({
+              queryKey: ['indicator-overview'],
+            });
           }
         },
         onError: () => {
@@ -110,6 +113,9 @@ const EditIndicator: FC = () => {
 
           queryClient.invalidateQueries({
             queryKey: ['indicator-list'],
+          });
+          queryClient.invalidateQueries({
+            queryKey: ['indicator-overview'],
           });
         }
       },
