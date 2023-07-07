@@ -11,14 +11,14 @@ import type { FC } from 'react';
 import type { CurrentYearInterface, CurrentYearProps } from './types';
 
 const CurrentYear = createContext<CurrentYearInterface>({
-  currentYear: '2017',
+  currentYear: '2023',
   setCurrentYear: () => {},
   handleSelectYear: (year: string | null) => {},
 });
 
 export const CurrentYearProvider: FC<CurrentYearProps> = (props) => {
   const { children } = props;
-  const [currentYear, setCurrentYear] = useState('2017');
+  const [currentYear, setCurrentYear] = useState('2023');
 
   const handleSelectYear = useCallback((year: string | null) => {
     if (year !== null) {

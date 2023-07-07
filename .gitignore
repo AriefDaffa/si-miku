@@ -17,7 +17,6 @@ client/.env.production
 server/node_modules
 server/uploads
 server/images
-server/static
 server/.env
 server/.env.dev
 

@@ -5,6 +5,7 @@ import type { FC, Dispatch, SetStateAction, SyntheticEvent } from 'react';
 
 import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
+import Alert from '@mui/material/Alert';
 
 import YearPicker from '@/presentation/global-component/UI/YearPicker/YearPicker';
 import useInputBulkMajorDataMutation from '@/repository/mutation/major/InputBulkMajorDataMutation';
@@ -14,7 +15,6 @@ import BulkInputContainer from '@/presentation/page-component/IndicatorDetail/In
 import BulkInputTitle from '@/presentation/page-component/IndicatorDetail/IndicatorDetailInput/BulkInput/BulkInputTitle';
 import BulkInputUpload from '@/presentation/page-component/IndicatorDetail/IndicatorDetailInput/BulkInput/BulkInputUpload';
 import BulkInputTemplateDownloader from '@/presentation/page-component/IndicatorDetail/IndicatorDetailInput/BulkInput/BulkInputTemplateDownloader';
-import BulkInputToggle from '@/presentation/page-component/IndicatorDetail/IndicatorDetailInput/BulkInput/BulkInputToggle';
 import BulkInputSubmit from '@/presentation/page-component/IndicatorDetail/IndicatorDetailInput/BulkInput/BulkInputSubmit';
 import { useCurrentYear } from '@/controller/context/CurrentYearContext';
 
@@ -36,10 +36,9 @@ const MajorBulkInput: FC<MajorBulkInputProps> = (props) => {
   const [fileName, setFileName] = useState('Browse file');
   const [inputKey, setInputKey] = useState('');
   const [excelError, setExcelError] = useState('');
-  const [toggle, setToggle] = useState(false);
 
   const queryClient = useQueryClient();
-  const { mutate, isError, error, isSuccess } = useInputBulkMajorDataMutation();
+  const { mutate, isError, error } = useInputBulkMajorDataMutation();
 
   const handleClose = useCallback((e: SyntheticEvent<HTMLButtonElement>) => {
     e.stopPropagation();
@@ -53,10 +52,6 @@ const MajorBulkInput: FC<MajorBulkInputProps> = (props) => {
     },
     []
   );
-
-  const handleToggleChange = (event: any, newToggle: boolean) => {
-    setToggle(newToggle);
-  };
 
   const handleFile = (file: any) => {
     /* Boilerplate to set up FileReader */
@@ -138,7 +133,6 @@ const MajorBulkInput: FC<MajorBulkInputProps> = (props) => {
       mutate(
         {
           indicator_id: indicatorID,
-          is_overwrite: true,
           year_value: Number(currentYear || 0),
           indicator_list: payload,
         },
@@ -193,10 +187,14 @@ const MajorBulkInput: FC<MajorBulkInputProps> = (props) => {
         <BulkInputTemplateDownloader
           link={`${import.meta.env.VITE_BASE_API_URL}template/major`}
         />
-        <BulkInputToggle
+        <Alert severity="warning">
+          Data yang ada pada sistem akan direplace dengan data baru yang akan
+          di-upload
+        </Alert>
+        {/* <BulkInputToggle
           toggleVal={toggle}
           handleToggleChange={handleToggleChange}
-        />
+        /> */}
         <BulkInputSubmit handleSubmit={handleSubmit} />
       </Stack>
     </BulkInputContainer>

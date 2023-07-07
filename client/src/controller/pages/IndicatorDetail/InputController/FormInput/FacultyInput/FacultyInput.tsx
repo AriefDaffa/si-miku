@@ -47,7 +47,7 @@ const FacultyInput: FC<FacultyInputProps> = (props) => {
 
   const resolver = useYupValidationResolver(schema);
 
-  const [selectedYear, setSelectedYear] = useState('2017');
+  const [selectedYear, setSelectedYear] = useState('2023');
   const [successDialog, setSuccessDialog] = useState(false);
 
   const [loading, setLoading] = useState(false);

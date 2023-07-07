@@ -1,0 +1,67 @@
+version: "3.9"
+
+services:
+  client-prod:
+    build: 
+      context: ./client
+      dockerfile: Dockerfile.prod
+    ports:
+      - 8080:80
+    env_file:
+      - ./client/.env.production
+    volumes:
+      - ./client:/client
+      - /client/node_modules
+    stdin_open: true
+    tty: true
+    depends_on:
+      - database-prod
+      - server-prod
+
+  database-prod:
+    image: mysql:8.0
+    restart: always
+    environment:
+      - MYSQL_ROOT_PASSWORD=devpassword123
+      - MYSQL_DATABASE=si_miku_db
+      - MYSQL_PASSWORD=devpassword123
+      - MYSQL_ROOT_HOST=%
+    healthcheck:
+      test: mysqladmin ping -h 127.0.0.1 -u root --password=devpassword123
+      start_period: 5s
+      interval: 5s
+      timeout: 5s
+      retries: 55
+  
+  phpmyadmin:
+    image: phpmyadmin:latest
+    restart: always
+    ports:
+      - 8081:80
+    environment:
+      - PMA_HOST=database-prod
+      - MYSQL_ROOT_PASSWORD=devpassword123
+      - PMA_ARBITRARY=1
+
+  server-prod:
+    build:
+      context: ./server
+      dockerfile: Dockerfile.prod
+    ports:
+      - 5000:5000
+    volumes:
+      - ./server/app:/server/app
+    env_file:
+      - ./server/.env
+    environment:
+      - DATABASE_PASSWORD=devpassword123
+      - DATABASE_HOST=database-prod
+    depends_on:
+      database-prod:
+        condition: service_healthy
+        restart: true
+    stdin_open: true
+    tty: true
+
+volumes:
+  node_modules:

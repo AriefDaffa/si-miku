@@ -13,10 +13,10 @@ import DialogPopup from '@/presentation/global-component/UI/DialogPopup';
 import LoadingPopup from '@/presentation/global-component/UI/Loader/LoadingPopup';
 import TextWithSubHeader from '@/presentation/global-component/UI/TextWithSubHeader';
 import Grid from '@/presentation/global-component/UI/Grid/Grid';
-import type { IndicatorFacultiesNormalized } from '@/repository/query/indicator/IndicatorByIdQuery';
+import useDeleteFacultyDataMutation from '@/repository/mutation/faculty/DeleteFacultyDataMutation';
 import { Header } from '@/presentation/global-component/UI/Typography';
-import useDeleteFacultyDataMutation from '@/repository/mutation/faculty/DeleteFacultyDataMutation/useDeleteFacultyDataMutation';
 import { DeleteFacultyDataPayload } from '@/repository/mutation/faculty/DeleteFacultyDataMutation';
+import type { IndicatorFacultiesNormalized } from '@/repository/query/indicator/IndicatorByIdQuery';
 
 interface DeleteDialogProps extends IndicatorFacultiesNormalized {
   open: boolean;

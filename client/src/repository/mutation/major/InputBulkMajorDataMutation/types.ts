@@ -14,6 +14,5 @@ interface Data {
 export interface BulkMajorProps {
   indicator_id: number;
   year_value: number;
-  is_overwrite: boolean;
   indicator_list: Data[];
 }

@@ -61,7 +61,7 @@ const MajorEditDialog: FC<MajorEditDialogProps> = (props) => {
 
   const resolver = useYupValidationResolver(schema);
 
-  const [selectedYear, setSelectedYear] = useState('2017');
+  const [selectedYear, setSelectedYear] = useState('2023');
   const [successDialog, setSuccessDialog] = useState(false);
   const [currentMajor, setCurrentMajor] = useState(1);
 

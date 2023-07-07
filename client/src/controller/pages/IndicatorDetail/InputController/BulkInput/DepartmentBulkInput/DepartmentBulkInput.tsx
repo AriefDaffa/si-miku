@@ -5,13 +5,13 @@ import type { FC, Dispatch, SetStateAction, SyntheticEvent } from 'react';
 
 import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
+import Alert from '@mui/material/Alert';
 
 import YearPicker from '@/presentation/global-component/UI/YearPicker/YearPicker';
 import BulkInputContainer from '@/presentation/page-component/IndicatorDetail/IndicatorDetailInput/BulkInput/BulkInputContainer';
 import BulkInputTitle from '@/presentation/page-component/IndicatorDetail/IndicatorDetailInput/BulkInput/BulkInputTitle';
 import BulkInputUpload from '@/presentation/page-component/IndicatorDetail/IndicatorDetailInput/BulkInput/BulkInputUpload';
 import BulkInputTemplateDownloader from '@/presentation/page-component/IndicatorDetail/IndicatorDetailInput/BulkInput/BulkInputTemplateDownloader';
-import BulkInputToggle from '@/presentation/page-component/IndicatorDetail/IndicatorDetailInput/BulkInput/BulkInputToggle';
 import BulkInputSubmit from '@/presentation/page-component/IndicatorDetail/IndicatorDetailInput/BulkInput/BulkInputSubmit';
 import useInputBulkDepartmentDataMutation from '@/repository/mutation/department/InputBulkDepartmentDataMutation';
 import { useCurrentYear } from '@/controller/context/CurrentYearContext';
@@ -193,10 +193,10 @@ const DepartmentBulkInput: FC<DepartmentBulkInputProps> = (props) => {
         <BulkInputTemplateDownloader
           link={`${import.meta.env.VITE_BASE_API_URL}template/department`}
         />
-        <BulkInputToggle
-          toggleVal={toggle}
-          handleToggleChange={handleToggleChange}
-        />
+        <Alert severity="warning">
+          Data yang ada pada sistem akan direplace dengan data baru yang akan
+          di-upload
+        </Alert>
         <BulkInputSubmit handleSubmit={handleSubmit} />
       </Stack>
     </BulkInputContainer>
