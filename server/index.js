@@ -56,6 +56,10 @@ app.get('/template/department', function (req, res) {
   res.download(file);
 });
 
+app.get('/', async (req, res) => {
+  res.send('Hello world');
+});
+
 //import router
 app.use(indicatorRoutes);
 app.use(userRoutes);
