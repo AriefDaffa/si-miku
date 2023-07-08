@@ -38,6 +38,8 @@ const loginUser = async (req, res) => {
     res.cookie('accessToken', accessToken, {
       httpOnly: true,
       maxAge: 4 * 60 * 60 * 1000,
+      secure: process.env.NODE_ENV !== 'development',
+      sameSite: 'none',
     });
 
     res.json({ message: 'Login Berhasil!' });
