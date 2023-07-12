@@ -39,7 +39,7 @@ const loginUser = async (req, res) => {
       httpOnly: true,
       maxAge: 4 * 60 * 60 * 1000,
       secure: process.env.NODE_ENV !== 'development',
-      sameSite: 'none',
+      sameSite: process.env.NODE_ENV !== 'development' ? 'none' : 'lax',
     });
 
     res.json({ message: 'Login Berhasil!' });

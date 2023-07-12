@@ -21,7 +21,6 @@ const User: FC = () => {
   const { roleID, isLoading } = useAuthContext();
 
   const { data: operatorData, isFetching: isOperatorLoading } = useUserQuery(
-    2,
     rows,
     keyword,
     page

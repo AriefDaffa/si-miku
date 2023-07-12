@@ -16,14 +16,16 @@ const editUser = require('../controllers/user/put/editUser');
 
 const router = express.Router();
 
-const fileStore = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, 'static/images/user-profile');
-  },
-  filename: (req, file, cb) => {
-    cb(null, new Date().getTime() + '-' + file.originalname);
-  },
-});
+const fileStore = multer.memoryStorage();
+
+// const fileStore = multer.diskStorage({
+//   destination: (req, file, cb) => {
+//     cb(null, 'static/images/user-profile');
+//   },
+//   filename: (req, file, cb) => {
+//     cb(null, new Date().getTime() + '-' + file.originalname);
+//   },
+// });
 
 const fileFilter = (req, file, cb) => {
   if (
@@ -39,7 +41,7 @@ const fileFilter = (req, file, cb) => {
 
 const upload = multer({ storage: fileStore, fileFilter: fileFilter });
 
-router.get('/users/:id', verifyAdmin, getUser);
+router.get('/users', verifyAdmin, getUser);
 router.get('/current-user', verifyAccessToken, getCurrentUser);
 
 // router.post('/users', registerUser);

@@ -27,7 +27,7 @@ const normalizer = (Deps?: UserResponse) => {
         userImage:
           item.user_image === '' || item.user_image === null
             ? ''
-            : import.meta.env.VITE_BASE_API_URL + item.user_image,
+            : item.user_image,
         accessLevel: item.access_level,
         role: {
           roleID: item.role.role_id,
@@ -40,15 +40,10 @@ const normalizer = (Deps?: UserResponse) => {
   return result;
 };
 
-const useUserQuery = (
-  id: number,
-  size: number,
-  keyword: string,
-  page: number
-) => {
+const useUserQuery = (size: number, keyword: string, page: number) => {
   const { data, ...rest } = useQuery<UserResponse>(
-    ['user', id, size, page, keyword],
-    () => baseAPI.get(`users/${id}`, { params: { size, page, keyword } }),
+    ['user', size, page, keyword],
+    () => baseAPI.get(`users`, { params: { size, page, keyword } }),
     {
       refetchOnWindowFocus: false,
     }
