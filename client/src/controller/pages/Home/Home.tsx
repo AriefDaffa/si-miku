@@ -26,7 +26,8 @@ const Home: FC = () => {
     [yearRangePicker, sort]
   );
 
-  const { data } = useIndicatorOverview(yearRange);
+  const { data, isFetching: isIndicatorFetching } =
+    useIndicatorOverview(yearRange);
   const { data: year } = useIndicatorOverviewByYear(currentYear);
 
   const handleChangeYearRange = useCallback((e: SelectChangeEvent) => {
@@ -62,6 +63,7 @@ const Home: FC = () => {
         data={data.yearProgress}
         onYearRangeChange={handleChangeYearRange}
         onSortChange={handleSort}
+        isLoading={isIndicatorFetching}
       />
       <IndicatorGraph
         indicatorTotal={data.indicatorTotal}

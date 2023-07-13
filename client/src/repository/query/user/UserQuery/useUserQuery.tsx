@@ -19,7 +19,7 @@ const normalizer = (Deps?: UserResponse) => {
     result.currentPage = Deps.data.current_page;
     result.totalData = Deps.data.total_data;
     result.totalPage = Deps.data.total_page;
-    Deps.data.user_list.map((item) => {
+    Deps.data.user_list?.map((item) => {
       result.userList.push({
         userID: item.user_id,
         userEmail: item.user_email,

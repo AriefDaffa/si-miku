@@ -17,11 +17,13 @@ import {
 import { YearProgressNormalized } from '@/repository/query/indicator/IndicatorOverview';
 
 import IndicatorChartToolbar from './IndicatorChartToolbar';
+import { Skeleton } from '@mui/material';
 
 interface IndicatorChartProps {
   indicatorTotal: number;
   yearRange: number;
   sort: boolean;
+  isLoading: boolean;
   data: YearProgressNormalized[];
   onYearRangeChange: (e: SelectChangeEvent) => void;
   onSortChange: (e: SelectChangeEvent) => void;
@@ -33,6 +35,7 @@ const IndicatorChart: FC<IndicatorChartProps> = (props) => {
     onSortChange,
     sort,
     data,
+    isLoading,
     yearRange,
     onYearRangeChange,
   } = props;
@@ -106,14 +109,18 @@ const IndicatorChart: FC<IndicatorChartProps> = (props) => {
         onSortChange={onSortChange}
       /> */}
       <Card sx={{ p: 1, mt: 1 }}>
-        <Box>
-          <CustomChart
-            chartOptions={chartOptions}
-            series={series}
-            type="area"
-            height={400}
-          />
-        </Box>
+        {isLoading ? (
+          <Skeleton height={400} />
+        ) : (
+          <Box>
+            <CustomChart
+              chartOptions={chartOptions}
+              series={series}
+              type="area"
+              height={400}
+            />
+          </Box>
+        )}
       </Card>
     </Fragment>
   );
