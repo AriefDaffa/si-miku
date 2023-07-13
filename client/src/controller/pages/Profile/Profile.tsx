@@ -77,7 +77,7 @@ const Profile: FC = () => {
       }
     }
 
-    // setLoading(true);
+    setLoading(true);
 
     formData.append('profile-image', currentImage);
     formData.append('user_email', data.email);
