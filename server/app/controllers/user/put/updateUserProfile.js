@@ -2,7 +2,7 @@ require('dotenv').config({
   path: process.env.NODE_ENV === 'development' ? `.env.dev` : '.env',
 });
 const jwt = require('jsonwebtoken');
-const { S3Client, PutObjectCommand } = require('@aws-sdk/client-s3');
+const { PutObjectCommand } = require('@aws-sdk/client-s3');
 
 const model = require('../../../models');
 const s3 = require('../../../config/aws.config');
@@ -62,7 +62,7 @@ const updateUserProfile = async (req, res) => {
       httpOnly: true,
       maxAge: 4 * 60 * 60 * 1000,
       secure: process.env.NODE_ENV !== 'development',
-      sameSite: 'none',
+      sameSite: process.env.NODE_ENV !== 'development' ? 'none' : 'lax',
     });
 
     res.json(user);
