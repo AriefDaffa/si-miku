@@ -46,6 +46,7 @@ const UserEditDialog: FC<UserEditDialogProps> = (props) => {
   const [currentImage, setcurrentImage] = useState<any>('');
   const [inputKey, setInputKey] = useState('');
   const [loading, setLoading] = useState(false);
+  const [fileSizeMessage, setFileSizeMessage] = useState('');
 
   const schema = yup.object().shape({
     profession: yup.string().required('Field tidak boleh kosong!'),
@@ -111,12 +112,20 @@ const UserEditDialog: FC<UserEditDialogProps> = (props) => {
     const image = e.target.files;
 
     if (image && image[0]) {
-      setcurrentImage(image[0]);
+      if (image[0]?.size >= 1000000) {
+        setFileSizeMessage(
+          'Error! Ukuran file terlalu besar. Ukuran maksimal file adalah 1MB'
+        );
+      } else {
+        setFileSizeMessage('');
+        setcurrentImage(image[0]);
+      }
     }
   };
 
   const handleRemoveImage = () => {
     setcurrentImage('');
+    setFileSizeMessage('');
     setInputKey(Math.random().toString(36));
   };
 
@@ -162,6 +171,11 @@ const UserEditDialog: FC<UserEditDialogProps> = (props) => {
               handleImageChange={handleImageChange}
               handleRemoveImage={handleRemoveImage}
             />
+            {fileSizeMessage !== '' && (
+              <Alert severity="error" sx={{ mt: 2 }}>
+                {fileSizeMessage}
+              </Alert>
+            )}
           </Stack>
 
           <form onSubmit={handleSubmit(handleOnSubmit)}>

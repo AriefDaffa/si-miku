@@ -1,16 +1,17 @@
 import * as yup from 'yup';
+
 import { useLocation } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { useQueryClient } from 'react-query';
 import { useForm } from 'react-hook-form';
 import type { FC, ChangeEvent } from 'react';
 
+import Alert from '@mui/material/Alert';
+
 import Card from '@/presentation/global-component/UI/Card';
 import LoadingPopup from '@/presentation/global-component/UI/Loader/LoadingPopup';
 import DialogPopup from '@/presentation/global-component/UI/DialogPopup';
-import useUpdateUserProfileMutation from '@/repository/mutation/user/UpdateUserProfileMutation';
 import { useCurrentUserQuery } from '@/repository/query/user/CurrentUserQuery';
-// import { useAuthContext } from '@/controller/context/AuthContext';
 import { useYupValidationResolver } from '@/controller/hooks/use-yup-validation-resolver';
 
 import ProfileImage from '@/presentation/page-component/Profile/ProfileImage';
@@ -32,6 +33,7 @@ const Profile: FC = () => {
   const [currentImage, setcurrentImage] = useState<any>('');
   const [inputKey, setInputKey] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
+  const [fileSizeMessage, setFileSizeMessage] = useState('');
 
   const schema = yup.object().shape({
     password: yup.string(),
@@ -55,12 +57,20 @@ const Profile: FC = () => {
     const image = e.target.files;
 
     if (image && image[0]) {
-      setcurrentImage(image[0]);
+      if (image[0]?.size >= 1000000) {
+        setFileSizeMessage(
+          'Error! Ukuran file terlalu besar. Ukuran maksimal file adalah 1MB'
+        );
+      } else {
+        setFileSizeMessage('');
+        setcurrentImage(image[0]);
+      }
     }
   };
 
   const handleRemoveImage = () => {
     setcurrentImage('');
+    setFileSizeMessage('');
     setInputKey(Math.random().toString(36));
   };
 
@@ -123,6 +133,11 @@ const Profile: FC = () => {
       <form onSubmit={handleSubmit(onSubmit)}>
         <ProfileContainer>
           <ProfileImage currentImage={currentImage} />
+          {fileSizeMessage !== '' && (
+            <Alert severity="error" sx={{ mt: 2 }}>
+              {fileSizeMessage}
+            </Alert>
+          )}
           <ProfileButton
             currentImage={currentImage}
             inputKey={inputKey}
