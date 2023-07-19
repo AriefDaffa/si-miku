@@ -195,7 +195,7 @@ const MajorBulkInput: FC<MajorBulkInputProps> = (props) => {
           toggleVal={toggle}
           handleToggleChange={handleToggleChange}
         /> */}
-        <BulkInputSubmit handleSubmit={handleSubmit} />
+        <BulkInputSubmit handleSubmit={handleSubmit} fileName={fileName} />
       </Stack>
     </BulkInputContainer>
   );

@@ -39,7 +39,7 @@ const BulkInputContainer: FC<BulkInputContainerProps> = (props) => {
       </Dialog>
       <DialogPopup
         title="Success"
-        bodyText="Indikator berhasil diubah"
+        bodyText="Indikator berhasil ditambahkan"
         buttonText="Ok"
         handleClose={handleSuccessClose}
         handleAccept={handleSuccessClose}

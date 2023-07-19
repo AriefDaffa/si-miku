@@ -52,8 +52,8 @@ const normalizer = (Deps?: IndicatorByIdResponse) => {
               targetQuarterID: data.target_quarter.target_quarter_id,
               targetValue: data.target_quarter.target_value,
               year: {
-                yearID: data.target_quarter.year.year_id,
-                yearValue: data.target_quarter.year.year_value,
+                yearID: data.target_quarter?.year?.year_id || 0,
+                yearValue: data.target_quarter?.year?.year_value || 0,
               },
             },
           };
@@ -80,8 +80,8 @@ const normalizer = (Deps?: IndicatorByIdResponse) => {
               targetQuarterID: data.target_quarter.target_quarter_id,
               targetValue: data.target_quarter.target_value,
               year: {
-                yearID: data.target_quarter.year.year_id,
-                yearValue: data.target_quarter.year.year_value,
+                yearID: data.target_quarter?.year?.year_id || 0,
+                yearValue: data.target_quarter?.year?.year_value || 0,
               },
             },
           };
@@ -113,8 +113,8 @@ const normalizer = (Deps?: IndicatorByIdResponse) => {
               targetQuarterID: data.target_quarter.target_quarter_id,
               targetValue: data.target_quarter.target_value,
               year: {
-                yearID: data.target_quarter.year.year_id,
-                yearValue: data.target_quarter.year.year_value,
+                yearID: data.target_quarter?.year?.year_id || 0,
+                yearValue: data.target_quarter?.year?.year_value || 0,
               },
             },
           };

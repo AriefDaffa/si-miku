@@ -197,7 +197,7 @@ const DepartmentBulkInput: FC<DepartmentBulkInputProps> = (props) => {
           Data yang ada pada sistem akan direplace dengan data baru yang akan
           di-upload
         </Alert>
-        <BulkInputSubmit handleSubmit={handleSubmit} />
+        <BulkInputSubmit handleSubmit={handleSubmit} fileName={fileName} />
       </Stack>
     </BulkInputContainer>
   );
