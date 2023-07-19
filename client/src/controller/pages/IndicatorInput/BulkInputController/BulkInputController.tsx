@@ -230,10 +230,10 @@ const BulkInputController: FC<BulkInputControllerProps> = (props) => {
       <Stack
         direction={{ sm: 'row' }}
         justifyContent="space-between"
-        sx={{ mt: 2 }}
+        sx={{ mt: 2, gap: 1 }}
       >
         <form action={`${import.meta.env.VITE_BASE_API_URL}template`}>
-          <Button variant="contained" type="submit" color="success">
+          <Button variant="contained" type="submit" color="success" fullWidth>
             Download template
           </Button>
         </form>

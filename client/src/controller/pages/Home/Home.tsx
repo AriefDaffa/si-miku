@@ -6,11 +6,11 @@ import type { SelectChangeEvent } from '@mui/material/Select';
 
 import IndicatorChart from '@/presentation/page-component/Home/IndicatorChart';
 import useIndicatorOverview from '@/repository/query/indicator/IndicatorOverview';
+import IndicatorGraph from '@/presentation/page-component/Home/IndicatorGraph/IndicatorGraph';
+import useIndicatorOverviewByYear from '@/repository/query/indicator/IndicatorOverviewByYear';
 import { useHeadline } from '@/controller/context/HeadlineContext';
 import { useGetLastFewYear } from './usecase/use-get-last-few-year';
-import IndicatorGraph from '@/presentation/page-component/Home/IndicatorGraph/IndicatorGraph';
 import { useCurrentYear } from '@/controller/context/CurrentYearContext';
-import useIndicatorOverviewByYear from '@/repository/query/indicator/IndicatorOverviewByYear';
 
 const Home: FC = () => {
   const location = useLocation();

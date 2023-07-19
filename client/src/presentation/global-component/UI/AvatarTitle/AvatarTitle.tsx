@@ -1,4 +1,3 @@
-import { useMemo, useState } from 'react';
 import type { FC } from 'react';
 
 import Stack from '@mui/material/Stack';
@@ -34,7 +33,8 @@ const AvatarTitle: FC<AvatarTitleProps> = (props) => {
     <Stack sx={sx}>
       <Stack
         alignItems="center"
-        direction={{ xs: 'column', sm: 'row' }}
+        // direction={{ xs: 'column', sm: 'row' }}
+        direction="row"
         sx={{ my: 1 }}
       >
         {isImageIcon ? (
