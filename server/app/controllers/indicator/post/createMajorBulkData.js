@@ -86,7 +86,7 @@ const createMajorBulkData = async (req, res) => {
           },
         });
 
-        target.year.year_id = year_id;
+        target.year_id = year_id;
 
         await target.save();
 
