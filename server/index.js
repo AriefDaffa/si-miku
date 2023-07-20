@@ -17,7 +17,12 @@ const departmentRoutes = require('./app/routes/department.routes');
 const app = express();
 
 // setup express
-app.use(cors({ credentials: true, origin: process.env.ORIGIN_URL }));
+app.use(
+  cors({
+    credentials: true,
+    origin: [process.env.ORIGIN_URL, process.env.ORIGIN_URL_2],
+  })
+);
 app.use(express.json());
 app.use(cookieParser());
 
