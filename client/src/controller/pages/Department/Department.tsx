@@ -177,7 +177,7 @@ const Department: FC = () => {
 
   return (
     <Fragment>
-      <Alert
+      {/* <Alert
         severity="info"
         variant="filled"
         sx={{ backgroundColor: PRIMARY.main, my: 2 }}
@@ -186,7 +186,7 @@ const Department: FC = () => {
         fakultas yang dibagi pada level departemen. Untuk menambahkan atau
         mengurangi indikator yang dapat dibagi pada level ini, silahkan kunjungi
         halaman List Indikator
-      </Alert>
+      </Alert> */}
       <DepartmentSelector
         imageURL={`${currentDepartment[0]?.departmentImage || ''}`}
         department={data}

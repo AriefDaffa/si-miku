@@ -172,7 +172,7 @@ const Major: FC = () => {
 
   return (
     <Fragment>
-      <Alert
+      {/* <Alert
         severity="info"
         variant="filled"
         sx={{ backgroundColor: PRIMARY.main, my: 2 }}
@@ -181,7 +181,7 @@ const Major: FC = () => {
         fakultas yang dibagi pada level Program Studi. Untuk menambahkan atau
         mengurangi indikator yang dapat dibagi pada level ini, silahkan kunjungi
         halaman ini
-      </Alert>
+      </Alert> */}
       <MajorSelector
         imageURL={`${currentMajor[0]?.majorImage || ''}`}
         major={data}

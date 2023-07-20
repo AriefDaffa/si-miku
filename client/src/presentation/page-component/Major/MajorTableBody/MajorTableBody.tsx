@@ -148,13 +148,13 @@ const MajorTableBody: FC<MajorTableBodyProps> = (props) => {
             sx={{ textAlign: 'center' }}
           />
         </TableCell>
-        <TableCell sx={{ backgroundColor: getProgressColor(percentage) }}>
+        {/* <TableCell sx={{ backgroundColor: getProgressColor(percentage) }}>
           <Header
             variant="body2"
             text={`${percentage}%`}
             sx={{ textAlign: 'center' }}
           />
-        </TableCell>
+        </TableCell> */}
         <TableCell>
           <Pill
             isNotAdded={item.targetQuarter.yearID === 0}

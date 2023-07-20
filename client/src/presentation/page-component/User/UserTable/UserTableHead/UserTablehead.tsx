@@ -41,17 +41,17 @@ const UserTableHead: FC<UserTableHeadProps> = (props) => {
       <TableCell>
         <Header variant="subtitle2" text="Role" sx={{ color: 'white' }} />
       </TableCell>
-      <TableCell>
+      {/* <TableCell>
         <Header
           variant="subtitle2"
           text="Level Akses"
           sx={{ color: 'white' }}
         />
-      </TableCell>
+      </TableCell> */}
       <TableCell>
         <Header variant="subtitle2" text="Email" sx={{ color: 'white' }} />
       </TableCell>
-      <TableCell></TableCell>
+      {/* <TableCell></TableCell> */}
     </TableRow>
   );
 };

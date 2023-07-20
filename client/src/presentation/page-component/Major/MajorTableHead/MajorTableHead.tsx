@@ -61,9 +61,9 @@ const MajorTableHead: FC<MajorTableHeadProps> = (props) => {
       <TableCell>
         <Header variant="subtitle2" text="Target" sx={{ color: 'white' }} />
       </TableCell>
-      <TableCell>
+      {/* <TableCell>
         <Header variant="subtitle2" text="Progress" sx={{ color: 'white' }} />
-      </TableCell>
+      </TableCell> */}
       <TableCell>
         <Header variant="subtitle2" text="Status" sx={{ color: 'white' }} />
       </TableCell>

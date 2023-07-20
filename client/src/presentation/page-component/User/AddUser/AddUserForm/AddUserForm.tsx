@@ -30,7 +30,7 @@ const AddUserForm: FC<AddUserFormProps> = (props) => {
           defaultValue={''}
           render={({ field, fieldState }) => (
             <Box>
-              <SubHeader text="Jabatan" sx={{ pb: 1 }} />
+              <SubHeader text="Username" sx={{ pb: 1 }} />
               <TextField
                 fullWidth
                 type="text"
@@ -63,20 +63,20 @@ const AddUserForm: FC<AddUserFormProps> = (props) => {
             </Box>
           )}
         />,
-        <Controller
-          name="role_id" // jadiin level akses
-          control={control}
-          rules={{ required: true }}
-          render={({ field, fieldState }) => (
-            <Box>
-              <SubHeader text="Level Akses" sx={{ pb: 1 }} />
-              <Select autoWidth label="" fullWidth {...field}>
-                <MenuItem value={'1'}>Level 1 - Manajemen</MenuItem>
-                <MenuItem value={'2'}>Level 2 - Operator</MenuItem>
-              </Select>
-            </Box>
-          )}
-        />,
+        // <Controller
+        //   name="role_id" // jadiin level akses
+        //   control={control}
+        //   rules={{ required: true }}
+        //   render={({ field, fieldState }) => (
+        //     <Box>
+        //       <SubHeader text="Level Akses" sx={{ pb: 1 }} />
+        //       <Select autoWidth label="" fullWidth {...field}>
+        //         <MenuItem value={'1'}>Level 1 - Manajemen</MenuItem>
+        //         <MenuItem value={'2'}>Level 2 - Operator</MenuItem>
+        //       </Select>
+        //     </Box>
+        //   )}
+        // />,
         <Controller
           name="password"
           control={control}

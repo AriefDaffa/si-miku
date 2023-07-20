@@ -59,20 +59,18 @@ const UserTableBody: FC<UserTableBodyProps> = (props) => {
       <TableCell>
         <Header variant="subtitle2" text={`${item.role.roleName}`} />
       </TableCell>
-      <TableCell>
+      {/* <TableCell>
         <Header variant="subtitle2" text={`Level ${item.role.roleID}`} />
-      </TableCell>
+      </TableCell> */}
       <TableCell>
         <Header variant="subtitle2" text={`${item.userEmail}`} />
       </TableCell>
-      <TableCell onClick={(e) => e.stopPropagation()}>
+      {/* <TableCell onClick={(e) => e.stopPropagation()}>
         <IconButton onClick={handleOpenPopover}>
           <MoreVertIcon />
         </IconButton>
-        {/* DIALOG */}
         <UserEditDialog open={openEdit} setOpen={setOpenEdit} {...item} />
         <UserDeleteDialog open={openDelete} setOpen={setOpenDelete} {...item} />
-        {/* POPOVER */}
         <Popover openThreedots={openPopover} setOpenThreedots={setOpenPopover}>
           <MenuItem onClick={handleOpenEdit}>
             <EditIcon sx={{ mr: 1 }} />
@@ -83,7 +81,7 @@ const UserTableBody: FC<UserTableBodyProps> = (props) => {
             <Header text="Delete" variant="body2" />
           </MenuItem>
         </Popover>
-      </TableCell>
+      </TableCell> */}
     </TableRow>
   );
 };
